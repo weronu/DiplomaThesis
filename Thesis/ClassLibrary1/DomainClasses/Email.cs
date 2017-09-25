@@ -8,7 +8,7 @@ namespace Domain.DomainClasses
     public class EmailMessage : DomainBase
     {
         public Guid? MessageId { get; set; }
-        public int SenderId { get; set; }
+        public int? SenderId { get; set; }
         public Guid? InReplyToId { get; set; }
 
         [MaxLength(254)]

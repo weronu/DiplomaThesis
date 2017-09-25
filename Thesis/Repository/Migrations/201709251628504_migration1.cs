@@ -3,7 +3,7 @@ namespace Repository.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Migration1 : DbMigration
+    public partial class migration1 : DbMigration
     {
         public override void Up()
         {
@@ -13,13 +13,14 @@ namespace Repository.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         MessageId = c.Guid(),
-                        SenderId = c.Int(nullable: false),
+                        SenderId = c.Int(),
                         InReplyToId = c.Guid(),
                         Subject = c.String(maxLength: 254, unicode: false),
                         Sent = c.DateTime(nullable: false),
+                        XMLPosition = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Users", t => t.SenderId, cascadeDelete: false)
+                .ForeignKey("dbo.Users", t => t.SenderId)
                 .Index(t => t.SenderId);
             
             CreateTable(
@@ -27,13 +28,13 @@ namespace Repository.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        UserId = c.Int(nullable: false),
+                        UserId = c.Int(),
                         EmailMessageId = c.Int(nullable: false),
                         RecipientType = c.String(maxLength: 10, unicode: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.EmailMessages", t => t.EmailMessageId, cascadeDelete: false)
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: false)
+                .ForeignKey("dbo.EmailMessages", t => t.EmailMessageId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserId)
                 .Index(t => t.UserId)
                 .Index(t => t.EmailMessageId);
             

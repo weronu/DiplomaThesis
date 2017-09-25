@@ -5,7 +5,7 @@ namespace Domain.DomainClasses
 {
     public class EmailRecipient : DomainBase
     {
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public int EmailMessageId { get; set; }
 
         [MaxLength(10)]

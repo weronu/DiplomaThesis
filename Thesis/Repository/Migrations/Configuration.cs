@@ -1,8 +1,3 @@
-using System.Collections.Generic;
-using Common;
-using Domain.DomainClasses;
-using FileHelper;
-
 namespace Repository.Migrations
 {
     using System;
@@ -31,26 +26,6 @@ namespace Repository.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
-            //XmlParser xmlParser = new XmlParser();
-            //HashSet<User> users = xmlParser.GetUsersFromXML(CommonMethods.GetAppSetting("datasetPath"));
-            //foreach (User user in users)
-            //{
-            //    context.Users.AddOrUpdate(x => x.Email, user);
-            //}
-            //context.SaveChanges();
-
-            //HashSet<EmailMessage> emailsFromXml = xmlParser.GetEmailsFromXML(CommonMethods.GetAppSetting("datasetPath"));
-            //foreach (EmailMessage emailMessage in emailsFromXml)
-            //{
-            //    User sender = context.Users.FirstOrDefault(x => x.Email == emailMessage.SenderEmail);
-            //    if (sender != null)
-            //        context.EmailMessagess.AddOrUpdate(x => x.Id,
-            //            new EmailMessage()
-            //            {
-            //                SenderId = sender.Id
-            //            });
-            //}
-            //context.SaveChanges();
         }
     }
 }
