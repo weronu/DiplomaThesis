@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Console", "Application.Console\Application.Console.csproj", "{15D7D52D-CDEC-4DA7-8BA3-C82ACF9D176D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repository.MongoDB", "..\..\Users\veronika.uhrova\Documents\Visual Studio 2015\Projects\Thesis\Repository.MongoDB\Repository.MongoDB.csproj", "{995E33E5-7827-422D-8571-B663F9D50297}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{15D7D52D-CDEC-4DA7-8BA3-C82ACF9D176D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15D7D52D-CDEC-4DA7-8BA3-C82ACF9D176D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15D7D52D-CDEC-4DA7-8BA3-C82ACF9D176D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{995E33E5-7827-422D-8571-B663F9D50297}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{995E33E5-7827-422D-8571-B663F9D50297}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{995E33E5-7827-422D-8571-B663F9D50297}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{995E33E5-7827-422D-8571-B663F9D50297}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

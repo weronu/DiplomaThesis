@@ -53,6 +53,14 @@
     <Compile Include="Migrations\201709251628504_migration1.Designer.cs">
       <DependentUpon>201709251628504_migration1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201709261156547_migration2.cs" />
+    <Compile Include="Migrations\201709261156547_migration2.Designer.cs">
+      <DependentUpon>201709261156547_migration2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709261227126_migration3.cs" />
+    <Compile Include="Migrations\201709261227126_migration3.Designer.cs">
+      <DependentUpon>201709261227126_migration3.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="ThesisDbContext.cs" />
@@ -81,6 +89,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201709251628504_migration1.resx">
       <DependentUpon>201709251628504_migration1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709261156547_migration2.resx">
+      <DependentUpon>201709261156547_migration2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709261227126_migration3.resx">
+      <DependentUpon>201709261227126_migration3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
