@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using Common;
 using Domain.DomainClasses;
 
-namespace Repository
+namespace Repository.MSSQL
 {
     public class RepositoryBase
     {
@@ -30,6 +30,23 @@ namespace Repository
                 qry = qry.Include(property);
             }
             return qry.FirstOrDefault();
+        }
+
+        protected TEntity GetByIdNoTracking<TEntity>(int id) where TEntity : DomainBase
+        {
+            TEntity e = _context.Set<TEntity>().FirstOrDefault(x => x.Id == id);
+            _context.Entry(e).State = EntityState.Detached;
+            return e;
+        }
+
+        protected TEntity GetByIdNoTracking<TEntity>(int id, params Expression<Func<TEntity, object>>[] includes) where TEntity : DomainBase
+        {
+            IQueryable<TEntity> qry = _context.Set<TEntity>().Where(x => x.Id == id);
+            foreach (Expression<Func<TEntity, object>> property in includes)
+            {
+                qry = qry.Include(property);
+            }
+            return qry.AsNoTracking().FirstOrDefault();
         }
 
         protected void Add<TEntity>(TEntity e) where TEntity : DomainBase

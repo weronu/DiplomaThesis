@@ -7,13 +7,13 @@ using System.Resources;
 namespace Repository.MSSQL.Migrations
 {
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class migration1 : IMigrationMetadata
+    public sealed partial class migration2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(migration1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(migration2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201709251628504_migration1"; }
+            get { return "201709261156547_migration2"; }
         }
         
         string IMigrationMetadata.Source

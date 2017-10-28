@@ -1,11 +1,12 @@
 ﻿using System.Data.Entity;
 using Domain.DomainClasses;
+using Repository.MSSQL.Interfaces;
 
-namespace Repository
+namespace Repository.MSSQL
 {
-    public class ThesisDbContext : DbContext
+    public class ThesisDbContext : DbContext, IThesisDbContext
     {
-        public ThesisDbContext() : base("ThesisDatabase")
+        public ThesisDbContext(string connectionString) : base(connectionString)
         {
 
         }
@@ -13,7 +14,6 @@ namespace Repository
         public DbSet<EmailMessage> EmailMessagess { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<EmailRecipient> Recipients { get; set; }
-
     }
 }
 
