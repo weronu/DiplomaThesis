@@ -45,6 +45,9 @@
     <Compile Include="DomainClasses\Email.cs" />
     <Compile Include="DomainClasses\EmailRecipient.cs" />
     <Compile Include="DomainClasses\User.cs" />
+    <Compile Include="GraphClasses\Edge.cs" />
+    <Compile Include="GraphClasses\Graph.cs" />
+    <Compile Include="GraphClasses\Vertex.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

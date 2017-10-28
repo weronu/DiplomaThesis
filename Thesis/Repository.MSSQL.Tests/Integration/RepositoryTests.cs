@@ -1,4 +1,7 @@
-﻿using Domain.DomainClasses;
+﻿using System.Collections.Generic;
+using System.Security.Permissions;
+using Domain.DomainClasses;
+using Domain.GraphClasses;
 using NUnit.Framework;
 using Repository.MSSQL.Interfaces;
 
@@ -41,6 +44,34 @@ namespace Repository.MSSQL.Tests.Integration
             }
 
             Assert.IsNotNull(recipient);
+        }
+
+        [Test]
+        public void GraphRepository_VericesTest()
+        {
+            HashSet<Vertex<User>> vertices;
+
+            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            {
+                vertices = uow.GraphRepo.GetVertices();
+            }
+
+            Assert.IsNotNull(vertices);
+            Assert.IsNotEmpty(vertices);
+        }
+
+        [Test]
+        public void GraphRepository_EdgesTest()
+        {
+            HashSet<Edge<User>> edges;
+
+            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            {
+                edges = uow.GraphRepo.GetEdges();
+            }
+
+            Assert.IsNotNull(edges);
+            Assert.IsNotEmpty(edges);
         }
     }
 }

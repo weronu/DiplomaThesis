@@ -6,6 +6,7 @@ namespace Repository.MSSQL.Interfaces
     {
         IUserRepository UserRepo { get; }
         ICommonRepository CommonRepo { get; }
+        IGraphRepository GraphRepo { get; }
 
         void SaveChanges();
     }

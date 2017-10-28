@@ -8,12 +8,6 @@ namespace Application.Console
         static void Main(string[] args)
         {
 
-            //using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
-            //{
-            //    //var qry = from 
-
-
-            //}
         }
 
     }

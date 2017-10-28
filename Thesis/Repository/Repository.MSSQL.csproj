@@ -50,7 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommonRepository.cs" />
+    <Compile Include="GraphRepository.cs" />
     <Compile Include="Interfaces\ICommonRepository.cs" />
+    <Compile Include="Interfaces\IGraphRepository.cs" />
     <Compile Include="Interfaces\IThesisDbContext.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IUnitOfWorkFactory.cs" />
