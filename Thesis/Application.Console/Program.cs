@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Repository.MSSQL;
+using Repository.MSSQL.Interfaces;
 
 namespace Application.Console
 {
@@ -10,6 +7,14 @@ namespace Application.Console
     {
         static void Main(string[] args)
         {
+
+            //using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            //{
+            //    //var qry = from 
+
+
+            //}
         }
+
     }
 }

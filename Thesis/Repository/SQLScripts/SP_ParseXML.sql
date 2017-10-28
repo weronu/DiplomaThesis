@@ -83,3 +83,5 @@ JOIN
 	@TMP_Messages T1
 ON 
 	t0.Position = t1.COL_XMLPosition
+
+
