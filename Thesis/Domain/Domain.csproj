@@ -48,9 +48,7 @@
     <Compile Include="GraphClasses\Edge.cs" />
     <Compile Include="GraphClasses\Graph.cs" />
     <Compile Include="GraphClasses\Vertex.cs" />
-    <Compile Include="..\Domain\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

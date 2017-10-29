@@ -53,7 +53,7 @@ namespace Repository.MSSQL.Tests.Integration
 
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
-                vertices = uow.GraphRepo.GetVertices();
+                vertices = uow.GraphRepo.ExtractVerticesFromDatabase();
             }
 
             Assert.IsNotNull(vertices);
@@ -67,7 +67,7 @@ namespace Repository.MSSQL.Tests.Integration
 
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
-                edges = uow.GraphRepo.GetEdges();
+                edges = uow.GraphRepo.ExtractEdgesFromDatabase();
             }
 
             Assert.IsNotNull(edges);

@@ -18,7 +18,7 @@ namespace Repository.MSSQL
         /// <summary>
         /// Extracts all vertices from database.
         /// </summary>
-        public HashSet<Vertex<User>> GetVertices()
+        public HashSet<Vertex<User>> ExtractVerticesFromDatabase()
         {
             return new HashSet<Vertex<User>>(from user in _dbContext.Users
                 select new Vertex<User>()
@@ -31,7 +31,7 @@ namespace Repository.MSSQL
         /// Extracts all edges from database.
         /// Edge is created only when a User changes an email with another User at least 11 times.
         /// </summary>
-        public HashSet<Edge<User>> GetEdges()
+        public HashSet<Edge<User>> ExtractEdgesFromDatabase()
         {
             //var qry = @"SELECT  em.SenderId, er.RecipientId, COUNT(*) AS [Count]
             //            FROM EmailMessages em
