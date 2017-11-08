@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{33338734-71EF-4C86-8AD1-4E339D52E694}</ProjectGuid>
+    <ProjectGuid>{8D518857-8DB3-4778-9C2B-7A9714B7CBF5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Domain</RootNamespace>
-    <AssemblyName>Domain</AssemblyName>
+    <RootNamespace>Graph.Algorithms</RootNamespace>
+    <AssemblyName>Graph.Algorithms</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -30,16 +30,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,22 +40,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DomainClasses\Conversation.cs" />
-    <Compile Include="DomainClasses\ConversationEmails.cs" />
-    <Compile Include="DomainClasses\DomainBase.cs" />
-    <Compile Include="DomainClasses\Email.cs" />
-    <Compile Include="DomainClasses\EmailRecipient.cs" />
-    <Compile Include="DomainClasses\User.cs" />
-    <Compile Include="Enums\Role.cs" />
-    <Compile Include="GraphClasses\Community.cs" />
-    <Compile Include="GraphClasses\Edge.cs" />
-    <Compile Include="GraphClasses\Graph.cs" />
-    <Compile Include="GraphClasses\Vertex.cs" />
+    <Compile Include="GraphAlgorithm.cs" />
+    <Compile Include="GraphRoleDetection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShortestPathSet.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{33338734-71ef-4c86-8ad1-4e339d52e694}</Project>
+      <Name>Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

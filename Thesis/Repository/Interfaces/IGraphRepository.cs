@@ -15,5 +15,9 @@ namespace Repository.MSSQL.Interfaces
         /// Extracts all edges from database.
         /// </summary>
         HashSet<Edge<User>> ExtractEdgesFromDatabase();
+
+        HashSet<Vertex<User>> ExtractVerticesFromEdges(HashSet<Edge<User>> edges);
+        HashSet<Vertex<User>> ExtractVerticesFromConversations();
+        void ExtractEdgesFromConversation();
     }
 }

@@ -11,6 +11,7 @@ namespace Repository.MSSQL
         private IUserRepository _userRepository;
         private ICommonRepository _commonRepository;
         private IGraphRepository _graphRepository;
+        private IConversationRepository _convRepository;
 
         private DbContextTransaction contextTransaction;
 
@@ -55,6 +56,18 @@ namespace Repository.MSSQL
             }
         }
 
+        public IConversationRepository ConvRepo
+        {
+            get
+            {
+                if (_convRepository == null)
+                {
+                    _convRepository = new ConversationRepository(_dbContext);
+                }
+                return _convRepository;
+            }
+        }
+
         public void SaveChanges()
         {
 
@@ -62,6 +75,7 @@ namespace Repository.MSSQL
 
 
         private bool disposed = false;
+
 
 
         protected virtual void Dispose(bool disposing)
