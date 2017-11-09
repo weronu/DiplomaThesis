@@ -59,21 +59,17 @@
     <Compile Include="Interfaces\IUnitOfWork.cs" />
     <Compile Include="Interfaces\IUnitOfWorkFactory.cs" />
     <Compile Include="Interfaces\IUserRepository.cs" />
-    <Compile Include="Migrations\201711051821497_migration1.cs" />
-    <Compile Include="Migrations\201711051821497_migration1.Designer.cs">
-      <DependentUpon>201711051821497_migration1.cs</DependentUpon>
+    <Compile Include="Migrations\201711081605369_migration1.cs" />
+    <Compile Include="Migrations\201711081605369_migration1.Designer.cs">
+      <DependentUpon>201711081605369_migration1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711051827252_migration2.cs" />
-    <Compile Include="Migrations\201711051827252_migration2.Designer.cs">
-      <DependentUpon>201711051827252_migration2.cs</DependentUpon>
+    <Compile Include="Migrations\201711081627254_migration2.cs" />
+    <Compile Include="Migrations\201711081627254_migration2.Designer.cs">
+      <DependentUpon>201711081627254_migration2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201711051836087_migration3.cs" />
-    <Compile Include="Migrations\201711051836087_migration3.Designer.cs">
-      <DependentUpon>201711051836087_migration3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711061845499_migration4.cs" />
-    <Compile Include="Migrations\201711061845499_migration4.Designer.cs">
-      <DependentUpon>201711061845499_migration4.cs</DependentUpon>
+    <Compile Include="Migrations\201711081628388_migration3.cs" />
+    <Compile Include="Migrations\201711081628388_migration3.Designer.cs">
+      <DependentUpon>201711081628388_migration3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RepositoryBase.cs" />
@@ -100,17 +96,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711051821497_migration1.resx">
-      <DependentUpon>201711051821497_migration1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711081605369_migration1.resx">
+      <DependentUpon>201711081605369_migration1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051827252_migration2.resx">
-      <DependentUpon>201711051827252_migration2.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711081627254_migration2.resx">
+      <DependentUpon>201711081627254_migration2.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711051836087_migration3.resx">
-      <DependentUpon>201711051836087_migration3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711061845499_migration4.resx">
-      <DependentUpon>201711061845499_migration4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711081628388_migration3.resx">
+      <DependentUpon>201711081628388_migration3.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

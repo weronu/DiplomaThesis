@@ -15,7 +15,9 @@ namespace Repository.MSSQL.Migrations
                         ConversationId = c.Int(nullable: false),
                         EmailMessageId = c.Int(nullable: false),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.EmailMessages", t => t.EmailMessageId, cascadeDelete: true)
+                .Index(t => t.EmailMessageId);
             
             CreateTable(
                 "dbo.EmailMessages",
@@ -28,13 +30,10 @@ namespace Repository.MSSQL.Migrations
                         Subject = c.String(),
                         Sent = c.DateTime(nullable: false),
                         XMLPosition = c.Int(nullable: false),
-                        Conversation_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.SenderId)
-                .ForeignKey("dbo.Conversations", t => t.Conversation_Id)
-                .Index(t => t.SenderId)
-                .Index(t => t.Conversation_Id);
+                .Index(t => t.SenderId);
             
             CreateTable(
                 "dbo.EmailRecipients",
@@ -64,14 +63,14 @@ namespace Repository.MSSQL.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.EmailMessages", "Conversation_Id", "dbo.Conversations");
+            DropForeignKey("dbo.Conversations", "EmailMessageId", "dbo.EmailMessages");
             DropForeignKey("dbo.EmailMessages", "SenderId", "dbo.Users");
             DropForeignKey("dbo.EmailRecipients", "RecipientId", "dbo.Users");
             DropForeignKey("dbo.EmailRecipients", "EmailMessageId", "dbo.EmailMessages");
             DropIndex("dbo.EmailRecipients", new[] { "EmailMessageId" });
             DropIndex("dbo.EmailRecipients", new[] { "RecipientId" });
-            DropIndex("dbo.EmailMessages", new[] { "Conversation_Id" });
             DropIndex("dbo.EmailMessages", new[] { "SenderId" });
+            DropIndex("dbo.Conversations", new[] { "EmailMessageId" });
             DropTable("dbo.Users");
             DropTable("dbo.EmailRecipients");
             DropTable("dbo.EmailMessages");

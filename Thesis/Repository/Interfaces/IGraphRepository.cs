@@ -18,6 +18,6 @@ namespace Repository.MSSQL.Interfaces
 
         HashSet<Vertex<User>> ExtractVerticesFromEdges(HashSet<Edge<User>> edges);
         HashSet<Vertex<User>> ExtractVerticesFromConversations();
-        void ExtractEdgesFromConversation();
+        HashSet<Edge<User>> ExtractEdgesFromConversation();
     }
 }

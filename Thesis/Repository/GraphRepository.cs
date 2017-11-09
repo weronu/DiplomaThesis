@@ -103,33 +103,69 @@ namespace Repository.MSSQL
             return vertices;
         }
 
-        public void ExtractEdgesFromConversation()
+        public HashSet<Edge<User>> ExtractEdgesFromConversation()
         {
-            HashSet<Edge<User>> edges = new HashSet<Edge<User>>();
+            HashSet<ConversationEmails> conversationEmails =
+                new HashSet<ConversationEmails>(from conversation in _context.Conversations
+                    group conversation.EmailMessage by conversation.ConversationId
+                    into grp
+                    select new ConversationEmails()
+                    {
+                        ConverationId = grp.Key,
+                        Emails = grp.ToList()
+                    });
 
-            HashSet<ConversationEmails> conversationEmails = new HashSet<ConversationEmails>(from conversation in _context.Conversations
-                                                                                             group conversation.EmailMessage by conversation.ConversationId
-                into grp
-                                                                                             select new ConversationEmails()
-                                                                                             {
-                                                                                                 ConverationId = grp.Key,
-                                                                                                 Emails = grp.ToList()
-                                                                                             });
+            List<int> conversations = GetConversations();
 
-            List<Edge<User>> list = (from conversationEmailSet1 in conversationEmails.SelectMany(x => x.Emails)
-                                     from conversationEmailSet2 in conversationEmails.SelectMany(x => x.Emails)
-                                     where conversationEmailSet1.Sender.Id < conversationEmailSet2.Sender.Id // only one direction
-                                     select new Edge<User>()
-                                     {
-                                         Vertex1 = new Vertex<User>()
-                                         {
-                                             Id = conversationEmailSet1.Sender.Id
-                                         },
-                                         Vertex2 = new Vertex<User>()
-                                         {
-                                             Id = conversationEmailSet2.Sender.Id
-                                         }
-                                     }).ToList();
+            HashSet<Edge<User>> edgesWithDuplicates = new HashSet<Edge<User>>();
+
+            foreach (ConversationEmails email in conversationEmails)
+            {
+                HashSet<Edge<User>> enumerable = new HashSet<Edge<User>>(from conversationEmailSet1 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
+                    from conversationEmailSet2 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
+                    where conversationEmailSet1.Sender.Id < conversationEmailSet2.Sender.Id // only one direction
+                    select new Edge<User>()
+                    {
+                        Vertex1 = new Vertex<User>()
+                        {
+                            Id = conversationEmailSet1.Sender.Id
+                        },
+                        Vertex2 = new Vertex<User>()
+                        {
+                            Id = conversationEmailSet2.Sender.Id
+                        }
+                    });
+
+                edgesWithDuplicates.UnionWith(enumerable);
+            }
+            
+
+            HashSet<Edge<User>> edges = new HashSet<Edge<User>> (edgesWithDuplicates.Distinct(new DistinctItemComparer()).ToList());
+
+            return edges;
+        }
+
+        public List<int> GetConversations()
+        {
+            List<int> conversationIds = (from conversation in _context.Conversations
+                select conversation.ConversationId).Distinct().ToList();
+
+            return conversationIds;
+        }
+    }
+
+    public class DistinctItemComparer : IEqualityComparer<Edge<User>>
+    {
+
+        public bool Equals(Edge<User> x, Edge<User> y)
+        {
+            return x.Vertex1.Id == y.Vertex1.Id && x.Vertex2.Id == y.Vertex2.Id;
+        }
+
+        public int GetHashCode(Edge<User> obj)
+        {
+            return obj.Vertex1.Id.GetHashCode() ^
+                   obj.Vertex2.Id.GetHashCode();
         }
     }
 }

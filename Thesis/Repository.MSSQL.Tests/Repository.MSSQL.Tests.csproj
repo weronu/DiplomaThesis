@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrequentConstatnts.cs" />
+    <Compile Include="Integration\GraphTests.cs" />
     <Compile Include="Integration\IntegrationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\RepositoryTests.cs" />

@@ -13,7 +13,7 @@ namespace Repository.MSSQL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201711051836087_migration3"; }
+            get { return "201711081628388_migration3"; }
         }
         
         string IMigrationMetadata.Source

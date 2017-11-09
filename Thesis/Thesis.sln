@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{77C2067F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphAlgorithms.Tests", "GraphAlgorithms.Tests\GraphAlgorithms.Tests.csproj", "{CF6C3EE9-2617-439D-84AC-7E396A446D4A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManager", "FileManager\FileManager.csproj", "{C202EBF9-A484-4C88-BD0A-65E404DA96CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{CF6C3EE9-2617-439D-84AC-7E396A446D4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CF6C3EE9-2617-439D-84AC-7E396A446D4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CF6C3EE9-2617-439D-84AC-7E396A446D4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C202EBF9-A484-4C88-BD0A-65E404DA96CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C202EBF9-A484-4C88-BD0A-65E404DA96CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C202EBF9-A484-4C88-BD0A-65E404DA96CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C202EBF9-A484-4C88-BD0A-65E404DA96CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Domain.DomainClasses
 {
     public class EmailMessage : DomainBase
     {
-        public Guid? MessageId { get; set; }
+        [MaxLength(70)]
+        public string MessageId { get; set; }
         public int? SenderId { get; set; }
-        public Guid? InReplyToId { get; set; }
+        [MaxLength(70)]
+        public string InReplyToId { get; set; }
         public string Subject { get; set; }
         public DateTime Sent { get; set; }
         public int XMLPosition { get; set; }

@@ -6,7 +6,7 @@ using Repository.MSSQL.Interfaces;
 
 namespace Repository.MSSQL.Tests.Integration
 {
-    public class RepositoryTests : DevBase
+    public class RepositoryTests : IntegrationBase
     {
 
         [Test]
@@ -104,15 +104,15 @@ namespace Repository.MSSQL.Tests.Integration
         [Test]
         public void GraphRepository_ConversationEdges_Test()
         {
-            HashSet<Vertex<User>> vertices = null;
+            HashSet<Edge<User>> edges;
 
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
-                uow.GraphRepo.ExtractEdgesFromConversation();
+                edges = uow.GraphRepo.ExtractEdgesFromConversation();
             }
 
-            Assert.IsNotNull(vertices);
-            Assert.IsNotEmpty(vertices);
+            Assert.IsNotNull(edges);
+            Assert.IsNotEmpty(edges);
         }
     }
 }

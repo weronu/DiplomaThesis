@@ -1,13 +1,11 @@
-﻿using Repository.MSSQL;
-using Repository.MSSQL.Interfaces;
-
-namespace Application.Console
+﻿namespace Application.Console
 {
     public class Program
     {
         static void Main(string[] args)
         {
-
+            GraphDemo demo = new GraphDemo();
+            demo.CreateGraphDemo();
         }
 
     }

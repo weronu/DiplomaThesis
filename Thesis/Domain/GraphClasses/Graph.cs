@@ -155,7 +155,7 @@ namespace Domain.GraphClasses
         /// <summary>
         /// Returns maximal degree of vertices in a graph
         /// </summary>
-        public int GetDegreeMax()
+        public int GetMaximalDegree()
         {
             return Vertices.Select(x => x.Degree).Max();
         }
