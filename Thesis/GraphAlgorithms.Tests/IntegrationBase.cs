@@ -2,7 +2,7 @@
 
 namespace Repository.MSSQL.Tests.Integration
 {
-    public class IntegrationBase
+    public class DevBase
     {
         [OneTimeSetUp]
         public void Setup()
@@ -11,7 +11,7 @@ namespace Repository.MSSQL.Tests.Integration
         }
 
         protected UnitOfWorkFactory UnitOfWorkFactory;
-        private static string _connectionString = "GLEmailsDatabase";
+        private static string _connectionString = "ThesisDbContext";
 
 
         protected void CreateUnitOfWork()

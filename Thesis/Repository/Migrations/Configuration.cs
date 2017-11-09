@@ -1,15 +1,18 @@
-using System.Data.Entity.Migrations;
-
 namespace Repository.MSSQL.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ThesisDbContext>
+    using System;
+    using System.Data.Entity;
+    using System.Data.Entity.Migrations;
+    using System.Linq;
+
+    internal sealed class Configuration : DbMigrationsConfiguration<Repository.MSSQL.ThesisDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ThesisDbContext context)
+        protected override void Seed(Repository.MSSQL.ThesisDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

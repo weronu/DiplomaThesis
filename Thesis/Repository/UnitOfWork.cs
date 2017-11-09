@@ -10,6 +10,8 @@ namespace Repository.MSSQL
 
         private IUserRepository _userRepository;
         private ICommonRepository _commonRepository;
+        private IGraphRepository _graphRepository;
+        private IConversationRepository _convRepository;
 
         private DbContextTransaction contextTransaction;
 
@@ -42,12 +44,39 @@ namespace Repository.MSSQL
             }
         }
 
+        public IGraphRepository GraphRepo
+        {
+            get
+            {
+                if (_graphRepository == null)
+                {
+                    _graphRepository = new GraphRepository(_dbContext);
+                }
+                return _graphRepository;
+            }
+        }
+
+        public IConversationRepository ConvRepo
+        {
+            get
+            {
+                if (_convRepository == null)
+                {
+                    _convRepository = new ConversationRepository(_dbContext);
+                }
+                return _convRepository;
+            }
+        }
+
         public void SaveChanges()
         {
+
         }
 
 
         private bool disposed = false;
+
+
 
         protected virtual void Dispose(bool disposing)
         {

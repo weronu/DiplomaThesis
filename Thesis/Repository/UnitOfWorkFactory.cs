@@ -1,4 +1,5 @@
-﻿using Repository.MSSQL.Interfaces;
+﻿using System;
+using Repository.MSSQL.Interfaces;
 
 namespace Repository.MSSQL
 {
@@ -16,5 +17,9 @@ namespace Repository.MSSQL
             return new UnitOfWork(_connectionString);
         }
 
+        public static IUnitOfWork CreateUnitOfWork(string _connectionString)
+        {
+            return new UnitOfWork(_connectionString);
+        }
     }
 }

@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FrequentConstatnts.cs" />
+    <Compile Include="Integration\GraphTests.cs" />
     <Compile Include="Integration\IntegrationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Integration\RepositoryTests.cs" />
@@ -65,9 +66,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Domain.csproj">
-      <Project>{1cf2e426-2503-4a54-ab1d-4fd5fb73450b}</Project>
+    <ProjectReference Include="..\Domain\Domain.csproj">
+      <Project>{33338734-71ef-4c86-8ad1-4e339d52e694}</Project>
       <Name>Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Graph.Algorithms\Graph.Algorithms.csproj">
+      <Project>{8d518857-8db3-4778-9c2b-7a9714b7cbf5}</Project>
+      <Name>Graph.Algorithms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Repository.MSSQL.csproj">
       <Project>{d6f7c46e-4415-4a7e-b49a-c5ff7b75c554}</Project>

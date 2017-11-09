@@ -4,17 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{15D7D52D-CDEC-4DA7-8BA3-C82ACF9D176D}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{CF6C3EE9-2617-439D-84AC-7E396A446D4A}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Application.Console</RootNamespace>
-    <AssemblyName>Application.Console</AssemblyName>
+    <RootNamespace>GraphAlgorithms.Tests</RootNamespace>
+    <AssemblyName>GraphAlgorithms.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -41,6 +38,10 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.8.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -52,24 +53,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GraphDemo.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="GraphAlgorithmsTests.cs" />
+    <Compile Include="IntegrationBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{33338734-71ef-4c86-8ad1-4e339d52e694}</Project>
       <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FileManager\FileManager.csproj">
-      <Project>{c202ebf9-a484-4c88-bd0a-65e404da96cb}</Project>
-      <Name>FileManager</Name>
     </ProjectReference>
     <ProjectReference Include="..\Graph.Algorithms\Graph.Algorithms.csproj">
       <Project>{8d518857-8db3-4778-9c2b-7a9714b7cbf5}</Project>

@@ -1,10 +1,12 @@
-﻿using Domain.DomainClasses;
+﻿using System.Collections.Generic;
+using Domain.DomainClasses;
+using Domain.GraphClasses;
 using NUnit.Framework;
 using Repository.MSSQL.Interfaces;
 
 namespace Repository.MSSQL.Tests.Integration
 {
-    public class RepositoryTests : DevBase
+    public class RepositoryTests : IntegrationBase
     {
 
         [Test]
@@ -13,7 +15,7 @@ namespace Repository.MSSQL.Tests.Integration
             User user;
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
-                user = uow.CommonRepo.GetById<User>(1);
+                user = uow.CommonRepo.GetById<User>(2);
             }
 
             Assert.IsNotNull(user);
@@ -25,7 +27,7 @@ namespace Repository.MSSQL.Tests.Integration
             EmailMessage email;
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
-                email = uow.CommonRepo.GetById<EmailMessage>(1);
+                email = uow.CommonRepo.GetById<EmailMessage>(2);
             }
 
             Assert.IsNotNull(email);
@@ -37,10 +39,80 @@ namespace Repository.MSSQL.Tests.Integration
             EmailRecipient recipient;
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
-                recipient = uow.CommonRepo.GetById<EmailRecipient>(1);
+                recipient = uow.CommonRepo.GetById<EmailRecipient>(82573);
             }
 
             Assert.IsNotNull(recipient);
+        }
+
+        [Test]
+        public void GraphRepository_VericesTest()
+        {
+            HashSet<Vertex<User>> vertices;
+
+            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            {
+                vertices = uow.GraphRepo.ExtractVerticesFromDatabase();
+            }
+
+            Assert.IsNotNull(vertices);
+            Assert.IsNotEmpty(vertices);
+        }
+
+        [Test]
+        public void GraphRepository_EdgesTest()
+        {
+            HashSet<Edge<User>> edges;
+
+            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            {
+                edges = uow.GraphRepo.ExtractEdgesFromDatabase();
+            }
+
+            Assert.IsNotNull(edges);
+            Assert.IsNotEmpty(edges);
+        }
+
+        [Test]
+        public void Conversations_Test()
+        {
+            HashSet<ConversationEmails> conversationEmails;
+
+            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            {
+                conversationEmails = uow.ConvRepo.ExtractConversationsFromDatabase();
+            }
+
+            Assert.IsNotNull(conversationEmails);
+            Assert.IsNotEmpty(conversationEmails);
+        }
+
+        [Test]
+        public void GraphRepository_ConversationVertices_Test()
+        {
+            HashSet<Vertex<User>> vertices;
+
+            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            {
+                vertices = uow.GraphRepo.ExtractVerticesFromConversations();
+            }
+
+            Assert.IsNotNull(vertices);
+            Assert.IsNotEmpty(vertices);
+        }
+
+        [Test]
+        public void GraphRepository_ConversationEdges_Test()
+        {
+            HashSet<Edge<User>> edges;
+
+            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+            {
+                edges = uow.GraphRepo.ExtractEdgesFromConversation();
+            }
+
+            Assert.IsNotNull(edges);
+            Assert.IsNotEmpty(edges);
         }
     }
 }
