@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Domain.DomainClasses;
 using Domain.GraphClasses;
 using Repository.MSSQL.Interfaces;
@@ -75,11 +74,12 @@ namespace Repository.MSSQL
                 }
                 else if (vertices.All(y => y.Id != edge.Vertex2.Id))
                 {
-                    vertices.Add(edge.Vertex1);
+                    vertices.Add(edge.Vertex2);
                 }
             }
+            HashSet<Vertex<User>> hashSet = new HashSet<Vertex<User>>(vertices.Distinct().ToList());
+            return new HashSet<Vertex<User>>(vertices.Distinct().ToList());
 
-            return vertices;
         }
 
         public HashSet<Vertex<User>> ExtractVerticesFromConversations()
@@ -133,7 +133,8 @@ namespace Repository.MSSQL
                         Vertex2 = new Vertex<User>()
                         {
                             Id = conversationEmailSet2.Sender.Id
-                        }
+                        },
+                        Weight = 2
                     });
 
                 edgesWithDuplicates.UnionWith(enumerable);

@@ -7,13 +7,13 @@ namespace Graph.Algorithms
 {
     public class GraphRoleDetection<T> where T : DomainBase
     {
-        private Graph<T> _graph;
-        private GraphAlgorithm<T> _algorithms;
+        private readonly Graph<T> _graph;
+        private readonly GraphAlgorithm<T> _algorithms;
 
         public GraphRoleDetection(Graph<T> graph, GraphAlgorithm<T> algorithms)
         {
-            this._graph = graph;
-            this._algorithms = algorithms;
+            _graph = graph;
+            _algorithms = algorithms;
         }
 
         /// <summary>
@@ -21,9 +21,13 @@ namespace Graph.Algorithms
         /// </summary>
         public void ExtractOutsiders()
         {
-            foreach (var node in _graph.Vertices)
-                if (node.Community == null)
-                    node.Role = Role.Outsider;
+            foreach (Vertex<T> vertex in _graph.Vertices)
+            {
+                if (vertex.Community == null)
+                {
+                    vertex.Role = Role.Outsider;
+                }
+            }
         }
 
         /// <summary>
@@ -31,15 +35,17 @@ namespace Graph.Algorithms
         /// </summary>
         public void ExtractLeaders()
         {
-            foreach (var community in _graph.Communities)
+            foreach (Community<T> community in _graph.Communities)
             {
-                var meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(community);
-                var standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
-                var thresholdForLeaders = meanClosenessCentralityMeanInCommunity + (2 * standartDeviationClosenessCentrality); //mean + 2*standart deviation
+                double meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(community);
+                double standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
+                double thresholdForLeaders = meanClosenessCentralityMeanInCommunity + (2 * standartDeviationClosenessCentrality);
 
-                foreach (var node in community.CommunityVertices)
-                    if (node.ClosenessCentralityInCommunity > thresholdForLeaders)
-                        node.Role = Role.Leader;
+                foreach (Vertex<T> vertex in community.CommunityVertices)
+                {
+                    if (vertex.ClosenessCentralityInCommunity > thresholdForLeaders)
+                        vertex.Role = Role.Leader;
+                }
             }
         }
 
@@ -48,12 +54,12 @@ namespace Graph.Algorithms
         /// </summary>
         public void ExtractMediators(List<Vertex<T>> orderedNodes)
         {
-            var mediatorSet = new List<Vertex<T>>();
-            var connectedComs = new List<Community<T>>();
+            List<Vertex<T>> mediatorSet = new List<Vertex<T>>();
+            List<Community<T>> connectedComs = new List<Community<T>>();
             while (connectedComs.Count < _graph.Communities.Count)
             {
-                var n = orderedNodes[0];
-                foreach (var community in _graph.GetIncidentCommunitiesOfVertex(n))
+                Vertex<T> n = orderedNodes[0];
+                foreach (Community<T> community in _graph.GetIncidentCommunitiesOfVertex(n))
                 {
                     if (!connectedComs.Contains(community))
                     {
@@ -67,12 +73,14 @@ namespace Graph.Algorithms
                 orderedNodes.Remove(n);
             }
 
-            foreach (var node in mediatorSet)
-                if (node.Role == 0)
+            foreach (Vertex<T> vertex in mediatorSet)
+            {
+                if (vertex.Role == 0)
                 {
-                    node.Role = Role.Mediator;
+                    vertex.Role = Role.Mediator;
                 }
-
+            }
+               
         }
 
         /// <summary>
@@ -80,15 +88,19 @@ namespace Graph.Algorithms
         /// </summary>
         public void ExtractOutermosts()
         {
-            foreach (var community in _graph.Communities)
+            foreach (Community<T> community in _graph.Communities)
             {
-                var meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(community);
-                var standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
-                var thresholdForOutermosts = meanClosenessCentralityMeanInCommunity - (2 * standartDeviationClosenessCentrality); //mean - 2*standart deviation
+                double meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(community);
+                double standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
+                double thresholdForOutermosts = meanClosenessCentralityMeanInCommunity - (2 * standartDeviationClosenessCentrality); //mean - 2*standart deviation
 
-                foreach (var node in community.CommunityVertices)
-                    if (node.ClosenessCentralityInCommunity < thresholdForOutermosts)
-                        node.Role = Role.Outermost;
+                foreach (Vertex<T> vertex in community.CommunityVertices)
+                {
+                    if (vertex.ClosenessCentralityInCommunity < thresholdForOutermosts)
+                    {
+                        vertex.Role = Role.Outermost;
+                    }
+                }
             }
         }
     }

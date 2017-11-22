@@ -7,7 +7,7 @@ namespace Domain.GraphClasses
     {
         public int Id { get; set; }
         public HashSet<Vertex<T>> CommunityVertices { get; set; }
-        public Vertex<T> CentralVertex { get; set; }
+        public Vertex<T> Centralnode { get; set; }
 
         public double ClosenessCentralityMedian { get; set; }
         public double ClosenessCentralityMean { get; set; }
