@@ -18,10 +18,10 @@ namespace Repository.MSSQL
         /// <summary>
         /// Extracts all vertices from database.
         /// </summary>
-        public HashSet<Vertex<User>> ExtractVerticesFromDatabase()
+        public HashSet<Node<User>> ExtractVerticesFromDatabase()
         {
-            return new HashSet<Vertex<User>>(from user in _context.Users
-                                             select new Vertex<User>()
+            return new HashSet<Node<User>>(from user in _context.Users
+                                             select new Node<User>()
                                              {
                                                  Id = user.Id
                                              });
@@ -47,11 +47,11 @@ namespace Repository.MSSQL
                                                 where g.Count() > 50
                                                 select new Edge<User>()
                                                 {
-                                                    Vertex1 = new Vertex<User>()
+                                                    Node1 = new Node<User>()
                                                     {
                                                         Id = g.Key.Sender.Id
                                                     },
-                                                    Vertex2 = new Vertex<User>()
+                                                    Node2 = new Node<User>()
                                                     {
                                                         Id = g.Key.Recipient.Id
                                                     }
@@ -62,27 +62,27 @@ namespace Repository.MSSQL
             return new HashSet<Edge<User>>(edges);
         }
 
-        public HashSet<Vertex<User>> ExtractVerticesFromEdges(HashSet<Edge<User>> edges)
+        public HashSet<Node<User>> ExtractVerticesFromEdges(HashSet<Edge<User>> edges)
         {
-            HashSet<Vertex<User>> vertices = new HashSet<Vertex<User>>();
+            HashSet<Node<User>> vertices = new HashSet<Node<User>>();
 
             foreach (Edge<User> edge in edges)
             {
-                if (vertices.All(x => x.Id != edge.Vertex1.Id))
+                if (vertices.All(x => x.Id != edge.Node1.Id))
                 {
-                    vertices.Add(edge.Vertex1);
+                    vertices.Add(edge.Node1);
                 }
-                else if (vertices.All(y => y.Id != edge.Vertex2.Id))
+                else if (vertices.All(y => y.Id != edge.Node2.Id))
                 {
-                    vertices.Add(edge.Vertex2);
+                    vertices.Add(edge.Node2);
                 }
             }
-            HashSet<Vertex<User>> hashSet = new HashSet<Vertex<User>>(vertices.Distinct().ToList());
-            return new HashSet<Vertex<User>>(vertices.Distinct().ToList());
+            HashSet<Node<User>> hashSet = new HashSet<Node<User>>(vertices.Distinct().ToList());
+            return new HashSet<Node<User>>(vertices.Distinct().ToList());
 
         }
 
-        public HashSet<Vertex<User>> ExtractVerticesFromConversations()
+        public HashSet<Node<User>> ExtractVerticesFromConversations()
         {
             // extracting conversations from database
             HashSet<ConversationEmails> conversationEmails = new HashSet<ConversationEmails>(from conversation in _context.Conversations
@@ -92,10 +92,10 @@ namespace Repository.MSSQL
                                                                                                  ConverationId = grp.Key,
                                                                                                  Emails = grp.ToList()
                                                                                              });
-            HashSet<Vertex<User>> vertices = new HashSet<Vertex<User>>(from conversationEmail in conversationEmails.SelectMany(x => x.Emails)
+            HashSet<Node<User>> vertices = new HashSet<Node<User>>(from conversationEmail in conversationEmails.SelectMany(x => x.Emails)
                                                                        group conversationEmail by conversationEmail.Sender
                 into senders
-                                                                       select new Vertex<User>()
+                                                                       select new Node<User>()
                                                                        {
                                                                            Id = senders.Key.Id
                                                                        });
@@ -126,11 +126,11 @@ namespace Repository.MSSQL
                     where conversationEmailSet1.Sender.Id < conversationEmailSet2.Sender.Id // only one direction
                     select new Edge<User>()
                     {
-                        Vertex1 = new Vertex<User>()
+                        Node1 = new Node<User>()
                         {
                             Id = conversationEmailSet1.Sender.Id
                         },
-                        Vertex2 = new Vertex<User>()
+                        Node2 = new Node<User>()
                         {
                             Id = conversationEmailSet2.Sender.Id
                         },
@@ -160,13 +160,13 @@ namespace Repository.MSSQL
 
         public bool Equals(Edge<User> x, Edge<User> y)
         {
-            return x.Vertex1.Id == y.Vertex1.Id && x.Vertex2.Id == y.Vertex2.Id;
+            return x.Node1.Id == y.Node1.Id && x.Node2.Id == y.Node2.Id;
         }
 
         public int GetHashCode(Edge<User> obj)
         {
-            return obj.Vertex1.Id.GetHashCode() ^
-                   obj.Vertex2.Id.GetHashCode();
+            return obj.Node1.Id.GetHashCode() ^
+                   obj.Node2.Id.GetHashCode();
         }
     }
 }

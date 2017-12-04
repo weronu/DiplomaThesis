@@ -11,20 +11,28 @@ namespace FileManager
 {
     public static class FileWriter
     {
-        public static void CreateGephiFile(Graph<User> graph, string path, bool directed)
+        public static void CreateGephiFile(Graph<User> graph, string path, bool directed = false)
         {
+            const string LeaderSize = "11.7";
+            const string MediatorSize = "11.3";
+            const string OutermostSize = "10.5";
+            const string OutsiderSize = "9.5";
+            const string DefaultSize = "10.0";
+            const string Width = "w ";
+            const string Height = "h ";
+            const string Depth = "d ";
 
             try
             {
+                int collorsCount = graph.Communities.Count;
                 List<string> colors = new List<string>();
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < collorsCount; i++)
                 {
-                    Random random = new Random();
-                    var color = $"#{StaticRandom.Instance.Next(0x1000000):X6}";
+                    string color = $"#{StaticRandom.Instance.Next(0x1000000):X6}";
                     colors.Add(color);
                 }
 
-                using (var writer = new StreamWriter(path))
+                using (StreamWriter writer = new StreamWriter(path))
                 {
                     writer.WriteLine("graph");
                     writer.WriteLine("[");
@@ -32,8 +40,9 @@ namespace FileManager
                     writer.WriteLine(directed ? "directed 1" : "directed 0");
 
                     //node
-                    foreach (var node in graph.Vertices)
+                    foreach (Node<User> node in graph.Nodes)
                     {
+
                         writer.WriteLine("node");
                         writer.WriteLine("[");
                         writer.WriteLine($"id {node.Id}");
@@ -53,50 +62,64 @@ namespace FileManager
                         writer.WriteLine($"y {Y}");
                         writer.WriteLine("z 0.0");
 
-                        switch (node.Role)
+                        if (graph.Communities.Count > 0)
                         {
-                            case Role.Leader:
-                                writer.WriteLine("w 10.7");
-                                writer.WriteLine("h 10.7");
-                                writer.WriteLine("d 10.7");
-                                writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
-                                break;
-                            case Role.Outermost:
-                                writer.WriteLine("w 10.0");
-                                writer.WriteLine("h 10.0");
-                                writer.WriteLine("d 10.0");
-                                writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
-                                break;
-                            case Role.Mediator:
-                                writer.WriteLine("w 10.4");
-                                writer.WriteLine("h 10.4");
-                                writer.WriteLine("d 10.4");
-                                writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
-                                break;
-                            case Role.Outsider:
-                                writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
-                                break;
-                            default:
-                                writer.WriteLine("w 10.2");
-                                writer.WriteLine("h 10.2");
-                                writer.WriteLine("d 10.2");
-                                writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
-                                break;
-                        }
+                            switch (node.Role)
+                            {
+                                case Role.Leader:
+                                    writer.WriteLine(Width + LeaderSize);
+                                    writer.WriteLine(Height + LeaderSize);
+                                    writer.WriteLine(Depth + LeaderSize);
+                                    writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
+                                    break;
+                                case Role.Outermost:
+                                    writer.WriteLine(Width + OutermostSize);
+                                    writer.WriteLine(Height + OutermostSize);
+                                    writer.WriteLine(Depth + OutermostSize);
+                                    writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
+                                    break;
+                                case Role.Mediator:
+                                    writer.WriteLine(Width + MediatorSize);
+                                    writer.WriteLine(Height + MediatorSize);
+                                    writer.WriteLine(Depth + MediatorSize);
+                                    writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
+                                    break;
+                                case Role.Outsider:
+                                    writer.WriteLine(Width + OutsiderSize);
+                                    writer.WriteLine(Height + OutsiderSize);
+                                    writer.WriteLine(Depth + OutsiderSize);
+                                    writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
+                                    break;
+                                default:
+                                    writer.WriteLine(Width + DefaultSize);
+                                    writer.WriteLine(Height + DefaultSize);
+                                    writer.WriteLine(Depth + DefaultSize);
+                                    writer.WriteLine($"fill \"{colors[node.CommunityId]}\"");
+                                    break;
+                            }
 
-                        writer.WriteLine("]");
-                        writer.WriteLine("]");
+                            writer.WriteLine("]");
+                            writer.WriteLine("]");
+                        }
+                        else
+                        {
+                            writer.WriteLine(Width + DefaultSize);
+                            writer.WriteLine(Height + DefaultSize);
+                            writer.WriteLine(Depth + DefaultSize);
+                            writer.WriteLine($"fill \"#0000FF\""); // default - blue
+                        }
                     }
 
-                    var id = 0;
+
+                    int id = 0;
                     //edge
                     foreach (Edge<User> edge in graph.Edges)
                     {
                         writer.WriteLine("edge");
                         writer.WriteLine("[");
                         writer.WriteLine($"id {id}");
-                        writer.WriteLine($"source {edge.Vertex1.Id}");
-                        writer.WriteLine($"target {edge.Vertex2.Id}");
+                        writer.WriteLine($"source {edge.Node1.Id}");
+                        writer.WriteLine($"target {edge.Node2.Id}");
                         writer.WriteLine("value 1.0");
                         writer.WriteLine("fill \"#000000\"");
                         writer.WriteLine("]");
@@ -117,12 +140,12 @@ namespace FileManager
             {
                 using (var writer = new StreamWriter(path))
                 {
-                    
-                    foreach (KeyValuePair<int, HashSet<Vertex<User>>> graphSet in graph.GraphSet)
+
+                    foreach (KeyValuePair<int, HashSet<Node<User>>> graphSet in graph.GraphSet)
                     {
                         string oneLine = "";
                         oneLine = oneLine + graphSet.Key + ",";
-                        foreach (Vertex<User> node in graphSet.Value)
+                        foreach (Node<User> node in graphSet.Value)
                         {
                             oneLine = oneLine + node.Id + ",";
                         }

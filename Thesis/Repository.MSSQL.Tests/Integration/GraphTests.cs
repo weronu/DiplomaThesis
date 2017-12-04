@@ -12,25 +12,25 @@ namespace Repository.MSSQL.Tests.Integration
         public void Graph_Test()
         {
             HashSet<Edge<User>> edges;
-            HashSet<Vertex<User>> vertices;
+            HashSet<Node<User>> nodes;
 
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
                 edges = uow.GraphRepo.ExtractEdgesFromConversation();
-                vertices = uow.GraphRepo.ExtractVerticesFromEdges(edges);
+                nodes = uow.GraphRepo.ExtractVerticesFromEdges(edges);
             }
 
             Assert.IsNotNull(edges);
             Assert.IsNotEmpty(edges);
 
-            Assert.IsNotNull(vertices);
-            Assert.IsNotEmpty(vertices);
+            Assert.IsNotNull(nodes);
+            Assert.IsNotEmpty(nodes);
 
             Graph<User> graph = new Graph<User>();
 
-            foreach (Vertex<User> vertex in vertices)
+            foreach (Node<User> node in nodes)
             {
-                graph.AddVertex(vertex);
+                graph.AddNode(node);
             }
             foreach (Edge<User> edge in edges)
             {
@@ -40,7 +40,7 @@ namespace Repository.MSSQL.Tests.Integration
             int maximalDegree = graph.GetMaximalDegree();
             int degreeMean = graph.GetDegreeMean();
             int edgesCount = graph.GetEdgesCount();
-            int verticesCount = graph.GetVerticesCount();
+            int nodescount = graph.GetVerticesCount();
 
 
         }

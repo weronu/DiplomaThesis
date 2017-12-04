@@ -48,7 +48,7 @@ namespace Repository.MSSQL.Tests.Integration
         [Test]
         public void GraphRepository_VericesTest()
         {
-            HashSet<Vertex<User>> vertices;
+            HashSet<Node<User>> vertices;
 
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
@@ -90,7 +90,7 @@ namespace Repository.MSSQL.Tests.Integration
         [Test]
         public void GraphRepository_ConversationVertices_Test()
         {
-            HashSet<Vertex<User>> vertices;
+            HashSet<Node<User>> vertices;
 
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
