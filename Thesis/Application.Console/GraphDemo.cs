@@ -14,6 +14,8 @@ namespace Application.Console
     {
         public void CreateGraphDemo()
         {
+            #region CreatingBaseGraph
+
             const string path = @"C:\Users\veronika.uhrova\Desktop\Diplomka\results\";
             HashSet<Edge<User>> edges;
             HashSet<Node<User>> vertices;
@@ -42,7 +44,6 @@ namespace Application.Console
                 graph.AddEdge(edge);
             }
 
-           
             graph.SetDegrees();
             int maximalDegree = graph.GetMaximalDegree();
             int degreeMean = graph.GetDegreeMean();
@@ -55,7 +56,11 @@ namespace Application.Console
             System.Console.WriteLine(@"Average degree: {0}", degreeMean);
             System.Console.WriteLine(@"Creating gephi file ...");
 
-            FileManager.FileWriter.CreateGephiFile(graph, path + "basegraph_tpalatka.gml", false);
+            FileManager.FileWriter.CreateGephiFile(graph, path + "basegraph_allgraph_base.gml", false);
+
+            #endregion
+
+            #region EgoNetwork
 
             //creating ego network
             EgoNetwork egoNetwork = new EgoNetwork();
@@ -69,7 +74,7 @@ namespace Application.Console
                 }
                 System.Console.WriteLine(@"-------------");
             }
-            Node<User> egoNetworkCenter = graph.GetNodeById(272);
+            Node<User> egoNetworkCenter = graph.GetNodeById(349); // veronika uhrova
             HashSet<Node<User>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
 
             foreach (Node<User> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
@@ -82,7 +87,12 @@ namespace Application.Console
                 graph.AddEdge(newEdge);
             }
 
-            FileManager.FileWriter.CreateGephiFile(graph, path + "egograph_tpalatka.gml", false);
+            FileManager.FileWriter.CreateGephiFile(graph, path + "egograph_allgraph_ego.gml", false);
+
+
+            #endregion
+
+            #region ExtractingCommunities
 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Restart();
@@ -108,7 +118,10 @@ namespace Application.Console
 
             graph.SetCommunities(communities);
 
-            
+            #endregion
+
+            #region ExtractingRoles
+
             GraphAlgorithm<User> algorithms = new GraphAlgorithm<User>(graph);
             HashSet<ShortestPathSet<User>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
 
@@ -140,7 +153,10 @@ namespace Application.Console
             HashSet<Node<User>> sortedNodes = algorithms.OrderNodesByMediacyScore();
             roleDetection.ExtractMediators(sortedNodes);
 
-            FileManager.FileWriter.CreateGephiFile(graph, path + "rolesgraph_tpalatka.gml");
+            FileManager.FileWriter.CreateGephiFile(graph, path + "rolesgraph_allgraph_done.gml");
+
+
+            #endregion
 
 
             IEnumerable<Node<User>> leaders = graph.Nodes.Where(x => x.Role == Role.Leader).ToList();
@@ -153,7 +169,6 @@ namespace Application.Console
             int outermostsCount = outermosts.Count();
             int outsidersCount = outsiders.Count();
 
-
             System.Console.WriteLine(@"Extracted {0} leaders.", leadersCount);
             System.Console.WriteLine(@"Extracted {0} mediators.", mediatorsCount);
             System.Console.WriteLine(@"Extracted {0} outermosts.", outermostsCount);
@@ -163,7 +178,6 @@ namespace Application.Console
             System.Console.WriteLine(@"Done");
             System.Console.WriteLine($@"Execution time: {test01.Elapsed}");
             System.Console.ReadKey();
-
         }
     }
 }
