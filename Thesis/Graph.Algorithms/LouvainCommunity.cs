@@ -42,8 +42,6 @@ namespace Graph.Algorithms
             return BestPartition(graph, null);
         }
 
-       
-
         public static Dendrogram GenerateDendrogram(Graph<User> graph, Dictionary<int, int> part_init)
         {
             Dictionary<int, int> partition;
@@ -55,9 +53,9 @@ namespace Graph.Algorithms
             {
                 partition = new Dictionary<int, int>();
                 int i = 0;
-                foreach (Vertex<User> vertex in graph.Vertices)
+                foreach (Node<User> node in graph.Nodes)
                 {
-                    partition[vertex.Id] = i++;
+                    partition[node.Id] = i++;
                 }
                 return new Dendrogram(partition);
             }
@@ -68,13 +66,13 @@ namespace Graph.Algorithms
             double mod = status.Modularity();
             List<Dictionary<int, int>> status_list = new List<Dictionary<int, int>>();
             status.OneLevel(current_graph);
-            var new_mod = status.Modularity();
+            double new_mod = status.Modularity();
 
             int iterations = 1;
             do
             {
                 iterations++;
-                partition = Renumber(status.Vertex2Community);
+                partition = Renumber(status.Node2Community);
                 status_list.Add(partition);
                 mod = new_mod;
                 current_graph = current_graph.Quotient(partition);
@@ -82,7 +80,7 @@ namespace Graph.Algorithms
                 status.OneLevel(current_graph);
                 new_mod = status.Modularity();
             } while (new_mod - mod >= MIN);
-            Console.Out.WriteLine("(GenerateDendrogram: {0} iterations in {1})", iterations, stopwatch.Elapsed);
+            //Console.Out.WriteLine("(GenerateDendrogram: {0} iterations in {1})", iterations, stopwatch.Elapsed);
 
             return new Dendrogram(status_list);
         }
@@ -115,8 +113,8 @@ namespace Graph.Algorithms
         /// </summary>
         public class Status
         {
-            public Dictionary<int, int> Vertex2Community;
-            public Double TotalWeight;
+            public Dictionary<int, int> Node2Community;
+            public double TotalWeight;
             public Dictionary<int, double> Degrees;
             public Dictionary<int, double> GDegrees;
             public Dictionary<int, double> Loops;
@@ -124,7 +122,7 @@ namespace Graph.Algorithms
 
             public Status()
             {
-                Vertex2Community = new Dictionary<int, int>();
+                Node2Community = new Dictionary<int, int>();
                 TotalWeight = 0;
                 Degrees = new Dictionary<int, double>();
                 GDegrees = new Dictionary<int, double>();
@@ -138,40 +136,40 @@ namespace Graph.Algorithms
                 TotalWeight = graph.Size;
                 if (part == null)
                 {
-                    List<Vertex<User>> vertices = graph.Vertices.OrderByDescending(x => x.Id).ToList();
-                    foreach (Vertex<User> vertex in vertices)
+                    List<Node<User>> vertices = graph.Nodes.OrderByDescending(x => x.Id).ToList();
+                    foreach (Node<User> node in vertices)
                     {
-                        Vertex2Community[vertex.Id] = count;
-                        double deg = graph.LouvainDegree(vertex);
+                        Node2Community[node.Id] = count;
+                        double deg = graph.LouvainDegree(node);
                         if (deg < 0)
                         {
                             throw new ArgumentException("Graph has negative weights.");
                         }
-                        Degrees[count] = GDegrees[vertex.Id] = deg;
-                        Internals[count] = Loops[vertex.Id] = graph.EdgeWeight(vertex, vertex);
+                        Degrees[count] = GDegrees[node.Id] = deg;
+                        Internals[count] = Loops[node.Id] = graph.EdgeWeight(node, node);
                         count += 1;
                     }
                 }
                 else
                 {
-                    foreach (Vertex<User> vertex in graph.Vertices)
+                    foreach (Node<User> node in graph.Nodes)
                     {
-                        int com = part[vertex.Id];
-                        Vertex2Community[vertex.Id] = com;
-                        double deg = graph.GetDegreeAsSumOfWeights(vertex);
+                        int com = part[node.Id];
+                        Node2Community[node.Id] = com;
+                        double deg = graph.GetDegreeAsSumOfWeights(node);
                         Degrees[com] = DictGet(Degrees, com, 0) + deg;
-                        GDegrees[vertex.Id] = deg;
+                        GDegrees[node.Id] = deg;
                         double inc = 0;
-                        foreach (Edge<User> edge in graph.GetIncidentEdges(vertex))
+                        foreach (Edge<User> edge in graph.GetIncidentEdges(node))
                         {
-                            int neighbor = edge.Vertex2.Id;
+                            int neighbor = edge.Node2.Id;
                             if (edge.Weight <= 0)
                             {
                                 throw new ArgumentException("Graph must have postive weights.");
                             }
                             if (part[neighbor] == com)
                             {
-                                if (neighbor == vertex.Id)
+                                if (neighbor == node.Id)
                                 {
                                     inc += edge.Weight;
                                 }
@@ -184,8 +182,6 @@ namespace Graph.Algorithms
                         Internals[com] = DictGet(Internals, com, 0) + inc;
                     }
                 }
-
-
             }
 
             /// <summary>
@@ -196,7 +192,7 @@ namespace Graph.Algorithms
             {
                 double links = TotalWeight;
                 double result = 0;
-                foreach (int community in Vertex2Community.Values.Distinct())
+                foreach (int community in Node2Community.Values.Distinct())
                 {
                     double in_degree = DictGet(Internals, community, 0);
                     double degree = DictGet(Degrees, community, 0);
@@ -234,20 +230,20 @@ namespace Graph.Algorithms
                     modif = false;
                     nb_pass_done += 1;
 
-                    List<Vertex<User>> vertices = graph.Vertices.OrderByDescending(x => x.Id).ToList();
-                    foreach (Vertex<User> vertex in vertices)
+                    List<Node<User>> vertices = graph.Nodes.OrderByDescending(x => x.Id).ToList();
+                    foreach (Node<User> node in vertices)
                     {
-                        int com_node = Vertex2Community[vertex.Id];
-                        double degc_totw = DictGet<int, double>(GDegrees, vertex.Id, 0) / (TotalWeight * 2);
-                        Dictionary<int, double> neigh_communities = NeighCom(vertex, graph);
-                        Remove(vertex.Id, com_node, DictGet(neigh_communities, com_node, 0));
+                        int com_node = Node2Community[node.Id];
+                        double degc_totw = DictGet<int, double>(GDegrees, node.Id, 0) / (TotalWeight * 2);
+                        Dictionary<int, double> neigh_communities = NeighCom(node, graph);
+                        Remove(node.Id, com_node, DictGet(neigh_communities, com_node, 0));
 
                         Tuple<double, int> best = (from entry in neigh_communities.AsParallel()
                                 select EvaluateIncrease(entry.Key, entry.Value, degc_totw))
                             .Concat(new[] {Tuple.Create(0.0, com_node)}.AsParallel())
                             .Max();
                         int best_com = best.Item2;
-                        Insert(vertex.Id, best_com, DictGet(neigh_communities, best_com, 0));
+                        Insert(node.Id, best_com, DictGet(neigh_communities, best_com, 0));
                         if (best_com != com_node)
                         {
                             modif = true;
@@ -263,21 +259,21 @@ namespace Graph.Algorithms
 
 
             /// <summary>
-            /// Compute the communities in th eneighborhood of the vertex in the given graph.
+            /// Compute the communities in th eneighborhood of the node in the given graph.
             /// </summary>
-            /// <param name="vertex"></param>
+            /// <param name="node"></param>
             /// <param name="graph"></param>
             /// <returns></returns>
-            private Dictionary<int, double> NeighCom(Vertex<User> vertex, Graph<User> graph)
+            private Dictionary<int, double> NeighCom(Node<User> node, Graph<User> graph)
             {
                 Dictionary<int, double> weights = new Dictionary<int, double>();
-                List<Edge<User>> incidentEdgesLouvain = graph.GetIncidentEdges(vertex).ToList();
+                List<Edge<User>> incidentEdgesLouvain = graph.GetIncidentEdges(node).ToList();
 
                 foreach (Edge<User> edge in incidentEdgesLouvain)
                 {
                     if (!edge.SelfLoop)
                     {
-                        int neighborcom = Vertex2Community[edge.Vertex2.Id];
+                        int neighborcom = Node2Community[edge.Node2.Id];
                         weights[neighborcom] = DictGet(weights, neighborcom, 0) + edge.Weight;
                     }
                 }
@@ -286,16 +282,16 @@ namespace Graph.Algorithms
 
 
             /// <summary>
-            /// Remove vertex from community com and modify status.
+            /// Remove node from community com and modify status.
             /// </summary>
-            /// <param name="vertex"></param>
+            /// <param name="node"></param>
             /// <param name="com"></param>
             /// <param name="weight"></param>
-            private void Remove(int vertex, int com, double weight)
+            private void Remove(int node, int com, double weight)
             {
-                Degrees[com] = DictGet(Degrees, com, 0) - DictGet(GDegrees, vertex, 0);
-                Internals[com] = DictGet(Internals, com, 0) - weight - DictGet(Loops, vertex, 0);
-                Vertex2Community[vertex] = -1;
+                Degrees[com] = DictGet(Degrees, com, 0) - DictGet(GDegrees, node, 0);
+                Internals[com] = DictGet(Internals, com, 0) - weight - DictGet(Loops, node, 0);
+                Node2Community[node] = -1;
             }
 
             /// <summary>
@@ -306,7 +302,7 @@ namespace Graph.Algorithms
             /// <param name="weight"></param>
             private void Insert(int node, int com, double weight)
             {
-                Vertex2Community[node] = com;
+                Node2Community[node] = com;
                 Degrees[com] = DictGet(Degrees, com, 0) + DictGet(GDegrees, node, 0);
                 Internals[com] = DictGet(Internals, com, 0) + weight + DictGet(Loops, node, 0);
             }
@@ -327,8 +323,7 @@ namespace Graph.Algorithms
         /// <param name="part">The partition for the one level.</param>
         public Dendrogram(Dictionary<int, int> part)
         {
-            Partitions = new List<Dictionary<int, int>>();
-            Partitions.Add(part);
+            Partitions = new List<Dictionary<int, int>> {part};
         }
 
         /// <summary>

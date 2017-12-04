@@ -7,28 +7,9 @@ namespace Domain.GraphClasses
 {
     public class Graph<T> where T: DomainBase
     {
-        public HashSet<Vertex<T>> Vertices { get; set; }
-
+        public HashSet<Node<T>> Nodes { get; set; }
         public HashSet<Edge<T>> Edges { get; set; }
-
-        public IEnumerable<Edge<T>> EdgesEnumerator
-        {
-            get
-            {
-                foreach (var entry1 in GraphSet)
-                {
-                    foreach (var entry2 in entry1.Value)
-                    {
-                        if (entry1.Key <= entry2.Id)
-                        {
-                            yield return new Edge<T>(GetVertexById(entry1.Key), GetVertexById(entry2.Id));
-                        }
-                    }
-                }
-            }
-        }
-
-        public Dictionary<int, HashSet<Vertex<T>>> GraphSet { get; set; }
+        public Dictionary<int, HashSet<Node<T>>> GraphSet { get; set; }
         public HashSet<Community<T>> Communities { get; set; }
 
         public double Size
@@ -42,26 +23,28 @@ namespace Domain.GraphClasses
         public Graph()
         {
             Edges = new HashSet<Edge<T>>();
-            Vertices = new HashSet<Vertex<T>>();
-            GraphSet = new Dictionary<int, HashSet<Vertex<T>>>();
+            Nodes = new HashSet<Node<T>>();
+            GraphSet = new Dictionary<int, HashSet<Node<T>>>();
             Communities = new HashSet<Community<T>>();
         }
 
         /// <summary>
-        /// Add vertex to the Graph
+        /// Add node to the Graph
         /// </summary>
-        public void AddVertex(Vertex<T> vertex)
+        public void AddNode(Node<T> node)
         {
-            if (Vertices.All(x => x.Id != vertex.Id))
-                Vertices.Add(vertex);
+            if (Nodes.All(x => x.Id != node.Id))
+            {
+                Nodes.Add(node);
+            }
         }
 
         /// <summary>
-        /// Computes degree for a vertex
+        /// Computes degree for a node
         /// </summary>
-        public double LouvainDegree(Vertex<T> vertex)
+        public double LouvainDegree(Node<T> node)
         {
-            List<Edge<T>> incidentEdges = GetIncidentEdges(vertex).ToList();
+            List<Edge<T>> incidentEdges = GetIncidentEdges(node).ToList();
 
             double loop = incidentEdges.Where(x => x.SelfLoop == true).Select(x => x.Weight).Sum();
             double degree = incidentEdges.Sum(x => x.Weight) + loop;
@@ -69,149 +52,98 @@ namespace Domain.GraphClasses
             return degree;
         }
 
-        public IEnumerable<Edge<T>> GetIncidentEdges(Vertex<T> vertex)
+        /// <summary>
+        /// Returns a list of incident edges for a node.
+        /// </summary>
+        /// <param name="node">The node from which the returned edges will be incident.</param>
+        /// <returns>An enumeration of incident edges.</returns>
+        public IEnumerable<Edge<T>> GetIncidentEdges(Node<T> node)
         {
-            HashSet<Edge<T>> edges = new HashSet<Edge<T>>(Edges.Where(x => x.Vertex1.Id == vertex.Id || x.Vertex2.Id == vertex.Id).ToList());
+            HashSet<Edge<T>> edges = new HashSet<Edge<T>>(Edges.Where(x => x.Node1.Id == node.Id || x.Node2.Id == node.Id).ToList());
             foreach (Edge<T> edge in edges)
             {
-                Vertex<T> first = null;
-                Vertex<T> second = null;
+                Node<T> first;
+                Node<T> second;
                 
-                if (vertex.Id == edge.Vertex1.Id)
+                if (node.Id == edge.Node1.Id)
                 {
-                    first = vertex;
-                    second = edge.Vertex2;
+                    first = node;
+                    second = edge.Node2;
                 }
                 else
                 {
-                    first = edge.Vertex2;
-                    second = edge.Vertex1;
+                    first = edge.Node2;
+                    second = edge.Node1;
                 }
                 yield return new Edge<T>(first, second, edge.Weight);
             }
         }
 
 
-        public void AddEdge(Edge<T> edge)
+        public void AddEdge(Edge<T> edge, double weight = 0)
         {
-            bool existsInGraph = !(Edges.Any((i => i.Vertex1.Id == edge.Vertex1.Id && i.Vertex2.Id == edge.Vertex2.Id)) || (Edges.Any(i => i.Vertex1.Id == edge.Vertex2.Id && i.Vertex2.Id == edge.Vertex1.Id)));
+            bool existsInGraph = !(Edges.Any((i => i.Node1.Id == edge.Node1.Id && i.Node2.Id == edge.Node2.Id)) || (Edges.Any(i => i.Node1.Id == edge.Node2.Id && i.Node2.Id == edge.Node1.Id)));
             if (existsInGraph)
             {
                 Edges.Add(edge);
             }
 
-            if (!GraphSet.ContainsKey(edge.Vertex1.Id))
+            if (!GraphSet.ContainsKey(edge.Node1.Id))
             {
-                GraphSet.Add(edge.Vertex1.Id, new HashSet<Vertex<T>>());
+                GraphSet.Add(edge.Node1.Id, new HashSet<Node<T>>());
             }
 
-            if (!GraphSet.ContainsKey(edge.Vertex2.Id))
+            if (!GraphSet.ContainsKey(edge.Node2.Id))
             {
-                GraphSet.Add(edge.Vertex2.Id, new HashSet<Vertex<T>>());
+                GraphSet.Add(edge.Node2.Id, new HashSet<Node<T>>());
             }
 
-            if (GraphSet.ContainsKey(edge.Vertex1.Id))
+            if (GraphSet.ContainsKey(edge.Node1.Id))
             {
-                GraphSet[edge.Vertex1.Id].Add(edge.Vertex2);
+                GraphSet[edge.Node1.Id].Add(edge.Node2);
             }
 
-            if (GraphSet.ContainsKey(edge.Vertex2.Id))
+            if (GraphSet.ContainsKey(edge.Node2.Id))
             {
-                GraphSet[edge.Vertex2.Id].Add(edge.Vertex1);
+                GraphSet[edge.Node2.Id].Add(edge.Node1);
             }
-
-            //Size += edge.Weight;
-        }
-
-        public void AddWeightedEdge(Edge<T> edge, double weight)
-        {
-            bool existsInGraph = !(Edges.Any((i => i.Vertex1.Id == edge.Vertex1.Id && i.Vertex2.Id == edge.Vertex2.Id)) || (Edges.Any(i => i.Vertex1.Id == edge.Vertex2.Id && i.Vertex2.Id == edge.Vertex1.Id)));
-            if (existsInGraph)
-            {
-                Edges.Add(edge);
-            }
-
-            if (!GraphSet.ContainsKey(edge.Vertex1.Id))
-            {
-                GraphSet.Add(edge.Vertex1.Id, new HashSet<Vertex<T>>());
-            }
-
-            if (!GraphSet.ContainsKey(edge.Vertex2.Id))
-            {
-                GraphSet.Add(edge.Vertex2.Id, new HashSet<Vertex<T>>());
-            }
-
-            if (GraphSet.ContainsKey(edge.Vertex1.Id))
-            {
-                GraphSet[edge.Vertex1.Id].Add(edge.Vertex2);
-            }
-
-            if (GraphSet.ContainsKey(edge.Vertex2.Id))
-            {
-                GraphSet[edge.Vertex2.Id].Add(edge.Vertex1);
-            }
-
             SetEdgeWeight(edge, weight);
-            //Size += edge.Weight;
         }
 
         private void SetEdgeWeight(Edge<T> edge, double weight)
         {
-            Edge<T> e = Edges.FirstOrDefault(x => x.Vertex1.Id == edge.Vertex1.Id && x.Vertex2.Id == edge.Vertex2.Id || x.Vertex1.Id == edge.Vertex2.Id && x.Vertex2.Id == edge.Vertex1.Id);
+            Edge<T> e = Edges.FirstOrDefault(x => x.Node1.Id == edge.Node1.Id && x.Node2.Id == edge.Node2.Id || x.Node1.Id == edge.Node2.Id && x.Node2.Id == edge.Node1.Id);
             if (e != null) e.Weight = e.Weight + weight;
         }
 
         /// <summary>
         /// Returns the weight of the edge between two vertices.
         /// </summary>
-        /// <param name="vertex1">The first vertex.</param>
-        /// <param name="vertex2">The second vertex.</param>
+        /// <param name="node1">The first node.</param>
+        /// <param name="node2">The second node.</param>
         /// <returns>The weight of the edge.</returns>
-        public double EdgeWeight(Vertex<User> vertex1, Vertex<User> vertex2)
+        public double EdgeWeight(Node<User> node1, Node<User> node2)
         {
-            return Edges.Where(x => x.Vertex1.Id == vertex1.Id && x.Vertex2.Id == vertex2.Id).Select(x => x.Weight).FirstOrDefault();
+            return Edges.Where(x => x.Node1.Id == node1.Id && x.Node2.Id == node2.Id).Select(x => x.Weight).FirstOrDefault();
         }
-
-        /// <summary>
-        /// Returns a list of incident edges for a node.
-        /// </summary>
-        /// <param name="vertex">The vertex from which the returned edges will be incident.</param>
-        /// <returns>An enumeration of incident edges.</returns>
-        //public HashSet<Edge<T>> GetIncidentEdges(Vertex<T> vertex)
-        //{
-        //    HashSet<Edge<T>> incidentEdges = new HashSet<Edge<T>>();
-        //    HashSet<Vertex<T>> hashSet = GraphSet[vertex.Id];
-        //    foreach (Vertex<T> vertex2 in hashSet)
-        //    {
-        //        Edge<T> edge = new Edge<T>
-        //        {
-        //            Vertex1 = vertex,
-        //            Vertex2 = vertex2,
-        //            Weight = 2
-        //        };
-        //        incidentEdges.Add(edge);
-        //    }
-            
-        //    return incidentEdges;
-        //}
 
         public void CreateGraph(Edge<T> edge)
         {
-            AddVertex(edge.Vertex1);
-            AddVertex(edge.Vertex2);
+            AddNode(edge.Node1);
+            AddNode(edge.Node2);
 
             AddEdge(edge);
         }
 
-
-
         /// <summary>
-        /// Sets degree for each vertex in a graph
+        /// Sets degree for each node in a graph
         /// </summary>
         public void SetDegrees()
         {
-            foreach (Vertex<T> vertex in Vertices)
-                vertex.Degree = GetDegree(vertex);
+            foreach (Node<T> node in Nodes)
+            {
+                node.Degree = GetDegree(node);
+            }
         }
 
         /// <summary>
@@ -226,79 +158,72 @@ namespace Domain.GraphClasses
             Graph<T> ret = new Graph<T>();
             foreach (int com in partition.Values)
             {
-                Vertex<T> vertex = new Vertex<T>
+                Node<T> node = new Node<T>
                 {
                     Id = com
                 };
-                ret.AddVertex(vertex);
-                //ret.AddNode(com);
+                ret.AddNode(node);
             }
-            List<Edge<T>> list = Edges.OrderBy(x => x.Vertex1.Id).ThenBy(x => x.Vertex2.Id).ToList();
-            var l = list.Select(x => new {vertex1 = x.Vertex1.Id, vertex2 = x.Vertex2.Id, edgeweight = x.Weight}).ToList();
-            foreach (Edge<T> edge in list)
+            List<Edge<T>> edges = Edges.OrderBy(x => x.Node1.Id).ThenBy(x => x.Node2.Id).ToList();
+            foreach (Edge<T> edge in edges)
             {
-                int pom1 = partition[edge.Vertex1.Id];
-                int pom2 = partition[edge.Vertex2.Id];
-                int vertex1Id = pom1;
-                int vertex2Id = pom2;
+                int pom1 = partition[edge.Node1.Id];
+                int pom2 = partition[edge.Node2.Id];
+                int node1Id = pom1;
+                int node2Id = pom2;
                 if (pom1 > pom2)
                 {
-                    vertex1Id = pom2;
-                    vertex2Id = pom1;
+                    node1Id = pom2;
+                    node2Id = pom1;
                 }
                 double edgeWeight = edge.Weight;
 
-                Vertex<T> vertex1 = ret.Vertices.FirstOrDefault(x => x.Id == vertex1Id);
-                Vertex<T> vertex2 = ret.Vertices.FirstOrDefault(x => x.Id == vertex2Id);
+                Node<T> node1 = ret.Nodes.FirstOrDefault(x => x.Id == node1Id);
+                Node<T> node2 = ret.Nodes.FirstOrDefault(x => x.Id == node2Id);
 
-                int count = 0;
-                if (vertex1 != null && vertex2 != null)
+                if (node1 != null && node2 != null)
                 {
                     Edge<T> edgeCreated = new Edge<T>
                     {
-                        Vertex1 = vertex1,
-                        Vertex2 = vertex2
+                        Node1 = node1,
+                        Node2 = node2
                     };
-                    ret.AddWeightedEdge(edgeCreated, edgeWeight);
-                    count++;
+                    ret.AddEdge(edgeCreated, edgeWeight);
                 }               
             }
-
-            var enume = ret.EdgesEnumerator.Select(x => new {vertex1 = x.Vertex1.Id, vertex2 = x.Vertex2.Id, edgeweight = x.Weight}).ToList();
-            var edgesOrdered = ret.Edges.Select(x => new {vertex1 = x.Vertex1.Id, vertex2 = x.Vertex2.Id, edgeweight = x.Weight}).OrderBy(x => x.vertex1).ToList();
             return ret;
         }
 
         /// <summary>
         /// Returns all vertices with a Leader role
         /// </summary>
-        public List<Vertex<T>> GetLeaders()
+        public List<Node<T>> GetLeaders()
         {
-            return Vertices.Select(x => x).Where(x => x.Role == Role.Leader).ToList();
+            return Nodes.Select(x => x).Where(x => x.Role == Role.Leader).ToList();
         }
 
         /// <summary>
         /// Returns all vertices with Outsider role
         /// </summary>
-        public List<Vertex<T>> GetOutsiders()
+        public List<Node<T>> GetOutsiders()
         {
-            return Vertices.Select(x => x).Where(x => x.Role == Role.Outsider).ToList();
+            return Nodes.Select(x => x).Where(x => x.Role == Role.Outsider).ToList();
         }
 
         /// <summary>
         /// Returns all vertices with a Outermost role
         /// </summary>
-        public List<Vertex<T>> GetOutermosts()
+        public List<Node<T>> GetOutermosts()
         {
-            return Vertices.Select(x => x).Where(x => x.Role == Role.Outermost).ToList();
+            return Nodes.Select(x => x).Where(x => x.Role == Role.Outermost).ToList();
         }
 
         /// <summary>
         /// Returns all vertices with a Mediator role
         /// </summary>
-        public List<Vertex<T>> GetMediators()
+        public List<Node<T>> GetMediators()
         {
-            return Vertices.Select(x => x).Where(x => x.Role == Role.Mediator).ToList();
+            return Nodes.Select(x => x).Where(x => x.Role == Role.Mediator).ToList();
         }
 
         /// <summary>
@@ -310,30 +235,30 @@ namespace Domain.GraphClasses
         }
 
         /// <summary>
-        /// Computes degree for a vertex
+        /// Computes degree for a node
         /// </summary>
-        public int GetDegree(Vertex<T> vertex)
+        public int GetDegree(Node<T> node)
         {
-            var degree = GetAdjacentVertices(vertex).Count;
+            var degree = GetAdjacentNodes(node).Count;
             return degree;
         }
 
         /// <summary>
-        /// Computes degree for a vertex
+        /// Computes degree for a node
         /// </summary>
-        public double GetDegreeAsSumOfWeights(Vertex<T> vertex)
+        public double GetDegreeAsSumOfWeights(Node<T> node)
         {
-            HashSet<Edge<T>> incidentEdges = new HashSet<Edge<T>>(GetIncidentEdges(vertex).ToList());
-            var sum = incidentEdges.Select(x => x.Weight).Sum();
+            HashSet<Edge<T>> incidentEdges = new HashSet<Edge<T>>(GetIncidentEdges(node).ToList());
+            double sum = incidentEdges.Select(x => x.Weight).Sum();
             return sum;
         }
 
         /// <summary>
-        /// Adjacent vertices of a vertex
+        /// Adjacent vertices of a node
         /// </summary>
-        public HashSet<Vertex<T>> GetAdjacentVertices(Vertex<T> vertex)
+        public HashSet<Node<T>> GetAdjacentNodes(Node<T> node)
         {
-            return GraphSet[vertex.Id];
+            return GraphSet[node.Id];
         }
 
         /// <summary>
@@ -341,7 +266,7 @@ namespace Domain.GraphClasses
         /// </summary>
         public int GetVerticesCount()
         {
-            return Vertices.Count;
+            return Nodes.Count;
         }
 
         /// <summary>
@@ -353,11 +278,11 @@ namespace Domain.GraphClasses
         }
 
         /// <summary>
-        /// Gets vertex by its id
+        /// Gets node by its id
         /// </summary>
-        public Vertex<T> GetVertexById(int vertices)
+        public Node<T> GetNodeById(int vertices)
         {
-            return Vertices.FirstOrDefault(i => i.Id == vertices);
+            return Nodes.FirstOrDefault(i => i.Id == vertices);
         }
 
         /// <summary>
@@ -365,15 +290,15 @@ namespace Domain.GraphClasses
         /// </summary>
         public int GetMaximalDegree()
         {
-            return Vertices.Select(x => x.Degree).Max();
+            return Nodes.Select(x => x.Degree).Max();
         }
 
         /// <summary>
         /// Sorting vertices by community id
         /// </summary>
-        public IOrderedEnumerable<Vertex<T>> SortNodesByCommunity()
+        public IOrderedEnumerable<Node<T>> SortNodesByCommunity()
         {
-            return Vertices.OrderByDescending(x => x.Community.Id);
+            return Nodes.OrderByDescending(x => x.Community.Id);
         }
 
         /// <summary>
@@ -381,8 +306,8 @@ namespace Domain.GraphClasses
         /// </summary>
         public int GetDegreeMean()
         {
-            var sum = Vertices.Sum(vertex => vertex.Degree);
-            return sum / Vertices.Count;
+            int sum = Nodes.Sum(node => node.Degree);
+            return sum / Nodes.Count;
         }
 
         /// <summary>
@@ -390,7 +315,7 @@ namespace Domain.GraphClasses
         /// </summary>
         public double GetClosenessCentralityMax()
         {
-            return Vertices.Select(x => x.ClosenessCentrality).ToList().Max();
+            return Nodes.Select(x => x.ClosenessCentrality).ToList().Max();
         }
 
         /// <summary>
@@ -398,51 +323,45 @@ namespace Domain.GraphClasses
         /// </summary>
         public double GetMediacyScoreMax()
         {
-            return Vertices.Select(x => x.MediacyScore).ToList().Max();
+            return Nodes.Select(x => x.MediacyScore).ToList().Max();
         }
 
         /// <summary>
-        /// Gets incident communities for a vertex
+        /// Gets incident communities for a node
         /// </summary>
-        public List<Community<T>> GetIncidentCommunitiesOfVertex(Vertex<T> vertex)
+        public HashSet<Community<T>> GetIncidentCommunitiesOfNode(Node<T> node)
         {
-            List<Community<T>> incidentCommunities = new List<Community<T>> { vertex.Community };
-            HashSet<Vertex<T>> adjacentNodes = GetAdjacentVertices(vertex);
-            foreach (var adjacent in adjacentNodes)
+            HashSet<Community<T>> incidentCommunities = new HashSet<Community<T>> { node.Community };
+            HashSet<Node<T>> adjacentNodes = GetAdjacentNodes(node);
+            foreach (Node<T> adjacent in adjacentNodes)
             {
-                Vertex<T> adjacentNode = GetVertexById(adjacent.Id);
-                if (!incidentCommunities.Contains(adjacentNode.Community))
+                Node<T> adjacentNode = GetNodeById(adjacent.Id);
+                if (incidentCommunities.All(x => x.Id != adjacentNode.Community.Id))
                 {
                     incidentCommunities.Add(adjacentNode.Community);
                 }
             }
             return incidentCommunities;
         }
-    }
 
-    public class EdgeComparer : IEqualityComparer<Edge<User>>
-    {
-        public bool Equals(Edge<User> x, Edge<User> y)
+        public void SetCommunities(Dictionary<int, List<int>> dictCommunities)
         {
-            if (ReferenceEquals(x, y)) return true;
-            if (ReferenceEquals(x, null) || ReferenceEquals(y, null))
-                return false;
-
-            return x.Vertex1.Id == y.Vertex2.Id || x.Vertex2.Id == y.Vertex1.Id;
+            foreach (KeyValuePair<int, List<int>> kvp in dictCommunities)
+            {
+                HashSet<Node<T>> communityNodes = new HashSet<Node<T>>();
+                foreach (int i in kvp.Value)
+                {
+                    Node<T> node = GetNodeById(i);
+                    communityNodes.Add(GetNodeById(i));
+                    node.CommunityId = kvp.Key;
+                }
+                Community<T> community = new Community<T>(kvp.Key, communityNodes);
+                foreach (Node<T> node in communityNodes)
+                {
+                    node.Community = community;
+                }
+                Communities.Add(community);
+            }
         }
-
-        // If Equals() returns true for a pair of objects 
-        // then GetHashCode() must return the same value for these objects.
-
-        public int GetHashCode(Edge<User> edge)
-        {
-            //Get hash code for the Name field if it is not null.
-            int Vertex1hash = edge.Vertex1 == null ? 0 : edge.Vertex1.Id.GetHashCode();
-            int Vertex2hash = edge.Vertex2 == null ? 0 : edge.Vertex2.Id.GetHashCode();
-
-            //Calculate the hash code for the product.
-            return Vertex1hash ^ Vertex2hash;
-        }
-
     }
 }

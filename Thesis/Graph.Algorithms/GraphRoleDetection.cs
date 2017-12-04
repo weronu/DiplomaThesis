@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Domain.DomainClasses;
 using Domain.Enums;
 using Domain.GraphClasses;
@@ -21,11 +22,11 @@ namespace Graph.Algorithms
         /// </summary>
         public void ExtractOutsiders()
         {
-            foreach (Vertex<T> vertex in _graph.Vertices)
+            foreach (Node<T> node in _graph.Nodes)
             {
-                if (vertex.Community == null)
+                if (node.Community == null)
                 {
-                    vertex.Role = Role.Outsider;
+                    node.Role = Role.Outsider;
                 }
             }
         }
@@ -41,10 +42,10 @@ namespace Graph.Algorithms
                 double standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
                 double thresholdForLeaders = meanClosenessCentralityMeanInCommunity + (2 * standartDeviationClosenessCentrality);
 
-                foreach (Vertex<T> vertex in community.CommunityVertices)
+                foreach (Node<T> node in community.CommunityNodes)
                 {
-                    if (vertex.ClosenessCentralityInCommunity > thresholdForLeaders)
-                        vertex.Role = Role.Leader;
+                    if (node.ClosenessCentralityInCommunity > thresholdForLeaders)
+                        node.Role = Role.Leader;
                 }
             }
         }
@@ -52,35 +53,34 @@ namespace Graph.Algorithms
         /// <summary>
         /// Extracts mediators from a graph
         /// </summary>
-        public void ExtractMediators(List<Vertex<T>> orderedNodes)
+        public void ExtractMediators(HashSet<Node<T>> orderedNodes)
         {
-            List<Vertex<T>> mediatorSet = new List<Vertex<T>>();
-            List<Community<T>> connectedComs = new List<Community<T>>();
-            while (connectedComs.Count < _graph.Communities.Count)
+            HashSet<Node<T>> mediatorSet = new HashSet<Node<T>>();
+            HashSet<Community<T>> connectedCommunities = new HashSet<Community<T>>();
+            while (connectedCommunities.Count < _graph.Communities.Count && orderedNodes.Count != 0)
             {
-                Vertex<T> n = orderedNodes[0];
-                foreach (Community<T> community in _graph.GetIncidentCommunitiesOfVertex(n))
+                Node<T> node = orderedNodes.First();
+                foreach (Community<T> community in _graph.GetIncidentCommunitiesOfNode(node))
                 {
-                    if (!connectedComs.Contains(community))
+                    if (connectedCommunities.All(x => x.Id != community.Id))
                     {
-                        if (!mediatorSet.Contains(n))
+                        if (mediatorSet.All(x => x.Id != node.Id))
                         {
-                            mediatorSet.Add(n);
+                            mediatorSet.Add(node);
                         }
-                        connectedComs.Add(community);
+                        connectedCommunities.Add(community);
                     }
                 }
-                orderedNodes.Remove(n);
+                orderedNodes.Remove(node);
             }
 
-            foreach (Vertex<T> vertex in mediatorSet)
+            foreach (Node<T> node in mediatorSet)
             {
-                if (vertex.Role == 0)
+                if (node.Role == 0)
                 {
-                    vertex.Role = Role.Mediator;
+                    node.Role = Role.Mediator;
                 }
             }
-               
         }
 
         /// <summary>
@@ -94,11 +94,11 @@ namespace Graph.Algorithms
                 double standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
                 double thresholdForOutermosts = meanClosenessCentralityMeanInCommunity - (2 * standartDeviationClosenessCentrality); //mean - 2*standart deviation
 
-                foreach (Vertex<T> vertex in community.CommunityVertices)
+                foreach (Node<T> node in community.CommunityNodes)
                 {
-                    if (vertex.ClosenessCentralityInCommunity < thresholdForOutermosts)
+                    if (node.ClosenessCentralityInCommunity < thresholdForOutermosts)
                     {
-                        vertex.Role = Role.Outermost;
+                        node.Role = Role.Outermost;
                     }
                 }
             }

@@ -75,6 +75,26 @@
     <Compile Include="Migrations\201711081628388_migration3.Designer.cs">
       <DependentUpon>201711081628388_migration3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712011914173_migration4.cs" />
+    <Compile Include="Migrations\201712011914173_migration4.Designer.cs">
+      <DependentUpon>201712011914173_migration4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712011947256_migration5.cs" />
+    <Compile Include="Migrations\201712011947256_migration5.Designer.cs">
+      <DependentUpon>201712011947256_migration5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712011948518_migration6.cs" />
+    <Compile Include="Migrations\201712011948518_migration6.Designer.cs">
+      <DependentUpon>201712011948518_migration6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712031554489_migration7.cs" />
+    <Compile Include="Migrations\201712031554489_migration7.Designer.cs">
+      <DependentUpon>201712031554489_migration7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712032105111_migration8.cs" />
+    <Compile Include="Migrations\201712032105111_migration8.Designer.cs">
+      <DependentUpon>201712032105111_migration8.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="ThesisDbContext.cs" />
@@ -108,6 +128,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711081628388_migration3.resx">
       <DependentUpon>201711081628388_migration3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712011914173_migration4.resx">
+      <DependentUpon>201712011914173_migration4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712011947256_migration5.resx">
+      <DependentUpon>201712011947256_migration5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712011948518_migration6.resx">
+      <DependentUpon>201712011948518_migration6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712031554489_migration7.resx">
+      <DependentUpon>201712031554489_migration7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712032105111_migration8.resx">
+      <DependentUpon>201712032105111_migration8.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

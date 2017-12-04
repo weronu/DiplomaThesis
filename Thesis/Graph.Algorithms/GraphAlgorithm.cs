@@ -19,21 +19,21 @@ namespace Graph.Algorithms
         /// <summary>
         /// Returns all shortest paths in a graph
         /// </summary>
-        public HashSet<ShortestPathSet<T>> GetAllShortestPathsInGraph(HashSet<Vertex<T>> vertices)
+        public HashSet<ShortestPathSet<T>> GetAllShortestPathsInGraph(HashSet<Node<T>> nodes)
         {
             HashSet<ShortestPathSet<T>> shortestPaths = new HashSet<ShortestPathSet<T>>();
-            for (int i = 0; i < vertices.Count; i++)
+            for (int i = 0; i < nodes.Count; i++)
             {
-                Vertex<T> vertexi = vertices.ElementAt(i);
-                for (int j = i + 1; j < vertices.Count; j++)
+                Node<T> nodei = nodes.ElementAt(i);
+                for (int j = i + 1; j < nodes.Count; j++)
                 {
-                    Vertex<T> vertexj = vertices.ElementAt(j);
+                    Node<T> nodej = nodes.ElementAt(j);
                     {
-                        Func<Vertex<T>, HashSet<Vertex<T>>> shortestPath = ShortestPathFunction(vertexi);
-                        HashSet<Vertex<T>> path = shortestPath(vertexj);
-                        shortestPaths.Add(new ShortestPathSet<T>() { StartNode = vertexi, EndNode = vertexj, ShortestPath = path });
-                        IEnumerable<Vertex<T>> reversePath = path.Reverse();
-                        shortestPaths.Add(new ShortestPathSet<T>() { StartNode = vertexj, EndNode = vertexi, ShortestPath = new HashSet<Vertex<T>>(reversePath) });
+                        Func<Node<T>, HashSet<Node<T>>> shortestPath = ShortestPathFunction(nodei);
+                        HashSet<Node<T>> path = shortestPath(nodej);
+                        shortestPaths.Add(new ShortestPathSet<T>() { StartNode = nodei, EndNode = nodej, ShortestPath = path });
+                        IEnumerable<Node<T>> reversePath = path.Reverse();
+                        shortestPaths.Add(new ShortestPathSet<T>() { StartNode = nodej, EndNode = nodei, ShortestPath = new HashSet<Node<T>>(reversePath) });
                     }
                 }
             }
@@ -42,27 +42,27 @@ namespace Graph.Algorithms
 
 
         /// <summary>
-        /// Computes closeness centrality for a vertex
+        /// Computes closeness centrality for a node
         /// </summary>
-        public double GetClosenessCentrality(Vertex<T> startNode, HashSet<ShortestPathSet<T>> shortestPaths)
+        public double GetClosenessCentrality(Node<T> startNode, HashSet<ShortestPathSet<T>> shortestPaths)
         {
-            var n = _graph.Vertices.Count;
-            var sum = shortestPaths.Where(x => (x.StartNode.Id != x.EndNode.Id) && (x.StartNode.Id == startNode.Id)).Select(x => x.ShortestPath.Count - 1).Sum();
+            int n = _graph.Nodes.Count;
+            int sum = shortestPaths.Where(x => (x.StartNode.Id != x.EndNode.Id) && (x.StartNode.Id == startNode.Id)).Select(x => x.ShortestPath.Count - 1).Sum();
 
             return Math.Round((double)n / sum, 2);
         }
 
         /// <summary>
-        /// Computes closeness centrality for vertex in its community
+        /// Computes closeness centrality for node in its community
         /// </summary>
-        public double GetClosenessCentralityInCommunity(Vertex<T> startNode, HashSet<ShortestPathSet<T>> shortestPaths)
+        public double GetClosenessCentralityInCommunity(Node<T> startNode, HashSet<ShortestPathSet<T>> shortestPaths)
         {
             if (_graph.Communities == null) return 0;
 
-            //get vertices community
+            //get nodes community
             Community<T> community = _graph.GetCommunityById(startNode.CommunityId);
-            int n = community.CommunityVertices.Count; //count of vertices in community
-            var sum = shortestPaths.Where(x => x.StartNode == startNode && x.EndNode.CommunityId == startNode.CommunityId).Select(x => x.ShortestPath.Count - 1).Sum();
+            int n = community.CommunityNodes.Count; //count of nodes in community
+            int sum = shortestPaths.Where(x => x.StartNode == startNode && x.EndNode.CommunityId == startNode.CommunityId).Select(x => x.ShortestPath.Count - 1).Sum();
 
             return Math.Round((double)n / sum, 2);
         }
@@ -70,40 +70,40 @@ namespace Graph.Algorithms
         /// <summary>
         /// Shortest path function
         /// </summary>
-        public Func<Vertex<T>, HashSet<Vertex<T>>> ShortestPathFunction(Vertex<T> start)
+        public Func<Node<T>, HashSet<Node<T>>> ShortestPathFunction(Node<T> start)
         {
-            Dictionary<Vertex<T>, Vertex<T>> previous = new Dictionary<Vertex<T>, Vertex<T>>();
+            Dictionary<Node<T>, Node<T>> previous = new Dictionary<Node<T>, Node<T>>();
 
-            Queue<Vertex<T>> queue = new Queue<Vertex<T>>();
+            Queue<Node<T>> queue = new Queue<Node<T>>();
             queue.Enqueue(start);
 
             while (queue.Count > 0)
             {
-                Vertex<T> vertex = queue.Dequeue();
-                HashSet<Vertex<T>> adjacentNodes = _graph.GetAdjacentVertices(vertex);
-                foreach (Vertex<T> neighbor in adjacentNodes)
+                Node<T> node = queue.Dequeue();
+                HashSet<Node<T>> adjacentNodes = _graph.GetAdjacentNodes(node);
+                foreach (Node<T> neighbor in adjacentNodes)
                 {
                     if (previous.Keys.Any(x => x.Id == neighbor.Id))
                     {
                         continue;
                     }
 
-                    previous[neighbor] = vertex;
+                    previous[neighbor] = node;
                     queue.Enqueue(neighbor);
                 }
             }
 
-            Func<Vertex<T>, HashSet<Vertex<T>>> shortestPath = v =>
+            Func<Node<T>, HashSet<Node<T>>> shortestPath = v =>
             {
-                HashSet<Vertex<T>> path = new HashSet<Vertex<T>>();
+                HashSet<Node<T>> path = new HashSet<Node<T>>();
 
-                Vertex<T> current = v;
+                Node<T> current = v;
 
                 while ((current != null) && !current.Equals(start))
                 {
                     path.Add(current);
 
-                    Vertex<T> current1 = current;
+                    Node<T> current1 = current;
                     current = previous.Where(pair => pair.Key.Id == current1.Id)
                         .Select(pair => pair.Value)
                         .FirstOrDefault();
@@ -123,13 +123,13 @@ namespace Graph.Algorithms
         /// </summary>
         public double GetCommunityClosenessCentralityStandartDeviation(Community<T> community)
         {
-            List<double> values = community.CommunityVertices.Select(x => x.ClosenessCentralityInCommunity).ToList<double>();
+            List<double> values = community.CommunityNodes.Select(x => x.ClosenessCentralityInCommunity).ToList<double>();
 
             double sd = 0;
             if (values.Any())
             {
-                var avg = values.Average();
-                var sumOfSquaresOfDifferences = values.Select(val => (val - avg) * (val - avg)).Sum();
+                double avg = values.Average();
+                double sumOfSquaresOfDifferences = values.Select(val => (val - avg) * (val - avg)).Sum();
                 sd = Math.Sqrt(sumOfSquaresOfDifferences / values.Count);
             }
             return sd;
@@ -140,7 +140,7 @@ namespace Graph.Algorithms
         /// </summary>
         public double GetCommunityClosenessCentralityMean(Community<T> community)
         {
-            return community.CommunityVertices.Select(x => x.ClosenessCentralityInCommunity).Average();
+            return community.CommunityNodes.Select(x => x.ClosenessCentralityInCommunity).Average();
         }
        
         /// <summary>
@@ -165,37 +165,36 @@ namespace Graph.Algorithms
         }
 
         /// <summary>
-        /// Computes CBetweeness for a vertex in a graph
+        /// Computes CBetweeness for a node in a graph
         /// </summary>
-        public void CBetweeness(Vertex<T> vertex, HashSet<ShortestPathSet<T>> cPath)
+        public void CBetweeness(Node<T> node, HashSet<ShortestPathSet<T>> cPath)
         {
-            var i = 0;
-
-            if (cPath.Any(x => x.ShortestPath.Contains(vertex)))
+            int i = 0;
+            if (cPath.Any(x => x.ShortestPath.Any(y => y.Id == node.Id)))
             {
                 i += 1;
             }
-            vertex.CBetweeness = i / 2;
+            node.CBetweeness = i / 2;
         }
 
         /// <summary>
-        /// Computes normalized CBetweeness for a vertex in a graph
+        /// Computes normalized CBetweeness for a node in a graph
         /// </summary>
-        public double NormalizedCBC(Vertex<T> vertex, HashSet<ShortestPathSet<T>> cPath)
+        public double NormalizedCBC(Node<T> node, HashSet<ShortestPathSet<T>> cPath)
         {
-            var sum = 0.0;
+            double sum = 0.0;
 
             foreach (ShortestPathSet<T> pathSet in cPath)
             {
                 Community<T> csp = _graph.GetCommunityById(pathSet.StartNode.CommunityId);
                 Community<T> cep = _graph.GetCommunityById(pathSet.EndNode.CommunityId);
-                var ip = 0;
+                int ip = 0;
 
-                if (CBCId(pathSet, vertex))
+                if (CBCId(pathSet, node))
                 {
                     ip = 1;
                 }
-                var min = Math.Min(csp.CommunityVertices.Count, cep.CommunityVertices.Count);
+                int min = Math.Min(csp.CommunityNodes.Count, cep.CommunityNodes.Count);
                 double frac = (double)ip / min;
                 sum += frac;
 
@@ -203,88 +202,78 @@ namespace Graph.Algorithms
             return (double)sum / 2;
         }
 
-        private bool CBCId(ShortestPathSet<T> pathSet, Vertex<T> vertex)
+        private bool CBCId(ShortestPathSet<T> pathSet, Node<T> node)
         {
-            return pathSet.ShortestPath.Contains(vertex);
+            return pathSet.ShortestPath.Any(x => x.Id == node.Id);
         }
 
         /// <summary>
-        /// Computes number of distinct communities passing thourgh vertex 
+        /// Computes number of distinct communities passing thourgh node 
         /// </summary>
-        public double DSCount(Vertex<T> vertex, HashSet<ShortestPathSet<T>> cPath)
+        public double DSCount(Node<T> node, HashSet<ShortestPathSet<T>> cPath)
         {
-            int i = 0;
-            foreach (Community<T> community in _graph.Communities)
-            {
-                if (DsCountId(cPath, community, vertex))
-                {
-                    i += 1;
-                }
-            }
+            int i = _graph.Communities.Count(community => DsCountId(cPath, community, node));
             return (double) i / 2;
         }
 
-        private bool DsCountId(HashSet<ShortestPathSet<T>> cPath, Community<T> community, Vertex<T> vertex)
+        private bool DsCountId(IEnumerable<ShortestPathSet<T>> cPath, Community<T> community, Node<T> node)
         {
-            bool res = false;
-            foreach (ShortestPathSet<T> pathSet in cPath)
-            {
-                if (community.CommunityVertices.Contains(pathSet.StartNode) && (pathSet.ShortestPath.Contains(vertex)))
-                {
-                    return true;
-                }
-
-            }
+            bool res = cPath.Any(pathSet => community.CommunityNodes.Any(x => x.Id == pathSet.StartNode.Id) && (pathSet.ShortestPath.Any(x => x.Id == node.Id)));
             return res;
-            //return cPath.Any(x => x.StartNode.CommunityId == community.Id && x.ShortestPath.Contains(vertex));
         }
 
         /// <summary>
-        /// Ordering vertices by their mediacy score
+        /// Ordering nodes by their mediacy score
         /// </summary>
-        public List<Vertex<T>> OrderNodesByMediacyScore()
+        public HashSet<Node<T>> OrderNodesByMediacyScore()
         {
-            return _graph.Vertices.OrderByDescending(x => x.MediacyScore).ToList();
+            return new HashSet<Node<T>>((_graph.Nodes.OrderByDescending(x => x.MediacyScore).ToList()));
         }
 
 
         /// <summary>
-        /// Set normalized CBetweeness for each vertex in its community
+        /// Set normalized CBetweeness for each node in its community
         /// </summary>
         public void SetDSCountForEachNode(HashSet<ShortestPathSet<T>> cPaths)
         {
-            foreach (Vertex<T> vertex in _graph.Vertices)
-                vertex.DSCount = DSCount(vertex, cPaths);
+            foreach (Node<T> node in _graph.Nodes)
+            {
+                node.DSCount = DSCount(node, cPaths);
+            }
         }
 
 
         /// <summary>
-        /// Sets closeness centrality for each vertex in a graph
+        /// Sets closeness centrality for each node in a graph
         /// </summary>
         public void SetClosenessCentralityForEachNode(HashSet<ShortestPathSet<T>> allShortestPathSets)
         {
-            foreach (Vertex<T> vertex in _graph.Vertices)
+            foreach (Node<T> node in _graph.Nodes)
             {
-                vertex.ClosenessCentrality = GetClosenessCentrality(vertex, allShortestPathSets);
+                node.ClosenessCentrality = GetClosenessCentrality(node, allShortestPathSets);
             }
         }
 
         /// <summary>
-        /// Set closeness centrality for each vertex in its community
+        /// Set closeness centrality for each node in its community
         /// </summary>
         public void SetClosenessCentralityForEachNodeInCommunity(HashSet<ShortestPathSet<T>> allShortestPathSets)
         {
-            foreach (Vertex<T> vertex in _graph.Vertices)
-                vertex.ClosenessCentralityInCommunity = GetClosenessCentralityInCommunity(vertex, allShortestPathSets);
+            foreach (Node<T> node in _graph.Nodes)
+            {
+                node.ClosenessCentralityInCommunity = GetClosenessCentralityInCommunity(node, allShortestPathSets);
+            }
         }
 
         /// <summary>
-        /// Set normalized CBetweeness for each vertex in its community
+        /// Set normalized CBetweeness for each node in its community
         /// </summary>
         public void SetNCBCForEachNode(HashSet<ShortestPathSet<T>> cPaths)
         {
-            foreach (Vertex<T> vertex in _graph.Vertices)
-                vertex.NormalizedCBC = NormalizedCBC(vertex, cPaths);
+            foreach (Node<T> node in _graph.Nodes)
+            {
+                node.NormalizedCBC = NormalizedCBC(node, cPaths);
+            }
         }
 
         /// <summary>
@@ -293,7 +282,9 @@ namespace Graph.Algorithms
         public void SetMeanClosenessCentralityForEachCommunity()
         {
             foreach (Community<T> community in _graph.Communities)
+            {
                 community.ClosenessCentralityMean = GetCommunityClosenessCentralityMean(community);
+            }
         }
 
         /// <summary>
@@ -302,7 +293,9 @@ namespace Graph.Algorithms
         public void SetStandartDeviationForClosenessCentralityForEachCommunity()
         {
             foreach (Community<T> community in _graph.Communities)
+            {
                 community.ClosenessCentralityStandartDeviation = GetCommunityClosenessCentralityStandartDeviation(community);
+            }
         }
     }
 }

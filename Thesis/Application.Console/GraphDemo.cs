@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Linq;
 using Domain.DomainClasses;
+using Domain.Enums;
 using Domain.GraphClasses;
 using Graph.Algorithms;
 using Repository.MSSQL;
@@ -13,31 +14,35 @@ namespace Application.Console
     {
         public void CreateGraphDemo()
         {
-
+            const string path = @"C:\Users\veronika.uhrova\Desktop\Diplomka\results\";
             HashSet<Edge<User>> edges;
-            HashSet<Vertex<User>> vertices;
+            HashSet<Node<User>> vertices;
+
+            Stopwatch test01 = new Stopwatch();
+            test01.Start();
 
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork("GLEmailsDatabase"))
             {
                 edges = uow.GraphRepo.ExtractEdgesFromConversation();
-                //vertices = uow.GraphRepo.ExtractVerticesFromEdges(edges);
-                vertices = new HashSet<Vertex<User>>(uow.GraphRepo.ExtractVerticesFromConversations().OrderByDescending(x => x.Id).ToList());
+                vertices = new HashSet<Node<User>>(uow.GraphRepo.ExtractVerticesFromConversations().OrderByDescending(x => x.Id).ToList());
             }
 
-            Graph<User> graph = new Graph<User>();
+            Graph<User> graph = new Graph<User>
+            {
+                Nodes = new HashSet<Node<User>>(vertices.OrderByDescending(x => x.Id).ToList())
+            };
 
-            graph.Vertices = new HashSet<Vertex<User>>(vertices.OrderByDescending(x => x.Id).ToList());
             foreach (Edge<User> edge in edges)
             {
-                graph.AddVertex(edge.Vertex1);
-                graph.AddVertex(edge.Vertex2);
+                graph.AddNode(edge.Node1);
+                graph.AddNode(edge.Node2);
             }
             foreach (Edge<User> edge in edges)
             {
                 graph.AddEdge(edge);
             }
 
-            //FileManager.FileWriter.CreateFile(graph, "D:/graph.txt");
+           
             graph.SetDegrees();
             int maximalDegree = graph.GetMaximalDegree();
             int degreeMean = graph.GetDegreeMean();
@@ -50,12 +55,41 @@ namespace Application.Console
             System.Console.WriteLine(@"Average degree: {0}", degreeMean);
             System.Console.WriteLine(@"Creating gephi file ...");
 
+            FileManager.FileWriter.CreateGephiFile(graph, path + "basegraph_tpalatka.gml", false);
+
+            //creating ego network
+            EgoNetwork egoNetwork = new EgoNetwork();
+
+            HashSet<HashSet<Node<User>>> subGraphs = egoNetwork.FindConectedSubgraphs(graph);
+            foreach (HashSet<Node<User>> subGraph in subGraphs)
+            {
+                foreach (Node<User> node in subGraph)
+                {
+                    System.Console.WriteLine(node.Id);
+                }
+                System.Console.WriteLine(@"-------------");
+            }
+            Node<User> egoNetworkCenter = graph.GetNodeById(272);
+            HashSet<Node<User>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
+
+            foreach (Node<User> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
+            {
+                Edge<User> newEdge = new Edge<User>()
+                {
+                    Node1 = egoNetworkCenter,
+                    Node2 = node
+                };
+                graph.AddEdge(newEdge);
+            }
+
+            FileManager.FileWriter.CreateGephiFile(graph, path + "egograph_tpalatka.gml", false);
+
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Restart();
             Dictionary<int, int> partition = LouvainCommunity.BestPartition(graph);
             System.Console.WriteLine(@"BestPartition: {0}", stopwatch.Elapsed);
             var communities = new Dictionary<int, List<int>>();
-            foreach (var kvp in partition)
+            foreach (KeyValuePair<int, int> kvp in partition)
             {
                 List<int> nodeset;
                 if (!communities.TryGetValue(kvp.Value, out nodeset))
@@ -66,19 +100,70 @@ namespace Application.Console
             }
             System.Console.WriteLine(@"{0} communities found", communities.Count);
             int counter = 0;
-            foreach (var kvp in communities)
+            foreach (KeyValuePair<int, List<int>> kvp in communities)
             {
                 System.Console.WriteLine(@"community {0}: {1} people", counter, kvp.Value.Count);
                 counter++;
             }
-            System.Console.ReadLine();
 
-            FileManager.FileWriter.CreateGephiFile(graph, "D:/graph.gml", false);
+            graph.SetCommunities(communities);
 
+            
+            GraphAlgorithm<User> algorithms = new GraphAlgorithm<User>(graph);
+            HashSet<ShortestPathSet<User>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
+
+            //setting closeness centrality
+            algorithms.SetClosenessCentralityForEachNode(shortestPaths);
+
+            //setting closeness centrality for community
+            algorithms.SetClosenessCentralityForEachNodeInCommunity(shortestPaths);
+
+            //community closeness centrality mean and standart deviation
+            algorithms.SetMeanClosenessCentralityForEachCommunity();
+            algorithms.SetStandartDeviationForClosenessCentralityForEachCommunity();
+
+            //cPaths for nCBC measure
+            HashSet<ShortestPathSet<User>> cPaths = algorithms.CPaths(shortestPaths);
+
+            //setting nCBC for each node
+            algorithms.SetNCBCForEachNode(cPaths);
+
+            //setting DSCount for each node
+            algorithms.SetDSCountForEachNode(cPaths);
+
+            GraphRoleDetection<User> roleDetection = new GraphRoleDetection<User>(graph, algorithms);
+            roleDetection.ExtractOutsiders();
+            roleDetection.ExtractLeaders();
+            roleDetection.ExtractOutermosts();
+
+            //sorting nodes by their mediacy score
+            HashSet<Node<User>> sortedNodes = algorithms.OrderNodesByMediacyScore();
+            roleDetection.ExtractMediators(sortedNodes);
+
+            FileManager.FileWriter.CreateGephiFile(graph, path + "rolesgraph_tpalatka.gml");
+
+
+            IEnumerable<Node<User>> leaders = graph.Nodes.Where(x => x.Role == Role.Leader).ToList();
+            IEnumerable<Node<User>> mediators = graph.Nodes.Where(x => x.Role == Role.Mediator).ToList();
+            IEnumerable<Node<User>> outermosts = graph.Nodes.Where(x => x.Role == Role.Outermost).ToList();
+            IEnumerable<Node<User>> outsiders = graph.Nodes.Where(x => x.Role == Role.Outsider).ToList();
+
+            int leadersCount = leaders.Count();
+            int mediatorsCount = mediators.Count();
+            int outermostsCount = outermosts.Count();
+            int outsidersCount = outsiders.Count();
+
+
+            System.Console.WriteLine(@"Extracted {0} leaders.", leadersCount);
+            System.Console.WriteLine(@"Extracted {0} mediators.", mediatorsCount);
+            System.Console.WriteLine(@"Extracted {0} outermosts.", outermostsCount);
+            System.Console.WriteLine(@"Extracted {0} outsiders.", outsidersCount);
+
+            test01.Stop();
             System.Console.WriteLine(@"Done");
+            System.Console.WriteLine($@"Execution time: {test01.Elapsed}");
             System.Console.ReadKey();
+
         }
-
-
     }
 }

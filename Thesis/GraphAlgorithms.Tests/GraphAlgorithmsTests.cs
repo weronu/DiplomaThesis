@@ -32,7 +32,7 @@ namespace GraphAlgorithms.Tests
 
 
             graph.GetEdgesCount();
-            HashSet<ShortestPathSet<User>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Vertices);
+            HashSet<ShortestPathSet<User>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
 
             //setting closeness centrality
             algorithms.SetClosenessCentralityForEachNode(shortestPaths);
@@ -58,7 +58,7 @@ namespace GraphAlgorithms.Tests
             roleDetection.ExtractOutermosts();
 
             //sorting nodes by their mediacy score
-            List<Vertex<User>> sortedNodes = algorithms.OrderNodesByMediacyScore();
+            HashSet<Node<User>> sortedNodes = algorithms.OrderNodesByMediacyScore();
             roleDetection.ExtractMediators(sortedNodes);
         }
     }
