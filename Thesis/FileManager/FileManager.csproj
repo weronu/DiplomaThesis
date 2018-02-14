@@ -52,9 +52,9 @@
       <Project>{33338734-71ef-4c86-8ad1-4e339d52e694}</Project>
       <Name>Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Graph.Algorithms\Graph.Algorithms.csproj">
+    <ProjectReference Include="..\Graph.Algorithms\Thesis.Algorithms.csproj">
       <Project>{8d518857-8db3-4778-9c2b-7a9714b7cbf5}</Project>
-      <Name>Graph.Algorithms</Name>
+      <Name>Thesis.Algorithms</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

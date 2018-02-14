@@ -135,6 +135,17 @@ namespace Domain.GraphClasses
             AddEdge(edge);
         }
 
+        public void CreateGraph(HashSet<Edge<T>> edges)
+        {
+            foreach (Edge<T> edge in edges)
+            {
+                AddNode(edge.Node1);
+                AddNode(edge.Node2);
+
+                AddEdge(edge);
+            }
+        }
+
         /// <summary>
         /// Sets degree for each node in a graph
         /// </summary>

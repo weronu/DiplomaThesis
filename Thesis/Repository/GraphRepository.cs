@@ -115,8 +115,6 @@ namespace Repository.MSSQL
                         Emails = grp.ToList()
                     });
 
-            List<int> conversations = GetConversations();
-
             HashSet<Edge<User>> edgesWithDuplicates = new HashSet<Edge<User>>();
 
             foreach (ConversationEmails email in conversationEmails)
@@ -128,11 +126,14 @@ namespace Repository.MSSQL
                     {
                         Node1 = new Node<User>()
                         {
-                            Id = conversationEmailSet1.Sender.Id
+                            Id = conversationEmailSet1.Sender.Id,
+                            NodeElement = conversationEmailSet1.Sender
+                           
                         },
                         Node2 = new Node<User>()
                         {
-                            Id = conversationEmailSet2.Sender.Id
+                            Id = conversationEmailSet2.Sender.Id,
+                            NodeElement = conversationEmailSet2.Sender
                         },
                         Weight = 2
                     });

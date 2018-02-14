@@ -13,8 +13,6 @@ namespace Repository.MSSQL
         private IGraphRepository _graphRepository;
         private IConversationRepository _convRepository;
 
-        private DbContextTransaction contextTransaction;
-
         public UnitOfWork(string connectionString)
         {
             _dbContext = new ThesisDbContext(connectionString);
@@ -84,7 +82,6 @@ namespace Repository.MSSQL
             {
                 if (disposing)
                 {
-                    contextTransaction?.Dispose();
                     _dbContext.Dispose();
                 }
             }

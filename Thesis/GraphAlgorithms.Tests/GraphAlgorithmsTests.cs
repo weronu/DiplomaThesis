@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using Domain.DomainClasses;
 using Domain.GraphClasses;
-using NUnit.Framework;
 using Graph.Algorithms;
-using Repository.MSSQL;
+using NUnit.Framework;
 using Repository.MSSQL.Interfaces;
 using Repository.MSSQL.Tests.Integration;
 
@@ -14,7 +13,6 @@ namespace GraphAlgorithms.Tests
         [Test]
         public void RunApp_Test()
         {
-            string connectionString = "";
             Graph<User> graph = new Graph<User>();
             GraphAlgorithm<User> algorithms = new GraphAlgorithm<User>(graph);
             GraphRoleDetection<User> roleDetection = new GraphRoleDetection<User>(graph, algorithms);
