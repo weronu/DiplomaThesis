@@ -18,5 +18,6 @@ namespace Domain.GraphClasses
 
         public double MediacyScore => NormalizedCBC * DSCount;
 
+        public T NodeElement { get; set; }
     }
 }

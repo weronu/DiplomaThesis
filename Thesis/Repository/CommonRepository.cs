@@ -44,7 +44,7 @@ namespace Repository.MSSQL
             base.Update(e);
         }
 
-        public void Delete<TEntity>(int entityId) where TEntity : DomainBase
+        public new void Delete<TEntity>(int entityId) where TEntity : DomainBase
         {
             base.Delete<TEntity>(entityId); 
         }

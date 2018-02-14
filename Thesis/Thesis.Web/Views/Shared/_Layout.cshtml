@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Thesis - UHR0019</title>
+    @Styles.Render("~/Content/css")  
+    <script type="text/javascript" src="~/Content/vis/vis.js"></script>
+    <link href="~/Content/vis/vis-network.min.css" rel="stylesheet" type="text/css" />
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <meta name="description" content="The description of my page" />
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+</head>
+<body>
+<nav>
+    <ul class="nav justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" href="@Url.Action("About", "")">About</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active home" href="@Url.Action("Index", "")">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" href="@Url.Action("Contact", "")">Contact</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container-fluid body-content">
+    @RenderBody()
+</div>
+
+@Scripts.Render("~/bundles/modernizr")
+@Scripts.Render("~/Content/vis")   
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</body>
+</html>
