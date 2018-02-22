@@ -2,7 +2,7 @@
 
 namespace Domain.GraphClasses
 {
-    public class Edge<T> where T : DomainBase
+    public class Edge<T> 
     {
         public Node<T> Node1 { get; set; }
         public Node<T> Node2 { get; set; }

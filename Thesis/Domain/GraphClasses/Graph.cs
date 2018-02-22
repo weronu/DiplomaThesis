@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.DomainClasses;
 using Domain.Enums;
 
 namespace Domain.GraphClasses
 {
-    public class Graph<T> where T: DomainBase
+    public class Graph<T>
     {
         public HashSet<Node<T>> Nodes { get; set; }
         public HashSet<Edge<T>> Edges { get; set; }
-        public Dictionary<int, HashSet<Node<T>>> GraphSet { get; set; }
+
+        public Dictionary<string, HashSet<Node<T>>> GraphSet => ToJsonDictionary(_graphSet);
+
+        [NonSerialized]
+        private readonly Dictionary<int, HashSet<Node<T>>> _graphSet;
+
         public HashSet<Community<T>> Communities { get; set; }
 
         public double Size
@@ -24,8 +30,16 @@ namespace Domain.GraphClasses
         {
             Edges = new HashSet<Edge<T>>();
             Nodes = new HashSet<Node<T>>();
-            GraphSet = new Dictionary<int, HashSet<Node<T>>>();
+            _graphSet = new Dictionary<int, HashSet<Node<T>>>();
             Communities = new HashSet<Community<T>>();
+        }
+
+        private Dictionary<string, HashSet<Node<T>>> ToJsonDictionary(Dictionary<int, HashSet<Node<T>>> input)
+        {
+            Dictionary<string, HashSet<Node<T>>> output = new Dictionary<string, HashSet<Node<T>>>(input.Count);
+            foreach (KeyValuePair<int, HashSet<Node<T>>> pair in input)
+                output.Add(pair.Key.ToString(), pair.Value);
+            return output;
         }
 
         /// <summary>
@@ -46,7 +60,7 @@ namespace Domain.GraphClasses
         {
             List<Edge<T>> incidentEdges = GetIncidentEdges(node).ToList();
 
-            double loop = incidentEdges.Where(x => x.SelfLoop == true).Select(x => x.Weight).Sum();
+            double loop = incidentEdges.Where(x => x.SelfLoop).Select(x => x.Weight).Sum();
             double degree = incidentEdges.Sum(x => x.Weight) + loop;
 
             return degree;
@@ -88,24 +102,24 @@ namespace Domain.GraphClasses
                 Edges.Add(edge);
             }
 
-            if (!GraphSet.ContainsKey(edge.Node1.Id))
+            if (!_graphSet.ContainsKey(edge.Node1.Id))
             {
-                GraphSet.Add(edge.Node1.Id, new HashSet<Node<T>>());
+                _graphSet.Add(edge.Node1.Id, new HashSet<Node<T>>());
             }
 
-            if (!GraphSet.ContainsKey(edge.Node2.Id))
+            if (!_graphSet.ContainsKey(edge.Node2.Id))
             {
-                GraphSet.Add(edge.Node2.Id, new HashSet<Node<T>>());
+                _graphSet.Add(edge.Node2.Id, new HashSet<Node<T>>());
             }
 
-            if (GraphSet.ContainsKey(edge.Node1.Id))
+            if (_graphSet.ContainsKey(edge.Node1.Id))
             {
-                GraphSet[edge.Node1.Id].Add(edge.Node2);
+                _graphSet[edge.Node1.Id].Add(edge.Node2);
             }
 
-            if (GraphSet.ContainsKey(edge.Node2.Id))
+            if (_graphSet.ContainsKey(edge.Node2.Id))
             {
-                GraphSet[edge.Node2.Id].Add(edge.Node1);
+                _graphSet[edge.Node2.Id].Add(edge.Node1);
             }
             SetEdgeWeight(edge, weight);
         }
@@ -269,7 +283,7 @@ namespace Domain.GraphClasses
         /// </summary>
         public HashSet<Node<T>> GetAdjacentNodes(Node<T> node)
         {
-            return GraphSet[node.Id];
+            return _graphSet[node.Id];
         }
 
         /// <summary>

@@ -3,7 +3,7 @@ using Domain.Enums;
 
 namespace Domain.GraphClasses
 {
-    public class Node<T> where T : DomainBase
+    public class Node<T>
     {
         public int Id { get; set; }
         public int Degree { get; set; }

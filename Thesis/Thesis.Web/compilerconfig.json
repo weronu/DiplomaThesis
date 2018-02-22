@@ -2,5 +2,9 @@
   {
     "outputFile": "Content/custom.css",
     "inputFile": "Content/custom.scss"
+  },
+  {
+    "outputFile": "Content/constants.css",
+    "inputFile": "Content/constants.scss"
   }
 ]

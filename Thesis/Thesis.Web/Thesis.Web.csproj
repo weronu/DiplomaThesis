@@ -183,7 +183,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DTOs\TeamMemberDto.cs" />
-    <Compile Include="Models\TeamMemberViewModel.cs" />
+    <Compile Include="Models\GraphViewModel.cs" />
     <Compile Include="Models\VisGraphViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -194,12 +194,19 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\constants.css">
+      <DependentUpon>constants.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\constants.min.css">
+      <DependentUpon>constants.css</DependentUpon>
+    </Content>
     <Content Include="Content\custom.css">
       <DependentUpon>custom.scss</DependentUpon>
     </Content>
     <Content Include="Content\custom.min.css">
       <DependentUpon>custom.css</DependentUpon>
     </Content>
+    <Content Include="Content\fontawesomeall.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -228,6 +235,7 @@
     </None>
     <Content Include="Content\constants.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -235,35 +243,36 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jqueryblockUI.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Content\vis\img\network\acceptDeleteIcon.png" />
-    <Content Include="Content\vis\img\network\addNodeIcon.png" />
-    <Content Include="Content\vis\img\network\backIcon.png" />
-    <Content Include="Content\vis\img\network\connectIcon.png" />
-    <Content Include="Content\vis\img\network\cross.png" />
-    <Content Include="Content\vis\img\network\cross2.png" />
-    <Content Include="Content\vis\img\network\deleteIcon.png" />
-    <Content Include="Content\vis\img\network\downArrow.png" />
-    <Content Include="Content\vis\img\network\editIcon.png" />
-    <Content Include="Content\vis\img\network\leftArrow.png" />
-    <Content Include="Content\vis\img\network\minus.png" />
-    <Content Include="Content\vis\img\network\plus.png" />
-    <Content Include="Content\vis\img\network\rightArrow.png" />
-    <Content Include="Content\vis\img\network\upArrow.png" />
-    <Content Include="Content\vis\img\network\zoomExtends.png" />
-    <Content Include="Content\vis\vis-graph3d.min.js" />
+    <Content Include="Scripts\vis\img\network\acceptDeleteIcon.png" />
+    <Content Include="Scripts\vis\img\network\addNodeIcon.png" />
+    <Content Include="Scripts\vis\img\network\backIcon.png" />
+    <Content Include="Scripts\vis\img\network\connectIcon.png" />
+    <Content Include="Scripts\vis\img\network\cross.png" />
+    <Content Include="Scripts\vis\img\network\cross2.png" />
+    <Content Include="Scripts\vis\img\network\deleteIcon.png" />
+    <Content Include="Scripts\vis\img\network\downArrow.png" />
+    <Content Include="Scripts\vis\img\network\editIcon.png" />
+    <Content Include="Scripts\vis\img\network\leftArrow.png" />
+    <Content Include="Scripts\vis\img\network\minus.png" />
+    <Content Include="Scripts\vis\img\network\plus.png" />
+    <Content Include="Scripts\vis\img\network\rightArrow.png" />
+    <Content Include="Scripts\vis\img\network\upArrow.png" />
+    <Content Include="Scripts\vis\img\network\zoomExtends.png" />
+    <Content Include="Scripts\vis\vis-graph3d.min.js" />
     <Content Include="Content\vis\vis-network.min.css" />
-    <Content Include="Content\vis\vis-network.min.js" />
+    <Content Include="Scripts\vis\vis-network.min.js" />
     <Content Include="Content\vis\vis-timeline-graph2d.min.css" />
-    <Content Include="Content\vis\vis-timeline-graph2d.min.js" />
+    <Content Include="Scripts\vis\vis-timeline-graph2d.min.js" />
     <Content Include="Content\vis\vis.css" />
-    <Content Include="Content\vis\vis.js" />
+    <Content Include="Scripts\vis\vis.js" />
     <Content Include="Content\vis\vis.min.css" />
-    <Content Include="Content\vis\vis.min.js" />
+    <Content Include="Scripts\vis\vis.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -281,8 +290,8 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\TeamMembersEmailGraphs\TeamMembersEmailGraphsView.cshtml" />
-    <Content Include="Content\vis\vis.map" />
-    <Content Include="Content\vis\vis.js.map" />
+    <Content Include="Scripts\vis\vis.map" />
+    <Content Include="Scripts\vis\vis.js.map" />
     <Content Include="webfonts\fa-brands-400.svg" />
     <Content Include="webfonts\fa-regular-400.svg" />
     <Content Include="webfonts\fa-solid-900.svg" />
@@ -315,6 +324,10 @@
     <ProjectReference Include="..\Domain\Thesis.Domain.csproj">
       <Project>{33338734-71ef-4c86-8ad1-4e339d52e694}</Project>
       <Name>Thesis.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Graph.Algorithms\Thesis.Algorithms.csproj">
+      <Project>{8D518857-8DB3-4778-9C2B-7A9714B7CBF5}</Project>
+      <Name>Thesis.Algorithms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Repository\Thesis.Repository.MSSQL.csproj">
       <Project>{d6f7c46e-4415-4a7e-b49a-c5ff7b75c554}</Project>

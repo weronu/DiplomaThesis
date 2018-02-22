@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.DomainClasses;
+using Domain.DTOs;
 using Domain.GraphClasses;
 using MoreLinq;
 
@@ -14,29 +14,29 @@ namespace Graph.Algorithms
         /// </summary>
         /// <param name="graph"></param>
         /// <returns>Collection of collections with nodes, that form a connected subgraph</returns>
-        public HashSet<HashSet<Node<User>>> FindConectedSubgraphs(Graph<User> graph)
+        public HashSet<HashSet<Node<UserDto>>> FindConectedSubgraphs(Graph<UserDto> graph)
         {
-            HashSet<HashSet<Node<User>>> subGraphs = new HashSet<HashSet<Node<User>>>();
-            foreach (Edge<User> edge in graph.Edges)
+            HashSet<HashSet<Node<UserDto>>> subGraphs = new HashSet<HashSet<Node<UserDto>>>();
+            foreach (Edge<UserDto> edge in graph.Edges)
             {
                 if (!subGraphs.Any(x => x.Any(y => y.Id == edge.Node1.Id) || x.Any(y => y.Id == edge.Node2.Id)))
                 {
-                    subGraphs.Add(new HashSet<Node<User>>() { edge.Node1, edge.Node2 }); //con.X is not part of any group, so we can create a new one with X and Y added, since both a are in the group       
+                    subGraphs.Add(new HashSet<Node<UserDto>>() { edge.Node1, edge.Node2 }); //con.X is not part of any group, so we can create a new one with X and Y added, since both a are in the group       
                 }
                 else
                 {
                     if (subGraphs.Count(x => x.Any(y => y.Id == edge.Node1.Id) || x.Any(y => y.Id == edge.Node2.Id)) == 1)
                     {
-                        HashSet<Node<User>> group = subGraphs.First(g => g.Any(x => x.Id == edge.Node1.Id) || g.Any(y => y.Id == edge.Node2.Id));
+                        HashSet<Node<UserDto>> group = subGraphs.First(g => g.Any(x => x.Id == edge.Node1.Id) || g.Any(y => y.Id == edge.Node2.Id));
                         if (group.All(y => y.Id != edge.Node1.Id)) group.Add(edge.Node1);
                         if (group.All(y => y.Id != edge.Node2.Id)) group.Add(edge.Node2);
                     }
                     if (subGraphs.Count(x => x.Any(y => y.Id == edge.Node1.Id) || x.Any(y => y.Id == edge.Node2.Id)) > 1)
                     {
-                        HashSet<Node<User>> groupUnion = new HashSet<Node<User>>();
-                        foreach (HashSet<Node<User>> grp in subGraphs.Where(g => g.Any(x => x.Id == edge.Node1.Id) || g.Any(y => y.Id == edge.Node2.Id)).ToList())
+                        HashSet<Node<UserDto>> groupUnion = new HashSet<Node<UserDto>>();
+                        foreach (HashSet<Node<UserDto>> grp in subGraphs.Where(g => g.Any(x => x.Id == edge.Node1.Id) || g.Any(y => y.Id == edge.Node2.Id)).ToList())
                         {
-                            groupUnion = new HashSet<Node<User>>(groupUnion.Union(grp));
+                            groupUnion = new HashSet<Node<UserDto>>(groupUnion.Union(grp));
                             subGraphs.Remove(grp);
                         }
                         if (groupUnion.All(x => x.Id != edge.Node1.Id)) groupUnion.Add(edge.Node1);
@@ -47,29 +47,40 @@ namespace Graph.Algorithms
             }
 
             return subGraphs;
-            //foreach (HashSet<Node<User>> subGraph in subGraphs)
-            //{
-            //    foreach (Node<User> node in subGraph)
-            //    {
-            //        Console.WriteLine(node.Id);
-            //    }
-            //    Console.WriteLine("-------------");
-            //}
         }
 
-        public HashSet<Node<User>> GetNodesWithMaximalDegreeInSubgraphs(HashSet<HashSet<Node<User>>> subGraphs, Node<User> EgoNetworkCenter)
+        private static void WriteSubgraphsToConsole(IEnumerable<HashSet<Node<UserDto>>> subGraphs)
         {
-            HashSet<Node<User>> nodes = new HashSet<Node<User>>();
-            foreach (HashSet<Node<User>> subGraph in subGraphs)
+            foreach (HashSet<Node<UserDto>> subGraph in subGraphs)
             {
-                if (subGraph.All(x => x.Id != EgoNetworkCenter.Id))
+                foreach (Node<UserDto> node in subGraph)
                 {
-                    Node<User> nodeWithMaxDegreeInSubgraph = subGraph.Where(x => x.Id != EgoNetworkCenter.Id).MaxBy(i => i.Degree); // except the center of ego network
-                    nodes.Add(nodeWithMaxDegreeInSubgraph);
+                    Console.WriteLine(node.Id);
                 }
-               
+                Console.WriteLine("-------------");
             }
-            return nodes;
+        }
+
+        public HashSet<Node<UserDto>> GetNodesWithMaximalDegreeInSubgraphs(HashSet<HashSet<Node<UserDto>>> subGraphs, Node<UserDto> EgoNetworkCenter)
+        {
+            try
+            {
+                HashSet<Node<UserDto>> nodes = new HashSet<Node<UserDto>>();
+                foreach (HashSet<Node<UserDto>> subGraph in subGraphs)
+                {
+                    if (subGraph.All(x => x.Id != EgoNetworkCenter.Id))
+                    {
+                        Node<UserDto> nodeWithMaxDegreeInSubgraph = subGraph.Where(x => x.Id != EgoNetworkCenter.Id).MaxBy(i => i.Degree); // except the center of ego network
+                        nodes.Add(nodeWithMaxDegreeInSubgraph);
+                    }
+
+                }
+                return nodes;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

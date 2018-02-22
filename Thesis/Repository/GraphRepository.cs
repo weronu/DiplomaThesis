@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Domain.DomainClasses;
+using Domain.DTOs;
 using Domain.GraphClasses;
 using Repository.MSSQL.Interfaces;
+using User = Domain.DomainClasses.User;
 
 namespace Repository.MSSQL
 {
@@ -103,7 +105,7 @@ namespace Repository.MSSQL
             return vertices;
         }
 
-        public HashSet<Edge<User>> ExtractEdgesFromConversation()
+        public HashSet<Edge<Domain.DTOs.UserDto>> ExtractEdgesFromConversation()
         {
             HashSet<ConversationEmails> conversationEmails =
                 new HashSet<ConversationEmails>(from conversation in _context.Conversations
@@ -115,25 +117,31 @@ namespace Repository.MSSQL
                         Emails = grp.ToList()
                     });
 
-            HashSet<Edge<User>> edgesWithDuplicates = new HashSet<Edge<User>>();
+            HashSet<Edge<Domain.DTOs.UserDto>> edgesWithDuplicates = new HashSet<Edge<Domain.DTOs.UserDto>>();
 
             foreach (ConversationEmails email in conversationEmails)
             {
-                HashSet<Edge<User>> enumerable = new HashSet<Edge<User>>(from conversationEmailSet1 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
+                HashSet<Edge<Domain.DTOs.UserDto>> enumerable = new HashSet<Edge<Domain.DTOs.UserDto>>(from conversationEmailSet1 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
                     from conversationEmailSet2 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
                     where conversationEmailSet1.Sender.Id < conversationEmailSet2.Sender.Id // only one direction
-                    select new Edge<User>()
+                    select new Edge<Domain.DTOs.UserDto>()
                     {
-                        Node1 = new Node<User>()
+                        Node1 = new Node<Domain.DTOs.UserDto>()
                         {
                             Id = conversationEmailSet1.Sender.Id,
-                            NodeElement = conversationEmailSet1.Sender
+                            NodeElement = new Domain.DTOs.UserDto()
+                            {
+                                Name = conversationEmailSet1.Sender.Name
+                            } 
                            
                         },
-                        Node2 = new Node<User>()
+                        Node2 = new Node<Domain.DTOs.UserDto>()
                         {
                             Id = conversationEmailSet2.Sender.Id,
-                            NodeElement = conversationEmailSet2.Sender
+                            NodeElement = new Domain.DTOs.UserDto()
+                            {
+                                Name = conversationEmailSet2.Sender.Name
+                            }
                         },
                         Weight = 2
                     });
@@ -142,7 +150,7 @@ namespace Repository.MSSQL
             }
             
 
-            HashSet<Edge<User>> edges = new HashSet<Edge<User>> (edgesWithDuplicates.Distinct(new DistinctItemComparer()).ToList());
+            HashSet<Edge<Domain.DTOs.UserDto>> edges = new HashSet<Edge<Domain.DTOs.UserDto>> (edgesWithDuplicates.Distinct(new DistinctItemComparer()).ToList());
 
             return edges;
         }
@@ -156,18 +164,19 @@ namespace Repository.MSSQL
         }
     }
 
-    public class DistinctItemComparer : IEqualityComparer<Edge<User>>
+    public class DistinctItemComparer : IEqualityComparer<Edge<Domain.DTOs.UserDto>>
     {
 
-        public bool Equals(Edge<User> x, Edge<User> y)
+        public bool Equals(Edge<UserDto> x, Edge<UserDto> y)
         {
-            return x.Node1.Id == y.Node1.Id && x.Node2.Id == y.Node2.Id;
+            return y != null && (x != null && (x.Node1.Id == y.Node1.Id && x.Node2.Id == y.Node2.Id));
         }
 
-        public int GetHashCode(Edge<User> obj)
+        public int GetHashCode(Edge<UserDto> obj)
         {
             return obj.Node1.Id.GetHashCode() ^
                    obj.Node2.Id.GetHashCode();
         }
     }
+
 }

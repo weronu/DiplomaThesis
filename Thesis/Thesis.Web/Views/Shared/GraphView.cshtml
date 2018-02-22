@@ -1,30 +1,26 @@
-﻿@model Thesis.Web.Models.TeamMemberViewModel
+﻿@{
+    Layout = null;
+}
 
+@model Thesis.Web.Models.GraphViewModel
 <div class="graph-network" id="mynetwork">
-        
+
 </div>
 
-
 <script type="text/javascript">
-    $(document).ready(function () {
+    
+    $.ajax({
+        url: '@Url.Action("RenderGraphView", "TeamMembersEmailGraphs")',
+        datatype: 'json',
+        type: "get",
+        success: GraphVis,
+        error: OnError
+    });
 
-        $.ajax({
-            url: '@Url.Action("Index", "TeamMembersEmailGraphs")',
-            datatype: 'json', 
-            type: "GET",
-            success: GraphVis,
-            error: OnError
-        });
-
-        function GraphVis(response) {
+        function GraphVis() {
+            blockUI();
             var nodes = @Html.Raw(Json.Encode(Model.visGraphViewModel.nodes));
-            var edges =  @Html.Raw(Json.Encode(Model.visGraphViewModel.edges));
-
-            // create an array with nodes
-            //var nodes = new vis.DataSet(response.nodes);
-
-            // create an array with edges
-            //var edges = new vis.DataSet(response.edges);
+            var edges = @Html.Raw(Json.Encode(Model.visGraphViewModel.edges));
 
             // create a network
             var container = document.getElementById('mynetwork');
@@ -45,9 +41,9 @@
             };
             // initialize your network!
             var network = new vis.Network(container, data, options);
+
+            unblockUI();
         }
-        function OnError() {
-            alert("Error !");
-        }
-    })
+
+
 </script>

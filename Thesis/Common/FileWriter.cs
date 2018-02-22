@@ -133,32 +133,6 @@ namespace FileManager
                 throw new Exception($"Error message: {e}");
             }
         }
-
-        public static void CreateFile(Graph<User> graph, string path)
-        {
-            try
-            {
-                using (var writer = new StreamWriter(path))
-                {
-
-                    foreach (KeyValuePair<int, HashSet<Node<User>>> graphSet in graph.GraphSet)
-                    {
-                        string oneLine = "";
-                        oneLine = oneLine + graphSet.Key + ",";
-                        foreach (Node<User> node in graphSet.Value)
-                        {
-                            oneLine = oneLine + node.Id + ",";
-                        }
-                        oneLine = oneLine.Remove(oneLine.Length - 1);
-                        writer.WriteLine(oneLine);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                throw new Exception($"Error message: {e}");
-            }
-        }
     }
 
     /// <summary>
