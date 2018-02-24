@@ -60,6 +60,7 @@
     <Compile Include="DomainClasses\EmailRecipient.cs" />
     <Compile Include="DomainClasses\User.cs" />
     <Compile Include="DomainClasses\UserEmail.cs" />
+    <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="GraphClasses\Community.cs" />
     <Compile Include="GraphClasses\Edge.cs" />

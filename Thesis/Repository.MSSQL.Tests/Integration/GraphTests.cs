@@ -8,41 +8,41 @@ namespace Repository.MSSQL.Tests.Integration
 {
     public class GraphTests : IntegrationBase
     {
-        [Test]
-        public void Graph_Test()
-        {
-            HashSet<Edge<User>> edges;
-            HashSet<Node<User>> nodes;
+        //[Test]
+        //public void Graph_Test()
+        //{
+        //    HashSet<Edge<User>> edges;
+        //    HashSet<Node<User>> nodes;
 
-            using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
-            {
-                edges = uow.GraphRepo.ExtractEdgesFromConversation();
-                nodes = uow.GraphRepo.ExtractVerticesFromEdges(edges);
-            }
+        //    using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
+        //    {
+        //        edges = uow.GraphRepo.ExtractEdgesFromConversation();
+        //        nodes = uow.GraphRepo.ExtractVerticesFromEdges(edges);
+        //    }
 
-            Assert.IsNotNull(edges);
-            Assert.IsNotEmpty(edges);
+        //    Assert.IsNotNull(edges);
+        //    Assert.IsNotEmpty(edges);
 
-            Assert.IsNotNull(nodes);
-            Assert.IsNotEmpty(nodes);
+        //    Assert.IsNotNull(nodes);
+        //    Assert.IsNotEmpty(nodes);
 
-            Graph<User> graph = new Graph<User>();
+        //    Graph<User> graph = new Graph<User>();
 
-            foreach (Node<User> node in nodes)
-            {
-                graph.AddNode(node);
-            }
-            foreach (Edge<User> edge in edges)
-            {
-                graph.AddEdge(edge);
-            }
+        //    foreach (Node<User> node in nodes)
+        //    {
+        //        graph.AddNode(node);
+        //    }
+        //    foreach (Edge<User> edge in edges)
+        //    {
+        //        graph.AddEdge(edge);
+        //    }
 
-            int maximalDegree = graph.GetMaximalDegree();
-            int degreeMean = graph.GetDegreeMean();
-            int edgesCount = graph.GetEdgesCount();
-            int nodescount = graph.GetVerticesCount();
+        //    int maximalDegree = graph.GetMaximalDegree();
+        //    int degreeMean = graph.GetDegreeMean();
+        //    int edgesCount = graph.GetEdgesCount();
+        //    int nodescount = graph.GetVerticesCount();
 
 
-        }
+        //}
     }
 }

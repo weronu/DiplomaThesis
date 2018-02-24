@@ -2,6 +2,6 @@
 {
     public interface IUserRepository
     {
-
+        int GetNodeIdByUserName(string name);
     }
 }

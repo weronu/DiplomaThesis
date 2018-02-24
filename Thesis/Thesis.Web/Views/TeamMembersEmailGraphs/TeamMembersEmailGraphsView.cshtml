@@ -2,29 +2,117 @@
     ViewBag.Title = "TeamMemberDtosEmailGraphs";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Thesis.Web.Models.TeamMemberViewModel
+@model Thesis.Web.Models.GraphViewModel
 
 
 <div class="container-graph">
     <div class="form-group">
         @Html.DropDownListFor(m => m.SelectedTeamMemberId, new SelectList(Model.TeamMembers, "Id", "Name", 1), new { @class = "form-control", id = "teamMembersDropdown" })
     </div>
-    <div id="graphView_Partial_Id">@Html.Partial("~/Views/Shared/GraphView.cshtml");</div>
+    <div id="graphView_Partial_Id">@Html.Partial("~/Views/Shared/GraphView.cshtml")</div>
+</div>
+<div class="container-buttons">
+    <div class="row">
+        <div class="col-sm-2">
+                <button id="findCommunitiesButton" type="button" class="btn btn-light">Find communities</button>
+            </div>
+        <div class="col-sm-2">
+            <button id="createEgoNetworkButon" type="button" class="btn btn-light">Create Ego Network</button>
+        </div>
+        <div class="col-sm-2">
+                <button id="findRolesButton" type="button" class="btn btn-light">Find Roles</button>
+            </div>
+    </div>
 </div>
 
 <script>
-    $("#teamMembersDropdown").change(function () {
+
+    $(document).ready(function () {
+
+
+        var findCommunittiesButton = $("#findCommunitiesButton");
+        var createEgoNetworkButon = $("#createEgoNetworkButon");
+        var findRolesButton = $("#findRolesButton");
+
+        //Attach event handler to submit button
+        findCommunittiesButton.click(function (e) {
+            e.preventDefault();
+            findCommunities();
+            return false;
+        });
+
+        createEgoNetworkButon.click(function (e) {
+            e.preventDefault();
+            createEgoNetwork();
+            return false;
+        });
+
+        findRolesButton.click(function (e) {
+            e.preventDefault();
+            findRoles();
+            return false;
+        });
+    });
+
+    $("#teamMembersDropdown").change(function (e) {
+        e.preventDefault();
         var teamMemberId = $(this).find(":selected").val();
         var selectid = { "teamMemberId": teamMemberId };
         $.ajax({
-            url: "GetSelectedValue",
+            url: "@Url.Action("GetSelectedValue", "TeamMembersEmailGraphs")",
             data: JSON.stringify(selectid),
             type: 'POST',
             contentType: 'application/json; charset=utf-8',
-            success: function(partialView) {
+            success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
             }
-            
         });
-    })
+        return false;
+    });
+       
+
+    function createEgoNetwork() {
+        $.ajax({
+            url: "@Url.Action("CreateEgoNetwork", "TeamMembersEmailGraphs")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            datatype: 'json',
+            error: OnError,
+            success: function (partialView) {
+                $('#graphView_Partial_Id').html(partialView);
+            }
+        });
+    }
+
+    function findCommunities() {
+        $.ajax({
+            url: "@Url.Action("FindCommunities", "TeamMembersEmailGraphs")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            datatype: 'json',
+            error: OnError,
+            success: function (partialView) {
+                $('#graphView_Partial_Id').html(partialView);
+            }
+        });
+    }
+
+    function findRoles() {
+        $.ajax({
+            url: "@Url.Action("FindRoles", "TeamMembersEmailGraphs")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            datatype: 'json',
+            error: OnError,
+            success: function (partialView) {
+                $('#graphView_Partial_Id').html(partialView);
+            }
+        });
+    }
+
+
+
 </script>

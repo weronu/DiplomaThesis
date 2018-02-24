@@ -1,10 +1,11 @@
-﻿using Domain.DomainClasses;
-using Domain.GraphClasses;
+﻿using Domain.GraphClasses;
+using UserDto = Domain.DTOs.UserDto;
 
 namespace Thesis.Services.Interfaces
 {
     public interface IGraphService
     {
-        Graph<User> FetchEmailsGraph(string connectionString);
+        Graph<UserDto> FetchEmailsGraph(string connectionString);
+        int FetchNodeIdByUserName(string name, string connectionString);
     }
 }

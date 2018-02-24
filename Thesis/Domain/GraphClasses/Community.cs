@@ -3,7 +3,7 @@ using Domain.DomainClasses;
 
 namespace Domain.GraphClasses
 {
-    public class Community<T> where T: DomainBase 
+    public class Community<T>
     {
         public int Id { get; set; }
         public HashSet<Node<T>> CommunityNodes { get; set; }
