@@ -1,6 +1,4 @@
-﻿using Domain.DomainClasses;
-using Domain.DTOs;
-using Domain.GraphClasses;
+﻿using Domain.GraphClasses;
 using UserDto = Domain.DTOs.UserDto;
 
 namespace Thesis.Services.Interfaces

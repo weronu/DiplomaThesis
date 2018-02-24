@@ -13,7 +13,7 @@ namespace Thesis.Services.Tests
         {
             IGraphService service = new GraphService(UnitOfWorkFactory);
 
-            string connectionString = "GLEmailsDatabase";
+            const string connectionString = "GLEmailsDatabase";
             Graph<UserDto> fetchEmailsGraph = service.FetchEmailsGraph(connectionString);
             Assert.IsNotEmpty(fetchEmailsGraph.Edges);
         }
