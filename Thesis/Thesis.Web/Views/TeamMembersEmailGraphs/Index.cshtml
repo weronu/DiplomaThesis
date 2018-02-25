@@ -1,0 +1,39 @@
+﻿@using Thesis.Web.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model Thesis.Web.Models.GraphViewModel
+
+<div class="container-graph">
+    <div class="form-group">
+        @Html.DropDownListFor(m => m.SelectedTeamMemberId, new SelectList(Model.TeamMembers, "Id", "Name", 1), new { @class = "form-control", id = "teamMembersDropdown" })
+    </div>
+    <div id="graphView_Partial_Id">@Html.Partial("~/Views/TeamMembersEmailGraphs/GraphView_partial.cshtml")</div>
+</div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+       
+        $("#teamMembersDropdown").change(function (e) {
+            e.preventDefault();
+            var teamMemberId = $(this).find(":selected").val();
+            var selectid = { "teamMemberId": teamMemberId };
+            $.ajax({
+                async: true,
+                url: "@Url.Action("GetSelectedValue", "TeamMembersEmailGraphs")",
+                data: JSON.stringify(selectid),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (partialView) {
+                    $('#graphView_Partial_Id').html(partialView);
+                }
+            });
+            return false;
+        });
+
+    });
+</script>
+

@@ -9,8 +9,6 @@ namespace Thesis.Services
 {
     public class GraphService : ServiceBase, IGraphService
     {
-       
-
         public GraphService(IUnitOfWorkFactory unitOfWorkFactory) : base(unitOfWorkFactory)
         {
 
