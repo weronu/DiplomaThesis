@@ -1,34 +1,26 @@
 ﻿@{
-    ViewBag.Title = "TeamMemberDtosEmailGraphs";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = null;
 }
+
 @model Thesis.Web.Models.GraphViewModel
-
-
-<div class="container-graph">
-    <div class="form-group">
-        @Html.DropDownListFor(m => m.SelectedTeamMemberId, new SelectList(Model.TeamMembers, "Id", "Name", 1), new { @class = "form-control", id = "teamMembersDropdown" })
-    </div>
-    <div id="graphView_Partial_Id">@Html.Partial("~/Views/Shared/GraphView.cshtml")</div>
-</div>
+<div class="graph-network" id="mynetwork"></div>
 <div class="container-buttons">
     <div class="row">
         <div class="col-sm-2">
-                <button id="findCommunitiesButton" type="button" class="btn btn-light">Find communities</button>
-            </div>
+            <button id="findCommunitiesButton" type="button" class="btn btn-light">Find communities</button>
+        </div>
         <div class="col-sm-2">
             <button id="createEgoNetworkButon" type="button" class="btn btn-light">Create Ego Network</button>
         </div>
         <div class="col-sm-2">
-                <button id="findRolesButton" type="button" class="btn btn-light">Find Roles</button>
-            </div>
+            <button id="findRolesButton" type="button" class="btn btn-light">Find Roles</button>
+        </div>
     </div>
 </div>
 
-<script>
-
-    $(document).ready(function () {
-
+<script type="text/javascript">
+    $(document).ready(function() {
+        GraphVis();
 
         var findCommunittiesButton = $("#findCommunitiesButton");
         var createEgoNetworkButon = $("#createEgoNetworkButon");
@@ -53,23 +45,6 @@
             return false;
         });
     });
-
-    $("#teamMembersDropdown").change(function (e) {
-        e.preventDefault();
-        var teamMemberId = $(this).find(":selected").val();
-        var selectid = { "teamMemberId": teamMemberId };
-        $.ajax({
-            url: "@Url.Action("GetSelectedValue", "TeamMembersEmailGraphs")",
-            data: JSON.stringify(selectid),
-            type: 'POST',
-            contentType: 'application/json; charset=utf-8',
-            success: function (partialView) {
-                $('#graphView_Partial_Id').html(partialView);
-            }
-        });
-        return false;
-    });
-       
 
     function createEgoNetwork() {
         $.ajax({
@@ -113,6 +88,32 @@
         });
     }
 
+    function GraphVis() {
+        //blockUI();
+        var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
+        var edges = @Html.Raw(Json.Encode(Model.GraphDto.edges));
 
+        // create a network
+        var container = document.getElementById('mynetwork');
 
+        // provide the data in the vis format
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {
+            nodes: {
+                shape: 'dot',
+                size: 10,
+                borderWidth: 1
+            },
+
+            interaction: { hover: false }
+        };
+        // initialize your network!
+        var network = new vis.Network(container, data, options);
+
+        //unblockUI();
+    }
 </script>
+

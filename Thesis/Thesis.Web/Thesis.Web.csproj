@@ -178,13 +178,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TeamMembersEmailGraphsController.cs" />
     <Compile Include="DTOs\EdgeDto.cs" />
+    <Compile Include="DTOs\GraphDto.cs" />
     <Compile Include="DTOs\NodeDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DTOs\TeamMemberDto.cs" />
     <Compile Include="Models\GraphViewModel.cs" />
-    <Compile Include="Models\VisGraphViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -313,7 +313,6 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\TeamMembersEmailGraphs\TeamMembersEmailGraphsView.cshtml" />
     <Content Include="Scripts\vis\vis.map" />
     <Content Include="Scripts\vis\vis.js.map" />
     <Content Include="webfonts\fa-brands-400.svg" />
@@ -331,7 +330,8 @@
     <Content Include="webfonts\fa-brands-400.woff" />
     <Content Include="webfonts\fa-brands-400.ttf" />
     <Content Include="webfonts\fa-brands-400.eot" />
-    <Content Include="Views\Shared\GraphView.cshtml" />
+    <Content Include="Views\TeamMembersEmailGraphs\Index.cshtml" />
+    <Content Include="Views\TeamMembersEmailGraphs\GraphView_partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
