@@ -61,7 +61,8 @@ namespace Graph.Algorithms
 
             //get nodes community
             Community<T> community = _graph.GetCommunityById(startNode.CommunityId);
-            int n = community.CommunityNodes.Count; //count of nodes in community
+            int n = _graph.Nodes.Count(x => x.CommunityId == community.Id); //count of nodes in community
+            //int n = community.CommunityNodes.Count; //count of nodes in community
             int sum = shortestPaths.Where(x => x.StartNode == startNode && x.EndNode.CommunityId == startNode.CommunityId).Select(x => x.ShortestPath.Count - 1).Sum();
 
             return Math.Round((double)n / sum, 2);

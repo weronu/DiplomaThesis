@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web.Mvc;
 using Domain.DTOs;
 using Thesis.Services.Interfaces;
@@ -112,10 +113,16 @@ namespace Thesis.Web.Controllers
         {
             try
             {
-                GraphViewModel model = new GraphViewModel();
                 if (graphViewModel.Graph != null)
                 {
                     EgoNetwork egoNetwork = new EgoNetwork();
+                    if (graphViewModel.Graph.Edges.Count != 0)
+                    {
+                        foreach (Edge<UserDto> edge in graphViewModel.Graph.Edges)
+                        {
+                            graphViewModel.Graph.CreateGraphSet(edge);
+                        }
+                    }
 
                     HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graphViewModel.Graph);
 
@@ -149,12 +156,14 @@ namespace Thesis.Web.Controllers
                         edges = edges
                     };
 
-                    model.TeamMembers = TeamMembers;
-                    model.SelectedTeamMemberId = graphViewModel.SelectedTeamMemberId;
-                    model.Graph = graphViewModel.Graph;
-                    model.GraphDto = graphDto;
+                    graphViewModel.TeamMembers = TeamMembers;
+                    graphViewModel.SelectedTeamMemberId = graphViewModel.SelectedTeamMemberId;
+                    graphViewModel.Graph = graphViewModel.Graph;
+                    graphViewModel.GraphDto = graphDto;
+
+                    graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
                 }
-                return PartialView("GraphView_partial", model);
+                return PartialView("GraphView_partial", graphViewModel);
             }
             catch (Exception e)
             {
@@ -165,8 +174,55 @@ namespace Thesis.Web.Controllers
         [HttpPost]
         public ActionResult FindCommunities(GraphViewModel graphViewModel)
         {
+            try
+            {
+                if (graphViewModel.Graph.Edges.Count != 0)
+                {
+                    foreach (Edge<UserDto> edge in graphViewModel.Graph.Edges)
+                    {
+                        graphViewModel.Graph.CreateGraphSet(edge);
+                    }
+                }
 
-            return PartialView("GraphView_partial");
+                Dictionary<int, int> partition = LouvainCommunity.BestPartition(graphViewModel.Graph);
+                Dictionary<int, List<int>> communities = new Dictionary<int, List<int>>();
+                foreach (KeyValuePair<int, int> kvp in partition)
+                {
+                    List<int> nodeset;
+                    if (!communities.TryGetValue(kvp.Value, out nodeset))
+                    {
+                        nodeset = communities[kvp.Value] = new List<int>();
+                    }
+                    nodeset.Add(kvp.Key);
+                }
+                graphViewModel.Graph.SetCommunities(communities);
+
+                int collorsCount = graphViewModel.Graph.Communities.Count;
+                List<string> colors = new List<string>();
+                for (int i = 0; i < collorsCount; i++)
+                {
+                    string color = $"#{StaticRandom.Instance.Next(0x1000000):X6}";
+                    colors.Add(color);
+                }
+
+                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name, color = colors[x.CommunityId] }).ToList();
+                List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+
+                GraphDto graphDto = new GraphDto
+                {
+                    nodes = nodes,
+                    edges = edges
+                };
+
+                graphViewModel.GraphDto = graphDto;
+
+                return PartialView("GraphView_partial", graphViewModel);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
 
         [HttpPost]
@@ -175,5 +231,20 @@ namespace Thesis.Web.Controllers
 
             return PartialView("GraphView_partial");
         }
+    }
+
+    public static class StaticRandom
+    {
+        private static int seed;
+
+        private static readonly ThreadLocal<Random> threadLocal = new ThreadLocal<Random>
+            (() => new Random(Interlocked.Increment(ref seed)));
+
+        static StaticRandom()
+        {
+            seed = Environment.TickCount;
+        }
+
+        public static Random Instance => threadLocal.Value;
     }
 }

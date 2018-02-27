@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Domain.DomainClasses;
 using Domain.Enums;
 
 namespace Domain.GraphClasses
 {
     public class Graph<T>
     {
-        public HashSet<Node<T>> Nodes { get; set; }
-        public HashSet<Edge<T>> Edges { get; set; }
-
-        public Dictionary<string, HashSet<Node<T>>> GraphSet => ToJsonDictionary(_graphSet);
-
-        [NonSerialized]
         private readonly Dictionary<int, HashSet<Node<T>>> _graphSet;
 
+        public HashSet<Node<T>> Nodes { get; set; }
+        public HashSet<Edge<T>> Edges { get; set; }
+        public Dictionary<string, HashSet<Node<T>>> GraphSet => ToJsonDictionary(_graphSet);
+
+        
         public HashSet<Community<T>> Communities { get; set; }
 
         public double Size
@@ -124,6 +121,29 @@ namespace Domain.GraphClasses
             SetEdgeWeight(edge, weight);
         }
 
+        public void CreateGraphSet(Edge<T> edge)
+        {
+            if (!_graphSet.ContainsKey(edge.Node1.Id))
+            {
+                _graphSet.Add(edge.Node1.Id, new HashSet<Node<T>>());
+            }
+
+            if (!_graphSet.ContainsKey(edge.Node2.Id))
+            {
+                _graphSet.Add(edge.Node2.Id, new HashSet<Node<T>>());
+            }
+
+            if (_graphSet.ContainsKey(edge.Node1.Id))
+            {
+                _graphSet[edge.Node1.Id].Add(edge.Node2);
+            }
+
+            if (_graphSet.ContainsKey(edge.Node2.Id))
+            {
+                _graphSet[edge.Node2.Id].Add(edge.Node1);
+            }
+        }
+
         private void SetEdgeWeight(Edge<T> edge, double weight)
         {
             Edge<T> e = Edges.FirstOrDefault(x => x.Node1.Id == edge.Node1.Id && x.Node2.Id == edge.Node2.Id || x.Node1.Id == edge.Node2.Id && x.Node2.Id == edge.Node1.Id);
@@ -136,7 +156,7 @@ namespace Domain.GraphClasses
         /// <param name="node1">The first node.</param>
         /// <param name="node2">The second node.</param>
         /// <returns>The weight of the edge.</returns>
-        public double EdgeWeight(Node<User> node1, Node<User> node2)
+        public double EdgeWeight(Node<T> node1, Node<T> node2)
         {
             return Edges.Where(x => x.Node1.Id == node1.Id && x.Node2.Id == node2.Id).Select(x => x.Weight).FirstOrDefault();
         }
@@ -380,7 +400,7 @@ namespace Domain.GraphClasses
                     communityNodes.Add(GetNodeById(i));
                     node.CommunityId = kvp.Key;
                 }
-                Community<T> community = new Community<T>(kvp.Key, communityNodes);
+                Community<T> community = new Community<T> {Id = kvp.Key, CommunityNodes = communityNodes};
                 foreach (Node<T> node in communityNodes)
                 {
                     node.Community = community;

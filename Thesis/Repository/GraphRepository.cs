@@ -131,6 +131,7 @@ namespace Repository.MSSQL
                             Id = conversationEmailSet1.Sender.Id,
                             NodeElement = new Domain.DTOs.UserDto()
                             {
+                                Id = conversationEmailSet1.Sender.Id,
                                 Name = conversationEmailSet1.Sender.Name
                             } 
                            
@@ -140,6 +141,7 @@ namespace Repository.MSSQL
                             Id = conversationEmailSet2.Sender.Id,
                             NodeElement = new Domain.DTOs.UserDto()
                             {
+                                Id = conversationEmailSet2.Sender.Id,
                                 Name = conversationEmailSet2.Sender.Name
                             }
                         },

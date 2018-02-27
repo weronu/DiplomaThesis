@@ -6,21 +6,13 @@ body {
     font-weight: 400;
     color: $color_text;
     padding: 0;
+    height: 2000px;
 }
 
 .container-tiles {
     position: fixed;
     left: 34%;
     padding-top: 20px;
-}
-
-.container-buttons {
-        margin-top: 20px;
-    /* width: 100%; */
-    padding-bottom: 50px;
-    padding-left: 20%;
-
-    padding-right: 20%;
 }
 
 .container-graph{
@@ -293,5 +285,6 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .btn{
-    width: 110%;
+   width: 110%;
+    margin-top: 20px;
 }

@@ -2,21 +2,28 @@
     Layout = null;
 }
 
+<style type="text/css">
+    body { font-family: Arial; font-size: 10pt; }
+    #dialog { height: 600px; overflow: auto; font-size: 10pt !important; font-weight: normal !important; background-color: #FFFFC1; margin: 10px; border: 1px solid #ff6a00; }
+    #dialog div { margin-bottom: 15px; }
+</style>
+
 @model Thesis.Web.Models.GraphViewModel
 <div class="graph-network" id="mynetwork"></div>
 <div class="container-buttons">
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <button id="findCommunitiesButton" type="button" class="btn btn-light">Find communities</button>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <button id="createEgoNetworkButon" type="button" class="btn btn-light">Create Ego Network</button>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <button id="findRolesButton" type="button" class="btn btn-light">Find Roles</button>
         </div>
     </div>
 </div>
+<div id="dialog" style="display: none"></div>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -47,12 +54,12 @@
     });
 
     function createEgoNetwork() {
+
         $.ajax({
             url: "@Url.Action("CreateEgoNetwork", "TeamMembersEmailGraphs")",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            datatype: 'json',
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
@@ -66,7 +73,6 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            datatype: 'json',
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);

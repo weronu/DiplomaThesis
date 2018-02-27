@@ -1,4 +1,6 @@
-﻿namespace Thesis.Web.DTOs
+﻿using System.Security.AccessControl;
+
+namespace Thesis.Web.DTOs
 {
     public class NodeDto
     {
