@@ -1,6 +1,4 @@
-﻿using System.Security.AccessControl;
-
-namespace Thesis.Web.DTOs
+﻿namespace Thesis.Web.DTOs
 {
     public class NodeDto
     {
@@ -8,5 +6,6 @@ namespace Thesis.Web.DTOs
         public int id { get; set; }
         public string label { get; set; }
         public string color = "#f5cbee";
+        public string title { get; set; }
     }
 }

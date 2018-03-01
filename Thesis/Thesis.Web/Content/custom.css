@@ -219,3 +219,12 @@ h1, h2, h3, h4, h5, h6, p {
   width: 110%;
   margin-top: 20px; }
 
+.dialog {
+  height: 600px;
+  overflow: auto;
+  font-size: 10pt !important;
+  font-weight: normal !important;
+  background-color: #FFFFC1;
+  margin: 10px;
+  border: 1px solid #ff6a00; }
+

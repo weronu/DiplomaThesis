@@ -2,14 +2,10 @@
     Layout = null;
 }
 
-<style type="text/css">
-    body { font-family: Arial; font-size: 10pt; }
-    #dialog { height: 600px; overflow: auto; font-size: 10pt !important; font-weight: normal !important; background-color: #FFFFC1; margin: 10px; border: 1px solid #ff6a00; }
-    #dialog div { margin-bottom: 15px; }
-</style>
-
 @model Thesis.Web.Models.GraphViewModel
+
 <div class="graph-network" id="mynetwork"></div>
+<pre id="eventSpan"></pre>
 <div class="container-buttons">
     <div class="row">
         <div class="col-sm-3">
@@ -23,7 +19,7 @@
         </div>
     </div>
 </div>
-<div id="dialog" style="display: none"></div>
+<div id="dialog" class="dialog" style="display: none"></div>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -113,12 +109,11 @@
                 size: 10,
                 borderWidth: 1
             },
-
-            interaction: { hover: false }
+            interaction: { hover:true }
+           
         };
         // initialize your network!
         var network = new vis.Network(container, data, options);
-
         //unblockUI();
     }
 </script>

@@ -24,7 +24,7 @@ namespace Thesis.Web.Controllers
             new TeamMemberDto() {Id = 4, Name = "Andrej Matejcik", ConnectionString = "GLEmailsDatabaseAdo"},
             new TeamMemberDto() {Id = 5, Name = "Explore whole team network", ConnectionString = "GLEmailsDatabase"}
         };
-      
+
 
         public TeamMembersEmailGraphsController(IGraphService graphService)
         {
@@ -41,8 +41,9 @@ namespace Thesis.Web.Controllers
                 };
 
                 Graph<UserDto> graph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()));
+                graph.SetDegrees();
 
-                List<NodeDto> nodes = graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name }).ToList();
+                List<NodeDto> nodes = graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name, title = $"Node degree: {x.Degree}" }).ToList();
                 List<EdgeDto> edges = graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
                 GraphDto graphDto = new GraphDto
@@ -82,12 +83,10 @@ namespace Thesis.Web.Controllers
             int id = int.Parse(teamMemberId);
             string connectionString = GetConnectionStringBasedOnSelectedMember(teamMemberId);
 
-            
-
             Graph<UserDto> graph = _graphService.FetchEmailsGraph(connectionString);
-            
+            graph.SetDegrees();
 
-            List<NodeDto> nodes = graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name }).ToList();
+            List<NodeDto> nodes = graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name, title = $"Node degree: {x.Degree}" }).ToList();
             List<EdgeDto> edges = graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
             GraphDto graphDto = new GraphDto
@@ -147,7 +146,8 @@ namespace Thesis.Web.Controllers
                         graphViewModel.Graph.AddEdge(newEdge);
                     }
 
-                    List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name }).ToList();
+                    graphViewModel.Graph.SetDegrees();
+                    List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name, title = $"Node degree: {x.Degree}" }).ToList();
                     List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
                     GraphDto graphDto = new GraphDto
@@ -205,7 +205,8 @@ namespace Thesis.Web.Controllers
                     colors.Add(color);
                 }
 
-                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name, color = colors[x.CommunityId] }).ToList();
+                graphViewModel.Graph.SetDegrees();
+                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id, label = x.NodeElement.Name, color = colors[x.CommunityId], title = $"Node degree: {x.Degree}" }).ToList();
                 List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
                 GraphDto graphDto = new GraphDto
@@ -228,8 +229,74 @@ namespace Thesis.Web.Controllers
         [HttpPost]
         public ActionResult FindRoles(GraphViewModel graphViewModel)
         {
+            try
+            {
+                if (graphViewModel.Graph.Edges.Count != 0 && graphViewModel.Graph.GraphSet.Count == 0)
+                {
+                    foreach (Edge<UserDto> edge in graphViewModel.Graph.Edges)
+                    {
+                        graphViewModel.Graph.CreateGraphSet(edge);
+                    }
+                }
 
-            return PartialView("GraphView_partial");
+                if (graphViewModel.Graph.Communities == null)
+                {
+                    throw new Exception("You have to find communities first!");
+                }
+
+                GraphAlgorithm<UserDto> algorithms = new GraphAlgorithm<UserDto>(graphViewModel.Graph);
+                HashSet<ShortestPathSet<UserDto>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graphViewModel.Graph.Nodes);
+
+                //setting closeness centrality
+                algorithms.SetClosenessCentralityForEachNode(shortestPaths);
+
+                //setting closeness centrality for community
+                algorithms.SetClosenessCentralityForEachNodeInCommunity(shortestPaths);
+
+                //community closeness centrality mean and standart deviation
+                algorithms.SetMeanClosenessCentralityForEachCommunity();
+                algorithms.SetStandartDeviationForClosenessCentralityForEachCommunity();
+
+                //cPaths for nCBC measure
+                HashSet<ShortestPathSet<UserDto>> cPaths = algorithms.CPaths(shortestPaths);
+
+                //setting nCBC for each node
+                algorithms.SetNCBCForEachNode(cPaths);
+
+                //setting DSCount for each node
+                algorithms.SetDSCountForEachNode(cPaths);
+
+                GraphRoleDetection<UserDto> roleDetection = new GraphRoleDetection<UserDto>(graphViewModel.Graph, algorithms);
+                roleDetection.ExtractOutsiders();
+                roleDetection.ExtractLeaders();
+                roleDetection.ExtractOutermosts();
+
+                //sorting nodes by their mediacy score
+                HashSet<Node<UserDto>> sortedNodes = algorithms.OrderNodesByMediacyScore();
+                roleDetection.ExtractMediators(sortedNodes);
+
+                graphViewModel.Graph.SetDegrees();
+                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id,
+                                                                                             label = x.NodeElement.Name,
+                                                                                             color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
+                                                                                             title = $"Node degree: {x.Degree}"})
+                                                                                             .ToList();
+                List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+
+                GraphDto graphDto = new GraphDto
+                {
+                    nodes = nodes,
+                    edges = edges
+                };
+
+                graphViewModel.GraphDto = graphDto;
+
+                return PartialView("GraphView_partial", graphViewModel);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 

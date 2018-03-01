@@ -15,7 +15,7 @@ body {
     padding-top: 20px;
 }
 
-.container-graph{
+.container-graph {
     padding-left: 20%;
     padding-right: 20%;
     padding-top: 50px;
@@ -25,7 +25,7 @@ body {
     width: 100%;
     height: 600px;
     border: 1px solid lightgray;
-    background:$color_network_background;
+    background: $color_network_background;
 }
 
 .nav {
@@ -89,9 +89,9 @@ h1, h2, h3, h4, h5, h6, p {
     }
 
     &:hover {
-    background-color: #fff;
-    -webkit-box-shadow: 1px 2px 10px rgba(0,0,0,.15);
-    box-shadow: 1px 2px 10px rgba(0,0,0,.15);
+        background-color: #fff;
+        -webkit-box-shadow: 1px 2px 10px rgba(0,0,0,.15);
+        box-shadow: 1px 2px 10px rgba(0,0,0,.15);
     }
     /*&:hover {
         background: darken($color_tile, 30%);
@@ -149,7 +149,7 @@ h1, h2, h3, h4, h5, h6, p {
 .form-control:focus {
     border-color: $color_nav;
     box-shadow: none;
-} 
+}
 
 .blockOverlay {
     background-color: #fff !important;
@@ -183,25 +183,25 @@ h1, h2, h3, h4, h5, h6, p {
     animation-delay: .3s;
 }
 
-    .page-loader:before {
-        content: '';
-        height: 31px;
-        width: 5px;
-        top: 0;
-        left: 13px;
-        position: absolute;
-        background-color: #721549;
-    }
+.page-loader:before {
+    content: '';
+    height: 31px;
+    width: 5px;
+    top: 0;
+    left: 13px;
+    position: absolute;
+    background-color: #721549;
+}
 
-    .page-loader:after {
-        content: '';
-        height: 5px;
-        width: 31px;
-        top: 13px;
-        left: 0;
-        position: absolute;
-        background-color: #721549;
-    }
+.page-loader:after {
+    content: '';
+    height: 5px;
+    width: 31px;
+    top: 13px;
+    left: 0;
+    position: absolute;
+    background-color: #721549;
+}
 
 @-moz-keyframes mainloading {
     0% {
@@ -284,7 +284,18 @@ h1, h2, h3, h4, h5, h6, p {
     }
 }
 
-.btn{
-   width: 110%;
+.btn {
+    width: 110%;
     margin-top: 20px;
+}
+
+
+.dialog {
+    height: 600px;
+    overflow: auto;
+    font-size: 10pt !important;
+    font-weight: normal !important;
+    background-color: #FFFFC1;
+    margin: 10px;
+    border: 1px solid #ff6a00;
 }
