@@ -15,6 +15,7 @@ namespace Thesis.Web
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             DependencyConfig.Register(GlobalConfiguration.Configuration);
+            GlobalConfiguration.Configuration.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
         }
     }
 }

@@ -3,20 +3,23 @@
 }
 
 @model Thesis.Web.Models.GraphViewModel
+
 <div class="graph-network" id="mynetwork"></div>
+<pre id="eventSpan"></pre>
 <div class="container-buttons">
     <div class="row">
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <button id="findCommunitiesButton" type="button" class="btn btn-light">Find communities</button>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <button id="createEgoNetworkButon" type="button" class="btn btn-light">Create Ego Network</button>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-3">
             <button id="findRolesButton" type="button" class="btn btn-light">Find Roles</button>
         </div>
     </div>
 </div>
+<div id="dialog" class="dialog" style="display: none"></div>
 
 <script type="text/javascript">
     $(document).ready(function() {
@@ -47,12 +50,12 @@
     });
 
     function createEgoNetwork() {
+
         $.ajax({
             url: "@Url.Action("CreateEgoNetwork", "TeamMembersEmailGraphs")",
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            datatype: 'json',
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
@@ -66,7 +69,6 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            datatype: 'json',
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
@@ -107,12 +109,11 @@
                 size: 10,
                 borderWidth: 1
             },
-
-            interaction: { hover: false }
+            interaction: { hover:true }
+           
         };
         // initialize your network!
         var network = new vis.Network(container, data, options);
-
         //unblockUI();
     }
 </script>

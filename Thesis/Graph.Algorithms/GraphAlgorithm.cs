@@ -1,19 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Domain.DomainClasses;
 using Domain.Enums;
 using Domain.GraphClasses;
 
 namespace Graph.Algorithms
 {
-    public class GraphAlgorithm<T> where T : DomainBase
+    public class GraphAlgorithm<T>
     {
-        private Graph<T> _graph;
+        private readonly Graph<T> _graph;
 
         public GraphAlgorithm(Graph<T> graph)
         {
-            this._graph = graph;
+            _graph = graph;
         }
 
         /// <summary>
@@ -61,7 +60,8 @@ namespace Graph.Algorithms
 
             //get nodes community
             Community<T> community = _graph.GetCommunityById(startNode.CommunityId);
-            int n = community.CommunityNodes.Count; //count of nodes in community
+            int n = _graph.Nodes.Count(x => x.CommunityId == community.Id); //count of nodes in community
+            //int n = community.CommunityNodes.Count; //count of nodes in community
             int sum = shortestPaths.Where(x => x.StartNode == startNode && x.EndNode.CommunityId == startNode.CommunityId).Select(x => x.ShortestPath.Count - 1).Sum();
 
             return Math.Round((double)n / sum, 2);
@@ -99,7 +99,7 @@ namespace Graph.Algorithms
 
                 Node<T> current = v;
 
-                while ((current != null) && !current.Equals(start))
+                while (current != null && !current.Equals(start))
                 {
                     path.Add(current);
 
@@ -107,7 +107,7 @@ namespace Graph.Algorithms
                     current = previous.Where(pair => pair.Key.Id == current1.Id)
                         .Select(pair => pair.Value)
                         .FirstOrDefault();
-                };
+                }
 
                 path.Add(start);
                 path.Reverse();
@@ -123,7 +123,8 @@ namespace Graph.Algorithms
         /// </summary>
         public double GetCommunityClosenessCentralityStandartDeviation(Community<T> community)
         {
-            List<double> values = community.CommunityNodes.Select(x => x.ClosenessCentralityInCommunity).ToList<double>();
+            List<Node<T>> communityNodes = _graph.Nodes.Where(x => x.CommunityId == community.Id).ToList();
+            List<double> values = communityNodes.Select(x => x.ClosenessCentralityInCommunity).ToList();
 
             double sd = 0;
             if (values.Any())
@@ -138,9 +139,10 @@ namespace Graph.Algorithms
         /// <summary>
         /// Computes mean of closeness centrality in community
         /// </summary>
-        public double GetCommunityClosenessCentralityMean(Community<T> community)
+        public double GetCommunityClosenessCentralityMean(List<Node<T>> communityNodes)
         {
-            return community.CommunityNodes.Select(x => x.ClosenessCentralityInCommunity).Average();
+            
+            return communityNodes.Select(x => x.ClosenessCentralityInCommunity).Average();
         }
        
         /// <summary>
@@ -187,19 +189,22 @@ namespace Graph.Algorithms
             foreach (ShortestPathSet<T> pathSet in cPath)
             {
                 Community<T> csp = _graph.GetCommunityById(pathSet.StartNode.CommunityId);
+                List<Node<T>> cspCommunityNodes = _graph.Nodes.Where(x => x.CommunityId == csp.Id).ToList();
+                
                 Community<T> cep = _graph.GetCommunityById(pathSet.EndNode.CommunityId);
+                List<Node<T>> cepCommunityNodes = _graph.Nodes.Where(x => x.CommunityId == cep.Id).ToList();
                 int ip = 0;
 
                 if (CBCId(pathSet, node))
                 {
                     ip = 1;
                 }
-                int min = Math.Min(csp.CommunityNodes.Count, cep.CommunityNodes.Count);
+                int min = Math.Min(cspCommunityNodes.Count, cepCommunityNodes.Count);
                 double frac = (double)ip / min;
                 sum += frac;
 
             }
-            return (double)sum / 2;
+            return sum / 2;
         }
 
         private bool CBCId(ShortestPathSet<T> pathSet, Node<T> node)
@@ -218,7 +223,8 @@ namespace Graph.Algorithms
 
         private bool DsCountId(IEnumerable<ShortestPathSet<T>> cPath, Community<T> community, Node<T> node)
         {
-            bool res = cPath.Any(pathSet => community.CommunityNodes.Any(x => x.Id == pathSet.StartNode.Id) && (pathSet.ShortestPath.Any(x => x.Id == node.Id)));
+            List<Node<T>> communityNodes = _graph.Nodes.Where(x => x.CommunityId == community.Id).ToList();
+            bool res = cPath.Any(pathSet => communityNodes.Any(x => x.Id == pathSet.StartNode.Id) && (pathSet.ShortestPath.Any(x => x.Id == node.Id)));
             return res;
         }
 
@@ -283,7 +289,8 @@ namespace Graph.Algorithms
         {
             foreach (Community<T> community in _graph.Communities)
             {
-                community.ClosenessCentralityMean = GetCommunityClosenessCentralityMean(community);
+                List<Node<T>> communityNodes = _graph.Nodes.Where(x => x.CommunityId == community.Id).ToList();
+                community.ClosenessCentralityMean = GetCommunityClosenessCentralityMean(communityNodes);
             }
         }
 

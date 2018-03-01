@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Domain.DomainClasses;
+using Domain.DTOs;
 using Domain.GraphClasses;
 
 namespace Graph.Algorithms
@@ -25,7 +26,7 @@ namespace Graph.Algorithms
         /// <param name="graph">The graph which is decomposed.</param>
         /// <param name="partition">The algorithm will start using this partition of nodes. It is a dictionary where keys are nodes and values are communities.</param>
         /// <returns>The partition, with communities number from 0 onward, sequentially</returns>
-        public static Dictionary<int, int> BestPartition(Graph<User> graph, Dictionary<int, int> partition)
+        public static Dictionary<int, int> BestPartition(Graph<UserDto> graph, Dictionary<int, int> partition)
         {
             Dendrogram dendro = GenerateDendrogram(graph, partition);
             Dictionary<int, int> partitionAtLevel = dendro.PartitionAtLevel(dendro.Length - 1);
@@ -37,12 +38,12 @@ namespace Graph.Algorithms
         /// </summary>
         /// <param name="graph">The graph for which to find the best partition.</param>
         /// <returns>The best partition of the graph.</returns>
-        public static Dictionary<int, int> BestPartition(Graph<User> graph)
+        public static Dictionary<int, int> BestPartition(Graph<UserDto> graph)
         {
             return BestPartition(graph, null);
         }
 
-        public static Dendrogram GenerateDendrogram(Graph<User> graph, Dictionary<int, int> part_init)
+        public static Dendrogram GenerateDendrogram(Graph<UserDto> graph, Dictionary<int, int> part_init)
         {
             Dictionary<int, int> partition;
             Stopwatch stopwatch = new Stopwatch();
@@ -53,7 +54,7 @@ namespace Graph.Algorithms
             {
                 partition = new Dictionary<int, int>();
                 int i = 0;
-                foreach (Node<User> node in graph.Nodes)
+                foreach (Node<UserDto> node in graph.Nodes)
                 {
                     partition[node.Id] = i++;
                 }
@@ -61,7 +62,7 @@ namespace Graph.Algorithms
             }
 
             //Graph current_graph = new Graph(graph);
-            Graph<User> current_graph = graph;
+            Graph<UserDto> current_graph = graph;
             Status status = new Status(current_graph, part_init);
             double mod = status.Modularity();
             List<Dictionary<int, int>> status_list = new List<Dictionary<int, int>>();
@@ -130,14 +131,14 @@ namespace Graph.Algorithms
                 Internals = new Dictionary<int, double>();
             }
 
-            public Status(Graph<User> graph, Dictionary<int, int> part): this()
+            public Status(Graph<UserDto> graph, Dictionary<int, int> part): this()
             {
                 int count = 0;
                 TotalWeight = graph.Size;
                 if (part == null)
                 {
-                    List<Node<User>> vertices = graph.Nodes.OrderByDescending(x => x.Id).ToList();
-                    foreach (Node<User> node in vertices)
+                    List<Node<UserDto>> vertices = graph.Nodes.OrderByDescending(x => x.Id).ToList();
+                    foreach (Node<UserDto> node in vertices)
                     {
                         Node2Community[node.Id] = count;
                         double deg = graph.LouvainDegree(node);
@@ -152,7 +153,7 @@ namespace Graph.Algorithms
                 }
                 else
                 {
-                    foreach (Node<User> node in graph.Nodes)
+                    foreach (Node<UserDto> node in graph.Nodes)
                     {
                         int com = part[node.Id];
                         Node2Community[node.Id] = com;
@@ -160,7 +161,7 @@ namespace Graph.Algorithms
                         Degrees[com] = DictGet(Degrees, com, 0) + deg;
                         GDegrees[node.Id] = deg;
                         double inc = 0;
-                        foreach (Edge<User> edge in graph.GetIncidentEdges(node))
+                        foreach (Edge<UserDto> edge in graph.GetIncidentEdges(node))
                         {
                             int neighbor = edge.Node2.Id;
                             if (edge.Weight <= 0)
@@ -217,7 +218,7 @@ namespace Graph.Algorithms
             /// Compute one level of communities.
             /// </summary>
             /// <param name="graph">The graph to use.</param>
-            public void OneLevel(Graph<User> graph)
+            public void OneLevel(Graph<UserDto> graph)
             {
                 bool modif = true;
                 int nb_pass_done = 0;
@@ -230,8 +231,8 @@ namespace Graph.Algorithms
                     modif = false;
                     nb_pass_done += 1;
 
-                    List<Node<User>> vertices = graph.Nodes.OrderByDescending(x => x.Id).ToList();
-                    foreach (Node<User> node in vertices)
+                    List<Node<UserDto>> vertices = graph.Nodes.OrderByDescending(x => x.Id).ToList();
+                    foreach (Node<UserDto> node in vertices)
                     {
                         int com_node = Node2Community[node.Id];
                         double degc_totw = DictGet<int, double>(GDegrees, node.Id, 0) / (TotalWeight * 2);
@@ -264,12 +265,12 @@ namespace Graph.Algorithms
             /// <param name="node"></param>
             /// <param name="graph"></param>
             /// <returns></returns>
-            private Dictionary<int, double> NeighCom(Node<User> node, Graph<User> graph)
+            private Dictionary<int, double> NeighCom(Node<UserDto> node, Graph<UserDto> graph)
             {
                 Dictionary<int, double> weights = new Dictionary<int, double>();
-                List<Edge<User>> incidentEdgesLouvain = graph.GetIncidentEdges(node).ToList();
+                List<Edge<UserDto>> incidentEdgesLouvain = graph.GetIncidentEdges(node).ToList();
 
-                foreach (Edge<User> edge in incidentEdgesLouvain)
+                foreach (Edge<UserDto> edge in incidentEdgesLouvain)
                 {
                     if (!edge.SelfLoop)
                     {
@@ -315,7 +316,7 @@ namespace Graph.Algorithms
     /// </summary>
     public class Dendrogram
     {
-        private List<Dictionary<int, int>> Partitions;
+        private readonly List<Dictionary<int, int>> Partitions;
 
         /// <summary>
         /// Creates a dendrogram with one level.

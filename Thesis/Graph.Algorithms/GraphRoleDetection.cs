@@ -1,12 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Domain.DomainClasses;
 using Domain.Enums;
 using Domain.GraphClasses;
 
 namespace Graph.Algorithms
 {
-    public class GraphRoleDetection<T> where T : DomainBase
+    public class GraphRoleDetection<T>
     {
         private readonly Graph<T> _graph;
         private readonly GraphAlgorithm<T> _algorithms;
@@ -38,11 +37,12 @@ namespace Graph.Algorithms
         {
             foreach (Community<T> community in _graph.Communities)
             {
-                double meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(community);
+                List<Node<T>> communityNodes = _graph.Nodes.Where(x => x.CommunityId == community.Id).ToList();
+                double meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(communityNodes);
                 double standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
                 double thresholdForLeaders = meanClosenessCentralityMeanInCommunity + (2 * standartDeviationClosenessCentrality);
-
-                foreach (Node<T> node in community.CommunityNodes)
+               
+                foreach (Node<T> node in communityNodes)
                 {
                     if (node.ClosenessCentralityInCommunity > thresholdForLeaders)
                         node.Role = Role.Leader;
@@ -90,11 +90,12 @@ namespace Graph.Algorithms
         {
             foreach (Community<T> community in _graph.Communities)
             {
-                double meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(community);
+                List<Node<T>> communityNodes = _graph.Nodes.Where(x => x.CommunityId == community.Id).ToList();
+                double meanClosenessCentralityMeanInCommunity = _algorithms.GetCommunityClosenessCentralityMean(communityNodes);
                 double standartDeviationClosenessCentrality = _algorithms.GetCommunityClosenessCentralityStandartDeviation(community);
                 double thresholdForOutermosts = meanClosenessCentralityMeanInCommunity - (2 * standartDeviationClosenessCentrality); //mean - 2*standart deviation
 
-                foreach (Node<T> node in community.CommunityNodes)
+                foreach (Node<T> node in communityNodes)
                 {
                     if (node.ClosenessCentralityInCommunity < thresholdForOutermosts)
                     {

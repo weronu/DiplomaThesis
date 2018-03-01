@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
-using Domain.DomainClasses;
 using Domain.GraphClasses;
 
 namespace Graph.Algorithms
 {
-    public class ShortestPathSet<T> where T: DomainBase
+    public class ShortestPathSet<T>
     {
         public Node<T> StartNode { get; set; }
         public Node<T> EndNode { get; set; }

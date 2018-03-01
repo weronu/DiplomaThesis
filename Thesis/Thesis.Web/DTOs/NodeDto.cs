@@ -6,5 +6,6 @@
         public int id { get; set; }
         public string label { get; set; }
         public string color = "#f5cbee";
+        public string title { get; set; }
     }
 }
