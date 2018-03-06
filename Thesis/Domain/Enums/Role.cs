@@ -5,7 +5,7 @@
         Outsider = 1,
         Mediator = 2,
         Leader = 3,
-        Outermost = 4
+        Outermost = 4,
     }
 
 }

@@ -22,7 +22,9 @@
 <div id="dialog" class="dialog" style="display: none"></div>
 
 <script type="text/javascript">
+    blockUI();
     $(document).ready(function() {
+
         GraphVis();
 
         var findCommunittiesButton = $("#findCommunitiesButton");
@@ -47,10 +49,12 @@
             findRoles();
             return false;
         });
+
+        unblockUI();
     });
 
     function createEgoNetwork() {
-
+        blockUI();
         $.ajax({
             url: "@Url.Action("CreateEgoNetwork", "TeamMembersEmailGraphs")",
             type: "POST",
@@ -59,11 +63,13 @@
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
+                unblockUI();
             }
         });
     }
 
     function findCommunities() {
+        blockUI();
         $.ajax({
             url: "@Url.Action("FindCommunities", "TeamMembersEmailGraphs")",
             type: "POST",
@@ -72,11 +78,13 @@
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
+                unblockUI();
             }
         });
     }
 
     function findRoles() {
+        blockUI();
         $.ajax({
             url: "@Url.Action("FindRoles", "TeamMembersEmailGraphs")",
             type: "POST",
@@ -86,12 +94,12 @@
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
+                unblockUI();
             }
         });
     }
 
     function GraphVis() {
-        //blockUI();
         var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
         var edges = @Html.Raw(Json.Encode(Model.GraphDto.edges));
 
@@ -109,12 +117,17 @@
                 size: 10,
                 borderWidth: 1
             },
-            interaction: { hover:true }
-           
-        };
-        // initialize your network!
-        var network = new vis.Network(container, data, options);
-        //unblockUI();
+            interaction: { hover: true }
+            //,physics: {
+            //    stabilization: {
+            //        enabled: true,
+            //        iterations: 1000
+            //    }
+            //}
+    };
+    // initialize your network!
+    var network = new vis.Network(container, data, options);
+
     }
 </script>
 
