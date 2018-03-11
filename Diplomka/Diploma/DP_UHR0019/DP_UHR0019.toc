@@ -38,9 +38,14 @@
 \contentsline {subsubsection}{\numberline {7.4.2}CBetweeness}{24}{subsubsection.7.4.2}
 \contentsline {subsubsection}{\numberline {7.4.3}Normalizovan\IeC {\'a} CBetweeness}{24}{subsubsection.7.4.3}
 \contentsline {subsubsection}{\numberline {7.4.4}Sk\IeC {\'o}re rozmanitosti}{25}{subsubsection.7.4.4}
-\contentsline {section}{\numberline {8}Preh\IeC {\v l}ad syst\IeC {\'e}mu}{27}{section.8}
-\contentsline {subsection}{\numberline {8.1}Kon\IeC {\v s}trukcia siete}{27}{subsection.8.1}
-\contentsline {subsection}{\numberline {8.2}Pre-processing}{27}{subsection.8.2}
-\contentsline {subsection}{\numberline {8.3}Import d\IeC {\'a}t}{27}{subsection.8.3}
-\contentsline {subsection}{\numberline {8.4}Anal\IeC {\'y}za}{27}{subsection.8.4}
-\contentsline {section}{Literatura}{28}{subsection.8.4}
+\contentsline {section}{\numberline {8}Aplik\IeC {\'a}cia}{27}{section.8}
+\contentsline {subsection}{\numberline {8.1}\IeC {\v S}pecifik\IeC {\'a}cia}{27}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{27}{subsubsection.8.1.1}
+\contentsline {subsection}{\numberline {8.2}N\IeC {\'a}vrh}{27}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{27}{subsubsection.8.2.1}
+\contentsline {subsection}{\numberline {8.3}Predpr\IeC {\'\i }prava d\IeC {\'a}t}{28}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Import d\IeC {\'a}t}{28}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}Implement\IeC {\'a}cia}{28}{subsection.8.5}
+\contentsline {subsubsection}{\numberline {8.5.1}Pou\IeC {\v z}it\IeC {\'e} technol\IeC {\'o}gie a n\IeC {\'a}stroje}{28}{subsubsection.8.5.1}
+\contentsline {subsubsection}{\numberline {8.5.2}Kon\IeC {\v s}trukcia siete}{28}{subsubsection.8.5.2}
+\contentsline {section}{Literatura}{29}{subsubsection.8.5.2}

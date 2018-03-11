@@ -486,8 +486,8 @@ frame=lines,
 captionpos=b
 }
 \onehalfspacing
-\setcounter{tocdepth}{2}
-\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
 \widowpenalty=9000
 \clubpenalty=9000
 \regtotcounter{figure}

@@ -436,12 +436,52 @@ môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to be
 \end{figure}
 
 
-\section{Prehľad systému}
+\section{Aplikácia}
+V tejto aplikácii je najskôr popísaná špecifikácia požiadavkov, ďalej nasleduje sekcia o vývoji, kde sú uvedené podrobnosti o návrhových vzoroch, konštrukcii siete, predpríprave dát a taktiež sú tu stručne popísané najdôležitejšie triedy v aplikácii. Tiež sú v tejto kapitole spomenuté určité prípady použitia aplikácie.
 
-\subsection{Konštrukcia siete}
-Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového dataetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Konverzácia je súbor mailov, ktorá začína jediným mailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. 
+\subsection{Špecifikácia}
+\subsubsection{Funkčné požiadavky}
+\begin{itemize}
+\item Stiahnutie dát z emailovej schránky
+\item Nahranie XML súboru s emailovými dátami
+\item Zobrazenie informácii o emailovej sieti
+\item Vizualizácia emailovej siete
+\item Vytvorenie ego-siete
+\item Detekcia komunít
+\item Detekcia štrukturálnych rolí v sieti
+\end{itemize}
 
-\subsection{Pre-processing}
+
+\subsection{Návrh}
+Návrhové vzory sú v podstate postup, ako riešiť typickú situáciu pri navrhovaní nielen softvérových diel. Ich používanie zjednodušuje a sprehľadňuje návrh softwaru. V tejto aplikácii je použitých niekoľko návrhových vzorov.
+
+\subsubsection{Návrhové vzory}
+
+\indent
+\indent \textbf{Repository}
+Návrhový vzor Repositorz je základným kameňom doménou riadeného návrhu. Model aplikácie teda nemá poňatie o tom, akým spôsobom je perzistovaný. O to sa stará práve Repository. Naviac práve vďaka tomu, že sa o persistenciu stará cudzí objekt, stačí poznať len jeho rozhranie a v prípad potreby ho ľahko nahradiť iným. \cite{11}
+
+
+\textbf{Model-View-Controller}
+V aplikácii je použitý tradičný vzor Model View Controller (MVC). Je to jeden z najpoužívanejších a najobecnejších architektonických vzorov. 
+
+MVC rozdeľuje program do troch hlavných častí:
+\begin{itemize}
+\item \textbf{Model} - dáta a súvisiace operácie 
+\item \textbf{View} - prezentácia dát (užívateľslé rozhranie), obsahuje priamy odkaz na model, aby mohol jeho dáta prezentovať vonkajšiemu svetu
+\item \textbf{Controller} - riadi tok udalostí v programe, konkrétne v tejto aplikácii kontrolery obsahujú len volanie metód z inej vrstvy aplikácie
+\end{itemize}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9.5cm, height=5cm]{figures/MVC}
+\caption{Model-View-Controller}
+\end{figure}
+
+
+
+\subsection{Predpríprava dát}
 Pre extrakciu dát z emailového účtu som použila separátnu aplikáciu \cite{5}, ktorá obsahuje konektor pre pripojenie k rôznym emailovým klientom(MS Outlook, Thunderbird) alebo sa pripojí cez IMAP alebo Gmail. Výstupom aplikácie je XML súbor (dataset) pripravný pre ďalšie používanie. Obsahuje prvky\textit{MessageId, Sender, Sent, Subject, InReplyTo, Recipient, Type(CC, To)}, ale neobsahuje telo emailu, ani prílohy.
 
 Po tomto predpripravní dát z individuálneho emailového účtu môže byť súbor  naimportovaný do aplikácie.
@@ -449,8 +489,10 @@ Po tomto predpripravní dát z individuálneho emailového účtu môže byť s�
 \subsection{Import dát}
 XML súbor je analyzovaný uloženou procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{Users, EmailMessages EmailRecipients} a \textit{Conversations} a uloží ich do SQL databázy.
 
-\subsection{Analýza}
-
+\subsection{Implementácia}
+\subsubsection{Použité technológie a nástroje}
+\subsubsection{Konštrukcia siete}
+Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového dataetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Konverzácia je súbor mailov, ktorá začína jediným mailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. 
 
 \newpage
 \begin{thebibliography}{99}
@@ -467,7 +509,7 @@ no different}
 	\bibitem{9} Afra Abnar, Mansoureh Takaffoli, Reihaneh Rabbany, Osmar R. Zaıane \textit{SSRM: Structural Social Role Miningfor Dynamic Social Networks}
 	\bibitem{10} Zehnalová, Horák, Kudělka \textit{Email Conversation Network Analysis: Work Groups
 and Teams in Organizations}
-	\bibitem{11}
+	\bibitem{11} Repository pattern, \textit{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}
 	\bibitem{12}
 	\bibitem{13}
 \end{thebibliography}
