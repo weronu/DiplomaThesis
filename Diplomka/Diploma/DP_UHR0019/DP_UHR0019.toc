@@ -1,0 +1,46 @@
+\select@language {english}
+\select@language {slovak}
+\select@language {slovak}
+\select@language {slovak}
+\select@language {english}
+\select@language {slovak}
+\contentsline {section}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek a symbol\IeC {\r u}}{8}{Doc-Start}
+\contentsline {section}{Zoznam obr\'azkov}{9}{Doc-Start}
+\contentsline {section}{Seznam v\IeC {\'y}pis\IeC {\r u} zdrojov\IeC {\'e}ho k\IeC {\'o}du}{10}{Doc-Start}
+\contentsline {section}{\numberline {1}\IeC {\'U}vod}{11}{section.1}
+\contentsline {subsection}{\numberline {1.1}Motiv\IeC {\'a}cia}{11}{subsection.1.1}
+\contentsline {section}{\numberline {2}S\IeC {\'u}visiace pr\IeC {\'a}ce}{12}{section.2}
+\contentsline {section}{\numberline {3}Defin\IeC {\'\i }cie a klasifik\IeC {\'a}cie}{14}{section.3}
+\contentsline {subsection}{\numberline {3.1}Graf}{14}{subsection.3.1}
+\contentsline {section}{\numberline {4}Soci\IeC {\'a}lna sie\IeC {\v t}}{16}{section.4}
+\contentsline {subsection}{\numberline {4.1}Hist\IeC {\'o}ria soci\IeC {\'a}lnych siet\IeC {\'\i }}{16}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}Anal\IeC {\'y}za soci\IeC {\'a}lnych siet\IeC {\'\i }}{16}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}Komunity v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{17}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Detekcia komun\IeC {\'\i }t}{18}{subsection.4.4}
+\contentsline {section}{\numberline {5}Emailov\IeC {\'a} komunik\IeC {\'a}cia}{19}{section.5}
+\contentsline {subsection}{\numberline {5.1}Stru\IeC {\v c}n\IeC {\'a} hist\IeC {\'o}ria emailu}{19}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}\IeC {\v S}trukt\IeC {\'u}ra emailu}{19}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Emaily v s\IeC {\'u}\IeC {\v c}asnosti}{20}{subsection.5.3}
+\contentsline {section}{\numberline {6}SSRM - Framework pre detekciu \IeC {\v s}truktur\IeC {\'a}lnych rol\IeC {\'\i } v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{21}{section.6}
+\contentsline {subsection}{\numberline {6.1}Rola v kontexte SSRM}{21}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Roly definovan\IeC {\'e} v SSRM}{21}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}Leader}{22}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Outermost}{22}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}Mediator}{22}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}Outsider}{22}{subsubsection.6.2.4}
+\contentsline {section}{\numberline {7}Identifik\IeC {\'a}cia \IeC {\v s}truktur\IeC {\'a}lnych soci\IeC {\'a}lnych rol\IeC {\'\i }}{23}{section.7}
+\contentsline {subsection}{\numberline {7.1}Outsider}{23}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Leader}{23}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}Closeness centrality}{23}{subsubsection.7.2.1}
+\contentsline {subsection}{\numberline {7.3}Outermost}{23}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Mediator}{24}{subsection.7.4}
+\contentsline {subsubsection}{\numberline {7.4.1}LBeweeness}{24}{subsubsection.7.4.1}
+\contentsline {subsubsection}{\numberline {7.4.2}CBetweeness}{24}{subsubsection.7.4.2}
+\contentsline {subsubsection}{\numberline {7.4.3}Normalizovan\IeC {\'a} CBetweeness}{24}{subsubsection.7.4.3}
+\contentsline {subsubsection}{\numberline {7.4.4}Sk\IeC {\'o}re rozmanitosti}{25}{subsubsection.7.4.4}
+\contentsline {section}{\numberline {8}Preh\IeC {\v l}ad syst\IeC {\'e}mu}{27}{section.8}
+\contentsline {subsection}{\numberline {8.1}Kon\IeC {\v s}trukcia siete}{27}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Pre-processing}{27}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}Import d\IeC {\'a}t}{27}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Anal\IeC {\'y}za}{27}{subsection.8.4}
+\contentsline {section}{Literatura}{28}{subsection.8.4}

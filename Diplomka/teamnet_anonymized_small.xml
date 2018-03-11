@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Messages>
+<Message Sender="name00011@domain0006.com" Sent="2010-02-11T05:43:31.000Z" MessageId="a6ed8961-a9cb-4c3b-bb7a-26f175d23d04">
+  <Recipient Type="To">name00012@domain0007.cz</Recipient>
+</Message>
+<Message Sender="name00012@domain0007.cz" Sent="2010-01-25T21:25:13.000Z" MessageId="7d80d4cc-96a2-4049-b865-83d7c379e339" Subject="term00001 term00002 term00003 term00004 term00005 term00006 term00007 term00008 ">
+  <Recipient Type="To">name00011@domain0006.com</Recipient>
+</Message>
+<Message Sender="name00008@domain0004.cz" Sent="2010-01-04T14:20:45.000Z" MessageId="921d60f5-747a-4d1b-9ea3-5472868b044a">
+  <Recipient Type="To">stefan.cz</Recipient>
+  <Recipient Type="To">nasdasd.cz</Recipient>
+  <Recipient Type="To">fer.cz</Recipient>
+
+  </Message>
+</Messages>
