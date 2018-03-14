@@ -7,12 +7,13 @@
 \contentsline {figure}{\numberline {1}{\ignorespaces Neorientovan\IeC {\'y} graf\relax }}{14}{figure.caption.1}
 \contentsline {figure}{\numberline {2}{\ignorespaces Orientovan\IeC {\'y} graf\relax }}{14}{figure.caption.2}
 \contentsline {figure}{\numberline {3}{\ignorespaces Sie\IeC {\v t} s viacer\IeC {\'y}mi komunitami\relax }}{17}{figure.caption.3}
-\contentsline {figure}{\numberline {4}{\ignorespaces Closeness centrality\relax }}{23}{figure.caption.4}
-\contentsline {figure}{\numberline {5}{\ignorespaces Def: LPath\relax }}{24}{figure.caption.5}
-\contentsline {figure}{\numberline {6}{\ignorespaces Def: LBetweeness\relax }}{24}{figure.caption.6}
-\contentsline {figure}{\numberline {7}{\ignorespaces Def: CBetweeness\relax }}{24}{figure.caption.7}
-\contentsline {figure}{\numberline {8}{\ignorespaces Def: Normalizovan\IeC {\'a} verzia CBC\relax }}{25}{figure.caption.8}
-\contentsline {figure}{\numberline {9}{\ignorespaces Def: DSCount\relax }}{25}{figure.caption.9}
-\contentsline {figure}{\numberline {10}{\ignorespaces Def: DSPair\relax }}{25}{figure.caption.10}
+\contentsline {figure}{\numberline {4}{\ignorespaces Vizualiz\IeC {\'a}cia krokov algoritmu. Ka\IeC {\v z}d\IeC {\'y} priechod je tvoren\IeC {\'y} dvomi f\IeC {\'a}zami: prv\IeC {\'a}, kde je modularita optimalizovan\IeC {\'a} t\IeC {\'y}m, \IeC {\v z}e umo\IeC {\v z}\IeC {\v n}uje len miestne zmeny komun\IeC {\'\i }t a druh\IeC {\'a}, kde n\IeC {\'a}jden\IeC {\'e} komunity s\IeC {\'u} agregovan\IeC {\'e} tak, aby bolo mo\IeC {\v z}n\IeC {\'e} vytvori\IeC {\v t} sie\IeC {\v t} komun\IeC {\'\i }t. Priechodz s\IeC {\'u} opakovan\IeC {\'e} iterat\IeC {\'\i }vne k\IeC {\'y}m nie je mo\IeC {\v z}n\IeC {\'y} \IeC {\v z}iadny n\IeC {\'a}rast modularity.\relax }}{19}{figure.caption.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces Closeness centrality\relax }}{24}{figure.caption.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Def: LPath\relax }}{25}{figure.caption.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Def: LBetweeness\relax }}{25}{figure.caption.7}
+\contentsline {figure}{\numberline {8}{\ignorespaces Def: CBetweeness\relax }}{25}{figure.caption.8}
+\contentsline {figure}{\numberline {9}{\ignorespaces Def: Normalizovan\IeC {\'a} verzia CBC\relax }}{26}{figure.caption.9}
+\contentsline {figure}{\numberline {10}{\ignorespaces Def: DSCount\relax }}{26}{figure.caption.10}
 \contentsline {figure}{\numberline {11}{\ignorespaces Def: DSPair\relax }}{26}{figure.caption.11}
-\contentsline {figure}{\numberline {12}{\ignorespaces Model-View-Controller\relax }}{28}{figure.caption.12}
+\contentsline {figure}{\numberline {12}{\ignorespaces Def: DSPair\relax }}{27}{figure.caption.12}
+\contentsline {figure}{\numberline {13}{\ignorespaces Model-View-Controller\relax }}{29}{figure.caption.13}

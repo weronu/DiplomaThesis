@@ -28,7 +28,7 @@
 
 % Zadame soubor s digitalizovanou podobou prohlaseni autora zaverecne prace.
 % Pokud toto makro zapoznamkujeme sazi se cisty text prohlaseni.
-\AuthorDeclarationImageFile{Figures/AuthorDeclaration.jpg}
+\AuthorDeclarationImageFile{Figures/prehlasenie.jpg}
 
 \ThesisAccessRestriction{Zde vložte text dohodnutého omezení přístupu k Vaší práci, chránící například firemní know-how. Zde vložte text dohodnutého omezení přístupu k Vaší práce, chránící například firemní know-how. A zavazujete se, že:
 \begin{enumerate}
@@ -133,34 +133,37 @@ Orientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V,E)}, kde V je
 \caption{Orientovaný graf}
 \end{figure}
 
+\end{itemize}
 \newpage
-\item \textbf{Súvislosť grafu}
+\subsection{Súvislosť grafu}
 
 Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u}, ak v grafe existuje sled z vrcholu \textit{u} do vrcholu \textit{v}.
 
 Graf nazveme \textit{súvislý}, ak pre každé dva vrcholy \textit{u, v} je vrchol v dosiahnuteľný z vrcholu u. V opačnom prípade je graf \textit{nesúvislý}.
 
-\item \textbf{Úplný graf}
+\subsection{Úplný graf}
 
 Úplný graf na ${n}$ vrcholoch je neorientovaný graf, ktorý má hranu medzi každými dvoma vrcholmi. Počet jeho hrán je ${m = n * ( n - 1) / 2}$.
 
-\item \textbf{Stupeň vrcholu}
+\subsection{Stupeň vrcholu}
 
 Stupeň vrcholu je počet vrcholov spojených s týmto vrcholom hranou, inými slovami: počet jeho susedov. V orientovanom grafe sa ešte rozlišuje vstupný a výstupný stupeň vrcholu podľa toho, koľko hrán z vrcholu vychádza alebo do neho vchádza.
 
-\item \textbf{Cesta}
+\subsection{Cesta}
 
 Cesta je postupnosť vrcholov v grafe taká, že medzi každými dvoma vrcholmi cesty je hrana a vrcholy sa neopakujú. V orientovaných grafoch sa ešte rozlišuje smer cesty, pričom orientácia hrán je stále rovnaká. Dĺžka cesty je počet hrán, ktoré obsahuje.
 
-\item \textbf{Uzavretá cesta}
+\subsection{Uzavretá cesta}
 
 Uzavrená cesta, kružnica v neorientovanom a cyklus v orientovanom grafe, je cesta, ktorá začína a končí v rovnakom uzle.
 
-\item \textbf{Komponenta grafu}
+\subsection{Komponenta grafu}
 
 Komponenta grafu je súvislá časť grafu a medzi vrcholmi z rôznych komponent neexistuje žiadna hrana.
 
-\end{itemize}
+\subsection{Metriky}
+\subsubsection{Closeness centrality}
+\subsubsection{Betweeness centrality}
 
 
 \section{Sociálna sieť}
@@ -213,9 +216,30 @@ patria do rovnakej komunity.
 
 
 \subsection{Detekcia komunít}
-Detekcia komunít je proces identifikácie zhlukov uzlov siete silne prepojených medzi sebou a menej silne prepojených so zvyškom siet. Detekcia komunít v grafoch má za cieľ identifikovať moduly a ich prípadnú hierarchickú organizáciu.
+Detekcia komunít je proces identifikácie zhlukov uzlov siete silne prepojených medzi sebou a menej silne prepojených so zvyškom siete. Detekcia komunít v grafoch má za cieľ identifikovať moduly a ich prípadnú hierarchickú organizáciu.
 
 
+Problém detekcie komunít vyžaduje  rozdelenie siete do komunít husto prepojených uzlov, pričom uzly patriace do odlišných komunít sú len slabo prepojené. Presné formulácie tohto optimalizačného problému sú známe ako výpočtovo neriešiteľné. Vyhľadávanie rýchlych algoritmov pritiahlo veľký záujem vďaka zvyšujúcej sa dostupnosti rozsiahlych sieťových dátových súborov a vplyvu sietí na každodenný život. Môžeme rozlišovať niekoľko typov algoritmov detekcie komunít: \textit{rozdeľovacie} algoritmy - tie detekujú spojenie vnútri siete a postupne ich odstraňujú zo siete, \textit{algomeratívne} algoritmy - zlučujú podobné uzly a postupne komunity podľa spoločných čŕt a \textit{optimalizačné} metódy sú postavené na maximalizácii objektívnej funkcie. Kvalita rozdielov vplývajúcich z týchto metód sa často meria takzvanou modularitou. Je to hodnota v intervale od -1 do 1, ktorá meria hustotu spojov vnútri komunít v porovnaní s prepojeniami medzi komunitami. 
+
+
+\subsubsection{Louvainov algoritmus pre detekciu komunít}
+
+Veľmi obľúbeným a rýchlym algoritmom pre detekciu komunít je Louvainova metóda, ktorú navrhli Blondel, Guillaume, Lambiotte a Lefebvre \cite{12}. Je to jednoduchá metóda pre exktrakciu komunitnej štruktúry veľkých sietí. Je to heuristická metóda, ktorá je postavená na optimalizácii modularity. Je preukázané, že prekoná všetky ostatné známe metódy detekcie komunít, pokiaľ ide o čas výpočtu. Navyše kvalita detekovaných komunít je veľmi dobrá.
+
+
+Výpočet algoritmu je rozdelený do dvoch fáz, ktoré sa iteratívne opakujú. Predpokladajme, že začíname s váženou sieťou s \textit{N} uzlami. Ako prvé označíme každý uzol siete inou komunitou. Takže v tomto prvotnom rozdelení je toľko komunít, ako je uzlov. Potom pre každý uzol \textit{i} uvažujeme susedov \textit{j} a vyhodnotíme prírastok modularity, ktorý by nastal, ak z sme odstránili uzol \textit{i} z jeho komunity a priradili by sme ho do komunity uzla \textit{j}. Uzol \textit{i} je potom vložený do komunity, pre ktorú je tento prírastok najvyšší, ale len ak je tento prírastok kladný. Ak nie je možný žiadny kladný prírastok, uzol \textit{i} ostáva vo svojej komunite. Tento proces je aplikovaný opätovne a sekvenčne pre všetky uzly kým sa nedosiahne žiadne zlepšenie a prvá fáza je kompletná. Prvá fáza končí, keď je dosiahnuté lokálne maximum modularity, keď žiadny uzol už nemôže zlepšiť modularitu. Je taktiež dôležité, že výstup algoritmu záleží na postupe, v ktorom sú uzly brané do úvahy. Výsledky algoritmu ale naznačujú, že usporiadanie uzlov nemá významný vplyv na získanú modularitu. Zoradenie však môže ovplyvniť výpočtový čas. Problém pri výbere objednávky preto stojí za to študovať, pretože by mohol poskytnúť dobrú heuristiku na zvýšenie výpočtového času.
+
+
+Druhá fáza algoritmu spočíva vo vytvorení novej siete, ktorej uzly sú komunity nájdené počas prvej fázy algoritmu. K tomu, aby sa nová sieť vytvorila, váhy spojení medzi novými uzlami sú dané sumou váh prepojení medzi uzlami korešpondujúcih dvoch komunít. Spojenia medzi uzlami tej istej komunity vedú k slučkám v novej sieti. Keď je druhá fáza kompletná, je možné znovu aplikovať prvú fázu algoritmu na výslednú váženú sieť a proces opakovať. Pri konštrukcii sa počet komunít znižuje pri každom priechode. Proces sa opajuje, kým nie sú žiadne ďalšie zmeny a dosiahne sa maximálna modularita.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14.5cm, height=9.5cm]{figures/louvain}
+\caption{Vizualizácia krokov algoritmu. Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizovaná tým, že umožňuje len miestne zmeny komunít a druhá, kde nájdené komunity sú agregované tak, aby bolo možné vytvoriť sieť komunít. Priechodz sú opakované iteratívne kým nie je možný žiadny nárast modularity.}
+\end{figure}
+
+\newpage
 \section{Emailová komunikácia}
 \subsection{Stručná história emailu}
 Za počiatky emailovej komunikácie možno považovať priližne rok 1965, kedy bola správa prenášaná medzi sálovými počítačmi pracujúcich v režime zdieľania času na univerzite \textit{Massachusetts Institute of Technology}.
@@ -373,7 +397,7 @@ CBetweeness počíta počet najkratších ciest medzi rozdielnymi komunitami. \t
 \end{figure}
 
 
-\subsubsection{Normalizovaná CBetweeness}
+\subsubsection{Normalizovaná verzia CBetweeness}
 Pravdepodobnosť nájdenia viac viditeľných mediátorov vo väčších komunitách je väčšia v porovnaní s menšími komunitami. Táto situácia sa stáva, pretože vo väčších komunitách je pochopiteľne viac uzlov, čo vedie k viacerým najkratším cestám medzi nimi. Pre kompenzáciu tohoto efektu je definovaná normalizovaná verzia \textit{CBC}: 
 
 
@@ -437,29 +461,18 @@ môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to be
 
 
 \section{Aplikácia}
-V tejto aplikácii je najskôr popísaná špecifikácia požiadavkov, ďalej nasleduje sekcia o vývoji, kde sú uvedené podrobnosti o návrhových vzoroch, konštrukcii siete, predpríprave dát a taktiež sú tu stručne popísané najdôležitejšie triedy v aplikácii. Tiež sú v tejto kapitole spomenuté určité prípady použitia aplikácie.
-
-\subsection{Špecifikácia}
-\subsubsection{Funkčné požiadavky}
-\begin{itemize}
-\item Stiahnutie dát z emailovej schránky
-\item Nahranie XML súboru s emailovými dátami
-\item Zobrazenie informácii o emailovej sieti
-\item Vizualizácia emailovej siete
-\item Vytvorenie ego-siete
-\item Detekcia komunít
-\item Detekcia štrukturálnych rolí v sieti
-\end{itemize}
+Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
 
 
 \subsection{Návrh}
-Návrhové vzory sú v podstate postup, ako riešiť typickú situáciu pri navrhovaní nielen softvérových diel. Ich používanie zjednodušuje a sprehľadňuje návrh softwaru. V tejto aplikácii je použitých niekoľko návrhových vzorov.
+Aplikácia je vytvorená ako .NET aplikácia (veria .NET Framework 4.6). Je vytvorená ako trojvrstvová. Pre uloženie dát používam SQL databázu. Najnižšia vrstva aplikácie slúži na získavanie dát z databázy, pre prepojenie s databázou a posielanie dát z aplikácie do databázy používam Entity Framework a používam tu návrhový vzor Repository. Od tejto časti je oddelená časť s business logikou a na najvyššej časti, ktorá slúži len na zobrazenie dát a komunikáciu s užívateľom, používam známy prístup Model-View-Controller.
+
 
 \subsubsection{Návrhové vzory}
 
 \indent
 \indent \textbf{Repository}
-Návrhový vzor Repositorz je základným kameňom doménou riadeného návrhu. Model aplikácie teda nemá poňatie o tom, akým spôsobom je perzistovaný. O to sa stará práve Repository. Naviac práve vďaka tomu, že sa o persistenciu stará cudzí objekt, stačí poznať len jeho rozhranie a v prípad potreby ho ľahko nahradiť iným. \cite{11}
+Návrhový vzor Repository je základným kameňom doménou riadeného návrhu. Model aplikácie teda nemá poňatie o tom, akým spôsobom je perzistovaný. O to sa stará práve Repository. Naviac práve vďaka tomu, že sa o persistenciu stará cudzí objekt, stačí poznať len jeho rozhranie a v prípad potreby ho ľahko nahradiť iným. \cite{11}
 
 
 \textbf{Model-View-Controller}
@@ -480,19 +493,31 @@ MVC rozdeľuje program do troch hlavných častí:
 \end{figure}
 
 
+\subsection{Špecifikácia}
+\subsubsection{Funkčné požiadavky}
+\begin{itemize}
+\item Export dát z emailovej schránky
+\item Import vlastného XML súboru s emailovými dátami
+\item Zobrazenie informácii o emailovej sieti
+\item Vizualizácia emailovej siete
+\item Vytvorenie ego-siete
+\item Detekcia komunít
+\item Detekcia štrukturálnych rolí v sieti
+\end{itemize}
+
+
+
+
 
 \subsection{Predpríprava dát}
-Pre extrakciu dát z emailového účtu som použila separátnu aplikáciu \cite{5}, ktorá obsahuje konektor pre pripojenie k rôznym emailovým klientom(MS Outlook, Thunderbird) alebo sa pripojí cez IMAP alebo Gmail. Výstupom aplikácie je XML súbor (dataset) pripravný pre ďalšie používanie. Obsahuje prvky\textit{MessageId, Sender, Sent, Subject, InReplyTo, Recipient, Type(CC, To)}, ale neobsahuje telo emailu, ani prílohy.
 
-Po tomto predpripravní dát z individuálneho emailového účtu môže byť súbor  naimportovaný do aplikácie.
 
 \subsection{Import dát}
 XML súbor je analyzovaný uloženou procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{Users, EmailMessages EmailRecipients} a \textit{Conversations} a uloží ich do SQL databázy.
 
-\subsection{Implementácia}
-\subsubsection{Použité technológie a nástroje}
+
 \subsubsection{Konštrukcia siete}
-Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového dataetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Konverzácia je súbor mailov, ktorá začína jediným mailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. 
+Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku.
 
 \newpage
 \begin{thebibliography}{99}
@@ -510,7 +535,7 @@ no different}
 	\bibitem{10} Zehnalová, Horák, Kudělka \textit{Email Conversation Network Analysis: Work Groups
 and Teams in Organizations}
 	\bibitem{11} Repository pattern, \textit{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}
-	\bibitem{12}
+	\bibitem{12} Vincent D. Blondel, Jean-Loup Guillaume1, RenaudLambiotte and Etienne Lefebvre: \textit{Fast unfolding of communities in large networks}
 	\bibitem{13}
 \end{thebibliography}
 
