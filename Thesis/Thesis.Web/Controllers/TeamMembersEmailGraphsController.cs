@@ -10,7 +10,6 @@ using Thesis.Web.DTOs;
 using Thesis.Web.Models;
 using Domain.GraphClasses;
 using Graph.Algorithms;
-using Microsoft.Ajax.Utilities;
 
 namespace Thesis.Web.Controllers
 {

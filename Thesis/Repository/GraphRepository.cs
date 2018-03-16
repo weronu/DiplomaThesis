@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using Domain.DomainClasses;
 using Domain.DTOs;
@@ -163,6 +165,26 @@ namespace Repository.MSSQL
                 select conversation.ConversationId).Distinct().ToList();
 
             return conversationIds;
+        }
+
+        public void ImportXmlFile(string pathToFile)
+        {
+            const string sql = "EXEC sp_ParseXML @fileName";
+            _context.Database.ExecuteSqlCommand(sql, new SqlParameter("@fileName", pathToFile));
+        }
+
+        public void ExtractConversations()
+        {
+            const string sql = "EXEC sp_ExtractConversations";
+
+            _context.Database.ExecuteSqlCommand(sql);
+        }
+
+        public void ClearDatabaseData()
+        {
+            const string sql = "EXEC sp_ClearDatabaseData";
+
+            _context.Database.ExecuteSqlCommand(sql);
         }
     }
 

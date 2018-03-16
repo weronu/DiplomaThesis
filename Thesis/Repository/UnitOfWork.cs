@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Data.Entity;
 using Repository.MSSQL.Interfaces;
 
 namespace Repository.MSSQL
 {
-    public class UnitOfWork : IUnitOfWork, IDisposable
+    public class UnitOfWork : IUnitOfWork
     {
-        private ThesisDbContext _dbContext;
+        private readonly ThesisDbContext _dbContext;
 
         private IUserRepository _userRepository;
         private ICommonRepository _commonRepository;
@@ -18,74 +17,31 @@ namespace Repository.MSSQL
             _dbContext = new ThesisDbContext(connectionString);
         }
        
-        public IUserRepository UserRepo
-        {
-            get
-            {
-                if (_userRepository == null)
-                {
-                    _userRepository = new UserRepository(_dbContext);
-                }
-                return _userRepository;
-            }
-        }
+        public IUserRepository UserRepo => _userRepository ?? (_userRepository = new UserRepository(_dbContext));
 
-        public ICommonRepository CommonRepo
-        {
-            get
-            {
-                if (_commonRepository == null)
-                {
-                    _commonRepository = new CommonRepository(_dbContext);
-                }
-                return _commonRepository;
-            }
-        }
+        public ICommonRepository CommonRepo => _commonRepository ?? (_commonRepository = new CommonRepository(_dbContext));
 
-        public IGraphRepository GraphRepo
-        {
-            get
-            {
-                if (_graphRepository == null)
-                {
-                    _graphRepository = new GraphRepository(_dbContext);
-                }
-                return _graphRepository;
-            }
-        }
+        public IGraphRepository GraphRepo => _graphRepository ?? (_graphRepository = new GraphRepository(_dbContext));
 
-        public IConversationRepository ConvRepo
-        {
-            get
-            {
-                if (_convRepository == null)
-                {
-                    _convRepository = new ConversationRepository(_dbContext);
-                }
-                return _convRepository;
-            }
-        }
+        public IConversationRepository ConvRepo => _convRepository ?? (_convRepository = new ConversationRepository(_dbContext));
 
         public void SaveChanges()
         {
 
         }
 
-
-        private bool disposed = false;
-
-
+        private bool disposed;
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     _dbContext.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

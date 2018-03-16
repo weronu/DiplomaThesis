@@ -3,6 +3,7 @@ using Domain.DTOs;
 using Domain.GraphClasses;
 using Repository.MSSQL.Interfaces;
 using Thesis.Services.Interfaces;
+using static Repository.MSSQL.UnitOfWorkFactory;
 
 
 namespace Thesis.Services
@@ -18,7 +19,7 @@ namespace Thesis.Services
         {
             Graph<UserDto> graph = new Graph<UserDto>();
             
-            using (IUnitOfWork uow = Repository.MSSQL.UnitOfWorkFactory.CreateUnitOfWork(connectionString))
+            using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
             {
                 HashSet<Edge<UserDto>> edges = uow.GraphRepo.ExtractEdgesFromConversation();
                 graph.CreateGraph(edges);
@@ -30,11 +31,20 @@ namespace Thesis.Services
         public int FetchNodeIdByUserName(string name, string connectionString)
         {
             int nodeId;
-            using (IUnitOfWork uow = Repository.MSSQL.UnitOfWorkFactory.CreateUnitOfWork(connectionString))
+            using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
             {
                 nodeId = uow.UserRepo.GetNodeIdByUserName(name);
             }
             return nodeId;
+        }
+
+        public void ImportXMLFile(string pathToFile, string connectionString)
+        {
+            using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+            {
+                uow.GraphRepo.ClearDatabaseData();
+                uow.GraphRepo.ImportXmlFile(pathToFile);
+            }
         }
     }
 }

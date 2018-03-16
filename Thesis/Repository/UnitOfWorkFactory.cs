@@ -1,11 +1,10 @@
-﻿using System;
-using Repository.MSSQL.Interfaces;
+﻿using Repository.MSSQL.Interfaces;
 
 namespace Repository.MSSQL
 {
     public class UnitOfWorkFactory : IUnitOfWorkFactory
     {
-        private string _connectionString;
+        private readonly string _connectionString;
 
         public UnitOfWorkFactory(string connectionString)
         {
