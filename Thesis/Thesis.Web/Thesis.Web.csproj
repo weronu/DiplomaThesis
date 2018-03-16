@@ -174,7 +174,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SimpleInjectorDependencyResolver.cs" />
+    <Compile Include="Controllers\EmailDownloadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImportXMLFileController.cs" />
     <Compile Include="Controllers\TeamMembersEmailGraphsController.cs" />
     <Compile Include="DTOs\EdgeDto.cs" />
     <Compile Include="DTOs\GraphDto.cs" />
@@ -215,6 +217,7 @@
     <Content Include="Content\fontawesome\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome\fontawesome.css" />
     <Content Include="Content\fontawesome\fontawesome.min.css" />
+    <Content Include="Content\inputfile.css" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
@@ -331,9 +334,11 @@
     <Content Include="webfonts\fa-brands-400.eot" />
     <Content Include="Views\TeamMembersEmailGraphs\Index.cshtml" />
     <Content Include="Views\TeamMembersEmailGraphs\GraphView_partial.cshtml" />
+    <Content Include="Views\ImportXMLFile\Index.cshtml" />
+    <Content Include="Views\EmailDownload\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -7,5 +7,6 @@ namespace Thesis.Services.Interfaces
     {
         Graph<UserDto> FetchEmailsGraph(string connectionString);
         int FetchNodeIdByUserName(string name, string connectionString);
+        void ImportXMLFile(string pathToFile, string connectionString);
     }
 }
