@@ -38,21 +38,41 @@ body {
             background: #f1e5e6;
         }
     }
-
-
-
     .box {
         margin-left: 25%;
         margin-top: 11%;
     }
 }
 
-
-
 .container-graph {
     padding-left: 20%;
     padding-right: 20%;
     padding-top: 50px;
+}
+
+.container-download {
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 50px;
+
+    .btn {
+        width: 100px;
+        background: #e3e3e3;
+
+        &:hover {
+            background: #cacaca;
+        }
+    }
+}
+
+.download-form {
+    padding: 15px !important;
+    background: #fcfcfc;
+}
+
+.server-conf-label {
+    color: $color_nav;
+    font-size: 18px;
 }
 
 .graph-network {
@@ -91,8 +111,6 @@ p, span, ul, li, button, a {
     line-height: inherit;
     color: inherit;
 }
-
-
 
 strong {
     font-weight: 600;
