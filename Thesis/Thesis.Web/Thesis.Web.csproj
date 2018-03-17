@@ -188,6 +188,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="DTOs\TeamMemberDto.cs" />
+    <Compile Include="Models\EmailDownloadViewModel.cs" />
     <Compile Include="Models\GraphViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
