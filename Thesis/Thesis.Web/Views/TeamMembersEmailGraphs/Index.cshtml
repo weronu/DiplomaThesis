@@ -7,9 +7,12 @@
 @model Thesis.Web.Models.GraphViewModel
 
 <div class="container-graph">
-    <div class="form-group">
-        @Html.DropDownListFor(m => m.SelectedTeamMemberId, new SelectList(Model.TeamMembers, "Id", "Name", 1), new { @class = "form-control", id = "teamMembersDropdown" })
-    </div>
+    @if (Model.FileImported == false)
+    {
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.SelectedTeamMemberId, new SelectList(Model.TeamMembers, "Id", "Name", 1), new {@class = "form-control", id = "teamMembersDropdown"})
+        </div>
+    }
     <div id="graphView_Partial_Id">@Html.Partial("~/Views/TeamMembersEmailGraphs/GraphView_partial.cshtml")</div>
 </div>
 

@@ -8,6 +8,7 @@ namespace Thesis.Web.Models
 {
     public class GraphViewModel
     {
+        public bool FileImported { get; set; }
         public List<TeamMemberDto> TeamMembers { get; set; }
         public int? SelectedTeamMemberId { get; set; }
         public GraphDto GraphDto { get; set; }

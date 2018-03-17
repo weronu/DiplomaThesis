@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using Thesis.Services.Interfaces;
+using Thesis.Web.Models;
 
 namespace Thesis.Web.Controllers
 {
@@ -36,7 +37,12 @@ namespace Thesis.Web.Controllers
                 _graphService.ImportXMLFile(path, "ThesisImportDatabase");
             }
 
-            return RedirectToAction("Index");
+            GraphViewModel model = new GraphViewModel()
+            {
+                FileImported = true
+            };
+
+            return RedirectToAction("Index", "TeamMembersEmailGraphs", model);
         }
     }
 }

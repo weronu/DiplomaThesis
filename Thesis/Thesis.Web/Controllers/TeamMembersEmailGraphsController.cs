@@ -11,11 +11,13 @@ using Thesis.Web.Models;
 using Domain.GraphClasses;
 using Graph.Algorithms;
 
+
 namespace Thesis.Web.Controllers
 {
     public class TeamMembersEmailGraphsController : Controller
     {
         private readonly IGraphService _graphService;
+        private readonly string _importConnectionString = "ThesisImportDatabase";
 
         private readonly List<TeamMemberDto> TeamMembers = new List<TeamMemberDto>()
         {
@@ -23,7 +25,7 @@ namespace Thesis.Web.Controllers
             new TeamMemberDto() {Id = 2, Name = "Tibor Palatka", ConnectionString = "GLEmailsDatabaseTibor"},
             new TeamMemberDto() {Id = 3, Name = "Andrej Parimucha", ConnectionString = "GLEmailsDatabaseAndrej"},
             new TeamMemberDto() {Id = 4, Name = "Andrej Matejcik", ConnectionString = "GLEmailsDatabaseAdo"},
-            new TeamMemberDto() {Id = 5, Name = "Explore whole team network", ConnectionString = "GLEmailsDatabase"}
+            new TeamMemberDto() {Id = 5, Name = "Explore whole team network", ConnectionString = "GLEmailsDatabase"},
         };
 
 
@@ -31,17 +33,28 @@ namespace Thesis.Web.Controllers
         {
             _graphService = graphService;
         }
-        public ActionResult Index()
+
+        public ActionResult Index(GraphViewModel model)
         {
             try
             {
-                GraphViewModel model = new GraphViewModel
-                {
-                    TeamMembers = TeamMembers,
-                    SelectedTeamMemberId = 1,
-                };
+                Graph<UserDto> graph;
 
-                Graph<UserDto> graph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()));
+                if (model == null || model.FileImported == false)
+                {
+                    model = new GraphViewModel
+                    {
+                        TeamMembers = TeamMembers,
+                        SelectedTeamMemberId = 1,
+                    };
+
+                    graph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()));
+                }
+                else
+                {
+                    graph = _graphService.FetchEmailsGraph(_importConnectionString);
+                }
+
                 graph.SetDegrees();
 
                 List<NodeDto> nodes = graph.Nodes.Select(x => new NodeDto() { id = x.Id,
@@ -137,12 +150,20 @@ namespace Thesis.Web.Controllers
                     HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graphViewModel.Graph);
 
                     TeamMemberDto selectedTeamMember = graphViewModel.TeamMembers.FirstOrDefault(x => x.Id == graphViewModel.SelectedTeamMemberId);
-                    if (selectedTeamMember == null)
+                    int egoNetworkCenterId;
+                    if (selectedTeamMember == null && graphViewModel.FileImported)
+                    {
+                        egoNetworkCenterId = graphViewModel.Graph.Nodes.OrderByDescending(i => i.Degree).First().Id;
+                    }
+                    else if (selectedTeamMember != null && graphViewModel.FileImported == false)
+                    {
+                        egoNetworkCenterId = _graphService.FetchNodeIdByUserName(selectedTeamMember.Name, selectedTeamMember.ConnectionString);
+                    }
+                    else
                     {
                         throw new Exception("Invalid selected team member.");
                     }
 
-                    int egoNetworkCenterId = _graphService.FetchNodeIdByUserName(selectedTeamMember.Name, selectedTeamMember.ConnectionString);
                     Node<UserDto> egoNetworkCenter = graphViewModel.Graph.GetNodeById(egoNetworkCenterId);
 
                     HashSet<Node<UserDto>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
