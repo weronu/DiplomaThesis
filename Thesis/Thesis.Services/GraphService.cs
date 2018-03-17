@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Domain.DTOs;
 using Domain.GraphClasses;
 using Repository.MSSQL.Interfaces;
@@ -40,10 +41,18 @@ namespace Thesis.Services
 
         public void ImportXMLFile(string pathToFile, string connectionString)
         {
-            using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+            try
             {
-                uow.GraphRepo.ClearDatabaseData();
-                uow.GraphRepo.ImportXmlFile(pathToFile);
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    uow.GraphRepo.ClearDatabaseData();
+                    uow.GraphRepo.ImportXmlFile(pathToFile);
+                    uow.GraphRepo.ExtractConversations();
+                }
+            }
+            catch (Exception)
+            {
+                throw new Exception("Import of file failed.");
             }
         }
     }
