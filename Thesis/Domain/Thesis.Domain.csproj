@@ -57,10 +57,12 @@
     <Compile Include="DomainClasses\Conversation.cs" />
     <Compile Include="DomainClasses\ConversationEmails.cs" />
     <Compile Include="DomainClasses\DomainBase.cs" />
-    <Compile Include="DomainClasses\Email.cs" />
+    <Compile Include="DomainClasses\EmailMessage.cs" />
     <Compile Include="DomainClasses\EmailRecipient.cs" />
     <Compile Include="DomainClasses\User.cs" />
     <Compile Include="DomainClasses\UserEmail.cs" />
+    <Compile Include="DTOs\EmailDownloadDto.cs" />
+    <Compile Include="DTOs\EmailXML.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="GraphClasses\Community.cs" />

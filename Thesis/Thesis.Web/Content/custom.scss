@@ -68,11 +68,15 @@ body {
 .download-form {
     padding: 15px !important;
     background: #fcfcfc;
+    border-radius: 4px;
 }
 
 .server-conf-label {
     color: $color_nav;
     font-size: 18px;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
 }
 
 .graph-network {
@@ -230,24 +234,24 @@ h1, h2, h3, h4, h5, h6, p {
     animation-delay: .3s;
 }
 
-.page-loader:before {
-    content: '';
-    height: 31px;
-    width: 5px;
-    top: 0;
-    left: 13px;
-    position: absolute;
-    background-color: #721549;
+.circle {
+    width: 100px;
+    height: 100px;
+    background: red;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 50px;
 }
 
 .page-loader:after {
     content: '';
-    height: 5px;
+    height: 31px;
     width: 31px;
-    top: 13px;
     left: 0;
     position: absolute;
     background-color: #721549;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
 }
 
 @-moz-keyframes mainloading {

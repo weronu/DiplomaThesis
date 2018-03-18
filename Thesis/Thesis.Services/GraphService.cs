@@ -50,9 +50,9 @@ namespace Thesis.Services
                     uow.GraphRepo.ExtractConversations();
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw new Exception("Import of file failed.");
+                throw new Exception($"Import of file failed with an error: {e}");
             }
         }
     }
