@@ -38,6 +38,7 @@ namespace Thesis.Web
             container.Register<IThesisObjectFactory, ThesisObjectFactory>();
             container.Register<IServiceFactory, ServiceFactory>();
             container.Register<IGraphService>(() => new GraphService(container.GetInstance<IUnitOfWorkFactory>()));
+            container.Register<IEmailService>(() => new EmailService(container.GetInstance<IUnitOfWorkFactory>()));
 
             container.Verify();
 

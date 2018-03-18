@@ -6,5 +6,9 @@
   {
     "outputFile": "Content/constants.css",
     "inputFile": "Content/constants.scss"
+  },
+  {
+    "outputFile": "Content/toastr.css",
+    "inputFile": "Content/toastr.scss"
   }
 ]

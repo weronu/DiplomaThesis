@@ -10,6 +10,7 @@ using Thesis.Web.DTOs;
 using Thesis.Web.Models;
 using Domain.GraphClasses;
 using Graph.Algorithms;
+using Thesis.Services.ResponseTypes;
 
 
 namespace Thesis.Web.Controllers
@@ -38,7 +39,7 @@ namespace Thesis.Web.Controllers
         {
             try
             {
-                Graph<UserDto> graph;
+                FetchItemServiceResponse<Graph<UserDto>> responseGraph;
 
                 if (model == null || model.FileImported == false)
                 {
@@ -48,22 +49,25 @@ namespace Thesis.Web.Controllers
                         SelectedTeamMemberId = 1,
                     };
 
-                    graph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()));
+                    responseGraph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()));
                 }
                 else
                 {
-                    graph = _graphService.FetchEmailsGraph(_importConnectionString);
+                    responseGraph = _graphService.FetchEmailsGraph(_importConnectionString);
                 }
 
-                graph.SetDegrees();
 
-                List<NodeDto> nodes = graph.Nodes.Select(x => new NodeDto() { id = x.Id,
-                                                                            label = x.NodeElement.Name,
-                                                                            title = $"Node degree: {x.Degree}",
-                                                                            size = 10,
-                                                                            color = "#f5cbee"
-                                                                            }).ToList();
-                List<EdgeDto> edges = graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+                responseGraph.Item.SetDegrees();
+
+                List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
+                {
+                    id = x.Id,
+                    label = x.NodeElement.Name,
+                    title = $"Node degree: {x.Degree}",
+                    size = 10,
+                    color = "#f5cbee"
+                }).ToList();
+                List<EdgeDto> edges = responseGraph.Item.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
                 GraphDto graphDto = new GraphDto
                 {
@@ -71,8 +75,11 @@ namespace Thesis.Web.Controllers
                     edges = edges
                 };
 
-                model.Graph = graph;
+                model.Graph = responseGraph.Item;
                 model.GraphDto = graphDto;
+
+
+
 
                 return View(model);
             }
@@ -102,16 +109,20 @@ namespace Thesis.Web.Controllers
             int id = int.Parse(teamMemberId);
             string connectionString = GetConnectionStringBasedOnSelectedMember(teamMemberId);
 
-            Graph<UserDto> graph = _graphService.FetchEmailsGraph(connectionString);
-            graph.SetDegrees();
+            FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString);
 
-            List<NodeDto> nodes = graph.Nodes.Select(x => new NodeDto() { id = x.Id,
-                                                                        label = x.NodeElement.Name,
-                                                                        title = $"Node degree: {x.Degree}",
-                                                                        size = 10,
-                                                                        color = "#f5cbee"
-                                                                        }).ToList();
-            List<EdgeDto> edges = graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+
+            responseGraph.Item.SetDegrees();
+
+            List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
+            {
+                id = x.Id,
+                label = x.NodeElement.Name,
+                title = $"Node degree: {x.Degree}",
+                size = 10,
+                color = "#f5cbee"
+            }).ToList();
+            List<EdgeDto> edges = responseGraph.Item.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
             GraphDto graphDto = new GraphDto
             {
@@ -123,7 +134,7 @@ namespace Thesis.Web.Controllers
             {
                 TeamMembers = TeamMembers,
                 SelectedTeamMemberId = id,
-                Graph = graph,
+                Graph = responseGraph.Item,
                 GraphDto = graphDto
             };
 
@@ -179,7 +190,9 @@ namespace Thesis.Web.Controllers
                     }
 
                     graphViewModel.Graph.SetDegrees();
-                    List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id,
+                    List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
+                    {
+                        id = x.Id,
                         label = x.NodeElement.Name,
                         title = $"Node degree: {x.Degree}",
                         size = 10,
@@ -243,13 +256,15 @@ namespace Thesis.Web.Controllers
                 }
 
                 graphViewModel.Graph.SetDegrees();
-                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id,
-                                                                                             label = x.NodeElement.Name,
-                                                                                             color = colors[x.CommunityId],
-                                                                                             title = $"Node degree: {x.Degree}",
-                                                                                             size = 10,
-                                                                                             //group = x.CommunityId
-                                                                                            }).ToList();
+                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
+                {
+                    id = x.Id,
+                    label = x.NodeElement.Name,
+                    color = colors[x.CommunityId],
+                    title = $"Node degree: {x.Degree}",
+                    size = 10,
+                    //group = x.CommunityId
+                }).ToList();
                 List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
                 GraphDto graphDto = new GraphDto
@@ -319,13 +334,14 @@ namespace Thesis.Web.Controllers
                 roleDetection.ExtractMediators(sortedNodes);
 
 
-            List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto() { id = x.Id,
-                                                                                             label = x.NodeElement.Name,
-                                                                                             color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
-                                                                                             //group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
-                                                                                             title = $"Node degree: {x.Degree}",
-                                                                                             size = GetNodeSizeBasedOnRole(x)
-                                                                                             }).ToList();
+                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
+                {
+                    id = x.Id,
+                    label = x.NodeElement.Name,
+                    color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
+                    title = $"Node degree: {x.Degree}",
+                    size = GetNodeSizeBasedOnRole(x)
+                }).ToList();
                 List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
                 GraphDto graphDto = new GraphDto
@@ -344,7 +360,7 @@ namespace Thesis.Web.Controllers
             }
         }
 
-        private int GetNodeSizeBasedOnRole(Node<UserDto> node)
+        private static int GetNodeSizeBasedOnRole(Node<UserDto> node)
         {
             switch (node.Role)
             {

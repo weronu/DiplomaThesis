@@ -2,6 +2,7 @@
 using Domain.GraphClasses;
 using NUnit.Framework;
 using Thesis.Services.Interfaces;
+using Thesis.Services.ResponseTypes;
 using Thesis.Services.Tests.Base;
 
 namespace Thesis.Services.Tests
@@ -14,8 +15,8 @@ namespace Thesis.Services.Tests
             IGraphService service = new GraphService(UnitOfWorkFactory);
 
             const string connectionString = "GLEmailsDatabase";
-            Graph<UserDto> fetchEmailsGraph = service.FetchEmailsGraph(connectionString);
-            Assert.IsNotEmpty(fetchEmailsGraph.Edges);
+            FetchItemServiceResponse<Graph<UserDto>> fetchEmailsGraph = service.FetchEmailsGraph(connectionString);
+            Assert.IsNotEmpty(fetchEmailsGraph.Item.Edges);
         }
     }
 }
