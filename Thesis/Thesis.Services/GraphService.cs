@@ -4,6 +4,7 @@ using Domain.DTOs;
 using Domain.GraphClasses;
 using Repository.MSSQL.Interfaces;
 using Thesis.Services.Interfaces;
+using Thesis.Services.ResponseTypes;
 using static Repository.MSSQL.UnitOfWorkFactory;
 
 
@@ -16,8 +17,9 @@ namespace Thesis.Services
 
         }
 
-        public Graph<UserDto> FetchEmailsGraph(string connectionString)
+        public FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString)
         {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
             Graph<UserDto> graph = new Graph<UserDto>();
             
             using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
@@ -26,7 +28,9 @@ namespace Thesis.Services
                 graph.CreateGraph(edges);
             }
 
-            return graph;
+            response.Item = graph;
+
+            return response;
         }
 
         public int FetchNodeIdByUserName(string name, string connectionString)

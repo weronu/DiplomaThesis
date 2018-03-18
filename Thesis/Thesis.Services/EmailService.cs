@@ -38,7 +38,7 @@ namespace Thesis.Services
 
                     imap.SelectInbox();
 
-                    List<long> emailUIDs = imap.GetAll().Take(10).ToList();
+                    List<long> emailUIDs = imap.GetAll().ToList();
 
                     foreach (long uid in emailUIDs)
                     //Parallel.ForEach(emailUIDs, new ParallelOptions { MaxDegreeOfParallelism = 4 }, (uid) =>
@@ -64,7 +64,7 @@ namespace Thesis.Services
             }
             catch (Exception e)
             {
-                throw new Exception($"Download failed with an error: {e}");
+                throw new Exception($"Download failed with an error: {e.Message}");
             }
         }
 
