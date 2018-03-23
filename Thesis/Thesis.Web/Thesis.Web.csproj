@@ -227,6 +227,7 @@
     <Content Include="Content\fontawesome\fontawesome.css" />
     <Content Include="Content\fontawesome\fontawesome.min.css" />
     <Content Include="Content\inputfile.css" />
+    <Content Include="Content\toastr.css" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />
     <Content Include="Content\webfonts\fa-regular-400.svg" />
     <Content Include="Content\webfonts\fa-solid-900.svg" />
@@ -284,6 +285,8 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Scripts\vis\img\network\acceptDeleteIcon.png" />
     <Content Include="Scripts\vis\img\network\addNodeIcon.png" />

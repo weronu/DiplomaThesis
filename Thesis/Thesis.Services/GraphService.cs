@@ -115,6 +115,11 @@ namespace Thesis.Services
 
             try
             {
+                if (graph.Communities.Count == 0)
+                {
+                    throw new Exception("You have to find communities first!");
+                }
+
                 GraphAlgorithm<UserDto> algorithms = new GraphAlgorithm<UserDto>(graph);
                 HashSet<ShortestPathSet<UserDto>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
 
