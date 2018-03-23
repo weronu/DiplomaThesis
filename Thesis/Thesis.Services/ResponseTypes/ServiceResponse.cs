@@ -17,6 +17,7 @@ namespace Thesis.Services.ResponseTypes
             Errors = new List<string>();
             InfoMessages = new List<string>();
             ValidationErrors = new List<string>();
+            SuccessMessages = new List<string>();
         }
 
         public void AddError(string errorMessage)

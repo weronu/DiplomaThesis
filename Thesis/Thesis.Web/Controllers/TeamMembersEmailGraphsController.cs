@@ -293,13 +293,6 @@ namespace Thesis.Web.Controllers
                     }
                 }
 
-                if (graphViewModel.Graph.Communities.Count == 0)
-                {
-                    //this.AddToastMessage("Not supported!", "You have to find communities first!");
-                    //RedirectToAction("Index", graphViewModel);
-                    //return RedirectToAction<TeamMembersEmailGraphsController>(c => c.Index()).WithSuccess("Issue created.");
-                }
-
                 graphViewModel.Graph = _graphService.DetectRolesInGraph(graphViewModel.Graph).Item;
 
                 List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
