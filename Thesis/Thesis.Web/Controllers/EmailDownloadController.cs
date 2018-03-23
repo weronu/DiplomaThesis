@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Domain.DTOs;
 using Thesis.Services.Interfaces;
+using Thesis.Services.ResponseTypes;
 using Thesis.Web.Models;
 
 namespace Thesis.Web.Controllers
@@ -33,10 +33,7 @@ namespace Thesis.Web.Controllers
                 UseSSL = model.UseSSL
             };
 
-            HashSet<EmailXML> downloadedEmails = _emailService.DownloadEmailMessagesFromEmailAccount(emailDownloadDto);
-
-            _emailService.CreateEmailXMLFile(downloadedEmails);
-
+            FetchListServiceResponse<EmailXML> downloadedEmails = _emailService.DownloadEmailMessagesFromEmailAccount(emailDownloadDto);
 
             return View("Index", model);
         }

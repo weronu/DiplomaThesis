@@ -7,7 +7,8 @@ namespace Thesis.Services.Interfaces
     public interface IGraphService
     {
         FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString);
-        int FetchNodeIdByUserName(string name, string connectionString);
-        void ImportXMLFile(string pathToFile, string connectionString);
+        FetchItemServiceResponse<int> FetchNodeIdByUserName(string name, string connectionString);
+        ServiceResponse ImportXMLFile(string pathToFile, string connectionString);
+        FetchItemServiceResponse<Graph<UserDto>> DetectRolesInGraph(Graph<UserDto> graph);
     }
 }

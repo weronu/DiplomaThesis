@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Domain.DTOs;
+using Thesis.Services.ResponseTypes;
 
 namespace Thesis.Services.Interfaces
 {
     public interface IEmailService
     {
-        HashSet<EmailXML> DownloadEmailMessagesFromEmailAccount(EmailDownloadDto emailDownloadDto);
-        void CreateEmailXMLFile(HashSet<EmailXML> emails);
+        FetchListServiceResponse<EmailXML> DownloadEmailMessagesFromEmailAccount(EmailDownloadDto emailDownloadDto);
     }
 }

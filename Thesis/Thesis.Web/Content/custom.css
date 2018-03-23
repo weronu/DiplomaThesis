@@ -196,8 +196,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 .page-loader:after {
   content: '';
-  height: 31px;
-  width: 31px;
+  height: 26px;
+  width: 26px;
   left: 0;
   position: absolute;
   background-color: #721549;

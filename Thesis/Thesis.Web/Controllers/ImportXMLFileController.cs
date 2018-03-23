@@ -2,6 +2,7 @@
 using System.Web;
 using System.Web.Mvc;
 using Thesis.Services.Interfaces;
+using Thesis.Services.ResponseTypes;
 using Thesis.Web.Models;
 
 namespace Thesis.Web.Controllers
@@ -34,7 +35,22 @@ namespace Thesis.Web.Controllers
                     path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
                     file.SaveAs(path);
                 }
-                _graphService.ImportXMLFile(path, "ThesisImportDatabase");
+
+                ServiceResponse response = _graphService.ImportXMLFile(path, "ThesisImportDatabase");
+                if (response.Succeeded)
+                {
+                    foreach (string message in response.SuccessMessages)
+                    {
+                        //this.AddToastMessage("", message, ToastType.Success);
+                    }
+                }
+                else
+                {
+                    foreach (string message in response.Errors)
+                    {
+                        //this.AddToastMessage("", message, ToastType.Error);
+                    }
+                }
             }
 
             GraphViewModel model = new GraphViewModel()

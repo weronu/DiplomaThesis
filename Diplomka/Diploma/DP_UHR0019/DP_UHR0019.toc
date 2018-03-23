@@ -50,10 +50,13 @@
 \contentsline {subsubsection}{\numberline {7.4.4}Sk\IeC {\'o}re rozmanitosti}{27}{subsubsection.7.4.4}
 \contentsline {section}{\numberline {8}Aplik\IeC {\'a}cia}{28}{section.8}
 \contentsline {subsection}{\numberline {8.1}N\IeC {\'a}vrh}{28}{subsection.8.1}
-\contentsline {subsubsection}{\numberline {8.1.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{28}{subsubsection.8.1.1}
-\contentsline {subsection}{\numberline {8.2}\IeC {\v S}pecifik\IeC {\'a}cia}{29}{subsection.8.2}
-\contentsline {subsubsection}{\numberline {8.2.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{29}{subsubsection.8.2.1}
-\contentsline {subsection}{\numberline {8.3}Predpr\IeC {\'\i }prava d\IeC {\'a}t}{29}{subsection.8.3}
-\contentsline {subsection}{\numberline {8.4}Import d\IeC {\'a}t}{29}{subsection.8.4}
-\contentsline {subsubsection}{\numberline {8.4.1}Kon\IeC {\v s}trukcia siete}{29}{subsubsection.8.4.1}
-\contentsline {section}{Literatura}{30}{subsubsection.8.4.1}
+\contentsline {subsection}{\numberline {8.2}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{28}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{28}{subsubsection.8.2.1}
+\contentsline {subsection}{\numberline {8.3}\IeC {\v S}pecifik\IeC {\'a}cia}{29}{subsection.8.3}
+\contentsline {subsubsection}{\numberline {8.3.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{29}{subsubsection.8.3.1}
+\contentsline {subsection}{\numberline {8.4}Predpr\IeC {\'\i }prava d\IeC {\'a}t}{29}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}Import d\IeC {\'a}t}{29}{subsection.8.5}
+\contentsline {subsubsection}{\numberline {8.5.1}Kon\IeC {\v s}trukcia siete}{29}{subsubsection.8.5.1}
+\contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{30}{section.9}
+\contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{30}{subsection.9.1}
+\contentsline {section}{Literatura}{31}{subsection.9.1}

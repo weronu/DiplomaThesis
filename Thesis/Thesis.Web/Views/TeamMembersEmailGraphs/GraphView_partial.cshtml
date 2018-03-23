@@ -91,7 +91,6 @@
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
             datatype: 'json',
-            error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
                 unblockUI();

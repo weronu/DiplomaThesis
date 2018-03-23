@@ -92,6 +92,10 @@
       <Project>{33338734-71ef-4c86-8ad1-4e339d52e694}</Project>
       <Name>Thesis.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Graph.Algorithms\Thesis.Algorithms.csproj">
+      <Project>{8D518857-8DB3-4778-9C2B-7A9714B7CBF5}</Project>
+      <Name>Thesis.Algorithms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Repository\Thesis.Repository.MSSQL.csproj">
       <Project>{d6f7c46e-4415-4a7e-b49a-c5ff7b75c554}</Project>
       <Name>Thesis.Repository.MSSQL</Name>
