@@ -38,7 +38,7 @@ namespace Thesis.Services
 
                     imap.SelectInbox();
 
-                    List<long> emailUIDs = imap.GetAll().ToList();
+                    List<long> emailUIDs = imap.GetAll().Take(100).ToList();
 
                     foreach (long uid in emailUIDs)
                     //Parallel.ForEach(emailUIDs, new ParallelOptions { MaxDegreeOfParallelism = 4 }, (uid) =>

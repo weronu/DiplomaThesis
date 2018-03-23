@@ -24,7 +24,8 @@
 
 % Zadame cestu a jmeno souboru ci nekolika souboru s digitalizovanou podobou zadani prace.
 % Pokud toto makro zapoznamkujeme sazi se stranka s upozornenim.
-\ThesisAssignmentImagePath{Figures/Assignment}
+\ThesisAssignmentImagePath{Figures/zadanie}
+
 
 % Zadame soubor s digitalizovanou podobou prohlaseni autora zaverecne prace.
 % Pokud toto makro zapoznamkujeme sazi se cisty text prohlaseni.
@@ -60,7 +61,9 @@ Konec textu dohodnutého omezení přístupu k Vaší práci.}
 \AddAcronym{SSRM}{Structural social role mining framework}
 
 
-
+\DeclareCaptionType{mycapequ}[][List of equations]
+\captionsetup[mycapequ]{labelformat=empty}
+ 
 
 % Zacatek dokumentu
 \begin{document}
@@ -236,8 +239,10 @@ Druhá fáza algoritmu spočíva vo vytvorení novej siete, ktorej uzly sú komu
 \begin{figure}[H]
 \centering
 \includegraphics[width=14.5cm, height=9.5cm]{figures/louvain}
-\caption{Vizualizácia krokov algoritmu. Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizovaná tým, že umožňuje len miestne zmeny komunít a druhá, kde nájdené komunity sú agregované tak, aby bolo možné vytvoriť sieť komunít. Priechodz sú opakované iteratívne kým nie je možný žiadny nárast modularity.}
+\caption{Vizualizácia krokov Louvainovho algoritmu. }
 \end{figure}
+
+Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizovaná tým, že umožňuje len miestne zmeny komunít a druhá, kde nájdené komunity sú agregované tak, aby bolo možné vytvoriť sieť komunít. Priechody sú opakované iteratívne kým nie je možný žiadny nárast modularity.
 
 \newpage
 \section{Emailová komunikácia}
@@ -276,6 +281,16 @@ Telo emailu obsahuje samotné dáta určené pre adresáta.
 
 \subsection{Emaily v súčasnosti}
 Emaily teda existujú už niečo cez 50 rokov, ich popularita je však stále veľká vďaka ich efektivite, extrémne nízkym nákladom a kompatibilite s množstvom typov zariadení. Ako jedna z najrozšírenejších typov komunikácie v dnešnej dobe, emaily sú široko rozšírené v každodennom živote. Napríklad, spolupracovníci diskutujú prácu cez emaily, priatelia zdieľajú sociálne aktivity a skúsenosti aj cez emaily alebo veľké spoločnosti distribuujú reklamy práve pomocou emailov.
+
+Aj keď by mnohí tvrdili, že éra emailov už je dávno preč a sú stále viac nahrádzané novými sociálnymi sieťami, nové výskumy ukazujú opak. Napríklad výskum z roku 2016 od spoločnosti Bluecore \cite{13} ukazuje, že email je stále populárny aj u mladších generácií, hlavne na formálnu komunikáciu.
+
+V tomto výskume boli spotrebitelia pýtaní, akú formu komunikácie preferujú pri komunikácii so značkami (interntovými obchodmi, na firemnú komunikáciu a celkovo formálnu komunikáciu). Prevažná časť opýtaných si vybrala email (68\%).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm, height=7cm]{figures/emailusage}
+\caption{Akú formu komunikácie preferujete na formálnu komunikáciu?}
+\end{figure}
 
 
 \section{SSRM - Framework pre detekciu štrukturálnych rolí v sociálnych sieťach}
@@ -334,12 +349,13 @@ Leader je v každej komunite výnimočný centrálny člen. Pre identifikovanie 
 V súvislom grafe closeness centrality uzlu je metrika centrality v sieti, vypočítaná ako súčet dĺžok najkratsích ciest medzi uzlom a všetkými ostatnými uzlami v grafe. Čiže čím viac je uzol centrálnejší, tým bližšie je k ostatným uzlom.
 
 
-\begin{figure}[H]
-\includegraphics[width=4.8cm,height=2.3cm]{figures/closeness}
-\centering
-\caption{Closeness centrality}
-\label{fig:closeness}
-\end{figure}
+\begin{mycapequ}[!ht]
+      \begin{equation*}
+     C_{i} = \frac{1}{l_{i}}=\frac{n}{\sum_{j}d_{ij}}
+   \end{equation*}
+   \caption{Closeness centrality}
+\end{mycapequ}
+
 
 \begin{sloppypar}
 Pre každý uzol sa stanoví hodnota closeness centrality. Hodnoty closeness centrality sú blízke notmálnemu rozdeleniu, v ktorom 95\% populácie dát patrí do intervalu ${\big[ \mu - 2\cdot\sigma, \mu + 2\cdot\sigma \big]}$
@@ -364,10 +380,15 @@ Pre identifikáciu mediátorov sa definujú metriky založené na metrike betwee
 
 \textbf{LPath} - Pred definíciou LBetweeness je potrebné definovať LPath a to nasledovne: \textit{LPath} je množina všetkých najkratších ciest medzi lídrami dvoch rozdielnych komunít. 
 
-\begin{figure}[H]
-\includegraphics[width=16.5cm,height=1.1cm]{figures/lpath}
-\caption{Def: LPath}
-\end{figure}
+
+\begin{mycapequ}[!ht]
+   \begin{equation*}
+     LPath = { l|startNode(l) \in  leaderSet(c_{i})\wedge endNode(l) \in leaderSet(c_{j}) \wedge c_{i}\neq c_{j} }
+   \end{equation*}
+   \caption{Def: Lpath}
+\end{mycapequ}
+
+
 
 {\setlength{\parindent}{0cm}
 \begin{sloppypar}
@@ -378,36 +399,38 @@ Ak pre každú cestu p  ${x \in}$ \textit{LPath} definujeme \textit{${I_l}$(p, v
 \end{sloppypar}
 }
  
+\begin{mycapequ}[!ht]
+   \begin{equation*}
+     LB(v) = \sum_{p \in LPath} I_{l}(p, v)
+   \end{equation*}
+   \caption{Def: LBetweeness}
+\end{mycapequ}
 
-\begin{figure}[H]
-\includegraphics[width=5cm,height=1.3cm]{figures/lbetweenes}
-\centering
-\caption{Def: LBetweeness}
-\end{figure}
 
 \subsubsection{CBetweeness}
 \begin{sloppypar}
 CBetweeness počíta počet najkratších ciest medzi rozdielnymi komunitami. \textit{${s_p}$} a \textit{${e_p}$} označujú štartovací a koncový uzol najkratšej cesty \textit{p} . Taktiež \textit{${c_v}$} označuje komunitu, do ktorej uzol \textit{v} patrí. Množina všetkých najkratších ciest, ktoré spájajú rozdielne komunity:  
 \textit{${CPaths = \{ p | {c_s}_p \neq {c_e}_p} \}$}. Taktiež definujeme ${I_p(p, v)}$ = 1 ak \textit{v} leží na ceste \textit{p} a 0 keď neleží.
 
-\begin{figure}[H]
-\includegraphics[width=6.5cm,height=1.7cm]{figures/cbetweeness}
-\centering
-\caption{Def: CBetweeness}
-\end{figure}
+
+\begin{mycapequ}[!ht]
+   \begin{equation*}
+    CB(v) = \frac{1}{2} \sum_{p \in CPaths} I_{p}(p, v)
+   \end{equation*}
+   \caption{Def: CBetweeness}
+\end{mycapequ}
 
 
 \subsubsection{Normalizovaná verzia CBetweeness}
 Pravdepodobnosť nájdenia viac viditeľných mediátorov vo väčších komunitách je väčšia v porovnaní s menšími komunitami. Táto situácia sa stáva, pretože vo väčších komunitách je pochopiteľne viac uzlov, čo vedie k viacerým najkratším cestám medzi nimi. Pre kompenzáciu tohoto efektu je definovaná normalizovaná verzia \textit{CBC}: 
 
 
-\begin{figure}[H]
-\includegraphics[width=6.5cm,height=1.7cm]{figures/normalizedCBC}
-\centering
-\caption{Def: Normalizovaná verzia CBC}
-\end{figure}
-
-
+\begin{mycapequ}[!ht]
+   \begin{equation*}
+    NBC(v) = \frac{1}{2} \sum_{p \in CPaths} \frac{I_{p}(p, v)}{min(|c_{s_{p}}|,|c_{e_{p}}|)}
+   \end{equation*}
+   \caption{Def: Normalizovaná verzia CBetweeness}
+\end{mycapequ}
 
 
 \end{sloppypar}
@@ -428,24 +451,26 @@ Táto metrika ukazuje koľko rozdielnych komunít je spojených cez špecifický
 
 \textbf{DSCount} - je definovaný ako počet rozdielnych komunít, ktoré sú spojené daným uzlom. Nech \textit{${I_d}({c_i}, v)$} = 1 ak \textit{${\exists p \in CPaths: {s_p} \in {c_i} \wedge	v \in p}$}. Potom DSScount uzla \textit{v} je definované ako:
 
-\begin{figure}[H]
-\includegraphics[width=6.5cm,height=1.7cm]{figures/dscount}
-\centering
-\caption{Def: DSCount}
-\end{figure}
+
+\begin{mycapequ}[!ht]
+   \begin{equation*}
+    DS_{count}(v) = \frac{1}{2}\sum_{c_{i}} I_{d}(c_{i},v)
+   \end{equation*}
+   \caption{Def: DSCount}
+\end{mycapequ}
 
 
 \item \textbf{DSPair} - Skóre rozmanitosti môže byť definované ako počet párov komunít, ktoré majú najmenej jednu najkratšiu cestu medzi ich členmi, ktoré prechádzajú uzlom \textit{v}. Definujeme  \textit{${I_d}({c_i},{c_j}, v)$} = 1 ak \textit{${\exists p \in CPaths: {s_p} \in {c_i} \wedge {e_p} \in {c_j} \wedge	v \in p}$}
 
 
+\begin{mycapequ}[!ht]
+   \begin{equation*}
+   DS_{pair}(v) = \frac{1}{2}\sum_{c_{i}} \sum_{c_{j}\neq c_{i}} I_{d}(c_{i},c_{j},v)
+   \end{equation*}
+   \caption{Def: DSPair}
+\end{mycapequ}
 
 
-
-\begin{figure}[H]
-\includegraphics[width=6.5cm,height=1.7cm]{figures/dspair}
-\centering
-\caption{Def: DSPair}
-\end{figure}
 
 \end{enumerate}
 \end{sloppypar}
@@ -453,11 +478,13 @@ Táto metrika ukazuje koľko rozdielnych komunít je spojených cez špecifický
 Aj keď viac mediátorov môže mať rovnaké hodnoty jednotlivých metrík, 
 môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to berie do úvahy a definuje tzv. \textit{mediacy score} ako násobok normalizovanej CBetweeness a skóra rozmanitosti:
 
-\begin{figure}[H]
-\includegraphics[width=10.5cm,height=1.7cm]{figures/mediacyscore}
-\centering
-\caption{Def: DSPair}
-\end{figure}
+\begin{mycapequ}[!ht]
+   \begin{equation*}
+ 		MS(v) = NCB(v) \cdot DS_{count}(v) 
+   \end{equation*}
+   \caption{Def: Mediacy score}
+\end{mycapequ}
+
 
 
 \section{Aplikácia}
@@ -536,7 +563,8 @@ no different}
 and Teams in Organizations}
 	\bibitem{11} Repository pattern, \textit{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}
 	\bibitem{12} Vincent D. Blondel, Jean-Loup Guillaume1, RenaudLambiotte and Etienne Lefebvre: \textit{Fast unfolding of communities in large networks}
-	\bibitem{13}
+	\bibitem{13} Do Millennial and Gen Z Consumers Still Use Email? \textit{https://www.bluecore.com/blog/do-millennials-use-email/}
+	
 \end{thebibliography}
 
 
