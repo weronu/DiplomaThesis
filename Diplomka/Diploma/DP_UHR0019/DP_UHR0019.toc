@@ -43,17 +43,17 @@
 \contentsline {subsection}{\numberline {7.2}Leader}{25}{subsection.7.2}
 \contentsline {subsubsection}{\numberline {7.2.1}Closeness centrality}{25}{subsubsection.7.2.1}
 \contentsline {subsection}{\numberline {7.3}Outermost}{25}{subsection.7.3}
-\contentsline {subsection}{\numberline {7.4}Mediator}{26}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.4}Mediator}{25}{subsection.7.4}
 \contentsline {subsubsection}{\numberline {7.4.1}LBeweeness}{26}{subsubsection.7.4.1}
 \contentsline {subsubsection}{\numberline {7.4.2}CBetweeness}{26}{subsubsection.7.4.2}
 \contentsline {subsubsection}{\numberline {7.4.3}Normalizovan\IeC {\'a} verzia CBetweeness}{26}{subsubsection.7.4.3}
 \contentsline {subsubsection}{\numberline {7.4.4}Sk\IeC {\'o}re rozmanitosti}{27}{subsubsection.7.4.4}
-\contentsline {section}{\numberline {8}Aplik\IeC {\'a}cia}{29}{section.8}
-\contentsline {subsection}{\numberline {8.1}N\IeC {\'a}vrh}{29}{subsection.8.1}
-\contentsline {subsubsection}{\numberline {8.1.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{29}{subsubsection.8.1.1}
-\contentsline {subsection}{\numberline {8.2}\IeC {\v S}pecifik\IeC {\'a}cia}{30}{subsection.8.2}
-\contentsline {subsubsection}{\numberline {8.2.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{30}{subsubsection.8.2.1}
-\contentsline {subsection}{\numberline {8.3}Predpr\IeC {\'\i }prava d\IeC {\'a}t}{30}{subsection.8.3}
-\contentsline {subsection}{\numberline {8.4}Import d\IeC {\'a}t}{30}{subsection.8.4}
-\contentsline {subsubsection}{\numberline {8.4.1}Kon\IeC {\v s}trukcia siete}{30}{subsubsection.8.4.1}
-\contentsline {section}{Literatura}{31}{subsubsection.8.4.1}
+\contentsline {section}{\numberline {8}Aplik\IeC {\'a}cia}{28}{section.8}
+\contentsline {subsection}{\numberline {8.1}N\IeC {\'a}vrh}{28}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{28}{subsubsection.8.1.1}
+\contentsline {subsection}{\numberline {8.2}\IeC {\v S}pecifik\IeC {\'a}cia}{29}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{29}{subsubsection.8.2.1}
+\contentsline {subsection}{\numberline {8.3}Predpr\IeC {\'\i }prava d\IeC {\'a}t}{29}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Import d\IeC {\'a}t}{29}{subsection.8.4}
+\contentsline {subsubsection}{\numberline {8.4.1}Kon\IeC {\v s}trukcia siete}{29}{subsubsection.8.4.1}
+\contentsline {section}{Literatura}{30}{subsubsection.8.4.1}
