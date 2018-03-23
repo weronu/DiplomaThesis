@@ -41,14 +41,14 @@ namespace Thesis.Web.Controllers
                 {
                     foreach (string message in response.SuccessMessages)
                     {
-                        this.AddToastMessage("", message, ToastType.Success);
+                        //this.AddToastMessage("", message, ToastType.Success);
                     }
                 }
                 else
                 {
                     foreach (string message in response.Errors)
                     {
-                        this.AddToastMessage("", message, ToastType.Error);
+                        //this.AddToastMessage("", message, ToastType.Error);
                     }
                 }
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Domain.DTOs;
 using Domain.GraphClasses;
+using Graph.Algorithms;
 using Repository.MSSQL.Interfaces;
 using Thesis.Services.Interfaces;
 using Thesis.Services.ResponseTypes;
@@ -103,6 +104,55 @@ namespace Thesis.Services
                 {
                     response.AddError($"Additional error: {e.InnerException.Message}");
                 }
+            }
+
+            return response;
+        }
+
+        public FetchItemServiceResponse<Graph<UserDto>> DetectRolesInGraph(Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+
+            try
+            {
+                GraphAlgorithm<UserDto> algorithms = new GraphAlgorithm<UserDto>(graph);
+                HashSet<ShortestPathSet<UserDto>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
+
+                //setting closeness centrality
+                algorithms.SetClosenessCentralityForEachNode(shortestPaths);
+
+                //setting closeness centrality for community
+                algorithms.SetClosenessCentralityForEachNodeInCommunity(shortestPaths);
+
+                //community closeness centrality mean and standart deviation
+                algorithms.SetMeanClosenessCentralityForEachCommunity();
+                algorithms.SetStandartDeviationForClosenessCentralityForEachCommunity();
+
+                //cPaths for nCBC measure
+                HashSet<ShortestPathSet<UserDto>> cPaths = algorithms.CPaths(shortestPaths);
+
+                //setting nCBC for each node
+                algorithms.SetNCBCForEachNode(cPaths);
+
+                //setting DSCount for each node
+                algorithms.SetDSCountForEachNode(cPaths);
+
+                GraphRoleDetection<UserDto> roleDetection = new GraphRoleDetection<UserDto>(graph, algorithms);
+                roleDetection.ExtractOutsiders();
+                roleDetection.ExtractLeaders();
+                roleDetection.ExtractOutermosts();
+
+                //sorting nodes by their mediacy score
+                HashSet<Node<UserDto>> sortedNodes = algorithms.OrderNodesByMediacyScore();
+                roleDetection.ExtractMediators(sortedNodes);
+
+                response.Succeeded = true;
+                response.Item = graph;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                response.AddError($"Detecting roles fasiled with an error: {e.Message}");
             }
 
             return response;

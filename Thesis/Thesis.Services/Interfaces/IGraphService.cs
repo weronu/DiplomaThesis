@@ -9,5 +9,6 @@ namespace Thesis.Services.Interfaces
         FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString);
         FetchItemServiceResponse<int> FetchNodeIdByUserName(string name, string connectionString);
         ServiceResponse ImportXMLFile(string pathToFile, string connectionString);
+        FetchItemServiceResponse<Graph<UserDto>> DetectRolesInGraph(Graph<UserDto> graph);
     }
 }

@@ -31,7 +31,7 @@ namespace Thesis.Services.ResponseTypes
 
         public void AddSuccessMessage(string infoMessage)
         {
-            InfoMessages.Add(infoMessage);
+            SuccessMessages.Add(infoMessage);
         }
     }
 }

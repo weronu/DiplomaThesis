@@ -234,7 +234,8 @@ namespace Thesis.Web.Controllers
                 Dictionary<int, List<int>> communities = new Dictionary<int, List<int>>();
                 foreach (KeyValuePair<int, int> kvp in partition)
                 {
-                    if (!communities.TryGetValue(kvp.Value, out List<int> nodeset))
+                    List<int> nodeset;
+                    if (!communities.TryGetValue(kvp.Value, out nodeset))
                     {
                         nodeset = communities[kvp.Value] = new List<int>();
                     }
@@ -292,43 +293,14 @@ namespace Thesis.Web.Controllers
                     }
                 }
 
-                if (graphViewModel.Graph.Communities == null)
+                if (graphViewModel.Graph.Communities.Count == 0)
                 {
-                    this.AddToastMessage("Error", "You have to find communities first!");
-                    return PartialView("GraphView_partial", graphViewModel);
+                    //this.AddToastMessage("Not supported!", "You have to find communities first!");
+                    //RedirectToAction("Index", graphViewModel);
+                    //return RedirectToAction<TeamMembersEmailGraphsController>(c => c.Index()).WithSuccess("Issue created.");
                 }
 
-                GraphAlgorithm<UserDto> algorithms = new GraphAlgorithm<UserDto>(graphViewModel.Graph);
-                HashSet<ShortestPathSet<UserDto>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graphViewModel.Graph.Nodes);
-
-                //setting closeness centrality
-                algorithms.SetClosenessCentralityForEachNode(shortestPaths);
-
-                //setting closeness centrality for community
-                algorithms.SetClosenessCentralityForEachNodeInCommunity(shortestPaths);
-
-                //community closeness centrality mean and standart deviation
-                algorithms.SetMeanClosenessCentralityForEachCommunity();
-                algorithms.SetStandartDeviationForClosenessCentralityForEachCommunity();
-
-                //cPaths for nCBC measure
-                HashSet<ShortestPathSet<UserDto>> cPaths = algorithms.CPaths(shortestPaths);
-
-                //setting nCBC for each node
-                algorithms.SetNCBCForEachNode(cPaths);
-
-                //setting DSCount for each node
-                algorithms.SetDSCountForEachNode(cPaths);
-
-                GraphRoleDetection<UserDto> roleDetection = new GraphRoleDetection<UserDto>(graphViewModel.Graph, algorithms);
-                roleDetection.ExtractOutsiders();
-                roleDetection.ExtractLeaders();
-                roleDetection.ExtractOutermosts();
-
-                //sorting nodes by their mediacy score
-                HashSet<Node<UserDto>> sortedNodes = algorithms.OrderNodesByMediacyScore();
-                roleDetection.ExtractMediators(sortedNodes);
-
+                graphViewModel.Graph = _graphService.DetectRolesInGraph(graphViewModel.Graph).Item;
 
                 List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                 {
@@ -348,15 +320,17 @@ namespace Thesis.Web.Controllers
 
                 graphViewModel.GraphDto = graphDto;
 
-                this.AddToastMessage("Success", "Roles detected successfully.", ToastType.Success);
+                //this.AddToastMessage("Success", "Roles detected successfully.", ToastType.Success);
                 return PartialView("GraphView_partial", graphViewModel);
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error);
+                //this.AddToastMessage("Error", e.Message, ToastType.Error);
                 throw new Exception(e.Message);
             }
         }
+
+        
 
         private static int GetNodeSizeBasedOnRole(Node<UserDto> node)
         {
