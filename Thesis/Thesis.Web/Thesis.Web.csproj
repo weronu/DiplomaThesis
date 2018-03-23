@@ -177,6 +177,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\SimpleInjectorDependencyResolver.cs" />
+    <Compile Include="Controllers\ControllerExtensions.cs" />
     <Compile Include="Controllers\EmailDownloadController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportXMLFileController.cs" />
@@ -191,6 +192,9 @@
     <Compile Include="Models\Alert.cs" />
     <Compile Include="Models\EmailDownloadViewModel.cs" />
     <Compile Include="Models\GraphViewModel.cs" />
+    <Compile Include="Models\ToastMessage.cs" />
+    <Compile Include="Models\Toastr.cs" />
+    <Compile Include="Models\ToastType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -248,6 +252,7 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.min.js.map" />
     <Content Include="Content\custom.scss" />
+    <Content Include="App_Code\ToastrBuilder.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -341,9 +346,9 @@
     <Content Include="Views\TeamMembersEmailGraphs\GraphView_partial.cshtml" />
     <Content Include="Views\ImportXMLFile\Index.cshtml" />
     <Content Include="Views\EmailDownload\Index.cshtml" />
+    <Content Include="Views\Shared\_Toastr.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Code\" />
     <Folder Include="App_Data\uploads\" />
   </ItemGroup>
   <ItemGroup>
