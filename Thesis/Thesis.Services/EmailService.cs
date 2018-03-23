@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using ActiveUp.Net.Mail;
 using Domain.DTOs;
 using Limilabs.Client.IMAP;
 using Limilabs.Mail;
 using Repository.MSSQL.Interfaces;
 using Thesis.Services.Interfaces;
+using Thesis.Services.ResponseTypes;
 
 namespace Thesis.Services
 {
@@ -17,18 +17,18 @@ namespace Thesis.Services
         {
         }
 
-        public HashSet<EmailXML> DownloadEmailMessagesFromEmailAccount(EmailDownloadDto emailDownloadDto)
+        public FetchListServiceResponse<EmailXML> DownloadEmailMessagesFromEmailAccount(EmailDownloadDto emailDownloadDto)
         {
+            FetchListServiceResponse<EmailXML> response = new FetchListServiceResponse<EmailXML>();
+            HashSet<EmailXML> emails = new HashSet<EmailXML>();
+
             if (emailDownloadDto.ServerAddress == "pop.gmail.com" && emailDownloadDto.UseSSL == false)
             {
-                throw new Exception("Connection to GMAIL requires SSL connection.");
+                response.AddError("Connection to GMAIL requires SSL connection.");
             }
-
-            HashSet<EmailXML> emails = new HashSet<EmailXML>();
 
             try
             {
-               
                 using (Imap imap = new Imap())
                 {
                     imap.Connect(emailDownloadDto.ServerAddress, emailDownloadDto.Port, emailDownloadDto.UseSSL);
@@ -41,7 +41,6 @@ namespace Thesis.Services
                     List<long> emailUIDs = imap.GetAll().Take(100).ToList();
 
                     foreach (long uid in emailUIDs)
-                    //Parallel.ForEach(emailUIDs, new ParallelOptions { MaxDegreeOfParallelism = 4 }, (uid) =>
                     {
                         IMail emailRaw = builder.CreateFromEml(imap.GetMessageByUID(uid));
 
@@ -60,34 +59,59 @@ namespace Thesis.Services
                     imap.Close();
                 }
 
-                return emails;
+                response.AddSuccessMessage("Emails were successfully downloaded.");
+                response.Items = emails;
+                response.Succeeded = true;
+
+                CreateEmailXMLFile(emails, response);
             }
             catch (Exception e)
             {
-                throw new Exception($"Download failed with an error: {e.Message}");
+                response.Succeeded = false;
+                response.AddError($"Download failed with an error: {e.Message}");
+
+                if (e.InnerException != null)
+                {
+                    response.AddError($"Additional error: {e.InnerException.Message}");
+                }
             }
+
+            return response;
         }
 
-        public void CreateEmailXMLFile(HashSet<EmailXML> emails)
+        private static void CreateEmailXMLFile(HashSet<EmailXML> emails, FetchListServiceResponse<EmailXML> response)
         {
-            using (XmlWriter writer = XmlWriter.Create("D:/emails.xml"))
+            try
             {
-                writer.WriteStartElement("Messages");
-                foreach (EmailXML emailXml in emails)
+                using (XmlWriter writer = XmlWriter.Create("D:/emails.xml"))
                 {
-                    writer.WriteStartElement("Message");
+                    writer.WriteStartElement("Messages");
+                    foreach (EmailXML emailXml in emails)
+                    {
+                        writer.WriteStartElement("Message");
 
-                    writer.WriteAttributeString("MessageId", emailXml.MessageId);
-                    writer.WriteAttributeString("InReplyToId", emailXml.InReplyToId);
-                    writer.WriteAttributeString("Sender", emailXml.Sender);
-                    writer.WriteAttributeString("RawSender", emailXml.RawSender);
-                    if (emailXml.Sent != null) writer.WriteAttributeString("Sent", emailXml.Sent.Value.Date.ToString("yyyy-MM-dd HH:mm:ss"));
-                    writer.WriteAttributeString("Subject", emailXml.Subject);
+                        writer.WriteAttributeString("MessageId", emailXml.MessageId);
+                        writer.WriteAttributeString("InReplyToId", emailXml.InReplyToId);
+                        writer.WriteAttributeString("Sender", emailXml.Sender);
+                        writer.WriteAttributeString("RawSender", emailXml.RawSender);
+                        if (emailXml.Sent != null) writer.WriteAttributeString("Sent", emailXml.Sent.Value.Date.ToString("yyyy-MM-dd HH:mm:ss"));
+                        writer.WriteAttributeString("Subject", emailXml.Subject);
 
+                        writer.WriteEndElement();
+                    }
                     writer.WriteEndElement();
+                    writer.Flush();
                 }
-                writer.WriteEndElement();
-                writer.Flush();
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                response.AddError($"Creating XML file was not successful: {e.Message}");
+
+                if (e.InnerException != null)
+                {
+                    response.AddError($"Additional error: {e.InnerException.Message}");
+                }
             }
         }
     }

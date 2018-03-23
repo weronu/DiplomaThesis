@@ -4,11 +4,11 @@ namespace Thesis.Services.ResponseTypes
 {
     public class FetchListServiceResponse<T> : ServiceResponse
     {
-        public List<T> Items { get; internal set; }
+        public HashSet<T> Items { get; internal set; }
 
         public FetchListServiceResponse()
         {
-            Items = new List<T>();
+            Items = new HashSet<T>();
         }
     }
 }

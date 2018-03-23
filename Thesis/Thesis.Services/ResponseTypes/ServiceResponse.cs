@@ -29,7 +29,7 @@ namespace Thesis.Services.ResponseTypes
             InfoMessages.Add(infoMessage);
         }
 
-        public void AddSuccessInfo(string infoMessage)
+        public void AddSuccessMessage(string infoMessage)
         {
             InfoMessages.Add(infoMessage);
         }

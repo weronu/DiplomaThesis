@@ -10,8 +10,9 @@ namespace Thesis.Web.Controllers
             Toastr toastr = controller.TempData["Toastr"] as Toastr;
             toastr = toastr ?? new Toastr();
 
-            var toastMessage = toastr.AddToastMessage(title, message, toastType);
+            ToastMessage toastMessage = toastr.AddToastMessage(title, message, toastType);
             controller.TempData["Toastr"] = toastr;
+
             return toastMessage;
         }
     }

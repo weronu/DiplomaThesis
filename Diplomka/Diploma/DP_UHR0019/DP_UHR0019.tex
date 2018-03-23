@@ -492,8 +492,9 @@ Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďal
 
 
 \subsection{Návrh}
-Aplikácia je vytvorená ako .NET aplikácia (veria .NET Framework 4.6). Je vytvorená ako trojvrstvová. Pre uloženie dát používam SQL databázu. Najnižšia vrstva aplikácie slúži na získavanie dát z databázy, pre prepojenie s databázou a posielanie dát z aplikácie do databázy používam Entity Framework a používam tu návrhový vzor Repository. Od tejto časti je oddelená časť s business logikou a na najvyššej časti, ktorá slúži len na zobrazenie dát a komunikáciu s užívateľom, používam známy prístup Model-View-Controller.
+Aplikácia je vytvorená ako .NET aplikácia (veria .NET Frameworku 4.6). Je vytvorená ako trojvrstvová, pre uloženie dát sa používa SQL databáza. Najnižšia vrstva aplikácie slúži na získavanie dát z databázy, pre prepojenie s databázou a posielanie dát z aplikácie do databázy používam Entity Framework a používam tu návrhový vzor Repository. Od tejto časti je oddelená časť s business logikou a na najvyššej časti, ktorá slúži len na zobrazenie dát a komunikáciu s užívateľom, používam známy prístup Model-View-Controller.
 
+\subsection{Použité knižnice}
 
 \subsubsection{Návrhové vzory}
 
@@ -533,9 +534,6 @@ MVC rozdeľuje program do troch hlavných častí:
 \end{itemize}
 
 
-
-
-
 \subsection{Predpríprava dát}
 
 
@@ -545,6 +543,15 @@ XML súbor je analyzovaný uloženou procedúrou, ktorá rozparsuje emailové d�
 
 \subsubsection{Konštrukcia siete}
 Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku.
+
+
+
+
+
+\section{Záver}
+\subsection{Možnosti rozšírenia a zdokonalenia práce}
+
+
 
 \newpage
 \begin{thebibliography}{99}

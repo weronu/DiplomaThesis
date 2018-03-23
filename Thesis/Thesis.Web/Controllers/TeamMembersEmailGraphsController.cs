@@ -29,7 +29,6 @@ namespace Thesis.Web.Controllers
             new TeamMemberDto() {Id = 5, Name = "Explore whole team network", ConnectionString = "GLEmailsDatabase"},
         };
 
-
         public TeamMembersEmailGraphsController(IGraphService graphService)
         {
             _graphService = graphService;
@@ -77,9 +76,6 @@ namespace Thesis.Web.Controllers
 
                 model.Graph = responseGraph.Item;
                 model.GraphDto = graphDto;
-
-
-
 
                 return View(model);
             }
@@ -168,7 +164,7 @@ namespace Thesis.Web.Controllers
                     }
                     else if (selectedTeamMember != null && graphViewModel.FileImported == false)
                     {
-                        egoNetworkCenterId = _graphService.FetchNodeIdByUserName(selectedTeamMember.Name, selectedTeamMember.ConnectionString);
+                        egoNetworkCenterId = _graphService.FetchNodeIdByUserName(selectedTeamMember.Name, selectedTeamMember.ConnectionString).Item;
                     }
                     else
                     {
@@ -238,8 +234,7 @@ namespace Thesis.Web.Controllers
                 Dictionary<int, List<int>> communities = new Dictionary<int, List<int>>();
                 foreach (KeyValuePair<int, int> kvp in partition)
                 {
-                    List<int> nodeset;
-                    if (!communities.TryGetValue(kvp.Value, out nodeset))
+                    if (!communities.TryGetValue(kvp.Value, out List<int> nodeset))
                     {
                         nodeset = communities[kvp.Value] = new List<int>();
                     }
@@ -299,7 +294,8 @@ namespace Thesis.Web.Controllers
 
                 if (graphViewModel.Graph.Communities == null)
                 {
-                    throw new Exception("You have to find communities first!");
+                    this.AddToastMessage("Error", "You have to find communities first!");
+                    return PartialView("GraphView_partial", graphViewModel);
                 }
 
                 GraphAlgorithm<UserDto> algorithms = new GraphAlgorithm<UserDto>(graphViewModel.Graph);
@@ -352,10 +348,12 @@ namespace Thesis.Web.Controllers
 
                 graphViewModel.GraphDto = graphDto;
 
+                this.AddToastMessage("Success", "Roles detected successfully.", ToastType.Success);
                 return PartialView("GraphView_partial", graphViewModel);
             }
             catch (Exception e)
             {
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
                 throw new Exception(e.Message);
             }
         }
