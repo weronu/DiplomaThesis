@@ -76,13 +76,12 @@ namespace Thesis.Web.Controllers
 
                 model.Graph = responseGraph.Item;
                 model.GraphDto = graphDto;
-
-                return View(model);
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                this.AddToastMessage("Error", e.Message, ToastType.Error); ;
             }
+            return View(model);
         }
 
         private string GetConnectionStringBasedOnSelectedMember(string selectedTeamMemberId)
@@ -102,40 +101,46 @@ namespace Thesis.Web.Controllers
         [HttpPost]
         public ActionResult GetSelectedValue(string teamMemberId)
         {
-            int id = int.Parse(teamMemberId);
-            string connectionString = GetConnectionStringBasedOnSelectedMember(teamMemberId);
-
-            FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString);
-
-
-            responseGraph.Item.SetDegrees();
-
-            List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
+            GraphViewModel model = null;
+            try
             {
-                id = x.Id,
-                label = x.NodeElement.Name,
-                title = $"Node degree: {x.Degree}",
-                size = 10,
-                color = "#f5cbee"
-            }).ToList();
-            List<EdgeDto> edges = responseGraph.Item.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+                int id = int.Parse(teamMemberId);
+                string connectionString = GetConnectionStringBasedOnSelectedMember(teamMemberId);
 
-            GraphDto graphDto = new GraphDto
+                FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString);
+
+                responseGraph.Item.SetDegrees();
+
+                List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
+                {
+                    id = x.Id,
+                    label = x.NodeElement.Name,
+                    title = $"Node degree: {x.Degree}",
+                    size = 10,
+                    color = "#f5cbee"
+                }).ToList();
+                List<EdgeDto> edges = responseGraph.Item.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+
+                GraphDto graphDto = new GraphDto
+                {
+                    nodes = nodes,
+                    edges = edges
+                };
+
+                model = new GraphViewModel
+                {
+                    TeamMembers = TeamMembers,
+                    SelectedTeamMemberId = id,
+                    Graph = responseGraph.Item,
+                    GraphDto = graphDto
+                };
+            }
+            catch (Exception e)
             {
-                nodes = nodes,
-                edges = edges
-            };
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
+            }
 
-            GraphViewModel model = new GraphViewModel
-            {
-                TeamMembers = TeamMembers,
-                SelectedTeamMemberId = id,
-                Graph = responseGraph.Item,
-                GraphDto = graphDto
-            };
-
-
-            return PartialView("GraphView_partial", model);
+            return View("GraphView_partial", model);
         }
 
         [HttpPost]
@@ -209,12 +214,13 @@ namespace Thesis.Web.Controllers
 
                     graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
                 }
-                return PartialView("GraphView_partial", graphViewModel);
+                
             }
             catch (Exception e)
             {
-                throw new Exception(e.Message);
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
             }
+            return View("GraphView_partial", graphViewModel);
         }
 
         [HttpPost]
@@ -258,8 +264,7 @@ namespace Thesis.Web.Controllers
                     label = x.NodeElement.Name,
                     color = colors[x.CommunityId],
                     title = $"Node degree: {x.Degree}",
-                    size = 10,
-                    //group = x.CommunityId
+                    size = 10
                 }).ToList();
                 List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
@@ -270,14 +275,12 @@ namespace Thesis.Web.Controllers
                 };
 
                 graphViewModel.GraphDto = graphDto;
-
-                return PartialView("GraphView_partial", graphViewModel);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
-                throw;
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
             }
+            return View("GraphView_partial", graphViewModel);
         }
 
         [HttpPost]
@@ -293,37 +296,36 @@ namespace Thesis.Web.Controllers
                     }
                 }
 
-                graphViewModel.Graph = _graphService.DetectRolesInGraph(graphViewModel.Graph).Item;
-
-                List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
+                FetchItemServiceResponse<Graph<UserDto>> response = _graphService.DetectRolesInGraph(graphViewModel.Graph);
+                if (response.Succeeded)
                 {
-                    id = x.Id,
-                    label = x.NodeElement.Name,
-                    color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
-                    title = $"Node degree: {x.Degree}",
-                    size = GetNodeSizeBasedOnRole(x)
-                }).ToList();
-                List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+                    graphViewModel.Graph = response.Item;
 
-                GraphDto graphDto = new GraphDto
-                {
-                    nodes = nodes,
-                    edges = edges
-                };
+                    List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
+                    {
+                        id = x.Id,
+                        label = x.NodeElement.Name,
+                        color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
+                        title = $"Node degree: {x.Degree}",
+                        size = GetNodeSizeBasedOnRole(x)
+                    }).ToList();
+                    List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() {from = x.Node1.Id, to = x.Node2.Id}).ToList();
 
-                graphViewModel.GraphDto = graphDto;
+                    GraphDto graphDto = new GraphDto
+                    {
+                        nodes = nodes,
+                        edges = edges
+                    };
 
-                //this.AddToastMessage("Success", "Roles detected successfully.", ToastType.Success);
-                return PartialView("GraphView_partial", graphViewModel);
+                    graphViewModel.GraphDto = graphDto;
+                }
             }
             catch (Exception e)
             {
-                //this.AddToastMessage("Error", e.Message, ToastType.Error);
-                throw new Exception(e.Message);
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
             }
+            return View("GraphView_partial", graphViewModel);
         }
-
-        
 
         private static int GetNodeSizeBasedOnRole(Node<UserDto> node)
         {
