@@ -4,7 +4,7 @@
 \select@language {slovak}
 \select@language {english}
 \select@language {slovak}
-\contentsline {section}{Seznam pou\IeC {\v z}it\IeC {\'y}ch zkratek a symbol\IeC {\r u}}{9}{Doc-Start}
+\contentsline {section}{Zoznam pou\IeC {\v z}it\IeC {\'y}ch skratiek a symbolov}{9}{Doc-Start}
 \contentsline {section}{Zoznam obr\'azkov}{10}{Doc-Start}
 \contentsline {section}{Seznam v\IeC {\'y}pis\IeC {\r u} zdrojov\IeC {\'e}ho k\IeC {\'o}du}{11}{Doc-Start}
 \contentsline {section}{\numberline {1}\IeC {\'U}vod}{12}{section.1}
@@ -49,14 +49,17 @@
 \contentsline {subsubsection}{\numberline {7.4.3}Normalizovan\IeC {\'a} verzia CBetweeness}{26}{subsubsection.7.4.3}
 \contentsline {subsubsection}{\numberline {7.4.4}Sk\IeC {\'o}re rozmanitosti}{27}{subsubsection.7.4.4}
 \contentsline {section}{\numberline {8}Aplik\IeC {\'a}cia}{28}{section.8}
-\contentsline {subsection}{\numberline {8.1}N\IeC {\'a}vrh}{28}{subsection.8.1}
-\contentsline {subsection}{\numberline {8.2}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{28}{subsection.8.2}
-\contentsline {subsubsection}{\numberline {8.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{28}{subsubsection.8.2.1}
-\contentsline {subsection}{\numberline {8.3}\IeC {\v S}pecifik\IeC {\'a}cia}{29}{subsection.8.3}
-\contentsline {subsubsection}{\numberline {8.3.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{29}{subsubsection.8.3.1}
-\contentsline {subsection}{\numberline {8.4}Predpr\IeC {\'\i }prava d\IeC {\'a}t}{29}{subsection.8.4}
-\contentsline {subsection}{\numberline {8.5}Import d\IeC {\'a}t}{29}{subsection.8.5}
-\contentsline {subsubsection}{\numberline {8.5.1}Kon\IeC {\v s}trukcia siete}{29}{subsubsection.8.5.1}
-\contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{30}{section.9}
-\contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{30}{subsection.9.1}
-\contentsline {section}{Literatura}{31}{subsection.9.1}
+\contentsline {subsection}{\numberline {8.1}\IeC {\v S}pecifik\IeC {\'a}cia}{28}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{28}{subsubsection.8.1.1}
+\contentsline {subsection}{\numberline {8.2}N\IeC {\'a}vrh}{28}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{29}{subsubsection.8.2.1}
+\contentsline {subsection}{\numberline {8.3}D\IeC {\^o}le\IeC {\v z}it\IeC {\'e} rozhodnutia}{29}{subsection.8.3}
+\contentsline {subsubsection}{\numberline {8.3.1}Dostupnos\IeC {\v t} d\IeC {\'a}t}{29}{subsubsection.8.3.1}
+\contentsline {subsubsection}{\numberline {8.3.2}Webov\IeC {\'a} vs. desktopov\IeC {\'a} aplik\IeC {\'a}cia}{30}{subsubsection.8.3.2}
+\contentsline {subsection}{\numberline {8.4}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{30}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}Implement\IeC {\'a}cia}{31}{subsection.8.5}
+\contentsline {subsection}{\numberline {8.6}Import d\IeC {\'a}t}{31}{subsection.8.6}
+\contentsline {subsubsection}{\numberline {8.6.1}Kon\IeC {\v s}trukcia siete}{31}{subsubsection.8.6.1}
+\contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{33}{section.9}
+\contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{33}{subsection.9.1}
+\contentsline {section}{Literatura}{34}{subsection.9.1}

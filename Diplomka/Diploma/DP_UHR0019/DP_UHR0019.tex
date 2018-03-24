@@ -353,7 +353,7 @@ V súvislom grafe closeness centrality uzlu je metrika centrality v sieti, vypo�
       \begin{equation*}
      C_{i} = \frac{1}{l_{i}}=\frac{n}{\sum_{j}d_{ij}}
    \end{equation*}
-   \caption{Closeness centrality}
+   \caption{Def: Closeness centrality}
 \end{mycapequ}
 
 
@@ -491,10 +491,22 @@ môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to be
 Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
 
 
+\subsection{Špecifikácia}
+Aplikácia slúži ako užívateľské rozhranie na anlýzu emailovej komunikácie a vizualizáciu analyytických výstupov. Aplikácia umožňuje exportovať dáta z emailovej schránky alebo importovať vlastný XML súbor s emailovými dátami a ďalej s týmito dátami pracovať a zobrazovať sieť emailovej komunikácie. Umožňuje vytvorenie ego-siete alebo detekovať vo vytvorenej siete komunity. Najdôležitejšou časťou aplikácie je detekcia štrukturálnch rolí v sieti, čiže detekcia dôležitých a nedôležitých členov emailovej komunikácie. 
+
+\subsubsection{Funkčné požiadavky}
+\begin{itemize}
+\item Export dát z emailovej schránky
+\item Import vlastného XML súboru s emailovými dátami
+\item Zobrazenie informácii o emailovej sieti
+\item Vizualizácia emailovej siete
+\item Vytvorenie ego-siete
+\item Detekcia komunít
+\item Detekcia štrukturálnych rolí v sieti
+\end{itemize}
+
 \subsection{Návrh}
 Aplikácia je vytvorená ako .NET aplikácia (veria .NET Frameworku 4.6). Je vytvorená ako trojvrstvová, pre uloženie dát sa používa SQL databáza. Najnižšia vrstva aplikácie slúži na získavanie dát z databázy, pre prepojenie s databázou a posielanie dát z aplikácie do databázy používam Entity Framework a používam tu návrhový vzor Repository. Od tejto časti je oddelená časť s business logikou a na najvyššej časti, ktorá slúži len na zobrazenie dát a komunikáciu s užívateľom, používam známy prístup Model-View-Controller.
-
-\subsection{Použité knižnice}
 
 \subsubsection{Návrhové vzory}
 
@@ -513,7 +525,6 @@ MVC rozdeľuje program do troch hlavných častí:
 \item \textbf{Controller} - riadi tok udalostí v programe, konkrétne v tejto aplikácii kontrolery obsahujú len volanie metód z inej vrstvy aplikácie
 \end{itemize}
 
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=9.5cm, height=5cm]{figures/MVC}
@@ -521,30 +532,51 @@ MVC rozdeľuje program do troch hlavných častí:
 \end{figure}
 
 
-\subsection{Špecifikácia}
-\subsubsection{Funkčné požiadavky}
-\begin{itemize}
-\item Export dát z emailovej schránky
-\item Import vlastného XML súboru s emailovými dátami
-\item Zobrazenie informácii o emailovej sieti
-\item Vizualizácia emailovej siete
-\item Vytvorenie ego-siete
-\item Detekcia komunít
-\item Detekcia štrukturálnych rolí v sieti
-\end{itemize}
+\subsection{Dôležité rozhodnutia}
+Pri navrhovaní aplikácie bolo potrebné urobiť niekoľko dôležitých rozhodnutí.
+
+\subsubsection{Dostupnosť dát}
+Pôvodne sa zvažovalo použitie aplikácie a analýzy dát nad verejne dostupnou anonymizovanou emailovou sadou. Emailových dát je ale veľmi málo a chcela som, aby sa výsledky práce dali overiť nie len inými analytickými nástrojmi, ale aj empiricky. Takže som využila to, že pracujem a moja emailová schránka teda nie je chudobná na maily. Navyše mi radi pomohli aj moji kolegovia a poskytli mi svoje emailové dáta. Takto som zozbierala reálne emailové dáta štyroch ľudí, o ktorých je známe ich postavenie v týme alebo aj dátum nástupu do práce. Takže výsledky daných algoritmov som vedela porovnať s reálnou situáciou v kolektíve.
+
+\subsubsection{Webová vs. desktopová aplikácia}
+Bolo nutné sa rozhodnúť, či vyvíjať aplikáciu ako webovú alebo desktopovú. Ako platforma bola zvolená Microsoft .Net a programovací jazyk C\#. Jednou z variant bola desktopová aplikácia vyvíjaná vo Windows Forms. WinForms je osvedčná technológia, je vyladená, v základe obsahuje veľké množstvo grafických prvkov. Toto sú výhody rozšírenej a dlho používanej technológii. Nevýhoda je ale práve zastaralosť a ťažkopádnosť v kreslení a spravovaní grafického rozhrania. Keďže ale doba ide dopredu a web a webové aplikácie sú stále viac používanejšie a v súčasnosti existuje mnoho grafických knižníc pre vizualizáciu grafického rozhrania, rozhodla som sa aplikáciu vyvíjať ako webovú.
 
 
-\subsection{Predpríprava dát}
+\subsection{Použité knižnice}
 
+
+\textbf{vis.js}
+
+
+\noindent Vis.js je dynamická vizualizačná knižnica založená na prehliadači. Knižnica je navrhnutá tak, aby bola ľahko ovládateľná a aby mohla spracovať veľké množstvo dynamických dát a umožňovala maipuláciu s dátami a interakciu s nimi. Knižnica sa skladá z častí \textit{DataSet, Timeline, Network, Graph2d} a \textit{Graph3d}.
+Pre moju aplikáciu som používala len časť \textit{Network}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9.5cm, height=6.5cm]{figures/vis_basic_usage}
+\caption{Jednoduchá sieť vytvorená s použitím knižnice vis.js}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=9.5cm, height=12cm]{figures/vis_basiccode}
+\caption{Príklad použitia knižnice vis.js}
+\end{figure}
+
+
+
+
+\subsection{Implementácia}
 
 \subsection{Import dát}
-XML súbor je analyzovaný uloženou procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{Users, EmailMessages EmailRecipients} a \textit{Conversations} a uloží ich do SQL databázy.
+Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{User, EmailMessage} a \textit{Conversation} a uloží ich do SQL databázy.
+
+!!!doplnit datovy model!!!
 
 
 \subsubsection{Konštrukcia siete}
 Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku.
-
-
 
 
 

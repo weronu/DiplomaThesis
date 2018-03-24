@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Domain.DomainClasses;
+using Domain.DTOs;
 using Domain.GraphClasses;
 using Graph.Algorithms;
 using NUnit.Framework;
@@ -13,24 +13,24 @@ namespace GraphAlgorithms.Tests
         [Test]
         public void RunApp_Test()
         {
-            Graph<User> graph = new Graph<User>();
-            GraphAlgorithm<User> algorithms = new GraphAlgorithm<User>(graph);
-            GraphRoleDetection<User> roleDetection = new GraphRoleDetection<User>(graph, algorithms);
+            Graph<UserDto> graph = new Graph<UserDto>();
+            GraphAlgorithm<UserDto> algorithms = new GraphAlgorithm<UserDto>(graph);
+            GraphRoleDetection<UserDto> roleDetection = new GraphRoleDetection<UserDto>(graph, algorithms);
 
 
-            HashSet<Edge<User>> edges;
+            HashSet<Edge<UserDto>> edges;
             using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
             {
-                edges = uow.GraphRepo.ExtractEdgesFromDatabase();
+                edges = uow.GraphRepo.ExtractEdgesFromConversation();
             }
-            foreach (Edge<User> edge in edges)
+            foreach (Edge<UserDto> edge in edges)
             {
                 graph.CreateGraph(edge);
             }
 
 
             graph.GetEdgesCount();
-            HashSet<ShortestPathSet<User>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
+            HashSet<ShortestPathSet<UserDto>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
 
             //setting closeness centrality
             algorithms.SetClosenessCentralityForEachNode(shortestPaths);
@@ -43,7 +43,7 @@ namespace GraphAlgorithms.Tests
             algorithms.SetStandartDeviationForClosenessCentralityForEachCommunity();
 
             //cPaths for nCBC measure
-            HashSet<ShortestPathSet<User>> cPaths = algorithms.CPaths(shortestPaths);
+            HashSet<ShortestPathSet<UserDto>> cPaths = algorithms.CPaths(shortestPaths);
 
             //setting nCBC for each node
             algorithms.SetNCBCForEachNode(cPaths);
@@ -56,7 +56,7 @@ namespace GraphAlgorithms.Tests
             roleDetection.ExtractOutermosts();
 
             //sorting nodes by their mediacy score
-            HashSet<Node<User>> sortedNodes = algorithms.OrderNodesByMediacyScore();
+            HashSet<Node<UserDto>> sortedNodes = algorithms.OrderNodesByMediacyScore();
             roleDetection.ExtractMediators(sortedNodes);
         }
     }

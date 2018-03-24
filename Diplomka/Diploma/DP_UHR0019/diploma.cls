@@ -390,13 +390,13 @@
 \ifthenelse{\equal{\the\Dipl@Acronyms}{\empty}}
 {\relax}
 {
-\section*{\Dipl@IfEnglish{List of symbols and abbreviations}{Seznam použitých zkratek a symbolů}}
+\section*{\Dipl@IfEnglish{List of symbols and abbreviations}{Zoznam použitých skratiek a symbolov}}
 \ifthenelse{\value{Dipl@CurrentThesisLanguage}=\Dipl@EnglishLanguage}
 {
 \addcontentsline{toc}{section}{List of symbols and abbreviations}
 }
 {
-\addcontentsline{toc}{section}{Seznam použitých zkratek a symbolů}
+\addcontentsline{toc}{section}{Zoznam použitých skratiek a symbolov}
 }
 \begin{longtable*}[l]{p{0.2\textwidth}cp{0.7\textwidth}}
 \the\Dipl@Acronyms
