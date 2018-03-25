@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using Domain.DTOs;
 using Thesis.Services.Interfaces;
 using Thesis.Services.ResponseTypes;
@@ -23,18 +24,26 @@ namespace Thesis.Web.Controllers
         [HttpPost]
         public ActionResult SubmitDownload(EmailDownloadViewModel model)
         {
-            EmailDownloadDto emailDownloadDto = new EmailDownloadDto()
+            try
             {
-                Email = model.Email,
-                Password = model.Password,
-                Port = model.Port,
-                ServerAddress = model.ServerAddress,
-                Username = model.Username,
-                UseSSL = model.UseSSL
-            };
+                EmailDownloadDto emailDownloadDto = new EmailDownloadDto()
+                {
+                    Email = model.Email,
+                    Password = model.Password,
+                    Port = model.Port,
+                    ServerAddress = model.ServerAddress,
+                    Username = model.Username,
+                    UseSSL = model.UseSSL
+                };
 
-            FetchListServiceResponse<EmailXML> downloadedEmails = _emailService.DownloadEmailMessagesFromEmailAccount(emailDownloadDto);
-
+                FetchListServiceResponse<EmailXML> downloadedEmails = _emailService.DownloadEmailMessagesFromEmailAccount(emailDownloadDto);
+                this.AddToastMessage("Success", "Emails were downloaded.", ToastType.Success);
+            }
+            catch (Exception e)
+            {
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
+            }
+            
             return View("Index", model);
         }
     }

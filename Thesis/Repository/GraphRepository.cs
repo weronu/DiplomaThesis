@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using Domain.DomainClasses;
@@ -29,42 +28,7 @@ namespace Repository.MSSQL
                                              {
                                                  Id = user.Id
                                              });
-        }
-
-        /// <summary>
-        /// Extracts all edges from database.
-        /// Edge is created only when a User changes an email with another User at least 11 times.
-        /// </summary>
-        public HashSet<Edge<User>> ExtractEdgesFromDatabase()
-        {
-            //var qry = @"SELECT  em.SenderId, er.RecipientId, COUNT(*) AS [Count]
-            //            FROM EmailMessages em
-            //            INNER JOIN EmailRecipients er on em.Id = er.EmailMessageId
-            //            GROUP BY  em.SenderId, er.RecipientId
-            //            HAVING Count(*) > 11";
-
-
-            IQueryable<Edge<User>> queryable = (from emailMessage in _context.EmailMessagess
-                                                join recipient in _context.Recipients on emailMessage.Id equals recipient.EmailMessageId
-                                                group emailMessage by new { emailMessage.Sender, recipient.Recipient }
-                into g
-                                                where g.Count() > 50
-                                                select new Edge<User>()
-                                                {
-                                                    Node1 = new Node<User>()
-                                                    {
-                                                        Id = g.Key.Sender.Id
-                                                    },
-                                                    Node2 = new Node<User>()
-                                                    {
-                                                        Id = g.Key.Recipient.Id
-                                                    }
-                                                });
-
-            List<Edge<User>> edges = queryable.ToList();
-
-            return new HashSet<Edge<User>>(edges);
-        }
+        }        
 
         public HashSet<Node<User>> ExtractVerticesFromEdges(HashSet<Edge<User>> edges)
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 using System.Xml;
 using Domain.DTOs;
 using Limilabs.Client.IMAP;
@@ -22,9 +23,10 @@ namespace Thesis.Services
             FetchListServiceResponse<EmailXML> response = new FetchListServiceResponse<EmailXML>();
             HashSet<EmailXML> emails = new HashSet<EmailXML>();
 
-            if (emailDownloadDto.ServerAddress == "pop.gmail.com" && emailDownloadDto.UseSSL == false)
+            if ((emailDownloadDto.ServerAddress == "pop.gmail.com" || emailDownloadDto.ServerAddress == "imap.gmail.com" )
+                && emailDownloadDto.UseSSL == false)
             {
-                response.AddError("Connection to GMAIL requires SSL connection.");
+                throw new Exception("Connection to GMAIL requires SSL connection.");
             }
 
             try
@@ -38,7 +40,7 @@ namespace Thesis.Services
 
                     imap.SelectInbox();
 
-                    List<long> emailUIDs = imap.GetAll().Take(100).ToList();
+                    HashSet<long> emailUIDs = new HashSet<long>(imap.GetAll().Take(100));
 
                     foreach (long uid in emailUIDs)
                     {
@@ -59,7 +61,6 @@ namespace Thesis.Services
                     imap.Close();
                 }
 
-                response.AddSuccessMessage("Emails were successfully downloaded.");
                 response.Items = emails;
                 response.Succeeded = true;
 
@@ -68,12 +69,7 @@ namespace Thesis.Services
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Download failed with an error: {e.Message}");
-
-                if (e.InnerException != null)
-                {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
-                }
+                throw new Exception($"Download failed with an error: {e.Message}");
             }
 
             return response;
@@ -83,7 +79,7 @@ namespace Thesis.Services
         {
             try
             {
-                using (XmlWriter writer = XmlWriter.Create("D:/emails.xml"))
+                using (XmlWriter writer = XmlWriter.Create("emails.xml"))
                 {
                     writer.WriteStartElement("Messages");
                     foreach (EmailXML emailXml in emails)
@@ -106,13 +102,10 @@ namespace Thesis.Services
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Creating XML file was not successful: {e.Message}");
-
-                if (e.InnerException != null)
-                {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
-                }
+                throw new Exception($"Creating XML file failed with an error: {e.Message}");
             }
         }
+
+
     }
 }

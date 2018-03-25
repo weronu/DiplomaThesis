@@ -18,7 +18,6 @@ namespace Repository.MSSQL
 
         public DbSet<EmailMessage> EmailMessagess { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<EmailRecipient> Recipients { get; set; }
         public DbSet<Conversation> Conversations { get; set; }
     }
 }

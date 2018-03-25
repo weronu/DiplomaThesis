@@ -95,6 +95,10 @@
     <Compile Include="Migrations\201712032105111_migration8.Designer.cs">
       <DependentUpon>201712032105111_migration8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803251814331_migration9.cs" />
+    <Compile Include="Migrations\201803251814331_migration9.Designer.cs">
+      <DependentUpon>201803251814331_migration9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="ThesisDbContext.cs" />
@@ -143,6 +147,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712032105111_migration8.resx">
       <DependentUpon>201712032105111_migration8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803251814331_migration9.resx">
+      <DependentUpon>201803251814331_migration9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
