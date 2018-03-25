@@ -31,29 +31,14 @@
 % Pokud toto makro zapoznamkujeme sazi se cisty text prohlaseni.
 \AuthorDeclarationImageFile{Figures/prehlasenie.jpg}
 
-\ThesisAccessRestriction{Zde vložte text dohodnutého omezení přístupu k Vaší práci, chránící například firemní know-how. Zde vložte text dohodnutého omezení přístupu k Vaší práce, chránící například firemní know-how. A zavazujete se, že:
-\begin{enumerate}
-\item podle \textsection{} 5 o práci nikomu neřeknete,
-\item po obhajobě na ni zapomenete a
-\item budete popírat její existenci.
-\end{enumerate}
-A ještě jeden důležitý odstavec. A ještě jeden důležitý odstavec.
-A ještě jeden důležitý odstavec. A ještě jeden důležitý odstavec.
-A ještě jeden důležitý odstavec. A ještě jeden důležitý odstavec.
-Konec textu dohodnutého omezení přístupu k Vaší práci.}
 
-% Zadame soubor s digitalizovanou podobou souhlasu spolupracujici prav. nebo fyz. osoby.
-% Pokud toto makro zapoznamkujeme sazi se cisty text souhlasu.
-\CooperatingPersonsDeclarationImageFile{Figures/CoopPersonDeclaration.jpg}
+\CzechAbstract{Práca študuje aktuálne metódy pre analýzu emailov a detekciu sociálnych rolí v emailových dátach. Nasleduje zoznámenie sa s emailom a jeho popularitou v súčasnosti. Taktiež práca uvádza základné teoretické pojmy a teoretický náhľad na reprezentáciu siete. Uvádzajú sa tu aj základy analýzy sociálnych sietí a detekcie komunít. ďalej sa tu píše o frameworku pre detekciu štrukturálnych rolí a ich identifikácie. Na základe týchto poznatkov je vytvorená aplikácia pre analýzu a vizualizáciu analytických výstupov. Na záver sú uvedené prevedené experimenty týkajúce sa poznatkami skúmaných emailových dát.}
 
-\CzechAbstract{Toto je slovenský abstrakt...}
+\CzechKeywords{email, sociálna sieť, sociálna rola, vizualizácia}
 
-\CzechKeywords{typografie, \LaTeX, diplomová práca}
+\EnglishAbstract{This paper studies current methods for analysing emails and detecting social roles in email data. This is followed by getting acquainted with the email and its popularity nowadays. Also, this thesis presents basic theoretical concepts and a theoretical overview of network representation. Here are also the basics of social networking and community detection. There is also written a framework for structural social roles detection and their identification. Based on this knowledge, an aplicaion is developed to analyze and visualize analytical outputs. Finally, experiments on the findings of the emailed data are presented.}
 
-\EnglishAbstract{This is English abstract...}
-
-\EnglishKeywords{typography, \LaTeX, master thesis}
-
+\EnglishKeywords{email, social network, social role, visualization}
 \AddAcronym{MUA}{Mail User Agent}
 \AddAcronym{MTA}{Mail Transfer Agent}
 \AddAcronym{IMAP}{Internet Message Access Protocol}
@@ -72,23 +57,44 @@ Konec textu dohodnutého omezení přístupu k Vaší práci.}
 \MakeTitlePages
 
 % Pokud mame v zaverecne praci vypisy kodu, jinak odstranit.
-\lstlistoflistings
+%\lstlistoflistings
 
 % A nasleduje text zaverecne prace.
 \section{Úvod}
+V stručnom úvode je popísaná motivácia, ktorá viedla k vypracovaniu tejto diplomovej práce, vízia toho, čo sa malo dosiahnuť a hrubá štruktúra vypracovaného textu.
 
 \subsection{Motivácia}
-S cieľom uľahčiť používanie emailov a prebádať podnikateľský potenciál emailov, dolovanie emailov, ktoré používa aj techniky zberu dát, dosiahlo pozoruhodný pokrok v oblasti výskumu a aj v praxi. Emaily teda možno považovať za zmiešanú štruktúru obsahujúcu aj textové údaje, ako aj ľudské, sociálne, organizačné vzťahy.
+S cieľom uľahčiť používanie emailov a prebádať podnikateľský potenciál emailov, analýza emailov dosiahla pozoruhodný pokrok v oblasti výskumu, ale aj v praxi. Emaily teda možno považovať za zmiešanú štruktúru obsahujúcu údaje o ľuďoch zo sociálnych alebo aj organizačných aspektov.
+
+\textbf{Obsah emailu ako textové a netextové dáta} 
+\newline Emaily sú písané viac stručne ako väčšina ostatných dokumentov, často obsahujú hovorové výrazy a abreviácie, ktoré sa nenachádzajú v bežných slovníkoch, preto štandartné techniky analýzy textov pri práci s emailovými dátami  nemusia byť efektívne.
+
+Emaily tiež obsahujú bohatšie typy dát, ako napríklad URL linky, HTML tagy alebo obrázky. Niektoré štúdie jednoducho zjednodušia tieto netextové dátové vstupy v štádiu predpripravovania dát - vymažu ich a ďalej pracujú len s textovými dátami. Tieto netextové dáta však môžu byť užitočné v iných oblastiach, ako napríklad detekcia spamu. 
 
 
-\textbf{Obsah emailu ako textové a netextové dáta} Emaily sú písané viac stručne ako väčšina ostatných dokumentov, často obsahujú hovorové výrazy a abreviácie, ktoré sa nenachádzajú v bežných slovníkoch, preto štandartné techniky dolovania textov nemusia byť efektívne, pri práci s emailovými dátami.
+\textbf{Emaily reprezentujúce ľudské sociálne organizačné vzťahy} 
+\newline Emailová aktivita sama o sebe reprezentuje bohaté ľudské sociálne a organizačné vzťahy, ktoré spájajú ľudí do komunít a komplexných sysémov. Porozumenie organizačných štruktúr alebo vzťahov naprieč ľudmi v organizácii môže byť veľmi užitočné aj v reálnom živote. 
+Hlavné problémy, ktoré sú investigované v analýze emailov sú detekcia spamu, kategorizácia emailov, analýza kontaktov, analýza vlastností emailových sietí a vizualizácia emailov.
 
-Emaily tiež obsahujú bohatšie typy dát, ako napríklad URL linky, HTML tagy alebo obrázky. Nniektoré štúdie jednoducho zjednodušia tieto netextové dátové vstupy v štádiu predpripravovania dát - vymažu ich a ďalej pracujú len s textovými dátami. Tieto netextové dáta však môžu byť užitočné iných oblastiach, ako napríklad detekcia spamu. 
+\subsection{Vízia}
+Cieľom práce je oboznámiť čitateľa s oblasťou sociálnych sietí a špeciálne s témou analýzy emailových dát a tieto znalosti demonštrovať nad reálnymi emailovými dátami. Pre uskutočnenie tohto cieľa je potrebné naštudovať informácie z oblasti analýzy emailov, reprezentácie emailu v sieti a vizualizácie sociálnych sietí vrátanie aktuálnych metód publikovaných v článkoch. K tomu sa viaže tiež prieskum reprezentácie a konštrukcie emailu ako prvku sociálnej siete. 
 
+Ďalej boli vybrané metódy detekcie rolí v sociálnej sieti a navrhnutá aplikácia, ktorá umožňuje analyzovať a vizualizovať analytické výsledky. V tejto aplikácii s jednoduchým a použiteľným užívateľským rozhraním budú implementované vybrané metódy analýzy a bude navrhnutá prehľadná vizualizácia vzťahov. Nakoniec bude vytvorená analýza jedného prvku siete a výsledky experimentov budú zrozumiteľne prezentované.
 
-\textbf{Emaily reprezentujúce ľudské sociálne organizačné vzťahy} Emailová aktivita sama o sebe reprezentuje bohaté ľudské sociálne a organizačné vzťahy, ktoré spájajú ľudí do komunít a komplexných sysémov. Porozumenie organizačných štruktúr alebo vzťahov naprieč ľudmí v organizácii môže byť veľmi užitočné aj v reálnom živote. 
-Hlavné problémy, ktoré sú investigované v analýze mailov sú detekcia spamu, kategorizácia emailov, analýza kontaktov, analýza vlastností emailových sietí a vizualizácia emailov.
+\subsection{Štruktúra práce}
+V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktoré sa zaoberajú analýzou emailov a reprezentácii emailu v sociálnych sieťach.
 
+Ďalej sa čitateľ zoznámi s emailom ako komunikačným prostriedkom a dozvie sa, ako sú na tom emaily s popularitou aktuálne. 
+ 
+Potom je uvedený stručný prehľad teórie grafov a definícií určitých pojmov, ktorý je nevyhnutný k porozumeniu ďalších kapitol.
+ 
+V ďalšej kapitole píšem o sociálnych sieťach, ich histórii a analýze sociálnych sietí a komunitnej štruktúre sociálnych sietí.
+
+Neskôr prechádzam k popisu a reprezentácie frameworku pre detekciu štrukturálnych rolí, popisujem sociálne roly definovaná v rámci tohto frameworku a následnej v ďalšej kapitole referujem pomocou akých metód sa sociálne roly v rámci tohto frameworku identifikujú.
+
+Na základe všetkých poznatkov práce je navrhnutá aplikácia vhodná k sledovaniu sociálnych rolí v emailovej sieti. 
+
+Ešte pred záverom sú uvedené výsledky prevedených experimentov týkajúcich sa poznatkami skúmanej sociálnej siete.
 
 
 \section{Súvisiace práce}
@@ -108,7 +114,51 @@ Jednou z univerzálnejších prác je aj práca autorov Guanting Tang, Jian Pei,
 
 Na rozdiel od ostatných prác, Afra Abnar, Mansoureh Takaffoli, Reihaneh Rabbany, Osmar R. Zaıane \cite{9} definovali vlastnú metodiku pre analýzu sociálnej siete a definovali \textit{Structural social role mining framework}, ktorý je navrhnutý pre identifikáciu štrukturálnych rolí, pre identifikáciu zmien v sieti a analýzu dopadu zmien na sieť. Definujú základné sociálne roly v sieti a navrhujú metodológie pre ich identifikáciu. Pre identifikáciu týchto rolí využívajú klasické prostriedky analýzy sociálnych sietí a tiež navrhujú nové metriky zahrňujúc napríklad Betweenness centrality založenú na komunitách. Z tejto práce som vychádzala pri pomenovaní rolí zo siete a implementovala techniky pre ich identifikáciu.
 
-Ďalšou prácou, ktorou som sa inšpirovala bola práca autorov Kudělka, Horák, Zehnalová \cite{10}, ktorá prezentuje analytický nástroj, ktorý bol vztvorený pre analýzu hlbších vzťahov v emailových dátach. Tieto vzťahy zahrňujú vzťahy založené na interakcii viacerých užívateľov v tíme. Analytické metódy popísané v práci sú založené na dvoch faktoroch. Prvým faktorom je kontext, čo je skupina viacerých užívateľov v kombinácii so slovami použitými v komunikácii. Druhým faktorom je časový interval, v ktorom bola začatá komunikácia. Práca prezentuje metódy pre váženie komunikácií, užívateľov a vzťahov, ako aj metód pre hľadanie komunít asociovaných so špecifickým kontextom. Inšpirovala som sa hlavne tým, ako je v práci definovaná konverzácia, čo popisujem v kapitole: (doplniť!!!!)
+Ďalšou prácou, ktorou som sa inšpirovala bola práca autorov Kudělka, Horák, Zehnalová \cite{10}, ktorá prezentuje analytický nástroj, ktorý bol vytvorený pre analýzu hlbších vzťahov v emailových dátach. Tieto vzťahy zahrňujú vzťahy založené na interakcii viacerých užívateľov v tíme. Analytické metódy popísané v práci sú založené na dvoch faktoroch. Prvým faktorom je kontext, čo je skupina viacerých užívateľov v kombinácii so slovami použitými v komunikácii. Druhým faktorom je časový interval, v ktorom bola začatá komunikácia. Práca prezentuje metódy pre váženie komunikácií, užívateľov a vzťahov, ako aj metód pre hľadanie komunít asociovaných so špecifickým kontextom. 
+
+\section{Emailová komunikácia}
+\subsection{Stručná história emailu}
+Za počiatky emailovej komunikácie možno považovať priližne rok 1965, kedy bola správa prenášaná medzi sálovými počítačmi pracujúcich v režime zdieľania času na univerzite \textit{Massachusetts Institute of Technology}.
+
+Od tejto doby preša emailová komunikácia značným vývojom. Emaily, tak ako ich poznáme dnes, sú definované štandartom špecifikácie RFC2822 a sú prenášané pomocou komunikačných protokolov. 
+
+
+\subsection{Štruktúra emailu}
+Každý email sa skladá z dvoch častí - z tzv. hlavičky \textit{(header)} a tela emailu \textit{(body)}.
+
+Hlavička emailu je generovaná automaticky pri vytvorení emailu a sú do nej postupne vkladané informácie zo serverov, cez ktoré správa prechádza (tzv. MTA). Pre bežných užívateľov sú z hlavičky najdôležitejšie tieto údaje: predmet správy, čas odoslania, emailová adresa odosielateľa a prijímateľa. Ostatné údaje emailoví klienti (označovaní tiež ako MUA \footnote{MUA - Mail User Agent, program, ktorý používa užívateľ na rozosielanie a prijímanie emailov (napr. Outlook), tento program komunikuje s MTA (Mail Transfer Agent), ktorý sa stará o prenos emailov v prostredí verejnej siete Internet.}) väčšinou nezobrazujú.
+
+
+Pri vytváraní emailu emailovým klientom sú väčšinou do hlavičky vložené tieto záhlavia:
+
+\begin{itemize}
+\item \textbf{Date} - aktuálny čas počítača, ktorý vložil záhlavie
+\item \textbf{From} - adresa odosielateľa
+\item \textbf{Cc} - špecifikuje ďalších adresátov
+\item \textbf{Bcc} - umožňuje rozosielanie správy medzi viacerých adresátov
+\item \textbf{Priotity} - priorita emailu, interpretácia sa líši vzhľadom k MUA
+\item \textbf{Reply-To} - špecifikuje adresu, na ktorú je zaslaná prípadná odpoveď
+\item \textbf{Subjekt} - predmet správy daný užívateľom
+\item \textbf{To} - udáva adresu príjemcu správy
+\item \textbf{Message-Id} unikátny identifikátor, ktorý je priradený MTA
+\end{itemize}
+
+Telo emailu obsahuje samotné dáta určené pre adresáta. 
+
+
+\subsection{Emaily v súčasnosti}
+Emaily teda existujú už niečo cez 50 rokov, ich popularita je však stále veľká vďaka ich efektivite, extrémne nízkym nákladom a kompatibilite s množstvom typov zariadení. Ako jedna z najrozšírenejších typov komunikácie v dnešnej dobe, emaily sú široko rozšírené v každodennom živote. Napríklad, spolupracovníci diskutujú prácu cez emaily, priatelia zdieľajú sociálne aktivity a skúsenosti aj cez emaily alebo veľké spoločnosti distribuujú reklamy práve pomocou emailov.
+
+Aj keď by mnohí tvrdili, že éra emailov už je dávno preč a sú stále viac nahrádzané novými sociálnymi sieťami, nové výskumy ukazujú opak. Napríklad výskum z roku 2016 od spoločnosti Bluecore \cite{13} ukazuje, že email je stále populárny aj u mladších generácií, hlavne na formálnu komunikáciu.
+
+V tomto výskume boli spotrebitelia pýtaní, akú formu komunikácie preferujú pri komunikácii so značkami (interntovými obchodmi, na firemnú komunikáciu a celkovo formálnu komunikáciu). Prevažná časť opýtaných si vybrala email (68\%).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm, height=7cm]{figures/emailusage}
+\caption{Akú formu komunikácie preferujete na formálnu komunikáciu?}
+\end{figure}
+
 
 \section{Definície a klasifikácie}
 V tejto kapitole popisujem všetky teoretické pojmy a metódy, ktoré v tejto práci spomínam a používam. V tejto kapitole budem používať matematické názvy podľa kontextu, v ktorom sa budem nachádzať.
@@ -245,52 +295,7 @@ Druhá fáza algoritmu spočíva vo vytvorení novej siete, ktorej uzly sú komu
 Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizovaná tým, že umožňuje len miestne zmeny komunít a druhá, kde nájdené komunity sú agregované tak, aby bolo možné vytvoriť sieť komunít. Priechody sú opakované iteratívne kým nie je možný žiadny nárast modularity.
 
 \newpage
-\section{Emailová komunikácia}
-\subsection{Stručná história emailu}
-Za počiatky emailovej komunikácie možno považovať priližne rok 1965, kedy bola správa prenášaná medzi sálovými počítačmi pracujúcich v režime zdieľania času na univerzite \textit{Massachusetts Institute of Technology}.
 
-Od tejto doby preša emailová komunikácia značným vývojom. Emaily, tak ako ich poznáme dnes, sú definované štandartom špecifikácie RFC2822 a sú prenášané pomocou komunikačných protokolov. 
-
-
-\subsection{Štruktúra emailu}
-Každý email sa skladá z dvoch častí - z tzv. hlavičky \textit{(header)} a tela emailu \textit{(body)}.
-
-Hlavička emailu je generovaná automaticky pri vytvorení emailu a sú do nej postupne vkladané informácie zo serverov, cez ktoré správa prechádza (tzv. MTA). Pre bežných užívateľov sú z hlavičky najdôležitejšie tieto údaje: predmet správy, čas odoslania, emailová adresa odosielateľa a prijímateľa. Ostatné údaje emailoví klienti (označovaní tiež ako MUA \footnote{MUA - Mail User Agent, program, ktorý používa užívateľ na rozosielanie a prijímanie emailov (napr. Outlook), tento program komunikuje s MTA (Mail Transfer Agent), ktorý sa stará o prenos emailov v prostredí verejnej siete Internet.}) väčšinou nezobrazujú.
-
-
-Pri vytváraní emailu emailovým klientom sú väčšinou do hlavičky vložené tieto záhlavia:
-
-\begin{itemize}
-\item \textbf{Date} - aktuálny čas počítača, ktorý vložil záhlavie
-\item \textbf{From} - adresa odosielateľa
-\item \textbf{Cc} - špecifikuje ďalších adresátov
-\item \textbf{Bcc} - umožňuje rozosielanie správy medzi viacerých adresátov
-\item \textbf{Priotity} - priorita emailu, interpretácia sa líši vzhľadom k MUA
-\item \textbf{Reply-To} - špecifikuje adresu, na ktorú je zaslaná prípadná odpoveď
-\item \textbf{Subjekt} - predmet správy daný užívateľom
-\item \textbf{To} - udáva adresu príjemcu správy
-\item \textbf{Message-Id} unikátny identifikátor, ktorý je priradený MTA
-\end{itemize}
-
-
-
-
-
-Telo emailu obsahuje samotné dáta určené pre adresáta. 
-
-
-\subsection{Emaily v súčasnosti}
-Emaily teda existujú už niečo cez 50 rokov, ich popularita je však stále veľká vďaka ich efektivite, extrémne nízkym nákladom a kompatibilite s množstvom typov zariadení. Ako jedna z najrozšírenejších typov komunikácie v dnešnej dobe, emaily sú široko rozšírené v každodennom živote. Napríklad, spolupracovníci diskutujú prácu cez emaily, priatelia zdieľajú sociálne aktivity a skúsenosti aj cez emaily alebo veľké spoločnosti distribuujú reklamy práve pomocou emailov.
-
-Aj keď by mnohí tvrdili, že éra emailov už je dávno preč a sú stále viac nahrádzané novými sociálnymi sieťami, nové výskumy ukazujú opak. Napríklad výskum z roku 2016 od spoločnosti Bluecore \cite{13} ukazuje, že email je stále populárny aj u mladších generácií, hlavne na formálnu komunikáciu.
-
-V tomto výskume boli spotrebitelia pýtaní, akú formu komunikácie preferujú pri komunikácii so značkami (interntovými obchodmi, na firemnú komunikáciu a celkovo formálnu komunikáciu). Prevažná časť opýtaných si vybrala email (68\%).
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=12cm, height=7cm]{figures/emailusage}
-\caption{Akú formu komunikácie preferujete na formálnu komunikáciu?}
-\end{figure}
 
 
 \section{SSRM - Framework pre detekciu štrukturálnych rolí v sociálnych sieťach}
@@ -587,23 +592,63 @@ Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii g
 
 \newpage
 \begin{thebibliography}{99}
-	\bibitem{1} Guanting Tang, Jian Pei, and Wo-Shun Luk: \textit{Email Mining: Tasks, CommonTechniques, and Tools}
-	\bibitem{2} Xiaoyan Fu: \textit{Visualization and Analysis of Email Networks}
-	\bibitem{3} J. Diesner, T. L. Frantz, and K. M. Carley: \textit{Communication networks
+	\bibitem{1} Guanting Tang, Jian Pei, and Wo-Shun Luk
+		\newline
+		\textit{Email Mining: Tasks, CommonTechniques, and Tools}
+	 
+	\bibitem{2} Xiaoyan Fu 
+		\newline
+		\textit{Visualization and Analysis of Email Networks}
+	
+	\bibitem{3} J. Diesner, T. L. Frantz, and K. M. Carley
+		\newline
+		\textit{Communication networks
 from the enron email corpus it’s always about the people. E 	nron is
 no different}
-	\bibitem{4} A. Chapanond, M. S. Krishnamoorthy, and B. Yener,  \textit{Graph Theoretic and Spectral Analysis of Enron Email Data }
-	\bibitem{5} TeamNETData, \textit{http://inflex.cz:8075/TeamNETdata/}
-	\bibitem{6} N. Crossley, E. Bellotti, G. Edwards, M. G. Everett, J. Koskinen, M. Tranmer,  \textit{Social network analysis for Ego-Nets}	
-	\bibitem{7} Petr Kovář, \textit{Úvod do Teorie grafů} - skripta VŠB 
-	\bibitem{8} M.E.J. Newman, \textit{The structure and function of complex networks}
-	\bibitem{9} Afra Abnar, Mansoureh Takaffoli, Reihaneh Rabbany, Osmar R. Zaıane \textit{SSRM: Structural Social Role Miningfor Dynamic Social Networks}
-	\bibitem{10} Zehnalová, Horák, Kudělka \textit{Email Conversation Network Analysis: Work Groups
-and Teams in Organizations}
-	\bibitem{11} Repository pattern, \textit{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}
-	\bibitem{12} Vincent D. Blondel, Jean-Loup Guillaume1, RenaudLambiotte and Etienne Lefebvre: \textit{Fast unfolding of communities in large networks}
-	\bibitem{13} Do Millennial and Gen Z Consumers Still Use Email? \textit{https://www.bluecore.com/blog/do-millennials-use-email/}
+
+	\bibitem{4} A. Chapanond, M. S. Krishnamoorthy, and B. Yener 
+		\newline
+	 	\textit{Graph Theoretic and Spectral Analysis of Enron Email Data }
 	
+	\bibitem{5} TeamNETData
+		\newline
+		\texttt{http://inflex.cz:8075/TeamNETdata/}
+	
+	\bibitem{6} N. Crossley, E. Bellotti, G. Edwards, M. G. Everett, J. Koskinen, M. Tranmer 
+		\newline
+	 	\textit{Social network analysis for Ego-Nets}	
+	
+	\bibitem{7} Petr Kovář
+		\newline
+		\textit{Úvod do Teorie grafů} - skripta VŠB 
+	
+	\bibitem{8} M.E.J. Newman
+		\newline
+		\textit{The structure and function of complex networks}
+	
+	\bibitem{9} Afra Abnar, Mansoureh Takaffoli, Reihaneh Rabbany, Osmar R. Zaıane 
+		\newline
+		\textit{SSRM: Structural Social Role Miningfor Dynamic Social Networks}
+	
+	\bibitem{10} Zehnalová, Horák, Kudělka
+		\newline
+		\textit{Email Conversation Network Analysis: Work Groups and Teams in Organizations}
+	
+	\bibitem{11} Repository pattern 
+		\newline
+		\texttt{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}
+	
+	\bibitem{12} Vincent D. Blondel, Jean-Loup Guillaume1, RenaudLambiotte and Etienne Lefebvre
+		\newline
+		\textit{Fast unfolding of communities in large networks}
+	
+	\bibitem{13} Do Millennial and Gen Z Consumers Still Use Email? 
+		\newline
+		\texttt{https://www.bluecore.com/blog/do-millennials-use-email/}
+		
+	\bibitem{14} vis.js
+		\newline
+		\texttt{http://visjs.org/}
 \end{thebibliography}
 
 
