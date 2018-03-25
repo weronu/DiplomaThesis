@@ -2,7 +2,6 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Common;
 using Domain.DomainClasses;
 
 namespace Repository.MSSQL
@@ -75,7 +74,7 @@ namespace Repository.MSSQL
             {
                 var e = _context.Set<TEntity>().FirstOrDefault(x => x.Id == id);
 
-                if (e == null) throw new ThesisException(ErrorMessages.ObjectNotFound);
+                if (e == null) throw new Exception("Object was not found.");
 
                 var entry = _context.Entry(e);
                 if (entry.State == EntityState.Detached)
