@@ -13,13 +13,28 @@
             @Html.DropDownListFor(m => m.SelectedTeamMemberId, new SelectList(Model.TeamMembers, "Id", "Name", 1), new {@class = "form-control", id = "teamMembersDropdown"})
         </div>
     }
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="col-md-4 col-md-offset-2 mydatepicker ">
+                <input type="text" id="daterange" class="form-control datepicker-input">
+                <i class="datepicker-icon glyphicon glyphicon-calendar fa fa-calendar"></i>
+            </div>
+        </div>
+    </div>
     <div id="graphView_Partial_Id">@Html.Partial("~/Views/TeamMembersEmailGraphs/GraphView_partial.cshtml")</div>
 </div>
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-       
+
+
+        $('#daterange').daterangepicker({
+            "autoApply": true,
+            "startDate": "03/22/2018",
+            "endDate": "03/28/2018"
+        });
+
         $("#teamMembersDropdown").change(function (e) {
             blockUI();
             e.preventDefault();

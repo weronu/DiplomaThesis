@@ -387,7 +387,6 @@ h1, h2, h3, h4, h5, h6, p {
 
 .btn {
     width: 110%;
-    margin-top: 20px;
 }
 
 
@@ -400,3 +399,31 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 10px;
     border: 1px solid #ff6a00;
 }
+
+
+.mydatepicker {
+    position: relative;
+    padding-left: 0 !important;
+
+    .datepicker-icon {
+        position: absolute;
+        bottom: 12px;
+        left: 10px;
+        cursor: pointer;
+    }
+}
+
+
+.datepicker-dropdown {
+    top: 712px;
+    left: 576.5px;
+    right: auto;
+    display: block;
+}
+
+.datepicker-input {
+    width: 495px;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+

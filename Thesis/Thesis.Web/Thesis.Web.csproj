@@ -216,6 +216,12 @@
     <Content Include="Content\custom.min.css">
       <DependentUpon>custom.css</DependentUpon>
     </Content>
+    <Content Include="Content\daterangepicker.css">
+      <DependentUpon>daterangepicker.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\daterangepicker.min.css">
+      <DependentUpon>daterangepicker.css</DependentUpon>
+    </Content>
     <Content Include="Content\fontawesome\fa-brands.css" />
     <Content Include="Content\fontawesome\fa-brands.min.css" />
     <Content Include="Content\fontawesome\fa-regular.css" />
@@ -271,8 +277,10 @@
     <Content Include="Content\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\webfonts\fa-solid-900.woff" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
+    <Content Include="Content\daterangepicker.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\custom.js" />
+    <Content Include="Scripts\daterangepicker.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -282,6 +290,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jqueryblockUI.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
