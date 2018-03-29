@@ -12,5 +12,10 @@ namespace Domain.DomainClasses
         {
             get { return Emails.Min(x => x.Sent); }
         }
+
+        public DateTime ConversationStopDate
+        {
+            get { return Emails.Max(x => x.Sent); }
+        }
     }
 }

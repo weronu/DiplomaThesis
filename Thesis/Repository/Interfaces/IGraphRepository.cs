@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Domain.DomainClasses;
+using Domain.DTOs;
 using Domain.GraphClasses;
 using User = Domain.DomainClasses.User;
 
@@ -17,5 +20,6 @@ namespace Repository.MSSQL.Interfaces
         List<int> GetConversations();
         void ExtractConversations();
         void ClearDatabaseData();
+        HashSet<Edge<UserDto>> ExtractEdgesFromConversation(HashSet<ConversationEmails> conversationEmails);
     }
 }

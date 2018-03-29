@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
 using Graph.Algorithms;
@@ -43,6 +44,62 @@ namespace Thesis.Services
                 {
                     response.AddError($"Additional error: {e.InnerException.Message}");
                 }
+            }
+
+            return response;
+        }
+
+        public FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime fromDate, DateTime toDate)
+        {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+            try
+            {
+                Graph<UserDto> graph = new Graph<UserDto>();
+
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    HashSet<ConversationEmails> conversationEmails = uow.ConvRepo.ExtractConversationsFromDatabase(fromDate, toDate);
+
+                    HashSet<Edge<UserDto>> edges = uow.GraphRepo.ExtractEdgesFromConversation(conversationEmails);
+                    graph.CreateGraph(edges);
+                }
+
+                response.Succeeded = true;
+                response.Item = graph;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                response.AddError($"Import of file failed with an error: {e.Message}");
+
+                if (e.InnerException != null)
+                {
+                    response.AddError($"Additional error: {e.InnerException.Message}");
+                }
+            }
+
+            return response;
+        }
+
+        public FetchListServiceResponse<DateTime> FetchStartAndEndOfConversation(string connectionString)
+        {
+            FetchListServiceResponse<DateTime> response = new FetchListServiceResponse<DateTime>();
+            try
+            {
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    DateTime dateOfFirstConversation = uow.ConvRepo.GetDateOfFirstConversation();
+                    DateTime dateOfLastConversation = uow.ConvRepo.GetDateOfFirstConversation();
+
+                    response.Items.Add(dateOfFirstConversation);
+                    response.Items.Add(dateOfLastConversation);
+                    response.Succeeded = true;
+                }
+            }
+            catch (Exception)
+            {
+                response.Succeeded = false;
+                throw new Exception("Start and end of conversation was not found.");
             }
 
             return response;

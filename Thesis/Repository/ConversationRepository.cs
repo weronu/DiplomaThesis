@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Domain.DomainClasses;
 using Repository.MSSQL.Interfaces;
@@ -23,6 +24,31 @@ namespace Repository.MSSQL
                     ConverationId = grp.Key,
                     Emails = grp.ToList()
                 });
+        }
+
+        public HashSet<ConversationEmails> ExtractConversationsFromDatabase(DateTime fromDate, DateTime toDate)
+        {
+            return new HashSet<ConversationEmails>(from conversation in _context.Conversations
+                where conversation.EmailMessage.Sent.Date >= fromDate.Date && conversation.EmailMessage.Sent.Date <= toDate.Date
+                group conversation.EmailMessage by conversation.ConversationId
+                into grp
+                select new ConversationEmails()
+                {
+                    ConverationId = grp.Key,
+                    Emails = grp.ToList()
+                });
+        }
+
+        public DateTime GetDateOfFirstConversation()
+        {
+            DateTime dateTime = _context.Conversations.Min(x => x.EmailMessage.Sent);
+            return dateTime;
+        }
+
+        public DateTime GetDateOfLastConversation()
+        {
+            DateTime dateTime = _context.Conversations.Max(x => x.EmailMessage.Sent);
+            return dateTime;
         }
     }
 }

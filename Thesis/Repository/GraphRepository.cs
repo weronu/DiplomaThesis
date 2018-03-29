@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Domain.DomainClasses;
@@ -71,7 +72,7 @@ namespace Repository.MSSQL
             return vertices;
         }
 
-        public HashSet<Edge<Domain.DTOs.UserDto>> ExtractEdgesFromConversation()
+        public HashSet<Edge<UserDto>> ExtractEdgesFromConversation()
         {
             HashSet<ConversationEmails> conversationEmails =
                 new HashSet<ConversationEmails>(from conversation in _context.Conversations
@@ -83,29 +84,32 @@ namespace Repository.MSSQL
                         Emails = grp.ToList()
                     });
 
-            HashSet<Edge<Domain.DTOs.UserDto>> edgesWithDuplicates = new HashSet<Edge<Domain.DTOs.UserDto>>();
+            HashSet<Edge<UserDto>> edgesWithDuplicates = new HashSet<Edge<UserDto>>();
 
             foreach (ConversationEmails email in conversationEmails)
             {
-                HashSet<Edge<Domain.DTOs.UserDto>> enumerable = new HashSet<Edge<Domain.DTOs.UserDto>>(from conversationEmailSet1 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
+                HashSet<Edge<UserDto>> enumerable = new HashSet<Edge<UserDto>>(
+                                                                            from conversationEmailSet1 in conversationEmails
+                                                                                .Where(x => x.ConverationId == email.ConverationId)
+                                                                                .SelectMany(x => x.Emails)
                     from conversationEmailSet2 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
                     where conversationEmailSet1.Sender.Id < conversationEmailSet2.Sender.Id // only one direction
-                    select new Edge<Domain.DTOs.UserDto>()
+                    select new Edge<UserDto>()
                     {
-                        Node1 = new Node<Domain.DTOs.UserDto>()
+                        Node1 = new Node<UserDto>()
                         {
                             Id = conversationEmailSet1.Sender.Id,
-                            NodeElement = new Domain.DTOs.UserDto()
+                            NodeElement = new UserDto()
                             {
                                 Id = conversationEmailSet1.Sender.Id,
                                 Name = conversationEmailSet1.Sender.Name
                             } 
                            
                         },
-                        Node2 = new Node<Domain.DTOs.UserDto>()
+                        Node2 = new Node<UserDto>()
                         {
                             Id = conversationEmailSet2.Sender.Id,
-                            NodeElement = new Domain.DTOs.UserDto()
+                            NodeElement = new UserDto()
                             {
                                 Id = conversationEmailSet2.Sender.Id,
                                 Name = conversationEmailSet2.Sender.Name
@@ -118,7 +122,52 @@ namespace Repository.MSSQL
             }
             
 
-            HashSet<Edge<Domain.DTOs.UserDto>> edges = new HashSet<Edge<Domain.DTOs.UserDto>> (edgesWithDuplicates.Distinct(new DistinctItemComparer()).ToList());
+            HashSet<Edge<UserDto>> edges = new HashSet<Edge<UserDto>> (edgesWithDuplicates.Distinct(new DistinctItemComparer()).ToList());
+
+            return edges;
+        }
+
+        public HashSet<Edge<UserDto>> ExtractEdgesFromConversation(HashSet<ConversationEmails> conversationEmails)
+        {
+            HashSet<Edge<UserDto>> edgesWithDuplicates = new HashSet<Edge<UserDto>>();
+
+            foreach (ConversationEmails email in conversationEmails)
+            {
+                HashSet<Edge<UserDto>> enumerable = new HashSet<Edge<UserDto>>(
+                                                                            from conversationEmailSet1 in conversationEmails
+                                                                                .Where(x => x.ConverationId == email.ConverationId)
+                                                                                .SelectMany(x => x.Emails)
+                                                                            from conversationEmailSet2 in conversationEmails.Where(x => x.ConverationId == email.ConverationId).SelectMany(x => x.Emails)
+                                                                            where conversationEmailSet1.Sender.Id < conversationEmailSet2.Sender.Id // only one direction
+                                                                            select new Edge<UserDto>()
+                                                                            {
+                                                                                Node1 = new Node<UserDto>()
+                                                                                {
+                                                                                    Id = conversationEmailSet1.Sender.Id,
+                                                                                    NodeElement = new UserDto()
+                                                                                    {
+                                                                                        Id = conversationEmailSet1.Sender.Id,
+                                                                                        Name = conversationEmailSet1.Sender.Name
+                                                                                    }
+
+                                                                                },
+                                                                                Node2 = new Node<UserDto>()
+                                                                                {
+                                                                                    Id = conversationEmailSet2.Sender.Id,
+                                                                                    NodeElement = new UserDto()
+                                                                                    {
+                                                                                        Id = conversationEmailSet2.Sender.Id,
+                                                                                        Name = conversationEmailSet2.Sender.Name
+                                                                                    }
+                                                                                },
+                                                                                Weight = 2
+                                                                            });
+
+                edgesWithDuplicates.UnionWith(enumerable);
+            }
+
+
+            HashSet<Edge<UserDto>> edges = new HashSet<Edge<UserDto>>(edgesWithDuplicates.Distinct(new DistinctItemComparer()).ToList());
 
             return edges;
         }
@@ -152,7 +201,7 @@ namespace Repository.MSSQL
         }
     }
 
-    public class DistinctItemComparer : IEqualityComparer<Edge<Domain.DTOs.UserDto>>
+    public class DistinctItemComparer : IEqualityComparer<Edge<UserDto>>
     {
 
         public bool Equals(Edge<UserDto> x, Edge<UserDto> y)
