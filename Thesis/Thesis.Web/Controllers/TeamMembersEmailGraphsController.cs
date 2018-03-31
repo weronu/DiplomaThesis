@@ -48,13 +48,26 @@ namespace Thesis.Web.Controllers
                         SelectedTeamMemberId = 1,
                     };
 
-                    responseGraph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()));
+                    if (model.FromDate == null || model.ToDate == null)
+                    {
+                        List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(model.SelectedTeamMemberId.ToString());
+                        model.FromDate = startAndEndDateOfConversations.First();
+                        model.ToDate = startAndEndDateOfConversations.Last();
+                    }
+
+                    responseGraph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()), model.FromDate, model.ToDate);
                 }
                 else
                 {
-                    responseGraph = _graphService.FetchEmailsGraph(_importConnectionString);
-                }
+                    if (model.FromDate == null || model.ToDate == null)
+                    {
+                        List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(model.SelectedTeamMemberId.ToString());
+                        model.FromDate = startAndEndDateOfConversations.First();
+                        model.ToDate = startAndEndDateOfConversations.Last();
+                    }
 
+                    responseGraph = _graphService.FetchEmailsGraph(_importConnectionString, model.FromDate, model.ToDate);
+                }
 
                 responseGraph.Item.SetDegrees();
 
@@ -84,6 +97,25 @@ namespace Thesis.Web.Controllers
             return View(model);
         }
 
+        private List<DateTime> GetStartAndEndDateOfConversations(string teamMemberId)
+        {
+            List<DateTime> listOfDates = new List<DateTime>() { };
+            try
+            {
+                FetchListServiceResponse<DateTime> startAndEndOfConversation = _graphService.FetchStartAndEndOfConversation(GetConnectionStringBasedOnSelectedMember(teamMemberId));
+                
+                foreach (DateTime date in startAndEndOfConversation.Items)
+                {
+                    listOfDates.Add(date);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return listOfDates;
+        }
+
         private string GetConnectionStringBasedOnSelectedMember(string selectedTeamMemberId)
         {
             try
@@ -98,16 +130,24 @@ namespace Thesis.Web.Controllers
             }
         }
 
+
+
         [HttpPost]
-        public ActionResult GetSelectedValue(string teamMemberId)
+        public ActionResult GetSelectedValue(GraphViewModel model, string teamMemberId)
         {
-            GraphViewModel model = null;
             try
             {
                 int id = int.Parse(teamMemberId);
                 string connectionString = GetConnectionStringBasedOnSelectedMember(teamMemberId);
 
-                FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString);
+                if (model.FromDate == null || model.ToDate == null)
+                {
+                    List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(teamMemberId);
+                    model.FromDate = startAndEndDateOfConversations.First();
+                    model.ToDate = startAndEndDateOfConversations.Last();
+                }
+
+                FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString, model.FromDate, model.ToDate);
 
                 responseGraph.Item.SetDegrees();
 
@@ -127,13 +167,11 @@ namespace Thesis.Web.Controllers
                     edges = edges
                 };
 
-                model = new GraphViewModel
-                {
-                    TeamMembers = TeamMembers,
-                    SelectedTeamMemberId = id,
-                    Graph = responseGraph.Item,
-                    GraphDto = graphDto
-                };
+
+                model.TeamMembers = TeamMembers;
+                model.SelectedTeamMemberId = id;
+                model.Graph = responseGraph.Item;
+                model.GraphDto = graphDto;
             }
             catch (Exception e)
             {
@@ -142,6 +180,54 @@ namespace Thesis.Web.Controllers
 
             return View("GraphView_partial", model);
         }
+
+        [HttpPost]
+        public ActionResult ApplyDateRange(string from, string to, string selectedTeamMemberId)
+        {
+            GraphViewModel model = new GraphViewModel();
+            try
+            {
+                DateTime fromDate = DateTime.Parse(from);
+                DateTime toDate = DateTime.Parse(to);
+
+                string connectionString = GetConnectionStringBasedOnSelectedMember(selectedTeamMemberId);
+
+                FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString, fromDate, toDate);
+
+                responseGraph.Item.SetDegrees();
+
+                List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
+                {
+                    id = x.Id,
+                    label = x.NodeElement.Name,
+                    title = $"Node degree: {x.Degree}",
+                    size = 10,
+                    color = "#f5cbee"
+                }).ToList();
+                List<EdgeDto> edges = responseGraph.Item.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+
+                GraphDto graphDto = new GraphDto
+                {
+                    nodes = nodes,
+                    edges = edges
+                };
+
+                model.TeamMembers = TeamMembers;
+                model.SelectedTeamMemberId = Int32.Parse(selectedTeamMemberId);
+                model.Graph = responseGraph.Item;
+                model.GraphDto = graphDto;
+                model.FromDate = fromDate;
+                model.ToDate = toDate;
+
+            }
+            catch (Exception e)
+            {
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
+            }
+
+            return View("GraphView_partial", model);
+        }
+
 
         [HttpPost]
         public ActionResult CreateEgoNetwork(GraphViewModel graphViewModel)
@@ -174,6 +260,13 @@ namespace Thesis.Web.Controllers
                     else
                     {
                         throw new Exception("Invalid selected team member.");
+                    }
+
+                    if (egoNetworkCenterId == 0 && selectedTeamMember != null) // default to node with biggest degree
+                    {
+                        
+                        FetchItemServiceResponse<Node<UserDto>> fetchNodeWithBiggestDegree = _graphService.FetchNodeWithBiggestDegree(selectedTeamMember.ConnectionString, graphViewModel.Graph);
+                        egoNetworkCenterId = fetchNodeWithBiggestDegree.Item.Id;
                     }
 
                     Node<UserDto> egoNetworkCenter = graphViewModel.Graph.GetNodeById(egoNetworkCenterId);

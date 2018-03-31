@@ -26,10 +26,10 @@ namespace Repository.MSSQL
                 });
         }
 
-        public HashSet<ConversationEmails> ExtractConversationsFromDatabase(DateTime fromDate, DateTime toDate)
+        public HashSet<ConversationEmails> ExtractConversationsFromDatabase(DateTime? fromDate, DateTime? toDate)
         {
             return new HashSet<ConversationEmails>(from conversation in _context.Conversations
-                where conversation.EmailMessage.Sent.Date >= fromDate.Date && conversation.EmailMessage.Sent.Date <= toDate.Date
+                where conversation.EmailMessage.Sent >= fromDate && conversation.EmailMessage.Sent <= toDate
                 group conversation.EmailMessage by conversation.ConversationId
                 into grp
                 select new ConversationEmails()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
@@ -49,7 +50,7 @@ namespace Thesis.Services
             return response;
         }
 
-        public FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime fromDate, DateTime toDate)
+        public FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime? fromDate, DateTime? toDate)
         {
             FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
             try
@@ -60,7 +61,7 @@ namespace Thesis.Services
                 {
                     HashSet<ConversationEmails> conversationEmails = uow.ConvRepo.ExtractConversationsFromDatabase(fromDate, toDate);
 
-                    HashSet<Edge<UserDto>> edges = uow.GraphRepo.ExtractEdgesFromConversation(conversationEmails);
+                   HashSet<Edge<UserDto>> edges = uow.GraphRepo.ExtractEdgesFromConversation(conversationEmails);
                     graph.CreateGraph(edges);
                 }
 
@@ -89,7 +90,7 @@ namespace Thesis.Services
                 using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
                 {
                     DateTime dateOfFirstConversation = uow.ConvRepo.GetDateOfFirstConversation();
-                    DateTime dateOfLastConversation = uow.ConvRepo.GetDateOfFirstConversation();
+                    DateTime dateOfLastConversation = uow.ConvRepo.GetDateOfLastConversation();
 
                     response.Items.Add(dateOfFirstConversation);
                     response.Items.Add(dateOfLastConversation);
@@ -132,6 +133,32 @@ namespace Thesis.Services
                 {
                     response.AddError($"Additional error: {e.InnerException.Message}");
                 }
+            }
+
+            return response;
+        }
+
+        public FetchItemServiceResponse<Node<UserDto>> FetchNodeWithBiggestDegree(string connectionString, Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<Node<UserDto>> response = new FetchItemServiceResponse<Node<UserDto>>();
+            try
+            {
+
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    Node<UserDto> node = graph.Nodes.OrderByDescending(x => x.Degree).First();
+                    response.Item = node;
+                }
+
+                if (response.Item == null)
+                {
+                    response.Succeeded = false;
+                    throw new Exception("Node was not found.");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
 
             return response;

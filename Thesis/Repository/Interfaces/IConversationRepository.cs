@@ -9,6 +9,6 @@ namespace Repository.MSSQL.Interfaces
         HashSet<ConversationEmails> ExtractConversationsFromDatabase();
         DateTime GetDateOfFirstConversation();
         DateTime GetDateOfLastConversation();
-        HashSet<ConversationEmails> ExtractConversationsFromDatabase(DateTime fromDate, DateTime toDate);
+        HashSet<ConversationEmails> ExtractConversationsFromDatabase(DateTime? fromDate, DateTime? toDate);
     }
 }
