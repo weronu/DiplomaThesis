@@ -17,7 +17,7 @@ namespace Repository.MSSQL.Tests.Integration
         //    using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
         //    {
         //        edges = uow.GraphRepo.ExtractEdgesFromConversation();
-        //        nodes = uow.GraphRepo.ExtractVerticesFromEdges(edges);
+        //        nodes = uow.GraphRepo.ExtractNodesFromEdges(edges);
         //    }
 
         //    Assert.IsNotNull(edges);

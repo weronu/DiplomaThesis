@@ -215,8 +215,40 @@ Uzavrená cesta, kružnica v neorientovanom a cyklus v orientovanom grafe, je ce
 Komponenta grafu je súvislá časť grafu a medzi vrcholmi z rôznych komponent neexistuje žiadna hrana.
 
 \subsection{Metriky}
-\subsubsection{Closeness centrality}
-\subsubsection{Betweeness centrality}
+V tejto časti popisujem metriky, ktoré v rámci identifikácie rolí v sieti používam. Ďalšie informácie o metrikách, ich praktickom využití a ich ďalších variantách sú zhrnuté v kapitole \ref{identifikacia}.
+
+\subsubsection{Closeness centrality (Centralita blízkosti)}
+Táto centralita meria dôležitosť vrcholu grafu podľa priemernej hodnoty vzdialenosti od všetkých ostatných vrcholov v sieti. Aby dôležité vcholy mali vyššie číslo, je táto centralita počítaná ako inverzná hodnota tohto priemeru. Vrchol dôležitý podľa tejto metriky môže mať dobrý prístup k informáciám o ostaných vrcholoch alebo naopak môže ostatné vrcholz rýchlejšie ovplyvňovať.
+
+Priemernú vzdialenosť vrcholu ${x_{i}}$ od ostatných vcholov možno formálne zapísať ako ${l_{i} = \frac{1}{n}\sum_{j}d_{ij}}$, kde \textit{n} je počet vrcholov v grafe a ${d_{ij}}$ je najkratšia cesta medzi vrcholmi  ${x_{i}}$ a  ${x_{j}}$. Centralita je potom  ${C_{i} = \frac{1}{l_{i}}}$.
+
+
+
+\subsubsection{Betweeness centrality (Centralita medziľahlosti)}
+Táto centralita sa odlišuje od ostatných uvedených. Jej hodnota pre vrchol je počet najkratších ciest medzi každými dvoma vrcholmi v grafe, na ktorých hodnotený vrchol leží. Pokiaľ medzi vrcholmi v sieti tečú nejaké informácie alebo sa posielajú správy, hodnota tejto metriky vyjadruje, aké množstvo informácií cez daný vrchol prejde. Táto centralita je tiež názorný príklad toho, že každá metrika počíta dôležitost vrcholu úplne inak. Vrchol s vysokou centralitou medziľahlosti môže mať malý stupeň a nemusí ležať blízko ostatních vrcholov, stačí, keď cez neho  prechádza veľa najkratších ciest. To môže nastať, pokiaľ vrchol je most medzi dvoma alebo viacerými komponentami v grafe, v extrémnom prípade pokiaľ je v strede grafu v tvare hviezdy (viď obrázok).
+
+Betweeness vrcholu ${x_{i}}$ možno spočítať ako ${B_{i} = \sum_{st}^{}\frac{n^{i}_{st}}{g_{st}}}$, kde ${g_{st}}$ je počet všetkých najkratších ciest medzi vrcholmi ${x_{i}}$ a ${x_{j}}$ a ${n^{i}_{st}}$ je počet najkratších ciest, ktoré naviac vedú cez vrchol ${x_{i}}$. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=6cm, height=5cm]{figures/graph_star}
+\caption{Graf v tvare hviezdy}
+\end{figure}
+
+\newpage
+\subsubsection{Modularita}
+Modularita je metrika, ktorá udáva rozdiel medzi počtom existujúcich hrán medzi vrcholmi rovnakého typu a počtom takých hrán v náhodne vytvorenom grafe v pomeru ku všetkým exitujúcim hranám. Vrcholy rovnakého typu sú tie, ktoré patria alebo majú patriť do rovnakej skupiny alebo triedy (komunity).
+
+\begin{mycapequ}[!ht]
+      \begin{equation*}    
+{
+Q = \frac{1}{2m}\sum \sum_{i,j}\begin{bmatrix}
+A_{ij} - \frac{d_{i}d_{j}}{2m}
+\end{bmatrix} \delta (c_{i}, c_{j})
+}
+   \end{equation*}
+   \caption{Def: Modularita}
+\end{mycapequ}
 
 
 \section{Sociálna sieť}
@@ -340,7 +372,7 @@ Sú to jednotlivci, ktorí nie sú spojení so žiadnou komunitou v sieti. Buď 
 
 
 
-\section{Identifikácia štrukturálnych sociálnych rolí}
+\section{Identifikácia štrukturálnych sociálnych rolí} \label{identifikacia}
 Majúc sieť s komunitami explicitne známymi alebo extrahovanými nejakým dolovacím algoritmom, následne popisujem metodológie pre identifikovanie definovaných štrukturálnych rolí.
 
 \subsection{Outsider}
@@ -350,7 +382,7 @@ Najviac priamočiarou rolou pre identifikáciu je outsider. Je to jednotlivec, k
 \subsection{Leader}
 Leader je v každej komunite výnimočný centrálny člen. Pre identifikovanie takýchto uzlov SSRM využíva metriku \textit{closeness centrality}.
 
-\subsubsection{Closeness centrality}
+\subsubsection{Closeness centrality (Centralita blízkosti)}
 V súvislom grafe closeness centrality uzlu je metrika centrality v sieti, vypočítaná ako súčet dĺžok najkratsích ciest medzi uzlom a všetkými ostatnými uzlami v grafe. Čiže čím viac je uzol centrálnejší, tým bližšie je k ostatným uzlom.
 
 
@@ -499,6 +531,7 @@ Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďal
 \subsection{Špecifikácia}
 Aplikácia slúži ako užívateľské rozhranie na anlýzu emailovej komunikácie a vizualizáciu analyytických výstupov. Aplikácia umožňuje exportovať dáta z emailovej schránky alebo importovať vlastný XML súbor s emailovými dátami a ďalej s týmito dátami pracovať a zobrazovať sieť emailovej komunikácie. Umožňuje vytvorenie ego-siete alebo detekovať vo vytvorenej siete komunity. Najdôležitejšou časťou aplikácie je detekcia štrukturálnch rolí v sieti, čiže detekcia dôležitých a nedôležitých členov emailovej komunikácie. 
 
+
 \subsubsection{Funkčné požiadavky}
 \begin{itemize}
 \item Export dát z emailovej schránky
@@ -508,16 +541,39 @@ Aplikácia slúži ako užívateľské rozhranie na anlýzu emailovej komunikác
 \item Vytvorenie ego-siete
 \item Detekcia komunít
 \item Detekcia štrukturálnych rolí v sieti
+\item Výber časového rozmedzia emailových konverzácií
 \end{itemize}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm, height=10cm]{figures/diagram_usecase}
+\caption{UseCase Diagram}
+\end{figure}
+
 
 \subsection{Návrh}
 Aplikácia je vytvorená ako .NET aplikácia (veria .NET Frameworku 4.6). Je vytvorená ako trojvrstvová, pre uloženie dát sa používa SQL databáza. Najnižšia vrstva aplikácie slúži na získavanie dát z databázy, pre prepojenie s databázou a posielanie dát z aplikácie do databázy používam Entity Framework a používam tu návrhový vzor Repository. Od tejto časti je oddelená časť s business logikou a na najvyššej časti, ktorá slúži len na zobrazenie dát a komunikáciu s užívateľom, používam známy prístup Model-View-Controller.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm, height=9cm]{figures/diagram_komponent}
+\caption{Diagram komponent znázorňujúci jednotlivé komponenty architektúry aplikácie}
+\end{figure}
 
 \subsubsection{Návrhové vzory}
 
 \indent
 \indent \textbf{Repository}
 Návrhový vzor Repository je základným kameňom doménou riadeného návrhu. Model aplikácie teda nemá poňatie o tom, akým spôsobom je perzistovaný. O to sa stará práve Repository. Naviac práve vďaka tomu, že sa o persistenciu stará cudzí objekt, stačí poznať len jeho rozhranie a v prípad potreby ho ľahko nahradiť iným. \cite{11}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm, height=14cm]{figures/diagram_class}
+\caption{Triedny diagram - Repository pattern}
+\end{figure}
+
 
 
 \textbf{Model-View-Controller}
@@ -570,12 +626,10 @@ Pre moju aplikáciu som používala len časť \textit{Network}.
 \end{figure}
 
 
-
-
 \subsection{Implementácia}
 
 \subsection{Import dát}
-Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{User, EmailMessage} a \textit{Conversation} a uloží ich do SQL databázy.
+Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{User, EmailMessage, UserEmail} a \textit{Conversation} a uloží ich do SQL databázy.
 
 !!!doplnit datovy model!!!
 
@@ -603,8 +657,7 @@ Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii g
 	\bibitem{3} J. Diesner, T. L. Frantz, and K. M. Carley
 		\newline
 		\textit{Communication networks
-from the enron email corpus it’s always about the people. E 	nron is
-no different}
+from the enron email corpus it’s always about the people. Enron is no different}
 
 	\bibitem{4} A. Chapanond, M. S. Krishnamoorthy, and B. Yener 
 		\newline

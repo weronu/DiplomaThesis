@@ -11,7 +11,7 @@ namespace Repository.MSSQL
         private readonly ThesisDbContext _context;
         public ConversationRepository(ThesisDbContext context) : base(context)
         {
-            this._context = context;
+            _context = context;
         }
 
         public HashSet<ConversationEmails> ExtractConversationsFromDatabase()

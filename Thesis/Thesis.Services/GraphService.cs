@@ -61,7 +61,7 @@ namespace Thesis.Services
                 {
                     HashSet<ConversationEmails> conversationEmails = uow.ConvRepo.ExtractConversationsFromDatabase(fromDate, toDate);
 
-                   HashSet<Edge<UserDto>> edges = uow.GraphRepo.ExtractEdgesFromConversation(conversationEmails);
+                    HashSet<Edge<UserDto>> edges = uow.GraphRepo.ExtractEdgesFromConversation(conversationEmails);
                     graph.CreateGraph(edges);
                 }
 
@@ -143,12 +143,9 @@ namespace Thesis.Services
             FetchItemServiceResponse<Node<UserDto>> response = new FetchItemServiceResponse<Node<UserDto>>();
             try
             {
+                Node<UserDto> node = graph.Nodes.OrderByDescending(x => x.Degree).First();
+                response.Item = node;
 
-                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
-                {
-                    Node<UserDto> node = graph.Nodes.OrderByDescending(x => x.Degree).First();
-                    response.Item = node;
-                }
 
                 if (response.Item == null)
                 {

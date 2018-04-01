@@ -8,7 +8,7 @@ namespace Repository.MSSQL
 {
     public class RepositoryBase
     {
-        private ThesisDbContext _context;
+        private readonly ThesisDbContext _context;
 
         public RepositoryBase(ThesisDbContext context)
         {
@@ -36,16 +36,6 @@ namespace Repository.MSSQL
             TEntity e = _context.Set<TEntity>().FirstOrDefault(x => x.Id == id);
             _context.Entry(e).State = EntityState.Detached;
             return e;
-        }
-
-        protected TEntity GetByIdNoTracking<TEntity>(int id, params Expression<Func<TEntity, object>>[] includes) where TEntity : DomainBase
-        {
-            IQueryable<TEntity> qry = _context.Set<TEntity>().Where(x => x.Id == id);
-            foreach (Expression<Func<TEntity, object>> property in includes)
-            {
-                qry = qry.Include(property);
-            }
-            return qry.AsNoTracking().FirstOrDefault();
         }
 
         protected void Add<TEntity>(TEntity e) where TEntity : DomainBase

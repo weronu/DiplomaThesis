@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
 using Repository.MSSQL.Interfaces;
-using User = Domain.DomainClasses.User;
 
 namespace Repository.MSSQL
 {
@@ -16,26 +14,26 @@ namespace Repository.MSSQL
 
         public GraphRepository(ThesisDbContext context) : base(context)
         {
-            this._context = context;
+            _context = context;
         }
 
         /// <summary>
         /// Extracts all vertices from database.
         /// </summary>
-        public HashSet<Node<User>> ExtractVerticesFromDatabase()
+        public HashSet<Node<UserDto>> ExtractNodesFromDatabase()
         {
-            return new HashSet<Node<User>>(from user in _context.Users
-                                             select new Node<User>()
+            return new HashSet<Node<UserDto>>(from user in _context.Users
+                                             select new Node<UserDto>()
                                              {
                                                  Id = user.Id
                                              });
         }        
 
-        public HashSet<Node<User>> ExtractVerticesFromEdges(HashSet<Edge<User>> edges)
+        public HashSet<Node<UserDto>> ExtractNodesFromEdges(HashSet<Edge<UserDto>> edges)
         {
-            HashSet<Node<User>> vertices = new HashSet<Node<User>>();
+            HashSet<Node<UserDto>> vertices = new HashSet<Node<UserDto>>();
 
-            foreach (Edge<User> edge in edges)
+            foreach (Edge<UserDto> edge in edges)
             {
                 if (vertices.All(x => x.Id != edge.Node1.Id))
                 {
@@ -46,12 +44,12 @@ namespace Repository.MSSQL
                     vertices.Add(edge.Node2);
                 }
             }
-            HashSet<Node<User>> hashSet = new HashSet<Node<User>>(vertices.Distinct().ToList());
-            return new HashSet<Node<User>>(vertices.Distinct().ToList());
+
+            return new HashSet<Node<UserDto>>(vertices.Distinct().ToList());
 
         }
 
-        public HashSet<Node<User>> ExtractVerticesFromConversations()
+        public HashSet<Node<UserDto>> ExtractNodesFromConversations()
         {
             // extracting conversations from database
             HashSet<ConversationEmails> conversationEmails = new HashSet<ConversationEmails>(from conversation in _context.Conversations
@@ -61,10 +59,10 @@ namespace Repository.MSSQL
                                                                                                  ConverationId = grp.Key,
                                                                                                  Emails = grp.ToList()
                                                                                              });
-            HashSet<Node<User>> vertices = new HashSet<Node<User>>(from conversationEmail in conversationEmails.SelectMany(x => x.Emails)
+            HashSet<Node<UserDto>> vertices = new HashSet<Node<UserDto>>(from conversationEmail in conversationEmails.SelectMany(x => x.Emails)
                                                                        group conversationEmail by conversationEmail.Sender
                 into senders
-                                                                       select new Node<User>()
+                                                                       select new Node<UserDto>()
                                                                        {
                                                                            Id = senders.Key.Id
                                                                        });
@@ -170,14 +168,6 @@ namespace Repository.MSSQL
             HashSet<Edge<UserDto>> edges = new HashSet<Edge<UserDto>>(edgesWithDuplicates.Distinct(new DistinctItemComparer()).ToList());
 
             return edges;
-        }
-
-        public List<int> GetConversations()
-        {
-            List<int> conversationIds = (from conversation in _context.Conversations
-                select conversation.ConversationId).Distinct().ToList();
-
-            return conversationIds;
         }
 
         public void ImportXmlFile(string pathToFile)
