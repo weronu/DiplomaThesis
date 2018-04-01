@@ -627,18 +627,39 @@ Pre moju aplikáciu som používala len časť \textit{Network}.
 
 
 \subsection{Implementácia}
+Aplikácia je napsaná v jazyku C\#, grafické rozhranie je naimplementované pomocou návrhového vzoru Model View Controller a graf bol vizualizovaný pomocou knižnice vis.js. Aplikácia bola vyvíjaná vo Visual Studiu 2017.
 
 \subsection{Import dát}
 Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{User, EmailMessage, UserEmail} a \textit{Conversation} a uloží ich do SQL databázy.
 
-!!!doplnit datovy model!!!
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm, height=8cm]{figures/domain_model}
+\caption{Doménový model}
+\end{figure}
+
 
 
 \subsubsection{Konštrukcia siete}
-Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku.
+Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií.
 
+\subsubsection{Triedy pre graf a vrcholy}
+- dopisat implementaciu grafu + vrcholov + triedny diagram
 
-
+\section{Experimenty}
+- experiment pre celu agregovanu siet
+- tabulka: pocet emailov, pocet konverzacii, pocet emailovych adries
+- tabulka: pouzivatelia, ktory su aspon v jednej konverzacii, emaily poslane z emailu korporacie, konverzacie  ktorych aspon jeden user je z korporatu, konverzacie iniciovane niekym z korporatu
+- tabulka poctu komunit s meniacim sa casom
+- tabulka poctu leadrov s meniacim sa casom
+	
+	
+- experiment pre jedneho vybraneho cloveka
+	- tabulka: pocet emailov, pocet konverzacii, pocet emailovych adries
+	- porovnanie toho, ci sa rola zmenila pocas kazdeho roku straveneho vo firme
+	
+	
 \section{Záver}
 \subsection{Možnosti rozšírenia a zdokonalenia práce}
 

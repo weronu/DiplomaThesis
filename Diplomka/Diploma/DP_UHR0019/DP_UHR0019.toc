@@ -62,6 +62,8 @@
 \contentsline {subsection}{\numberline {8.5}Implement\IeC {\'a}cia}{36}{subsection.8.5}
 \contentsline {subsection}{\numberline {8.6}Import d\IeC {\'a}t}{36}{subsection.8.6}
 \contentsline {subsubsection}{\numberline {8.6.1}Kon\IeC {\v s}trukcia siete}{36}{subsubsection.8.6.1}
-\contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{37}{section.9}
-\contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{37}{subsection.9.1}
-\contentsline {section}{Literatura}{38}{subsection.9.1}
+\contentsline {subsubsection}{\numberline {8.6.2}Triedy pre graf a vrcholy}{37}{subsubsection.8.6.2}
+\contentsline {section}{\numberline {9}Experimenty}{38}{section.9}
+\contentsline {section}{\numberline {10}Z\IeC {\'a}ver}{39}{section.10}
+\contentsline {subsection}{\numberline {10.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{39}{subsection.10.1}
+\contentsline {section}{Literatura}{40}{subsection.10.1}
