@@ -10,6 +10,7 @@ using Thesis.Web.DTOs;
 using Thesis.Web.Models;
 using Domain.GraphClasses;
 using Graph.Algorithms;
+using Microsoft.Ajax.Utilities;
 using Thesis.Services.ResponseTypes;
 
 
@@ -51,22 +52,28 @@ namespace Thesis.Web.Controllers
                     if (model.FromDate == null || model.ToDate == null)
                     {
                         List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(model.SelectedTeamMemberId.ToString());
-                        model.FromDate = startAndEndDateOfConversations.First();
-                        model.ToDate = startAndEndDateOfConversations.Last();
+                        model.FromDate = startAndEndDateOfConversations.First().ToString("MM/dd/yyyy");
+                        model.ToDate = startAndEndDateOfConversations.Last().ToString("MM/dd/yyyy");
                     }
 
-                    responseGraph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()), model.FromDate, model.ToDate);
+                    DateTime from = DateTime.ParseExact(model.FromDate, "MM/dd/yyyy", null);
+                    DateTime to = DateTime.ParseExact(model.ToDate, "MM/dd/yyyy", null);
+
+                    responseGraph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()), from, to);
                 }
                 else
                 {
                     if (model.FromDate == null || model.ToDate == null)
                     {
                         List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(model.SelectedTeamMemberId.ToString());
-                        model.FromDate = startAndEndDateOfConversations.First();
-                        model.ToDate = startAndEndDateOfConversations.Last();
+                        model.FromDate = startAndEndDateOfConversations.First().ToString("MM/dd/yyyy");
+                        model.ToDate = startAndEndDateOfConversations.Last().ToString("MM/dd/yyyy");
                     }
 
-                    responseGraph = _graphService.FetchEmailsGraph(_importConnectionString, model.FromDate, model.ToDate);
+                    DateTime from = DateTime.ParseExact(model.FromDate, "MM/dd/yyyy", null);
+                    DateTime to = DateTime.ParseExact(model.ToDate, "MM/dd/yyyy", null);
+
+                    responseGraph = _graphService.FetchEmailsGraph(_importConnectionString, from, to);
                 }
 
                 responseGraph.Item.SetDegrees();
@@ -92,14 +99,14 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error); ;
+                this.AddToastMessage("Error", e.Message, ToastType.Error); 
             }
             return View(model);
         }
 
         private List<DateTime> GetStartAndEndDateOfConversations(string teamMemberId)
         {
-            List<DateTime> listOfDates = new List<DateTime>() { };
+            List<DateTime> listOfDates = new List<DateTime>();
             try
             {
                 FetchListServiceResponse<DateTime> startAndEndOfConversation = _graphService.FetchStartAndEndOfConversation(GetConnectionStringBasedOnSelectedMember(teamMemberId));
@@ -143,11 +150,14 @@ namespace Thesis.Web.Controllers
                 if (model.FromDate == null || model.ToDate == null)
                 {
                     List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(teamMemberId);
-                    model.FromDate = startAndEndDateOfConversations.First();
-                    model.ToDate = startAndEndDateOfConversations.Last();
+                    model.FromDate = startAndEndDateOfConversations.First().ToString("MM/dd/yyyy");
+                    model.ToDate = startAndEndDateOfConversations.Last().ToString("MM/dd/yyyy");
                 }
 
-                FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString, model.FromDate, model.ToDate);
+                DateTime from = DateTime.ParseExact(model.FromDate, "MM/dd/yyyy", null);
+                DateTime to = DateTime.ParseExact(model.ToDate, "MM/dd/yyyy", null);
+
+                FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString, from, to);
 
                 responseGraph.Item.SetDegrees();
 
@@ -187,8 +197,9 @@ namespace Thesis.Web.Controllers
             GraphViewModel model = new GraphViewModel();
             try
             {
-                DateTime fromDate = DateTime.Parse(from);
-                DateTime toDate = DateTime.Parse(to);
+                DateTime fromDate = DateTime.ParseExact(from, "MM/dd/yyyy", null);
+                DateTime toDate = DateTime.ParseExact(to, "MM/dd/yyyy", null);
+
 
                 string connectionString = GetConnectionStringBasedOnSelectedMember(selectedTeamMemberId);
 
@@ -216,8 +227,8 @@ namespace Thesis.Web.Controllers
                 model.SelectedTeamMemberId = Int32.Parse(selectedTeamMemberId);
                 model.Graph = responseGraph.Item;
                 model.GraphDto = graphDto;
-                model.FromDate = fromDate;
-                model.ToDate = toDate;
+                model.FromDate = fromDate.ToString("MM/dd/yyyy");
+                model.ToDate = toDate.ToString("MM/dd/yyyy");
 
             }
             catch (Exception e)

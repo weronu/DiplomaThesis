@@ -13,51 +13,12 @@
             @Html.DropDownListFor(m => m.SelectedTeamMemberId, new SelectList(Model.TeamMembers, "Id", "Name", 1), new {@class = "form-control", id = "teamMembersDropdown"})
         </div>
     }
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="col-md-4 col-md-offset-2 mydatepicker ">
-                <input type="text" id="daterange" class="form-control datepicker-input">
-                <i class="datepicker-icon glyphicon glyphicon-calendar fa fa-calendar"></i>
-            </div>
-        </div>
-    </div>
     <div id="graphView_Partial_Id">@Html.Partial("~/Views/TeamMembersEmailGraphs/GraphView_partial.cshtml")</div>
 </div>
 
 
 <script type="text/javascript">
     $(document).ready(function () {
-
-
-        $('#daterange').daterangepicker({
-            "autoApply": true,
-            "startDate": "@Html.Raw(Model.FromDate?.Date.ToString("MM/dd/yyyy"))",
-            "endDate":  "@Html.Raw(Model.ToDate?.Date.ToString("MM/dd/yyyy"))"
-        });
-
-
-        $('#daterange').on('apply.daterangepicker', function (ev, picker) {
-
-            var data = JSON.stringify({
-                'from': picker.startDate,
-                'to': picker.endDate,
-                'selectedTeamMemberId': $("#teamMembersDropdown").find(":selected").val()
-            });
-
-            $.ajax({
-                async: true,
-                url: "@Url.Action("ApplyDateRange", "TeamMembersEmailGraphs")",
-                data: data,
-                type: 'POST',
-                contentType: 'application/json; charset=utf-8',
-                success: function (partialView) {
-                    $('#graphView_Partial_Id').html(partialView);
-                    unblockUI();
-                }
-            });
-            console.log(picker.startDate.format('YYYY-MM-DD'));
-            console.log(picker.endDate.format('YYYY-MM-DD'));
-        });
 
         $("#teamMembersDropdown").change(function (e) {
             blockUI();
@@ -72,6 +33,7 @@
                 async: true,
                 url: "@Url.Action("GetSelectedValue", "TeamMembersEmailGraphs")",
                 data: data,
+                datatype: "json",
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 success: function (partialView) {

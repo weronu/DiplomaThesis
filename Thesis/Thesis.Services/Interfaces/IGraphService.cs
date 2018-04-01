@@ -11,7 +11,7 @@ namespace Thesis.Services.Interfaces
         FetchItemServiceResponse<int> FetchNodeIdByUserName(string name, string connectionString);
         ServiceResponse ImportXMLFile(string pathToFile, string connectionString);
         FetchItemServiceResponse<Graph<UserDto>> DetectRolesInGraph(Graph<UserDto> graph);
-        FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime? fromDate, DateTime? toDate);
+        FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime fromDate, DateTime toDate);
         FetchListServiceResponse<DateTime> FetchStartAndEndOfConversation(string connectionString);
         FetchItemServiceResponse<Node<UserDto>> FetchNodeWithBiggestDegree(string connectionString, Graph<UserDto> graph);
     }

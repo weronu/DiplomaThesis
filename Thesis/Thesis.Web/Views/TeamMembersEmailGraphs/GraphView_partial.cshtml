@@ -2,9 +2,27 @@
     Layout = null;
 }
 
+@using Microsoft.Ajax.Utilities
 @model Thesis.Web.Models.GraphViewModel
-
-<div class="graph-network" id="mynetwork"></div>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="col-md-4 col-md-offset-2 mydatepicker ">
+            <input type="text" id="daterange" class="form-control datepicker-input">
+            <i class="datepicker-icon glyphicon glyphicon-calendar fa fa-calendar"></i>
+        </div>
+    </div>
+</div>
+<div id="wrapper" class="graph-wrapper">
+    <div id="mynetwork" class="graph-network"></div>
+    <div id="loadingBar" class="loadingBar">
+        <div class="outerBorder">
+            <div id="text" class="loading-bar-text">0%</div>
+            <div id="border" class="border">
+                <div id="bar" class="bar"></div>
+            </div>
+        </div>
+    </div>
+</div>
 <pre id="eventSpan"></pre>
 <div class="container-buttons">
     <div class="row">
@@ -23,7 +41,67 @@
 
 <script type="text/javascript">
     blockUI();
-    $(document).ready(function() {
+    $(document).ready(function () {
+        $('#daterange').daterangepicker({
+            "autoApply": true,
+            "startDate": "@Html.Raw(Model.FromDate.FormatInvariant("MM/dd/yyyy"))",
+            "endDate":  "@Html.Raw(Model.ToDate.FormatInvariant("MM/dd/yyyy"))"
+        });
+
+
+        $('#daterange').on('apply.daterangepicker', function (ev, picker) {
+
+            var startDate = new Date(picker.startDate);
+            var stopDate = new Date(picker.endDate);
+
+            var startMonth = '';
+            if ((startDate.getMonth() + 1) < 10) {
+                startMonth = '0' + (startDate.getMonth() + 1);
+            } else {
+                startMonth = startDate.getMonth() + 1;
+            }
+            var startDay = '';
+            if ((startDate.getDate()) < 10) {
+                startDay = '0' + (startDate.getDate());
+            } else {
+                startDay = startDate.getDate();
+            }
+            var fromDate = startMonth + '/' + startDay+ '/' + startDate.getFullYear();
+
+
+            var endMonth = '';
+            if ((stopDate.getMonth() + 1) < 10) {
+                endMonth = '0' + (stopDate.getMonth() + 1);
+            } else {
+                endMonth = stopDate.getMonth() + 1;
+            }
+            var stopDay = '';
+            if ((stopDate.getDate()) < 10) {
+                stopDay = '0' + (stopDate.getDate());
+            } else {
+                stopDay = stopDate.getDate();
+            }
+            var toDate = endMonth + '/' + stopDay + '/' + stopDate.getFullYear();
+
+            var data = JSON.stringify({
+                'from': fromDate,
+                'to': toDate,
+                'selectedTeamMemberId': $("#teamMembersDropdown").find(":selected").val()
+            });
+
+            $.ajax({
+                async: true,
+                url: "@Url.Action("ApplyDateRange", "TeamMembersEmailGraphs")",
+                data: data,
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (partialView) {
+                    $('#graphView_Partial_Id').html(partialView);
+                    unblockUI();
+                }
+            });
+        });
+
         GraphVis();
 
         var findCommunittiesButton = $("#findCommunitiesButton");
@@ -54,11 +132,15 @@
 
     function createEgoNetwork() {
         blockUI();
+
+        var data = JSON.stringify({
+            'graphViewModel': @Html.Raw(Json.Encode(@Model))});
+
         $.ajax({
             url: "@Url.Action("CreateEgoNetwork", "TeamMembersEmailGraphs")",
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            data: data,
             error: OnError,
             success: function (partialView) {
                 $('#graphView_Partial_Id').html(partialView);
@@ -120,16 +202,42 @@
             layout: {
                 improvedLayout: false
             }
-            //,physics: {
-            //    stabilization: {
-            //        enabled: true,
-            //        iterations: 1000
-            //    }
-            //}
+            ,physics: {
+                forceAtlas2Based: {
+                    gravitationalConstant: -26,
+                    centralGravity: 0.005,
+                    springLength: 230,
+                    springConstant: 0.18
+                },
+                maxVelocity: 146,
+                solver: 'forceAtlas2Based',
+                timestep: 0.35,
+                stabilization: {
+                    enabled:true,
+                    iterations:2000,
+                    updateInterval:25
+                }
+            }
     };
-    // initialize your network!
-    var network = new vis.Network(container, data, options);
+    // initializing network
+        var network = new vis.Network(container, data, options);
 
+        network.on("stabilizationProgress", function (params) {
+            var maxWidth = 496;
+            var minWidth = 20;
+            var widthFactor = params.iterations / params.total;
+            var width = Math.max(minWidth, maxWidth * widthFactor);
+
+            document.getElementById('bar').style.width = width + 'px';
+            document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
+        });
+        network.once("stabilizationIterationsDone", function () {
+            document.getElementById('text').innerHTML = '100%';
+            document.getElementById('bar').style.width = '496px';
+            document.getElementById('loadingBar').style.opacity = 0;
+            // really clean the dom element
+            setTimeout(function () { document.getElementById('loadingBar').style.display = 'none'; }, 500);
+        });
     }
 </script>
 

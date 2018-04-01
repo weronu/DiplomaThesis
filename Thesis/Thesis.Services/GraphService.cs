@@ -50,7 +50,7 @@ namespace Thesis.Services
             return response;
         }
 
-        public FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime? fromDate, DateTime? toDate)
+        public FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime fromDate, DateTime toDate)
         {
             FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
             try
