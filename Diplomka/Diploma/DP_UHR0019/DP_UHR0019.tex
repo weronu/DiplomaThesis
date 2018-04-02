@@ -609,7 +609,7 @@ Bolo nutné sa rozhodnúť, či vyvíjať aplikáciu ako webovú alebo desktopov
 \textbf{vis.js}
 
 
-\noindent Vis.js je dynamická vizualizačná knižnica založená na prehliadači. Knižnica je navrhnutá tak, aby bola ľahko ovládateľná a aby mohla spracovať veľké množstvo dynamických dát a umožňovala maipuláciu s dátami a interakciu s nimi. Knižnica sa skladá z častí \textit{DataSet, Timeline, Network, Graph2d} a \textit{Graph3d}.
+\noindent Vis.js je dynamická vizualizačná knižnica. Knižnica je navrhnutá tak, aby bola ľahko ovládateľná a aby mohla spracovať veľké množstvo dynamických dát a umožňovala manipuláciu s dátami a interakciu s nimi. Knižnica sa skladá z častí \textit{DataSet, Timeline, Network, Graph2d} a \textit{Graph3d}.
 Pre moju aplikáciu som používala len časť \textit{Network}.
 
 \begin{figure}[H]
@@ -647,47 +647,89 @@ Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii g
 \subsubsection{Triedy pre graf a vrcholy}
 - dopisat implementaciu grafu + vrcholov + triedny diagram
 
-\section{Experimenty}
+\section{Prehľad systému}
 
- 
+
+\section{Experimenty}
+Pri práci som využila svoju emailovú sadu a tiež emailové sady, ktoré mi poskytli moji kolegovia. Takže som zozbierala emaily od štyroch ľudí, o ktorých viem ich postavenie v tíme alebo aj dátum nástupu do práce. Rozhodla som sa tieto emaily agregovať a analyzovať emaily v rámci celého týmu a potom analyzujem vybraného jednotlivca. 
+
+
+
+\subsection{Analýza tímu}
+
+\subsubsection{Základné informácie}
 \begin{table}[h!]
 \centering
-
 \begin{tabular}{ c c c }
   &  počet \\ 
  \hline
- Emaily  & cell6 \\  
- Konverzácie  & cell9  \\
- Požívatelia (emailové adresy)  & cell9 \\
+ Emaily  & 21743 \\  
+ Konverzácie  & 11545  \\
+ Požívatelia (emailové adresy)  & 370 \\
 \end{tabular}
-\caption{Detaily datasetu}
-\end{table}
+\caption{Základné informácie o datasete}
+\end{table} 
 
-- experiment pre celu agregovanu siet
-- tabulka: pocet emailov, pocet konverzacii, pocet emailovych adries
-- tabulka: pouzivatelia, ktory su aspon v jednej konverzacii, emaily poslane z emailu korporacie, konverzacie  ktorych aspon jeden user je z korporatu, konverzacie iniciovane niekym z korporatu
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ c c c }
+  &  počet \\ 
+ \hline
+ Používatelia, ktorí sú aspoň v jednej konverzácii  & ? \\  
+ Emaily poslané z domény korporátu  & ?  \\
+ Konverzácie iniciované niekým s doménou korporátu  & ? \\
+\end{tabular}
+\caption{Ďalšie informácie o datasete}
+\end{table} 
+
+\subsubsection{Zmeny komunít v čase}
+\subsubsection{Zmeny rôl v čase}
+
+
 - tabulka poctu komunit s meniacim sa casom
+
 - tabulka poctu leadrov s meniacim sa casom
 	
-	
-- experiment pre jedneho vybraneho cloveka
-	- tabulka: pocet emailov, pocet konverzacii, pocet emailovych adries
-	- porovnanie toho, ci sa rola zmenila pocas kazdeho roku straveneho vo firme
-	
-	
- 
+
+
+\subsubsection{Analýza jednodlivca}
+\subsection{Základné informácie}
+  
 \begin{table}[h!]
 \centering
-
 \begin{tabular}{ c c c }
   &  počet \\ 
  \hline
- Emaily  & cell6 \\  
- Konverzácie  & cell9  \\
- Požívatelia (emailové adresy)  & cell9 \\
+ Emaily  & 10740 \\  
+ Konverzácie  & 4713  \\
+ Požívatelia (emailové adresy)  & 309 \\
 \end{tabular}
-\caption{Detaily datasetu}
+\caption{Základné informácie o datasete}
 \end{table}
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ c c c }
+  &  počet \\ 
+ \hline
+ Používatelia, ktorí sú aspoň v jednej konverzácii  & ? \\  
+ Emaily poslané z domény korporátu  & ?  \\
+ Konverzácie iniciované niekým s doménou korporátu  & ? \\
+\end{tabular}
+\caption{Ďalšie informácie o datasete}
+\end{table} 
+
+
+
+\subsubsection{Zmeny komunít v čase}
+
+\subsubsection{Zmeny rôl v čase}
+
+- porovnanie toho, ci sa rola zmenila pocas kazdeho roku straveneho vo firme
+	
+	
 
 
 \section{Záver}

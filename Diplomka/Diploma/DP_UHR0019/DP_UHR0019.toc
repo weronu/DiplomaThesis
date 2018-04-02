@@ -4,67 +4,76 @@
 \select@language {slovak}
 \select@language {english}
 \select@language {slovak}
-\contentsline {section}{Zoznam pou\IeC {\v z}it\IeC {\'y}ch skratiek a symbolov}{9}{Doc-Start}
-\contentsline {section}{Zoznam obr\'azkov}{10}{Doc-Start}
-\contentsline {section}{Zoznam tabuliek}{11}{Doc-Start}
-\contentsline {section}{\numberline {1}\IeC {\'U}vod}{12}{section.1}
-\contentsline {subsection}{\numberline {1.1}Motiv\IeC {\'a}cia}{12}{subsection.1.1}
-\contentsline {subsection}{\numberline {1.2}V\IeC {\'\i }zia}{12}{subsection.1.2}
-\contentsline {subsection}{\numberline {1.3}\IeC {\v S}trukt\IeC {\'u}ra pr\IeC {\'a}ce}{13}{subsection.1.3}
-\contentsline {section}{\numberline {2}S\IeC {\'u}visiace pr\IeC {\'a}ce}{14}{section.2}
-\contentsline {section}{\numberline {3}Emailov\IeC {\'a} komunik\IeC {\'a}cia}{16}{section.3}
-\contentsline {subsection}{\numberline {3.1}Stru\IeC {\v c}n\IeC {\'a} hist\IeC {\'o}ria emailu}{16}{subsection.3.1}
-\contentsline {subsection}{\numberline {3.2}\IeC {\v S}trukt\IeC {\'u}ra emailu}{16}{subsection.3.2}
-\contentsline {subsection}{\numberline {3.3}Emaily v s\IeC {\'u}\IeC {\v c}asnosti}{17}{subsection.3.3}
-\contentsline {section}{\numberline {4}Defin\IeC {\'\i }cie a klasifik\IeC {\'a}cie}{18}{section.4}
-\contentsline {subsection}{\numberline {4.1}Graf}{18}{subsection.4.1}
-\contentsline {subsection}{\numberline {4.2}S\IeC {\'u}vislos\IeC {\v t} grafu}{19}{subsection.4.2}
-\contentsline {subsection}{\numberline {4.3}\IeC {\'U}pln\IeC {\'y} graf}{19}{subsection.4.3}
-\contentsline {subsection}{\numberline {4.4}Stupe\IeC {\v n} vrcholu}{19}{subsection.4.4}
-\contentsline {subsection}{\numberline {4.5}Cesta}{19}{subsection.4.5}
-\contentsline {subsection}{\numberline {4.6}Uzavret\IeC {\'a} cesta}{19}{subsection.4.6}
-\contentsline {subsection}{\numberline {4.7}Komponenta grafu}{19}{subsection.4.7}
-\contentsline {subsection}{\numberline {4.8}Metriky}{19}{subsection.4.8}
-\contentsline {subsubsection}{\numberline {4.8.1}Closeness centrality (Centralita bl\IeC {\'\i }zkosti)}{19}{subsubsection.4.8.1}
-\contentsline {subsubsection}{\numberline {4.8.2}Betweeness centrality (Centralita medzi\IeC {\v l}ahlosti)}{20}{subsubsection.4.8.2}
-\contentsline {subsubsection}{\numberline {4.8.3}Modularita}{21}{subsubsection.4.8.3}
-\contentsline {section}{\numberline {5}Soci\IeC {\'a}lna sie\IeC {\v t}}{22}{section.5}
-\contentsline {subsection}{\numberline {5.1}Hist\IeC {\'o}ria soci\IeC {\'a}lnych siet\IeC {\'\i }}{22}{subsection.5.1}
-\contentsline {subsection}{\numberline {5.2}Anal\IeC {\'y}za soci\IeC {\'a}lnych siet\IeC {\'\i }}{22}{subsection.5.2}
-\contentsline {subsection}{\numberline {5.3}Komunity v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{23}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Detekcia komun\IeC {\'\i }t}{24}{subsection.5.4}
-\contentsline {subsubsection}{\numberline {5.4.1}Louvainov algoritmus pre detekciu komun\IeC {\'\i }t}{24}{subsubsection.5.4.1}
-\contentsline {section}{\numberline {6}SSRM - Framework pre detekciu \IeC {\v s}truktur\IeC {\'a}lnych rol\IeC {\'\i } v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{26}{section.6}
-\contentsline {subsection}{\numberline {6.1}Rola v kontexte SSRM}{26}{subsection.6.1}
-\contentsline {subsection}{\numberline {6.2}Roly definovan\IeC {\'e} v SSRM}{26}{subsection.6.2}
-\contentsline {subsubsection}{\numberline {6.2.1}Leader}{27}{subsubsection.6.2.1}
-\contentsline {subsubsection}{\numberline {6.2.2}Outermost}{27}{subsubsection.6.2.2}
-\contentsline {subsubsection}{\numberline {6.2.3}Mediator}{27}{subsubsection.6.2.3}
-\contentsline {subsubsection}{\numberline {6.2.4}Outsider}{27}{subsubsection.6.2.4}
-\contentsline {section}{\numberline {7}Identifik\IeC {\'a}cia \IeC {\v s}truktur\IeC {\'a}lnych soci\IeC {\'a}lnych rol\IeC {\'\i }}{28}{section.7}
-\contentsline {subsection}{\numberline {7.1}Outsider}{28}{subsection.7.1}
-\contentsline {subsection}{\numberline {7.2}Leader}{28}{subsection.7.2}
-\contentsline {subsubsection}{\numberline {7.2.1}Closeness centrality (Centralita bl\IeC {\'\i }zkosti)}{28}{subsubsection.7.2.1}
-\contentsline {subsection}{\numberline {7.3}Outermost}{28}{subsection.7.3}
-\contentsline {subsection}{\numberline {7.4}Mediator}{28}{subsection.7.4}
-\contentsline {subsubsection}{\numberline {7.4.1}LBeweeness}{29}{subsubsection.7.4.1}
-\contentsline {subsubsection}{\numberline {7.4.2}CBetweeness}{29}{subsubsection.7.4.2}
-\contentsline {subsubsection}{\numberline {7.4.3}Normalizovan\IeC {\'a} verzia CBetweeness}{29}{subsubsection.7.4.3}
-\contentsline {subsubsection}{\numberline {7.4.4}Sk\IeC {\'o}re rozmanitosti}{30}{subsubsection.7.4.4}
-\contentsline {section}{\numberline {8}Aplik\IeC {\'a}cia}{31}{section.8}
-\contentsline {subsection}{\numberline {8.1}\IeC {\v S}pecifik\IeC {\'a}cia}{31}{subsection.8.1}
-\contentsline {subsubsection}{\numberline {8.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{31}{subsubsection.8.1.1}
-\contentsline {subsection}{\numberline {8.2}N\IeC {\'a}vrh}{32}{subsection.8.2}
-\contentsline {subsubsection}{\numberline {8.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{33}{subsubsection.8.2.1}
-\contentsline {subsection}{\numberline {8.3}D\IeC {\^o}le\IeC {\v z}it\IeC {\'e} rozhodnutia}{35}{subsection.8.3}
-\contentsline {subsubsection}{\numberline {8.3.1}Dostupnos\IeC {\v t} d\IeC {\'a}t}{35}{subsubsection.8.3.1}
-\contentsline {subsubsection}{\numberline {8.3.2}Webov\IeC {\'a} vs. desktopov\IeC {\'a} aplik\IeC {\'a}cia}{35}{subsubsection.8.3.2}
-\contentsline {subsection}{\numberline {8.4}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{35}{subsection.8.4}
-\contentsline {subsection}{\numberline {8.5}Implement\IeC {\'a}cia}{37}{subsection.8.5}
-\contentsline {subsection}{\numberline {8.6}Import d\IeC {\'a}t}{37}{subsection.8.6}
-\contentsline {subsubsection}{\numberline {8.6.1}Kon\IeC {\v s}trukcia siete}{37}{subsubsection.8.6.1}
-\contentsline {subsubsection}{\numberline {8.6.2}Triedy pre graf a vrcholy}{38}{subsubsection.8.6.2}
-\contentsline {section}{\numberline {9}Experimenty}{39}{section.9}
-\contentsline {section}{\numberline {10}Z\IeC {\'a}ver}{40}{section.10}
-\contentsline {subsection}{\numberline {10.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{40}{subsection.10.1}
-\contentsline {section}{Literatura}{41}{subsection.10.1}
+\contentsline {section}{Zoznam pou\IeC {\v z}it\IeC {\'y}ch skratiek a symbolov}{10}{Doc-Start}
+\contentsline {section}{Zoznam obr\'azkov}{11}{Doc-Start}
+\contentsline {section}{Zoznam tabuliek}{12}{Doc-Start}
+\contentsline {section}{\numberline {1}\IeC {\'U}vod}{13}{section.1}
+\contentsline {subsection}{\numberline {1.1}Motiv\IeC {\'a}cia}{13}{subsection.1.1}
+\contentsline {subsection}{\numberline {1.2}V\IeC {\'\i }zia}{13}{subsection.1.2}
+\contentsline {subsection}{\numberline {1.3}\IeC {\v S}trukt\IeC {\'u}ra pr\IeC {\'a}ce}{14}{subsection.1.3}
+\contentsline {section}{\numberline {2}S\IeC {\'u}visiace pr\IeC {\'a}ce}{15}{section.2}
+\contentsline {section}{\numberline {3}Emailov\IeC {\'a} komunik\IeC {\'a}cia}{17}{section.3}
+\contentsline {subsection}{\numberline {3.1}Stru\IeC {\v c}n\IeC {\'a} hist\IeC {\'o}ria emailu}{17}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}\IeC {\v S}trukt\IeC {\'u}ra emailu}{17}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}Emaily v s\IeC {\'u}\IeC {\v c}asnosti}{18}{subsection.3.3}
+\contentsline {section}{\numberline {4}Defin\IeC {\'\i }cie a klasifik\IeC {\'a}cie}{19}{section.4}
+\contentsline {subsection}{\numberline {4.1}Graf}{19}{subsection.4.1}
+\contentsline {subsection}{\numberline {4.2}S\IeC {\'u}vislos\IeC {\v t} grafu}{20}{subsection.4.2}
+\contentsline {subsection}{\numberline {4.3}\IeC {\'U}pln\IeC {\'y} graf}{20}{subsection.4.3}
+\contentsline {subsection}{\numberline {4.4}Stupe\IeC {\v n} vrcholu}{20}{subsection.4.4}
+\contentsline {subsection}{\numberline {4.5}Cesta}{20}{subsection.4.5}
+\contentsline {subsection}{\numberline {4.6}Uzavret\IeC {\'a} cesta}{20}{subsection.4.6}
+\contentsline {subsection}{\numberline {4.7}Komponenta grafu}{20}{subsection.4.7}
+\contentsline {subsection}{\numberline {4.8}Metriky}{20}{subsection.4.8}
+\contentsline {subsubsection}{\numberline {4.8.1}Closeness centrality (Centralita bl\IeC {\'\i }zkosti)}{20}{subsubsection.4.8.1}
+\contentsline {subsubsection}{\numberline {4.8.2}Betweeness centrality (Centralita medzi\IeC {\v l}ahlosti)}{21}{subsubsection.4.8.2}
+\contentsline {subsubsection}{\numberline {4.8.3}Modularita}{22}{subsubsection.4.8.3}
+\contentsline {section}{\numberline {5}Soci\IeC {\'a}lna sie\IeC {\v t}}{23}{section.5}
+\contentsline {subsection}{\numberline {5.1}Hist\IeC {\'o}ria soci\IeC {\'a}lnych siet\IeC {\'\i }}{23}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Anal\IeC {\'y}za soci\IeC {\'a}lnych siet\IeC {\'\i }}{23}{subsection.5.2}
+\contentsline {subsection}{\numberline {5.3}Komunity v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{24}{subsection.5.3}
+\contentsline {subsection}{\numberline {5.4}Detekcia komun\IeC {\'\i }t}{25}{subsection.5.4}
+\contentsline {subsubsection}{\numberline {5.4.1}Louvainov algoritmus pre detekciu komun\IeC {\'\i }t}{25}{subsubsection.5.4.1}
+\contentsline {section}{\numberline {6}SSRM - Framework pre detekciu \IeC {\v s}truktur\IeC {\'a}lnych rol\IeC {\'\i } v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{27}{section.6}
+\contentsline {subsection}{\numberline {6.1}Rola v kontexte SSRM}{27}{subsection.6.1}
+\contentsline {subsection}{\numberline {6.2}Roly definovan\IeC {\'e} v SSRM}{27}{subsection.6.2}
+\contentsline {subsubsection}{\numberline {6.2.1}Leader}{28}{subsubsection.6.2.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Outermost}{28}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}Mediator}{28}{subsubsection.6.2.3}
+\contentsline {subsubsection}{\numberline {6.2.4}Outsider}{28}{subsubsection.6.2.4}
+\contentsline {section}{\numberline {7}Identifik\IeC {\'a}cia \IeC {\v s}truktur\IeC {\'a}lnych soci\IeC {\'a}lnych rol\IeC {\'\i }}{29}{section.7}
+\contentsline {subsection}{\numberline {7.1}Outsider}{29}{subsection.7.1}
+\contentsline {subsection}{\numberline {7.2}Leader}{29}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}Closeness centrality (Centralita bl\IeC {\'\i }zkosti)}{29}{subsubsection.7.2.1}
+\contentsline {subsection}{\numberline {7.3}Outermost}{29}{subsection.7.3}
+\contentsline {subsection}{\numberline {7.4}Mediator}{29}{subsection.7.4}
+\contentsline {subsubsection}{\numberline {7.4.1}LBeweeness}{30}{subsubsection.7.4.1}
+\contentsline {subsubsection}{\numberline {7.4.2}CBetweeness}{30}{subsubsection.7.4.2}
+\contentsline {subsubsection}{\numberline {7.4.3}Normalizovan\IeC {\'a} verzia CBetweeness}{30}{subsubsection.7.4.3}
+\contentsline {subsubsection}{\numberline {7.4.4}Sk\IeC {\'o}re rozmanitosti}{31}{subsubsection.7.4.4}
+\contentsline {section}{\numberline {8}Aplik\IeC {\'a}cia}{32}{section.8}
+\contentsline {subsection}{\numberline {8.1}\IeC {\v S}pecifik\IeC {\'a}cia}{32}{subsection.8.1}
+\contentsline {subsubsection}{\numberline {8.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{32}{subsubsection.8.1.1}
+\contentsline {subsection}{\numberline {8.2}N\IeC {\'a}vrh}{33}{subsection.8.2}
+\contentsline {subsubsection}{\numberline {8.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{34}{subsubsection.8.2.1}
+\contentsline {subsection}{\numberline {8.3}D\IeC {\^o}le\IeC {\v z}it\IeC {\'e} rozhodnutia}{36}{subsection.8.3}
+\contentsline {subsubsection}{\numberline {8.3.1}Dostupnos\IeC {\v t} d\IeC {\'a}t}{36}{subsubsection.8.3.1}
+\contentsline {subsubsection}{\numberline {8.3.2}Webov\IeC {\'a} vs. desktopov\IeC {\'a} aplik\IeC {\'a}cia}{36}{subsubsection.8.3.2}
+\contentsline {subsection}{\numberline {8.4}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{36}{subsection.8.4}
+\contentsline {subsection}{\numberline {8.5}Implement\IeC {\'a}cia}{38}{subsection.8.5}
+\contentsline {subsection}{\numberline {8.6}Import d\IeC {\'a}t}{38}{subsection.8.6}
+\contentsline {subsubsection}{\numberline {8.6.1}Kon\IeC {\v s}trukcia siete}{38}{subsubsection.8.6.1}
+\contentsline {subsubsection}{\numberline {8.6.2}Triedy pre graf a vrcholy}{39}{subsubsection.8.6.2}
+\contentsline {section}{\numberline {9}Preh\IeC {\v l}ad syst\IeC {\'e}mu}{40}{section.9}
+\contentsline {section}{\numberline {10}Experimenty}{40}{section.10}
+\contentsline {subsection}{\numberline {10.1}Anal\IeC {\'y}za t\IeC {\'\i }mu}{40}{subsection.10.1}
+\contentsline {subsubsection}{\numberline {10.1.1}Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie}{40}{subsubsection.10.1.1}
+\contentsline {subsubsection}{\numberline {10.1.2}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{40}{subsubsection.10.1.2}
+\contentsline {subsubsection}{\numberline {10.1.3}Zmeny r\IeC {\^o}l v \IeC {\v c}ase}{40}{subsubsection.10.1.3}
+\contentsline {subsubsection}{\numberline {10.1.4}Anal\IeC {\'y}za jednodlivca}{40}{subsubsection.10.1.4}
+\contentsline {subsection}{\numberline {10.2}Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie}{40}{subsection.10.2}
+\contentsline {subsubsection}{\numberline {10.2.1}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{40}{subsubsection.10.2.1}
+\contentsline {subsubsection}{\numberline {10.2.2}Zmeny r\IeC {\^o}l v \IeC {\v c}ase}{40}{subsubsection.10.2.2}
+\contentsline {section}{\numberline {11}Z\IeC {\'a}ver}{42}{section.11}
+\contentsline {subsection}{\numberline {11.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{42}{subsection.11.1}
+\contentsline {section}{Literatura}{43}{subsection.11.1}
