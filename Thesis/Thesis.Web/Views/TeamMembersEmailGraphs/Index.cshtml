@@ -30,7 +30,6 @@
 
             e.preventDefault();
             $.ajax({
-                async: true,
                 url: "@Url.Action("GetSelectedValue", "TeamMembersEmailGraphs")",
                 data: data,
                 datatype: "json",
@@ -38,6 +37,13 @@
                 contentType: 'application/json; charset=utf-8',
                 success: function (partialView) {
                     $('#graphView_Partial_Id').html(partialView);
+                    unblockUI();
+                },
+                error: function (xhr, data) {
+                    toastr.error(xhr.statusText, "Error", {
+                        "timeOut": "0",
+                        "extendedTimeout": "0"
+                    });
                     unblockUI();
                 }
             });

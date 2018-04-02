@@ -147,7 +147,7 @@ namespace Graph.Algorithms
                             throw new ArgumentException("Graph has negative weights.");
                         }
                         Degrees[count] = GDegrees[node.Id] = deg;
-                        Internals[count] = Loops[node.Id] = graph.EdgeWeight(node, node);
+                        Internals[count] = Loops[node.Id] = graph.GetEdgeWeight(node, node);
                         count += 1;
                     }
                 }
@@ -157,7 +157,7 @@ namespace Graph.Algorithms
                     {
                         int com = part[node.Id];
                         Node2Community[node.Id] = com;
-                        double deg = graph.GetDegreeAsSumOfWeights(node);
+                        double deg = graph.GetNodeDegreeAsSumOfWeights(node);
                         Degrees[com] = DictGet(Degrees, com, 0) + deg;
                         GDegrees[node.Id] = deg;
                         double inc = 0;

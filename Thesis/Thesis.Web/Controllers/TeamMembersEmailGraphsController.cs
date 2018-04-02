@@ -98,7 +98,7 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error); 
+                this.AddToastMessage("Error", e.Message, ToastType.Error);
             }
             return View(model);
         }
@@ -184,7 +184,7 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error);
+                return new HttpStatusCodeResult(500, e.Message);
             }
 
             return View("GraphView_partial", model);
@@ -321,7 +321,7 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error);
+                return new HttpStatusCodeResult(500, e.Message);
             }
             return View("GraphView_partial", graphViewModel);
         }
@@ -381,7 +381,7 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error);
+                return new HttpStatusCodeResult(500, e.Message);
             }
             return View("GraphView_partial", graphViewModel);
         }
@@ -425,7 +425,7 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error);
+                return new HttpStatusCodeResult(500, e.Message); 
             }
             return View("GraphView_partial", graphViewModel);
         }
@@ -435,9 +435,9 @@ namespace Thesis.Web.Controllers
             switch (node.Role)
             {
                 case Role.Leader:
-                    return 20;
+                    return 25;
                 case Role.Mediator:
-                    return 16;
+                    return 17;
                 case Role.Outermost:
                     return 10;
                 case Role.Outsider:

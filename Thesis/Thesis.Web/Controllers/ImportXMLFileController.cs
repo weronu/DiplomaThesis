@@ -43,17 +43,11 @@ namespace Thesis.Web.Controllers
 
                     if (response.Succeeded)
                     {
-                        foreach (string message in response.SuccessMessages)
-                        {
-                            this.AddToastMessage("Success", message, ToastType.Success);
-                        }
+                        this.AddToastMessage("Success", response.SuccessMessage, ToastType.Success);
                     }
                     else
                     {
-                        foreach (string message in response.Errors)
-                        {
-                            this.AddToastMessage("Error", message, ToastType.Error);
-                        }
+                        this.AddToastMessage("Error", response.Error, ToastType.Error);
                         return View();
                     }
                 }

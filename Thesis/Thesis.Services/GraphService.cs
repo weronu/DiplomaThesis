@@ -39,11 +39,11 @@ namespace Thesis.Services
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Import of file failed with an error: {e.Message}");
+                response.Error = ($"Import of file failed with an error: {e.Message}");
 
                 if (e.InnerException != null)
                 {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
                 }
             }
 
@@ -71,11 +71,11 @@ namespace Thesis.Services
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Import of file failed with an error: {e.Message}");
+                response.Error = ($"Import of file failed with an error: {e.Message}");
 
                 if (e.InnerException != null)
                 {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
                 }
             }
 
@@ -121,17 +121,17 @@ namespace Thesis.Services
                 if (response.Item == 0)
                 {
                     response.Succeeded = false;
-                    response.AddError("Node was not found.");
+                    response.Error = ("Node was not found.");
                 }
             }
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Import of file failed with an error: {e.Message}");
+                response.Error = ($"Import of file failed with an error: {e.Message}");
 
                 if (e.InnerException != null)
                 {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
                 }
             }
 
@@ -173,17 +173,17 @@ namespace Thesis.Services
                     uow.GraphRepo.ExtractConversations();
                 }
 
-                response.AddSuccessMessage("XML file was successfully imported.");
+                response.SuccessMessage = ("XML file was successfully imported.");
                 response.Succeeded = true;
             }
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Import of file failed with an error: {e.Message}");
+                response.Error = ($"Import of file failed with an error: {e.Message}");
 
                 if (e.InnerException != null)
                 {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
                 }
             }
 
@@ -237,8 +237,7 @@ namespace Thesis.Services
             }
             catch (Exception e)
             {
-                response.Succeeded = false;
-                response.AddError($"Detecting roles fasiled with an error: {e.Message}");
+                throw new Exception(e.Message);
             }
 
             return response;

@@ -32,7 +32,7 @@
 \AuthorDeclarationImageFile{Figures/prehlasenie.jpg}
 
 
-\CzechAbstract{Práca študuje aktuálne metódy pre analýzu emailov a detekciu sociálnych rolí v emailových dátach. Nasleduje zoznámenie sa s emailom a jeho popularitou v súčasnosti. Taktiež práca uvádza základné teoretické pojmy a teoretický náhľad na reprezentáciu siete. Uvádzajú sa tu aj základy analýzy sociálnych sietí a detekcie komunít. ďalej sa tu píše o frameworku pre detekciu štrukturálnych rolí a ich identifikácie. Na základe týchto poznatkov je vytvorená aplikácia pre analýzu a vizualizáciu analytických výstupov. Na záver sú uvedené prevedené experimenty týkajúce sa poznatkami skúmaných emailových dát.}
+\CzechAbstract{Práca študuje aktuálne metódy pre analýzu emailov a detekciu sociálnych rolí v emailových dátach. Nasleduje zoznámenie sa s emailom a jeho popularitou v súčasnosti. Taktiež práca uvádza základné teoretické pojmy a teoretický náhľad na reprezentáciu siete. Uvádzajú sa tu aj základy analýzy sociálnych sietí a detekcie komunít. Ďalej sa tu píše o frameworku pre detekciu štrukturálnych rolí a ich identifikácie. Na základe týchto poznatkov je vytvorená aplikácia pre analýzu a vizualizáciu analytických výstupov. Na záver sú uvedené prevedené experimenty týkajúce sa identifikácie sociálnych rolí v emailových dátach.}
 
 \CzechKeywords{email, sociálna sieť, sociálna rola, vizualizácia}
 
@@ -172,7 +172,7 @@ Neorientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V, E)}, kde \
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=7cm,height=4.5cm]{figures/neorientovany}
+\includegraphics[width=4.5cm,height=3cm]{figures/neorientovany}
 \caption{Neorientovaný graf}
 \end{figure}
 
@@ -182,7 +182,7 @@ Orientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V,E)}, kde V je
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=7cm,height=4.5cm]{figures/orientovany}
+\includegraphics[width=4.5cm,height=3cm]{figures/orientovany}
 \caption{Orientovaný graf}
 \end{figure}
 
@@ -194,9 +194,23 @@ Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u
 
 Graf nazveme \textit{súvislý}, ak pre každé dva vrcholy \textit{u, v} je vrchol v dosiahnuteľný z vrcholu u. V opačnom prípade je graf \textit{nesúvislý}.
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm,height=4.5cm]{figures/suvisly_vs_nesuvisly}
+\caption{Súvislý (1) a nesúvislý graf (2)}
+\end{figure}
+
+
 \subsection{Úplný graf}
 
-Úplný graf na ${n}$ vrcholoch je neorientovaný graf, ktorý má hranu medzi každými dvoma vrcholmi. Počet jeho hrán je ${m = n * ( n - 1) / 2}$.
+Úplný graf na ${n}$ vrcholoch je neorientovaný graf, ktorý má hranu medzi každými dvoma vrcholmi. Počet jeho hrán je ${m = n ( n - 1) / 2}$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm,height=4.5cm]{figures/uplnygraf}
+\caption{Úplný graf}
+\end{figure}
+
 
 \subsection{Stupeň vrcholu}
 
@@ -235,7 +249,6 @@ Betweeness vrcholu ${x_{i}}$ možno spočítať ako ${B_{i} = \sum_{st}^{}\frac{
 \caption{Graf v tvare hviezdy}
 \end{figure}
 
-\newpage
 \subsubsection{Modularita}
 Modularita je metrika, ktorá udáva rozdiel medzi počtom existujúcich hrán medzi vrcholmi rovnakého typu a počtom takých hrán v náhodne vytvorenom grafe v pomeru ku všetkým exitujúcim hranám. Vrcholy rovnakého typu sú tie, ktoré patria alebo majú patriť do rovnakej skupiny alebo triedy (komunity).
 
@@ -547,7 +560,7 @@ Aplikácia slúži ako užívateľské rozhranie na anlýzu emailovej komunikác
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm, height=10cm]{figures/diagram_usecase}
+\includegraphics[width=12cm, height=12cm]{figures/diagram_usecase}
 \caption{UseCase Diagram}
 \end{figure}
 
@@ -626,8 +639,7 @@ Pre moju aplikáciu som používala len časť \textit{Network}.
 \end{figure}
 
 
-\subsection{Implementácia}
-Aplikácia je napsaná v jazyku C\#, grafické rozhranie je naimplementované pomocou návrhového vzoru Model View Controller a graf bol vizualizovaný pomocou knižnice vis.js. Aplikácia bola vyvíjaná vo Visual Studiu 2017.
+
 
 \subsection{Import dát}
 Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{User, EmailMessage, UserEmail} a \textit{Conversation} a uloží ich do SQL databázy.
@@ -639,15 +651,15 @@ Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL
 \caption{Doménový model}
 \end{figure}
 
-
+\subsection{Implementácia}
+Aplikácia je napísaná v jazyku C\#, grafické rozhranie je naimplementované pomocou návrhového vzoru Model View Controller a graf bol vizualizovaný pomocou knižnice vis.js. Aplikácia bola vyvíjaná vo Visual Studiu 2017.
 
 \subsubsection{Konštrukcia siete}
 Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií.
 
-\subsubsection{Triedy pre graf a vrcholy}
-- dopisat implementaciu grafu + vrcholov + triedny diagram
+\subsubsection{Triedy pre graf, vrcholy a hrany}
+Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcholy a hrany drží ako \texttt{Dictionary<int, HashSet<Node<T>{}>{}>}, čiže ako mapu vrcholov s ich susednými vrcholmi. Pre uloženie vrcholov a hrán grafu slúžia zoznamy hrán a vrcholov uložené ako \texttt{HashSet<Node<T> >} a \texttt{HashSet<Edge<T>{}>}. Trieda je generická preto, aby bolo možné vytvoriť graf pre rôzne entity. Triedy reprezentujúce vrcholy a hrany sú tiež generické a predstavujú ich \texttt{Node<T>} a \texttt{Edge<T>}. Pre identifikáciu komunity, bola vztvorená trieda \texttt{Comunity<T>}.
 
-\section{Prehľad systému}
 
 
 \section{Experimenty}
@@ -656,8 +668,25 @@ Pri práci som využila svoju emailovú sadu a tiež emailové sady, ktoré mi p
 
 
 \subsection{Analýza tímu}
+Náš tím pozostáva zo štyroch ľudí, o ktorých bližšie informácie, ktoré môžu pomôcť pri analýze rolí a komunít, sú v nasledujúcej tabuľke.
+
+\textit{Pozn.: Neuvádzam mená, pre rozpoznávanie osôb pouívam pozíciu, na ktorej daný človek pracuje.}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ c c c }
+ Pozícia &  Dátum nástupu do firmy \\ 
+ \hline
+ Test engineer  & 1.7.2011 \\  
+ Junior Developer  & 1.9.2016  \\
+ Medior Developer  & 1.6.2017 \\
+ Lead Developer & 1.11.2010 \\
+\end{tabular}
+\caption{Informácie o členoch týmu}
+\end{table} 
 
 \subsubsection{Základné informácie}
+
 \begin{table}[h!]
 \centering
 \begin{tabular}{ c c c }
@@ -670,18 +699,18 @@ Pri práci som využila svoju emailovú sadu a tiež emailové sady, ktoré mi p
 \caption{Základné informácie o datasete}
 \end{table} 
 
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{ c c c }
   &  počet \\ 
  \hline
- Používatelia, ktorí sú aspoň v jednej konverzácii  & ? \\  
- Emaily poslané z domény korporátu  & ?  \\
- Konverzácie iniciované niekým s doménou korporátu  & ? \\
+ Používatelia, ktorí sú aspoň v jednej konverzácii  & 273 \\  
+ Emaily poslané z pracovného emailu  & 20367  \\
+ Konverzácie iniciované niekým z kolegov  & 10307 \\
 \end{tabular}
 \caption{Ďalšie informácie o datasete}
-\end{table} 
+\end{table}
+
 
 \subsubsection{Zmeny komunít v čase}
 \subsubsection{Zmeny rôl v čase}
@@ -693,8 +722,12 @@ Pri práci som využila svoju emailovú sadu a tiež emailové sady, ktoré mi p
 	
 
 
-\subsubsection{Analýza jednodlivca}
-\subsection{Základné informácie}
+\subsection{Analýza jednodlivca}
+
+Ako jednotlivca, ktorého budem analyzovať som si vybrala \textit{lead developera}, pretože je vo firme najdlhšie a tým pádom sa budú dobre rozoznávať či už zmeny v komunitách alebo rolách.
+
+
+\subsubsection{Základné informácie}
   
 \begin{table}[h!]
 \centering
@@ -708,20 +741,17 @@ Pri práci som využila svoju emailovú sadu a tiež emailové sady, ktoré mi p
 \caption{Základné informácie o datasete}
 \end{table}
 
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{ c c c }
   &  počet \\ 
  \hline
- Používatelia, ktorí sú aspoň v jednej konverzácii  & ? \\  
- Emaily poslané z domény korporátu  & ?  \\
- Konverzácie iniciované niekým s doménou korporátu  & ? \\
+ Používatelia, ktorí sú aspoň v jednej konverzácii  & 229 \\  
+ Emaily poslané z pracovného emailu  & 9850  \\
+ Konverzácie iniciované niekým z kolegov  & 4016 \\
 \end{tabular}
 \caption{Ďalšie informácie o datasete}
-\end{table} 
-
-
+\end{table}
 
 \subsubsection{Zmeny komunít v čase}
 
