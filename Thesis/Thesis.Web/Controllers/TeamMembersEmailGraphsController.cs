@@ -146,7 +146,7 @@ namespace Thesis.Web.Controllers
                 int id = int.Parse(teamMemberId);
                 string connectionString = GetConnectionStringBasedOnSelectedMember(teamMemberId);
 
-                if (model.FromDate == null || model.ToDate == null)
+                if (model.FromDate != null || model.ToDate != null)
                 {
                     List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(teamMemberId);
                     model.FromDate = startAndEndDateOfConversations.First().ToString("MM/dd/yyyy");
@@ -300,7 +300,8 @@ namespace Thesis.Web.Controllers
                         label = x.NodeElement.Name,
                         title = $"Node degree: {x.Degree}",
                         size = 10,
-                        color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color)
+                        //color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color)
+                        group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group)
                     }).ToList();
                     List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
@@ -316,6 +317,7 @@ namespace Thesis.Web.Controllers
                     graphViewModel.GraphDto = graphDto;
 
                     graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
+                    graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 45;
                 }
                 
             }
@@ -339,6 +341,11 @@ namespace Thesis.Web.Controllers
                     }
                 }
 
+                if (graphViewModel.Graph.Communities.Count > 0)
+                {
+                    graphViewModel.Graph.Communities = new HashSet<Community<UserDto>>();
+                }
+                
                 Dictionary<int, int> partition = LouvainCommunity.BestPartition(graphViewModel.Graph);
                 Dictionary<int, List<int>> communities = new Dictionary<int, List<int>>();
                 foreach (KeyValuePair<int, int> kvp in partition)
@@ -365,7 +372,7 @@ namespace Thesis.Web.Controllers
                 {
                     id = x.Id,
                     label = x.NodeElement.Name,
-                    color = colors[x.CommunityId],
+                    group = x.CommunityId,
                     title = $"Node degree: {x.Degree}",
                     size = 10
                 }).ToList();
@@ -408,7 +415,8 @@ namespace Thesis.Web.Controllers
                     {
                         id = x.Id,
                         label = x.NodeElement.Name,
-                        color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
+                        //color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
+                        group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
                         title = $"Node degree: {x.Degree}",
                         size = GetNodeSizeBasedOnRole(x)
                     }).ToList();

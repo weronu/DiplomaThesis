@@ -218,7 +218,11 @@
                 nodes: {
                     shape: 'dot',
                     size: 10,
-                    borderWidth: 1
+                    borderWidth: 1,
+                    color: {
+                        background: '#f5cbee',
+                        border: '#dcb7d7'
+                    }
                 },
                 interaction: { hover: true },
                 layout: {
@@ -238,6 +242,18 @@
                         enabled: true,
                         iterations: 2000,
                         updateInterval: 25
+                    }
+                },
+                groups: {
+                    0: {
+                        color: {
+                            background: '#f5cbee',
+                            border: '#dcb7d7',
+                            highlight: {
+                                background: '#dcb7d7',
+                                border: '#BD9DB8'
+                            }
+                        }
                     }
                 }
             };

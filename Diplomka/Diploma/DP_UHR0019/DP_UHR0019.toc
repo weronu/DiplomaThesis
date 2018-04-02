@@ -68,11 +68,11 @@
 \contentsline {subsection}{\numberline {9.1}Anal\IeC {\'y}za t\IeC {\'\i }mu}{40}{subsection.9.1}
 \contentsline {subsubsection}{\numberline {9.1.1}Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie}{40}{subsubsection.9.1.1}
 \contentsline {subsubsection}{\numberline {9.1.2}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{40}{subsubsection.9.1.2}
-\contentsline {subsubsection}{\numberline {9.1.3}Zmeny r\IeC {\^o}l v \IeC {\v c}ase}{40}{subsubsection.9.1.3}
-\contentsline {subsection}{\numberline {9.2}Anal\IeC {\'y}za jednodlivca}{41}{subsection.9.2}
-\contentsline {subsubsection}{\numberline {9.2.1}Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie}{41}{subsubsection.9.2.1}
-\contentsline {subsubsection}{\numberline {9.2.2}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{41}{subsubsection.9.2.2}
-\contentsline {subsubsection}{\numberline {9.2.3}Zmeny r\IeC {\^o}l v \IeC {\v c}ase}{41}{subsubsection.9.2.3}
-\contentsline {section}{\numberline {10}Z\IeC {\'a}ver}{42}{section.10}
-\contentsline {subsection}{\numberline {10.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{42}{subsection.10.1}
-\contentsline {section}{Literatura}{43}{subsection.10.1}
+\contentsline {subsubsection}{\numberline {9.1.3}Zmeny r\IeC {\^o}l v \IeC {\v c}ase}{42}{subsubsection.9.1.3}
+\contentsline {subsection}{\numberline {9.2}Anal\IeC {\'y}za jednodlivca}{44}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie}{44}{subsubsection.9.2.1}
+\contentsline {subsubsection}{\numberline {9.2.2}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{44}{subsubsection.9.2.2}
+\contentsline {subsubsection}{\numberline {9.2.3}Zmeny r\IeC {\^o}l v \IeC {\v c}ase}{44}{subsubsection.9.2.3}
+\contentsline {section}{\numberline {10}Z\IeC {\'a}ver}{45}{section.10}
+\contentsline {subsection}{\numberline {10.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{45}{subsection.10.1}
+\contentsline {section}{Literatura}{46}{subsection.10.1}
