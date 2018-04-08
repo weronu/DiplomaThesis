@@ -82,19 +82,7 @@ Cieľom práce je oboznámiť čitateľa s oblasťou sociálnych sietí a špeci
 Ďalej boli vybrané metódy detekcie rolí v sociálnej sieti a navrhnutá aplikácia, ktorá umožňuje analyzovať a vizualizovať analytické výsledky. V tejto aplikácii s jednoduchým a použiteľným užívateľským rozhraním budú implementované vybrané metódy analýzy a bude navrhnutá prehľadná vizualizácia vzťahov. Nakoniec bude vytvorená analýza jedného prvku siete a výsledky experimentov budú zrozumiteľne prezentované.
 
 \subsection{Štruktúra práce}
-V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktoré sa zaoberajú analýzou emailov a reprezentácii emailu v sociálnych sieťach.
-
-Ďalej sa čitateľ zoznámi s emailom ako komunikačným prostriedkom a dozvie sa, ako sú na tom emaily s popularitou aktuálne. 
- 
-Potom je uvedený stručný prehľad teórie grafov a definícií určitých pojmov, ktorý je nevyhnutný k porozumeniu ďalších kapitol.
- 
-V ďalšej kapitole píšem o sociálnych sieťach, ich histórii a analýze sociálnych sietí a komunitnej štruktúre sociálnych sietí.
-
-Neskôr prechádzam k popisu a reprezentácie frameworku pre detekciu štrukturálnych rolí, popisujem sociálne roly definovaná v rámci tohto frameworku a následnej v ďalšej kapitole referujem pomocou akých metód sa sociálne roly v rámci tohto frameworku identifikujú.
-
-Na základe všetkých poznatkov práce je navrhnutá aplikácia vhodná k sledovaniu sociálnych rolí v emailovej sieti. 
-
-Ešte pred záverom sú uvedené výsledky prevedených experimentov týkajúcich sa poznatkami skúmanej sociálnej siete.
+V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktoré sa zaoberajú analýzou emailov a reprezentácii emailu v sociálnych sieťach. Ďalej sa čitateľ zoznámi s emailom ako komunikačným prostriedkom a dozvie sa, ako sú na tom emaily s popularitou aktuálne. Potom je uvedený stručný prehľad teórie grafov a definícií určitých pojmov, ktorý je nevyhnutný k porozumeniu ďalších kapitol. V ďalšej kapitole píšem o sociálnych sieťach, ich histórii a analýze sociálnych sietí a komunitnej štruktúre sociálnych sietí. Neskôr prechádzam k popisu a reprezentácie frameworku pre detekciu štrukturálnych rolí, popisujem sociálne roly definovaná v rámci tohto frameworku a následnej v ďalšej kapitole referujem pomocou akých metód sa sociálne roly v rámci tohto frameworku identifikujú. Na základe všetkých poznatkov práce je navrhnutá aplikácia vhodná k sledovaniu sociálnych rolí v emailovej sieti.  Ešte pred záverom sú uvedené výsledky prevedených experimentov týkajúcich sa poznatkami skúmanej sociálnej siete.
 
 
 \section{Súvisiace práce}
@@ -190,9 +178,7 @@ Orientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V,E)}, kde V je
 \newpage
 \subsection{Súvislosť grafu}
 
-Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u}, ak v grafe existuje sled z vrcholu \textit{u} do vrcholu \textit{v}.
-
-Graf nazveme \textit{súvislý}, ak pre každé dva vrcholy \textit{u, v} je vrchol v dosiahnuteľný z vrcholu u. V opačnom prípade je graf \textit{nesúvislý}.
+Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u}, ak v grafe existuje sled z vrcholu \textit{u} do vrcholu \textit{v}. Graf nazveme \textit{súvislý}, ak pre každé dva vrcholy \textit{u, v} je vrchol v dosiahnuteľný z vrcholu u. V opačnom prípade je graf \textit{nesúvislý}.
 
 \begin{figure}[H]
 \centering
@@ -341,18 +327,18 @@ Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizov
 
 \newpage
 
+\section{Metódy analýzy sociálnych sietí}
 
-
-\section{SSRM - Framework pre detekciu štrukturálnych rolí v sociálnych sieťach}
+\subsection{SSRM - Framework pre detekciu štrukturálnych rolí v sociálnych sieťach}
 
 Afra Abnar, Mansoureh Takaffoli, Reihaneh Rabbany, Osmar R. Zaıane \cite{9} definovali \textit{Structural social role mining framework}, ktorý je navrhnutý pre identifikáciu štrukturálnych rolí, pre identifikáciu zmien v sieti a analýzu dopadu zmien na sieť. Definujú základné sociálne roly v sieti(menovite Leader, Outermost, Mediator, Outsider). 
 
-\subsection{Rola v kontexte SSRM}
+\subsubsection{Rola v kontexte SSRM}
 \textit{Sociálna rola} je síce základný sociologický pojem, ale stále neexistuje žiadny konsenzus v jej definícii. Podľa SSRM je rola je považovaná za pozíciu jednotlivca v spoločnosti.
  Informácie o sociálnej sieti sú kategorizované do štrukturálnych a neštrukturálnych vlastností. Štrukturálne vlastnosti sú príbuzné ku konštrukcii grafu ako sú spojenia entít (hrany), štruktúra susedov a pozícia entity v tejto štruktúre. Ale neštrukturálne vlastnosti sú ostatné informácie, ktoré neodrážajú konštrukciu grafu ako atribúty entít a spojení. SSRM definuje rolu v sieti ako: Rola entity v sieti je to, ako sa entita správa voči ostatným a jej vplyv na atribúty a štruktúry ostatných entít.
 
 
-\subsection{Roly definované v SSRM}
+\subsubsection{Roly definované v SSRM}
 Ľudské siete sú vnútorne zložené z viacerých komunít. V sociálnej sieti s viacerými komunitami, vlastnosti uzlov kolíšu podľa toho, či je existencia komunít dostatočná alebo zanedbateľná. Z pohľadu sociálnej siete, uzol môže byť centrom celej siete, ale nie centrom v jeho komunite. SSRM sa teda zameriava na štúdium sociálnych sietí s predpokladom existencie komunít v sieti, ako jej základnej črty.
 
 V sociálnych sieťach môžu byť komunity explicitné alebo implicitné. Explicitné komunity sú postavené nezávisle na jej členoch a sú založené na množine pravidiel. V tomto prípade, ľudia sa stanú členmi tejto komunity častejšie až po zformovaní komunity. Zamestnanci firmy alebo študenti sú príkladom dvoch explicitných komunít. Zatiaľ čo formácia implicitných komunít ťažko závisí na jej členoch a spojeniach. Tým pádom neexistuje žiadna externá podmienka na vybudovanie implicitnej komunity. Implicitné komunity sú postavené postupne ako sa ľudia spoločne stretávajú. Napríklad, skupina priateľov, v ktorej nie je žiadne pravidlo pre správanie sa jednotlivcov, je príklad implicitnej komunity. V oboch prípadoch explicitnej aj implicitnej komunity, by mali existovať aj špeciálny jednotlivci, ktorí tieto komunity manažujú a kontrolujú. Napríklad v školskej triede je to učiteľ alebo inštruktor. Pre firmu to je manažér vo vedení a pre skupinu priateľov je to zase človek, ktorého komunikačné schopnosti prinášajú ďalších členov alebo posilňujú vzťahy medzi tými stálymi. Títo dôležitý jednotlivci sú ešte viac výrazný, keď je komunita obrovská.
@@ -371,31 +357,38 @@ Podľa toho SSRM framework definuje pre jednotlivcov v sociálnej sieti určité
 
 Na základe týchto poznatkov SSRM definuje štyri základné roly - \textbf{leader}, \textbf{mediator}, \textbf{outermost} a \textbf{outsider}.
 
-\subsubsection{Leader}
+\paragraph{Leader}
+\hfill \break
 Sú mimoriadni jednotlivci v zmysle centrality alebo významu v každej komunite. V reálnom svete bývajú títo členovia siete veliteľmi, riaditeľmi, manažérmi,  vládcami, prezidentami, autoritami, administrátormi atd.
 
-\subsubsection{Outermost}
+\paragraph{Outermost}
+\hfill \break
 Je to časť menej dôležitých jednotlivcov v každej komunite, ktorých vplyv a efekt na komunitu sú nižšie ako vplyv väčšiny členov komunity. Miesta, kde sa môže outermost v sieti nachádzať sú periférie alebo hranice grafu.
 
-\subsubsection{Mediator}
+\paragraph{Mediator}
+\hfill \break
 Sú to jednotlivci, ktorí zohrávajú dôležitú rolu v spojení komunít v medzi sebou. Fungujú ako mosty medzi odlišnými komunitami. Do tejto skupiny patria vyjednávači, sprostredkovatelia alebo aj rozbočovače v sieti. 
 
-\subsubsection{Outsider}
+\paragraph{Outsider}
+\hfill \break
 Sú to jednotlivci, ktorí nie sú spojení so žiadnou komunitou v sieti. Buď majú takmer rovnaké prepojenie k rôznym komunitám alebo majú len veľmi slabé väzby na komunity.
 
 
 
-\section{Identifikácia štrukturálnych sociálnych rolí} \label{identifikacia}
+\subsection{Identifikácia štrukturálnych sociálnych rolí} \label{identifikacia}
 Majúc sieť s komunitami explicitne známymi alebo extrahovanými nejakým dolovacím algoritmom, následne popisujem metodológie pre identifikovanie definovaných štrukturálnych rolí.
 
-\subsection{Outsider}
+\paragraph{Outsider}
+\hfill \break
 Najviac priamočiarou rolou pre identifikáciu je outsider. Je to jednotlivec, ktorý v sieti nepatrí do žiadnej komunity. Identifikácia tejto roly je tak celkom priamočiara.
 
 
-\subsection{Leader}
+\subsubsection{Leader}
+
 Leader je v každej komunite výnimočný centrálny člen. Pre identifikovanie takýchto uzlov SSRM využíva metriku \textit{closeness centrality}.
 
-\subsubsection{Closeness centrality (Centralita blízkosti)}
+\paragraph{Closeness centrality (Centralita blízkosti)}
+\hfill \break
 V súvislom grafe closeness centrality uzlu je metrika centrality v sieti, vypočítaná ako súčet dĺžok najkratsích ciest medzi uzlom a všetkými ostatnými uzlami v grafe. Čiže čím viac je uzol centrálnejší, tým bližšie je k ostatným uzlom.
 
 
@@ -413,21 +406,20 @@ Pre každý uzol sa stanoví hodnota closeness centrality. Hodnoty closeness cen
 
 Leadri ležia na hornom chvoste distribučnej funkcie, a teda horný interval použijeme pre identifikovanie leadrov. A teda uzly, ktoré majú väčšiu hodnotu closeness centrality ako krajná hodnota tohto intervalu, sú identifikovaní ako leadri.
 
-\subsection{Outermost}
+\subsubsection{Outermost}
 Podobne ako pri role \textit{Leader} pre identifikovanie outermostov sa využíva metrika closeness centrality. Outermosti budú ležať však na spodnom chvoste distribučnej funkcie closeness centrality.
 
 A tak teda uzlyy, ktoré majú hodnotu closeness centrality nižšiu ako ${\big[ \mu - 2\cdot\sigma \big]}$, sú outermosti.
 
-\subsection{Mediator}
+\subsubsection{Mediator}
 Rolu mediator zastávajú tí jednotlivci, ktorí spájajú viacero komunít a sú tzv. spojmy medzi komunitami. 
 
 
 Pre identifikáciu mediátorov sa definujú metriky založené na metrike betweeness centrality a to:  \textit{LBetweeness - LBC} a \textit{CBetweeness - CBC} a ďalej metriky, ktoré vyjadrujú koľko rozdielnych komunít uzol spája: \textit{DSCount} a \textit{DSPair}.
 
 
-\subsubsection{LBeweeness}
-
-
+\paragraph{LBeweeness}
+\hfill \break
 \textbf{LPath} - Pred definíciou LBetweeness je potrebné definovať LPath a to nasledovne: \textit{LPath} je množina všetkých najkratších ciest medzi lídrami dvoch rozdielnych komunít. 
 
 
@@ -457,8 +449,8 @@ Ak pre každú cestu p  ${x \in}$ \textit{LPath} definujeme \textit{${I_l}$(p, v
 \end{mycapequ}
 
 
-\subsubsection{CBetweeness}
-\begin{sloppypar}
+\paragraph{CBetweeness}
+\hfill \break
 CBetweeness počíta počet najkratších ciest medzi rozdielnymi komunitami. \textit{${s_p}$} a \textit{${e_p}$} označujú štartovací a koncový uzol najkratšej cesty \textit{p} . Taktiež \textit{${c_v}$} označuje komunitu, do ktorej uzol \textit{v} patrí. Množina všetkých najkratších ciest, ktoré spájajú rozdielne komunity:  
 \textit{${CPaths = \{ p | {c_s}_p \neq {c_e}_p} \}$}. Taktiež definujeme ${I_p(p, v)}$ = 1 ak \textit{v} leží na ceste \textit{p} a 0 keď neleží.
 
@@ -471,7 +463,8 @@ CBetweeness počíta počet najkratších ciest medzi rozdielnymi komunitami. \t
 \end{mycapequ}
 
 
-\subsubsection{Normalizovaná verzia CBetweeness}
+\paragraph{Normalizovaná verzia CBetweeness}
+\hfill \break
 Pravdepodobnosť nájdenia viac viditeľných mediátorov vo väčších komunitách je väčšia v porovnaní s menšími komunitami. Táto situácia sa stáva, pretože vo väčších komunitách je pochopiteľne viac uzlov, čo vedie k viacerým najkratším cestám medzi nimi. Pre kompenzáciu tohoto efektu je definovaná normalizovaná verzia \textit{CBC}: 
 
 
@@ -483,7 +476,6 @@ Pravdepodobnosť nájdenia viac viditeľných mediátorov vo väčších komunit
 \end{mycapequ}
 
 
-\end{sloppypar}
 
 
 \begin{sloppypar}
@@ -492,10 +484,11 @@ a \textit{${M_2}$}, kde oba ležia na sto najkratších cestách medzi komunitam
 \end{sloppypar}
 
 
-\subsubsection{Skóre rozmanitosti}
-\begin{sloppypar}
+\paragraph{Skóre rozmanitosti}
+\hfill \break
 Táto metrika ukazuje koľko rozdielnych komunít je spojených cez špecifický uzol \textit{v}. Túto metriku definujeme v dvoch variantach:
 
+\begin{sloppypar}
 \begin{enumerate}
 \item 
 
@@ -536,6 +529,69 @@ môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to be
 \end{mycapequ}
 
 
+\subsection{Brokerage roly}
+\textit{Brokerage} je stav alebo situácia, v ktorej účastník spája inak neprepojených účastníkov alebo zaplňuje medzery alebo diery v sieti. \cite{15} Na obrázku je \textit{broker} alebo aj \textit{spostredkovateľ} zastúpený čiernym uzlom, ktorý vyplňuje medzeru alebo spojuje ostatných jednotlivcov reprezentovaných bielymi uzlami, ktoré predtým neboli navzájom prepojené priamo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm, height=1cm]{figures/brokerage_example}
+\caption{Príklad brokerage procesu}
+\end{figure}
+
+\textit{Broker} môže prepojiť oddelené oblasti siete sociálnymi, ekonomickými alebo politickými aspektami a preto je jediný, kto má prístup k ceneným informáciám a zdrojom z rôznych oblastí siete. \textit{Brokerage} je jediný mechanizmus, ktorý umožňuje izolovaným či neprepojeným členom siete zdieľať informácie a zdroje a ekonomicky, politicky či spoločensky ovplyvňovať. \cite{16}
+
+Práve kvôli spojeniu a kontrole nad jedinečnými informáciami a zdrojmi medzi neprepojenými účastníkmi siete má aktér, ktorý zohráva rolu sprostredkovateľa (\textit{broker}) v sieti väčší prístup k informáciám a zdrojom v porovnaní s tými, ktorí sprostredkovateľmi nie sú. \textit{Broker} (sprostredkovateľ) môže ťažiť z tejto kontroly nad informáciami a zdrojmi, môže sa stať silnejší v sieti a môže vykazova5 zvýšenú efektivitu vo svojej práci. \cite{16}
+
+
+Detailnejšiu kategorizáciu \textit{Brokerage} rôl predstavili Gould a Fernandez v \cite{15}, kde predstavili koncept \textit{brokerage} typológie. Táto typológia delí \textit{brokerage} do piatich typov na základe smeru toku informácií - tokov v sieti - a rozdeľuje aktérov do vzájomne sa vylučujúcich skupín, tried alebo organizácií.
+Typy sprostredkovateľov sú \textit{liaison}, \textit{itinerant}, \textit{coordinator}, \textit{gatepeeker} a \textit{representative}.
+
+\subsubsection{Liaison}
+
+\textit{Liaison brokerage} je \textit{broker} spojenie medzi dvoma rozdielnymi skupinami, do ktorých on nepatrí. Na obrázku je \textit{broker} (B) spojený s dvoma skupinami (A a C), ale nie je súčasťou ani jednej tejto skupiny. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm, height=4cm]{figures/liaison}
+\caption{Liaison brokerage}
+\end{figure}
+
+\subsubsection{Itinerant}
+Pri tomto type \textit{brokerage} roly dvaja neprepojení aktéri (A a C) patria do jednej skupiny, kým \textit{broker} (B) patrí do inej skupiny. \textit{Itinerant brokerage} je tiež nazývaný \textit{consultant brokerage}, pretože broker sa chová ako konzultant pre oboch nespojených aktérov tej istej skupiny.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm, height=4cm]{figures/itineran}
+\caption{Itinerant brokerage}
+\end{figure}
+
+\subsubsection{Coordinator}
+V role \textit{coordinator} všetci traja aktéri patria do rovnakej skupiny a sprostredkovanie informácií a zdrojov sa deje v rámci skupiny. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm, height=4cm]{figures/coordinator}
+\caption{Coordinator brokerage}
+\end{figure}
+
+\subsubsection{Gatepeeker}
+V tomto type \textit{brokerage} roly \textit{broker}(B) a jeden z dvoch neprepojených aktérov (C) patria do jednej skupiny, kým iný neprepojený aktér (A) patrí do rozdielnej skupiny. \textit{Broker} tohto typu kontroluje prichádzajúce informácie a zdroje v rámci jeho skupiny a robí rozhodnutia a tom, či majú alebo nemajú neprepojení aktéri v skupine prístup k informáciám a zdrojom. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm, height=4cm]{figures/gatepeeker}
+\caption{Gatekeeper brokerage}
+\end{figure}
+
+\subsubsection{Representative}
+\textit{Representative} rola je podobná role \textit{gatepeeker} role, \textit{broker} (B) a jeden nespojený aktér (A) patra do jednej skupiny kým ten druhý nespojený aktér (C) patrí do inej rozdielnej skupiny, ale  smer toku informácií alebo zdrojov je rozdielny. 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=4cm, height=4cm]{figures/representative}
+\caption{Representative brokerage}
+\end{figure}
 
 \section{Aplikácia}
 Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
@@ -883,6 +939,16 @@ from the enron email corpus it’s always about the people. Enron is no differen
 	\bibitem{14} vis.js
 		\newline
 		\texttt{http://visjs.org/}
+		
+	\bibitem{15} Roger V. Gould and Roberto M. Fernandez
+		\newline
+		\textit{Structures of Mediation: A Formal Approach to Brokerage in
+	 Transaction Networks}
+	 
+	\bibitem{16} Stovel, K. and Shaw, L.
+		\newline
+		\textit{Brokerage. Annual Review of Sociology}
+	
 \end{thebibliography}
 
 
