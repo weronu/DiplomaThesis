@@ -4,20 +4,20 @@
 \select@language {slovak}
 \select@language {english}
 \select@language {slovak}
-\contentsline {figure}{\numberline {1}{\ignorespaces Ak\IeC {\'u} formu komunik\IeC {\'a}cie preferujete na form\IeC {\'a}lnu komunik\IeC {\'a}ciu?\relax }}{18}{figure.caption.1}
-\contentsline {figure}{\numberline {2}{\ignorespaces Neorientovan\IeC {\'y} graf\relax }}{19}{figure.caption.2}
-\contentsline {figure}{\numberline {3}{\ignorespaces Orientovan\IeC {\'y} graf\relax }}{19}{figure.caption.3}
-\contentsline {figure}{\numberline {4}{\ignorespaces S\IeC {\'u}visl\IeC {\'y} (1) a nes\IeC {\'u}visl\IeC {\'y} graf (2)\relax }}{20}{figure.caption.4}
-\contentsline {figure}{\numberline {5}{\ignorespaces \IeC {\'U}pln\IeC {\'y} graf\relax }}{20}{figure.caption.5}
-\contentsline {figure}{\numberline {6}{\ignorespaces Graf v tvare hviezdy\relax }}{22}{figure.caption.6}
-\contentsline {figure}{\numberline {7}{\ignorespaces Sie\IeC {\v t} s viacer\IeC {\'y}mi komunitami\relax }}{24}{figure.caption.8}
-\contentsline {figure}{\numberline {8}{\ignorespaces Vizualiz\IeC {\'a}cia krokov Louvainovho algoritmu. \relax }}{26}{figure.caption.9}
-\contentsline {figure}{\numberline {9}{\ignorespaces Pr\IeC {\'\i }klad brokerage procesu\relax }}{32}{figure.caption.18}
+\contentsline {figure}{\numberline {1}{\ignorespaces Ak\IeC {\'u} formu komunik\IeC {\'a}cie preferujete na form\IeC {\'a}lnu komunik\IeC {\'a}ciu?\relax }}{17}{figure.caption.1}
+\contentsline {figure}{\numberline {2}{\ignorespaces Neorientovan\IeC {\'y} graf\relax }}{18}{figure.caption.2}
+\contentsline {figure}{\numberline {3}{\ignorespaces Orientovan\IeC {\'y} graf\relax }}{18}{figure.caption.3}
+\contentsline {figure}{\numberline {4}{\ignorespaces S\IeC {\'u}visl\IeC {\'y} (1) a nes\IeC {\'u}visl\IeC {\'y} graf (2)\relax }}{19}{figure.caption.4}
+\contentsline {figure}{\numberline {5}{\ignorespaces \IeC {\'U}pln\IeC {\'y} graf\relax }}{19}{figure.caption.5}
+\contentsline {figure}{\numberline {6}{\ignorespaces Graf v tvare hviezdy\relax }}{21}{figure.caption.6}
+\contentsline {figure}{\numberline {7}{\ignorespaces Sie\IeC {\v t} s viacer\IeC {\'y}mi komunitami\relax }}{23}{figure.caption.8}
+\contentsline {figure}{\numberline {8}{\ignorespaces Vizualiz\IeC {\'a}cia krokov Louvainovho algoritmu. \relax }}{25}{figure.caption.9}
+\contentsline {figure}{\numberline {9}{\ignorespaces Pr\IeC {\'\i }klad brokerage procesu\relax }}{31}{figure.caption.18}
 \contentsline {figure}{\numberline {10}{\ignorespaces Liaison brokerage\relax }}{32}{figure.caption.19}
-\contentsline {figure}{\numberline {11}{\ignorespaces Itinerant brokerage\relax }}{33}{figure.caption.20}
+\contentsline {figure}{\numberline {11}{\ignorespaces Itinerant brokerage\relax }}{32}{figure.caption.20}
 \contentsline {figure}{\numberline {12}{\ignorespaces Coordinator brokerage\relax }}{33}{figure.caption.21}
 \contentsline {figure}{\numberline {13}{\ignorespaces Gatekeeper brokerage\relax }}{33}{figure.caption.22}
-\contentsline {figure}{\numberline {14}{\ignorespaces Representative brokerage\relax }}{34}{figure.caption.23}
+\contentsline {figure}{\numberline {14}{\ignorespaces Representative brokerage\relax }}{33}{figure.caption.23}
 \contentsline {figure}{\numberline {15}{\ignorespaces UseCase Diagram\relax }}{36}{figure.caption.24}
 \contentsline {figure}{\numberline {16}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{37}{figure.caption.25}
 \contentsline {figure}{\numberline {17}{\ignorespaces Triedny diagram - Repository pattern\relax }}{38}{figure.caption.26}
@@ -25,6 +25,3 @@
 \contentsline {figure}{\numberline {19}{\ignorespaces Jednoduch\IeC {\'a} sie\IeC {\v t} vytvoren\IeC {\'a} s pou\IeC {\v z}it\IeC {\'\i }m kni\IeC {\v z}nice vis.js\relax }}{40}{figure.caption.28}
 \contentsline {figure}{\numberline {20}{\ignorespaces Pr\IeC {\'\i }klad pou\IeC {\v z}itia kni\IeC {\v z}nice vis.js\relax }}{40}{figure.caption.29}
 \contentsline {figure}{\numberline {21}{\ignorespaces Dom\IeC {\'e}nov\IeC {\'y} model\relax }}{41}{figure.caption.30}
-\contentsline {figure}{\numberline {22}{\ignorespaces Vizualiz\IeC {\'a}cia grafu emailov s vygenerovan\IeC {\'y}mi komunitami cel\IeC {\'e}ho t\IeC {\'y}mu za celkov\IeC {\'y} \IeC {\v c}as\relax }}{44}{figure.caption.35}
-\contentsline {figure}{\numberline {23}{\ignorespaces Vizualiz\IeC {\'a}cia grafu v intervale 18.11.2010 - 31.12.2011\relax }}{45}{figure.caption.37}
-\contentsline {figure}{\numberline {24}{\ignorespaces Vizualiz\IeC {\'a}cia grafu v intervale 18.11.2010 - 31.12.2013, v ka\IeC {\v z}dej komunie detekovan\IeC {\'y} jeden leader.\relax }}{46}{figure.caption.38}

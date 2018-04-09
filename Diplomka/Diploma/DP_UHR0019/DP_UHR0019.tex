@@ -34,17 +34,18 @@
 
 \CzechAbstract{Práca študuje aktuálne metódy pre analýzu emailov a detekciu sociálnych rolí v emailových dátach. Nasleduje zoznámenie sa s emailom a jeho popularitou v súčasnosti. Taktiež práca uvádza základné teoretické pojmy a teoretický náhľad na reprezentáciu siete. Uvádzajú sa tu aj základy analýzy sociálnych sietí a detekcie komunít. Ďalej sa tu píše o frameworku pre detekciu štrukturálnych rolí a ich identifikácie. Na základe týchto poznatkov je vytvorená aplikácia pre analýzu a vizualizáciu analytických výstupov. Na záver sú uvedené prevedené experimenty týkajúce sa identifikácie sociálnych rolí v emailových dátach.}
 
-\CzechKeywords{email, sociálna sieť, sociálna rola, vizualizácia}
+\CzechKeywords{email, sociálna sieť, sociálna rola, vizualizácia, brokerage}
 
 \EnglishAbstract{This paper studies current methods for analysing emails and detecting social roles in email data. This is followed by getting acquainted with the email and its popularity nowadays. Also, this thesis presents basic theoretical concepts and a theoretical overview of network representation. Here are also the basics of social networking and community detection. There is also written a framework for structural social roles detection and their identification. Based on this knowledge, an aplicaion is developed to analyze and visualize analytical outputs. Finally, experiments on the findings of the emailed data are presented.}
 
-\EnglishKeywords{email, social network, social role, visualization}
+\EnglishKeywords{email, social network, social role, visualization, brokerage}
+
 \AddAcronym{MUA}{Mail User Agent}
 \AddAcronym{MTA}{Mail Transfer Agent}
 \AddAcronym{IMAP}{Internet Message Access Protocol}
 \AddAcronym{XML}{eXtensible Markup Language}
 \AddAcronym{SSRM}{Structural social role mining framework}
-
+\AddAcronym{SNA}{Social network analysis}
 
 \DeclareCaptionType{mycapequ}[][List of equations]
 \captionsetup[mycapequ]{labelformat=empty}
@@ -530,7 +531,16 @@ môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to be
 
 
 \subsection{Brokerage roly}
-\textit{Brokerage} je stav alebo situácia, v ktorej účastník spája inak neprepojených účastníkov alebo zaplňuje medzery alebo diery v sieti. \cite{15} Na obrázku je \textit{broker} alebo aj \textit{spostredkovateľ} zastúpený čiernym uzlom, ktorý vyplňuje medzeru alebo spojuje ostatných jednotlivcov reprezentovaných bielymi uzlami, ktoré predtým neboli navzájom prepojené priamo.
+Jednoducho povedané, \textit{brokerage} sa vyskystuje tam, keď jeden aktér siete poskytuje most medzi dvoma inými aktérmi, ktorí medzi sebou inak prepojení nie sú. Koncept \textit{brokerahe} rôl bol použitý vo veľmi veľa iných kontextoch, záleží len na jeho formalizácii. Aj keď je \textit{brokerage} tradične konceptualizovaný ako dynamický fenomén, identifikácia \textit{brokerage} rôl sa často využíva aj v oblasti statických spoločenských vzťahov. 
+
+
+Jedným známym kontextom pre \textit{brokerage} je prípad obchodných vzťahov. V tomto prostredí, títo jednotlivci alebo organizácie, politické entity, ktorí boli schopní previezť tovar z jedného miesta na druhé a kontrolovať ich rozšírenie, zohrávali kľúčovú rolu v udržiavaní obchodu na regionálnej a kontinentálnej úrovni. Sprostredkovaním kontaktov medzi vzdialené tretie strany (ktoré si nemôžu vmeniť informácie inak), títo aktéri povolili uvoľnenie kritických, priestorovo lokalizovaných zdrojov naprieč rozľahlým územím, čo usnadňovalo rast zložitejších spoločností.  Kým \textit{brokerage} vo výmenných sieťach má dôležité systematické následky, jeho efekt na individuálnej úrovni bol oceňovaný viac intenzívne socilógmi (napr. v \cite{15} \cite{17} \cite{18}). 
+
+
+Je zrejmé, že \textit{brokerage} sa môže vyskytnúť v mnohých nastaveniach a povaha \textit{brokerage} procesu samotného sa líši od kontextu. Vširšom zmysle tento proces spadá pod tri triedy - \textit{transfer brokerage}, v ktorom \textit{broker (ego)} vedie informácie a iné zdroje od jedného jednotlivca k druhému, ktorí nie sú priamo prepojení. Potom \textit{matchmaking brokerage}, v ktorom ego predstavuje alebo inak umožňuje spojenie jedného jednotlivca k druhému a nakoniec \textit{coordination brokerage}, v ktorom ego usmerňuje kroky ostatných a tak vyriešia svoje závislosti bez toho, aby museli byť priamo prepojení.
+
+
+\textit{Brokerage} je stav alebo situácia, v ktorej účastník spája inak neprepojených účastníkov alebo zaplňuje medzery alebo diery v sieti. \cite{15} Na obrázku je \textit{broker} alebo aj \textit{spostredkovateľ} zastúpený čiernym uzlom, ktorý vyplňuje dieru v sieti alebo spojuje ostatných jednotlivcov reprezentovaných bielymi uzlami, ktoré predtým neboli navzájom prepojené priamo.
 
 \begin{figure}[H]
 \centering
@@ -538,12 +548,12 @@ môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to be
 \caption{Príklad brokerage procesu}
 \end{figure}
 
-\textit{Broker} môže prepojiť oddelené oblasti siete sociálnymi, ekonomickými alebo politickými aspektami a preto je jediný, kto má prístup k ceneným informáciám a zdrojom z rôznych oblastí siete. \textit{Brokerage} je jediný mechanizmus, ktorý umožňuje izolovaným či neprepojeným členom siete zdieľať informácie a zdroje a ekonomicky, politicky či spoločensky ovplyvňovať. \cite{16}
+\textit{Broker} môže prepojiť oddelené oblasti siete sociálnymi, ekonomickými alebo politickými aspektami a preto je jediný, kto má prístup k ceneným informáciám a zdrojom z rôznych oblastí siete. \textit{Brokerage} je mechanizmus, ktorý umožňuje izolovaným či neprepojeným členom siete zdieľať informácie a zdroje a ekonomicky, politicky či spoločensky ovplyvňovať. \cite{16}
 
 Práve kvôli spojeniu a kontrole nad jedinečnými informáciami a zdrojmi medzi neprepojenými účastníkmi siete má aktér, ktorý zohráva rolu sprostredkovateľa (\textit{broker}) v sieti väčší prístup k informáciám a zdrojom v porovnaní s tými, ktorí sprostredkovateľmi nie sú. \textit{Broker} (sprostredkovateľ) môže ťažiť z tejto kontroly nad informáciami a zdrojmi, môže sa stať silnejší v sieti a môže vykazova5 zvýšenú efektivitu vo svojej práci. \cite{16}
 
 
-Detailnejšiu kategorizáciu \textit{Brokerage} rôl predstavili Gould a Fernandez v \cite{15}, kde predstavili koncept \textit{brokerage} typológie. Táto typológia delí \textit{brokerage} do piatich typov na základe smeru toku informácií - tokov v sieti - a rozdeľuje aktérov do vzájomne sa vylučujúcich skupín, tried alebo organizácií.
+Detailnejšiu kategorizáciu \textit{Brokerage} rôl predstavili Gould a Fernandez \cite{15}, kde predstavili koncept \textit{brokerage} typológie. Táto typológia delí \textit{brokerage} do piatich typov na základe smeru toku informácií - tokov v sieti - a rozdeľuje aktérov do vzájomne sa vylučujúcich skupín, tried alebo organizácií.
 Typy sprostredkovateľov sú \textit{liaison}, \textit{itinerant}, \textit{coordinator}, \textit{gatepeeker} a \textit{representative}.
 
 \subsubsection{Liaison}
@@ -592,6 +602,11 @@ V tomto type \textit{brokerage} roly \textit{broker}(B) a jeden z dvoch neprepoj
 \includegraphics[width=4cm, height=4cm]{figures/representative}
 \caption{Representative brokerage}
 \end{figure}
+
+\subsection{Identifikácia brokerage rolí}
+Päť typov \textit{brokerage} rôl  reprezentujú unikátne sociálne roly zapúzdrujúce elementárny aspekt aktérovej štrukturálnej pozície v danej sieti. Jeden jednotlivec však môže zohrávať viac \textit{brokerage} rolí naraz. Preto Gould \& Fernandez [15] kvantifikovali celkovú participáciu jednotlivca v \textit{brokerage} rolách pomocou \textit{brokerage} skóra. Formálne definovali \textit{brokerage} v grafe reprezentujúcom asymetrickú reláciu \textit{R}: Nech \textit{a} je \textit{broker} medzi \textit{b} a \textit{c} iba ak \textit{bRa, aRc} a   ${ a\overline{R}c }$, kde \textit{bRa} indikuje, že \textit{b} je prepojené s \textit{a} reláciou \textit{R} a ${ b\overline{R}c }$
+je negácia \textit{bRc}. S touto definíciou, \textit{brokerage} skóre sa vypočíta súčtom počtu koľko krát táto podmienka platí pre špecifickú kombináciu spojenia aktérov. To znamená, že ak nejaký aktér \textit{x} zohráva pozíciu \textit{coordinator} dva krát a pozíciu \textit{representative} tri krát, tak aktér bude mať skóre pre pozíciu \textit{coordinator} = 2, pre pozíciu  \textit{representative} = 3 a jeho celkové \textit{brokerage} skóre bude 5.
+
 
 \section{Aplikácia}
 Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
@@ -719,159 +734,29 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 
 
 \section{Experimenty}
-Pri práci som využila svoju emailovú sadu a tiež emailové sady, ktoré mi poskytli moji kolegovia. Takže som zozbierala emaily od štyroch ľudí, o ktorých viem ich postavenie v tíme alebo aj dátum nástupu do práce. Rozhodla som sa tieto emaily agregovať a analyzovať emaily v rámci celého týmu a potom analyzujem vybraného jednotlivca. 
+
+\subsection{Príprava dát}
 
 
-
-\subsection{Analýza tímu}
-Náš tím pozostáva zo štyroch ľudí, o ktorých bližšie informácie, ktoré môžu pomôcť pri analýze rolí a komunít, sú v nasledujúcej tabuľke.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ c c c }
- Meno & Pozícia &  Dátum nástupu do firmy \\ 
- \hline
- Andrej Parimucha &Test engineer  & 1.7.2011 \\  
- Veronika Uhrová & Junior Developer  & 1.9.2016  \\
- Andrej Matejčík & Medior Developer  & 1.6.2017 \\
- Tibor Palatka & Lead Developer & 1.11.2010 \\
-\end{tabular}
-\caption{Informácie o členoch týmu}
-\end{table} 
-
-\subsubsection{Základné informácie}
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ c c c }
-  &  počet \\ 
- \hline
- Emaily  & 21743 \\  
- Konverzácie  & 11545  \\
- Požívatelia (emailové adresy)  & 370 \\
-\end{tabular}
-\caption{Základné informácie o datasete}
-\end{table} 
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ c c c }
-  &  počet \\ 
- \hline
- Používatelia, ktorí sú aspoň v jednej konverzácii  & 273 \\  
- Emaily poslané z pracovného emailu  & 20367  \\
- Konverzácie iniciované niekým z kolegov  & 10307 \\
-\end{tabular}
-\caption{Ďalšie informácie o datasete}
-\end{table}
+\subsection{Import dát}
 
 
-\subsubsection{Zmeny komunít v čase}
-Celkový časový rozdah všetkých konverzácií je od 18. Novembra 2010 do 1. Decembra 2017. Za túto dobu sa v rámci týmu vyvorilo celkovo 13 komunít. 
+\subsection{Vizualizácia}
 
 
-Časový rozsah, ktorý som volila neskôr bol po jednom roku a sledovala som koľko komunít sa v tomto roku nachádzalo a či nejaká komunita pribudla. V nasledujúcej tabuľke je zobrazený časový interval a počet komunít nachádzajúcich sa v sieti za tento časový interval.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ c c c }
- Časový interval &  Počet komunít \\ 
- \hline
- 18.11.2010 - 31.12.2010  & 1 \\  
- 01.01.2011 - 31.12.2011  & 4 \\  
- 01.01.2012 - 31.12.2012  & 5 \\ 
- 01.01.2013 - 31.12.2013  & 4 \\  
- 01.01.2014 - 31.12.2014  & 9 \\ 
- 01.01.2015 - 31.12.2015  & 7 \\ 
- 01.01.2016 - 31.12.2016  & 13 \\ 
- 01.01.2017 - 01.12.2017  & 9 \\ 
-\end{tabular}
-\caption{Počet komunít v ročných intervaloch}
-\end{table}
-
-Táto tabuľka ukazuje nárast komunít v rámci každého roka. Najväčší rast komunít je medzi rokom 2015 a 2016, čo odzrkadľuje reálnu situáciu, keďže firmu na prelome týchto rokov kúpil korporát, takže sa najviac naberali ľudia, čiže nárast emailov a komunít je prirodzený. V ďalšom roku sa situácia konsolidovala takže nastal menší pokles komunít.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=16cm,height=11cm]{figures/teamanalyze_allcommunities}
-\caption{Vizualizácia grafu emailov s vygenerovanými komunitami celého týmu za celkový čas}
-\end{figure}
-
-
-
-\subsubsection{Zmeny rôl v čase}
-Tak ako sa menia v čase komunity, tak sa určite menia aj roly, ktoré sa vyskytujú v tíme a tiež sa menia ľudia, ktoré tieto roly zastupujú. Pre analýzu rôl som použila ročné intervaly, ktoré pridávam k počiatku všetkých konverzácií.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ c c c c c c}
- Časový interval &  Leader & Mediator & Outsider & Outermost & Počet komunít\\ 
- \hline
- 18.11.2010 - 31.12.2010 & 0 & 1 & 0 & 0 & 1\\  
- 18.11.2010 - 31.12.2011 & 0 & 1 & 0 & 0 & 4\\  
- 18.11.2010 - 31.12.2012 & 3 & 1 & 1 & 1 & 5\\  
- 18.11.2010 - 31.12.2013 & 4 & 0 & 0 & 0 & 4\\    
- 18.11.2010 - 31.12.2014 & 4 & 3 & 0 & 0 & 8\\   
- 18.11.2010 - 31.12.2015 & 4 & 3 & 0 & 0 & 8\\   
- 18.11.2010 - 31.12.2016 & 7 & 4 & 0 & 0 & 13\\   
- 18.11.2010 - 01.12.2017 & 8 & 3 & 0 & 2 & 13\\   
-\end{tabular}
-\caption{Počet komunít v ročných intervaloch}
-\end{table}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=16cm,height=11cm]{figures/teamanalyze_mediatorexample}
-\caption{Vizualizácia grafu v intervale 18.11.2010 - 31.12.2011}
-\label{teamanalyze_mediatorexample}
-\end{figure}
-	
-Na obrázku \ref{teamanalyze_mediatorexample} vidieť pekný príklad roly \textit{Mediator} (uzol \textit{Tibor Palatka}). V tomto prípade uzol, ktorý je označený ako \textit{Mediator}, spája všetky komunity grafu.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=16cm,height=11cm]{figures/teamanalyze_eachcomleader}
-\caption{Vizualizácia grafu v intervale 18.11.2010 - 31.12.2013, v každej komunie detekovaný jeden leader.}
-\end{figure}
-
-
-\newpage
-\subsection{Analýza jednodlivca}
-
-Ako jednotlivca, ktorého budem analyzovať som si vybrala \textit{lead developera}, pretože je vo firme najdlhšie a tým pádom sa budú dobre rozoznávať či už zmeny v komunitách alebo rolách.
-
-
-\subsubsection{Základné informácie}
-  
-\begin{table}[h!]
-\centering
-\begin{tabular}{ c c c }
-  &  počet \\ 
- \hline
- Emaily  & 10740 \\  
- Konverzácie  & 4713  \\
- Požívatelia (emailové adresy)  & 309 \\
-\end{tabular}
-\caption{Základné informácie o datasete}
-\end{table}
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{ c c c }
-  &  počet \\ 
- \hline
- Používatelia, ktorí sú aspoň v jednej konverzácii  & 229 \\  
- Emaily poslané z pracovného emailu  & 9850  \\
- Konverzácie iniciované niekým z kolegov  & 4016 \\
-\end{tabular}
-\caption{Ďalšie informácie o datasete}
-\end{table}
-
+\subsection{Detekcia komunít}
 \subsubsection{Zmeny komunít v čase}
 
-\subsubsection{Zmeny rôl v čase}
+\subsection{Ego sieť}
+\subsubsection{Zmeny siete v závislosti nad voľbou ega}
 
-- porovnanie toho, ci sa rola zmenila pocas kazdeho roku straveneho vo firme
+
+\subsection{Analýza rolí}
+\subsubsection{SSRM}
+\subsubsection{Brokerage}
+
+
+
 	
 	
 
@@ -948,9 +833,23 @@ from the enron email corpus it’s always about the people. Enron is no differen
 	\bibitem{16} Stovel, K. and Shaw, L.
 		\newline
 		\textit{Brokerage. Annual Review of Sociology}
-	
-\end{thebibliography}
+		
+	\bibitem{17} Marsden,P.V.
+		\newline
+		\textit{Brokerage behavior in restricted exchange networks}
+		
+	\bibitem{18} Burt,R.S.
+		\newline
+		\textit{Structural Holes: The Social Structure of Competition}	
 
+	\bibitem{19}  Emma S. Spiroa,Ryan M. Actonb,Carter T .Butts
+		\newline						
+		\textit{Extended structures of mediation: Re-examining brokerage in dynamic networks}
+		
+	\bibitem{20} Anil Kumar Chaudhary and Laura A. Warner
+		\newline						
+		\textit{Introduction to Social Network Research: Brokerage Typology}	
+\end{thebibliography}
 
 
 \end{document}
