@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.Mvc;
 using Thesis.Services.Interfaces;
@@ -25,40 +26,43 @@ namespace Thesis.Web.Controllers
         [HttpPost]
         public ActionResult Index(HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength > 0)
+            try
             {
-                string fileName = Path.GetFileName(file.FileName);
-                string path = "";
-                
-                if (fileName != null)
+                if (file != null && file.ContentLength > 0)
                 {
-                    path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
-                    file.SaveAs(path);
+                    string fileName = Path.GetFileName(file.FileName);
+                    string path = "";
+
+                    if (fileName != null)
+                    {
+                        path = Path.Combine(Server.MapPath("~/App_Data/uploads"), fileName);
+                        file.SaveAs(path);
+                    }
+
+                    ServiceResponse response = _graphService.ImportXMLFile(path, "ThesisImportDatabase");
+
+                    if (response.Succeeded)
+                    {
+                        this.AddToastMessage("Success", response.SuccessMessage, ToastType.Success);
+                    }
+                    else
+                    {
+                        this.AddToastMessage("Error", response.Error, ToastType.Error);
+                        return View();
+                    }
                 }
 
-                ServiceResponse response = _graphService.ImportXMLFile(path, "ThesisImportDatabase");
-                if (response.Succeeded)
+                GraphViewModel model = new GraphViewModel()
                 {
-                    foreach (string message in response.SuccessMessages)
-                    {
-                        //this.AddToastMessage("", message, ToastType.Success);
-                    }
-                }
-                else
-                {
-                    foreach (string message in response.Errors)
-                    {
-                        //this.AddToastMessage("", message, ToastType.Error);
-                    }
-                }
+                    FileImported = true
+                };
+
+                return RedirectToAction("Index", "TeamMembersEmailGraphs", model);
             }
-
-            GraphViewModel model = new GraphViewModel()
+            catch (Exception e)
             {
-                FileImported = true
-            };
-
-            return RedirectToAction("Index", "TeamMembersEmailGraphs", model);
+                throw new Exception(e.Message);
+            }
         }
     }
 }

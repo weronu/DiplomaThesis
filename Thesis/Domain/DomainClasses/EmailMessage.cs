@@ -17,6 +17,5 @@ namespace Domain.DomainClasses
 
 
         public virtual User Sender { get; set; }
-        public virtual List<EmailRecipient> Recipients { get; set; }
     }
 }

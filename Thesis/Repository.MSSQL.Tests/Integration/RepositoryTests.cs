@@ -52,7 +52,7 @@ namespace Repository.MSSQL.Tests.Integration
 
         //    using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
         //    {
-        //        vertices = uow.GraphRepo.ExtractVerticesFromDatabase();
+        //        vertices = uow.GraphRepo.ExtractNodesFromDatabase();
         //    }
 
         //    Assert.IsNotNull(vertices);
@@ -94,7 +94,7 @@ namespace Repository.MSSQL.Tests.Integration
 
         //    using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork())
         //    {
-        //        vertices = uow.GraphRepo.ExtractVerticesFromConversations();
+        //        vertices = uow.GraphRepo.ExtractNodesFromConversations();
         //    }
 
         //    Assert.IsNotNull(vertices);

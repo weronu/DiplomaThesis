@@ -58,7 +58,6 @@
     <Compile Include="DomainClasses\ConversationEmails.cs" />
     <Compile Include="DomainClasses\DomainBase.cs" />
     <Compile Include="DomainClasses\EmailMessage.cs" />
-    <Compile Include="DomainClasses\EmailRecipient.cs" />
     <Compile Include="DomainClasses\User.cs" />
     <Compile Include="DomainClasses\UserEmail.cs" />
     <Compile Include="DTOs\EmailDownloadDto.cs" />

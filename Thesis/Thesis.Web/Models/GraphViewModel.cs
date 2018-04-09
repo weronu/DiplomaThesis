@@ -13,6 +13,7 @@ namespace Thesis.Web.Models
         public int? SelectedTeamMemberId { get; set; }
         public GraphDto GraphDto { get; set; }
         public Graph<UserDto> Graph { get; set; }
-        
+        public string FromDate { get; set; }
+        public string ToDate { get; set; }
     }
 }

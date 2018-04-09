@@ -95,6 +95,10 @@
     <Compile Include="Migrations\201712032105111_migration8.Designer.cs">
       <DependentUpon>201712032105111_migration8.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803251814331_migration9.cs" />
+    <Compile Include="Migrations\201803251814331_migration9.Designer.cs">
+      <DependentUpon>201803251814331_migration9.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RepositoryBase.cs" />
     <Compile Include="ThesisDbContext.cs" />
@@ -104,10 +108,6 @@
     <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Common\Thesis.Common.csproj">
-      <Project>{3b06ed1e-e0aa-4b72-bfcc-4a356d5c0f68}</Project>
-      <Name>Thesis.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Domain\Thesis.Domain.csproj">
       <Project>{33338734-71ef-4c86-8ad1-4e339d52e694}</Project>
       <Name>Thesis.Domain</Name>
@@ -143,6 +143,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712032105111_migration8.resx">
       <DependentUpon>201712032105111_migration8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803251814331_migration9.resx">
+      <DependentUpon>201803251814331_migration9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
 using Graph.Algorithms;
@@ -37,12 +39,68 @@ namespace Thesis.Services
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Import of file failed with an error: {e.Message}");
+                response.Error = ($"Import of file failed with an error: {e.Message}");
 
                 if (e.InnerException != null)
                 {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
                 }
+            }
+
+            return response;
+        }
+
+        public FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime fromDate, DateTime toDate)
+        {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+            try
+            {
+                Graph<UserDto> graph = new Graph<UserDto>();
+
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    HashSet<ConversationEmails> conversationEmails = uow.ConvRepo.ExtractConversationsFromDatabase(fromDate, toDate);
+
+                    HashSet<Edge<UserDto>> edges = uow.GraphRepo.ExtractEdgesFromConversation(conversationEmails);
+                    graph.CreateGraph(edges);
+                }
+
+                response.Succeeded = true;
+                response.Item = graph;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                response.Error = ($"Import of file failed with an error: {e.Message}");
+
+                if (e.InnerException != null)
+                {
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
+                }
+            }
+
+            return response;
+        }
+
+        public FetchListServiceResponse<DateTime> FetchStartAndEndOfConversation(string connectionString)
+        {
+            FetchListServiceResponse<DateTime> response = new FetchListServiceResponse<DateTime>();
+            try
+            {
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    DateTime dateOfFirstConversation = uow.ConvRepo.GetDateOfFirstConversation();
+                    DateTime dateOfLastConversation = uow.ConvRepo.GetDateOfLastConversation();
+
+                    response.Items.Add(dateOfFirstConversation);
+                    response.Items.Add(dateOfLastConversation);
+                    response.Succeeded = true;
+                }
+            }
+            catch (Exception)
+            {
+                response.Succeeded = false;
+                throw new Exception("Start and end of conversation was not found.");
             }
 
             return response;
@@ -63,18 +121,41 @@ namespace Thesis.Services
                 if (response.Item == 0)
                 {
                     response.Succeeded = false;
-                    response.AddError("Node was not found.");
+                    response.Error = ("Node was not found.");
                 }
             }
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Import of file failed with an error: {e.Message}");
+                response.Error = ($"Import of file failed with an error: {e.Message}");
 
                 if (e.InnerException != null)
                 {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
                 }
+            }
+
+            return response;
+        }
+
+        public FetchItemServiceResponse<Node<UserDto>> FetchNodeWithBiggestDegree(string connectionString, Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<Node<UserDto>> response = new FetchItemServiceResponse<Node<UserDto>>();
+            try
+            {
+                Node<UserDto> node = graph.Nodes.OrderByDescending(x => x.Degree).First();
+                response.Item = node;
+
+
+                if (response.Item == null)
+                {
+                    response.Succeeded = false;
+                    throw new Exception("Node was not found.");
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
             }
 
             return response;
@@ -92,17 +173,17 @@ namespace Thesis.Services
                     uow.GraphRepo.ExtractConversations();
                 }
 
-                response.AddSuccessMessage("XML file was successfully imported.");
+                response.SuccessMessage = ("XML file was successfully imported.");
                 response.Succeeded = true;
             }
             catch (Exception e)
             {
                 response.Succeeded = false;
-                response.AddError($"Import of file failed with an error: {e.Message}");
+                response.Error = ($"Import of file failed with an error: {e.Message}");
 
                 if (e.InnerException != null)
                 {
-                    response.AddError($"Additional error: {e.InnerException.Message}");
+                    response.Error = ($"Additional error: {e.InnerException.Message}");
                 }
             }
 
@@ -115,6 +196,11 @@ namespace Thesis.Services
 
             try
             {
+                if (graph.Communities.Count == 0)
+                {
+                    throw new Exception("You have to find communities first!");
+                }
+
                 GraphAlgorithm<UserDto> algorithms = new GraphAlgorithm<UserDto>(graph);
                 HashSet<ShortestPathSet<UserDto>> shortestPaths = algorithms.GetAllShortestPathsInGraph(graph.Nodes);
 
@@ -151,8 +237,7 @@ namespace Thesis.Services
             }
             catch (Exception e)
             {
-                response.Succeeded = false;
-                response.AddError($"Detecting roles fasiled with an error: {e.Message}");
+                throw new Exception(e.Message);
             }
 
             return response;

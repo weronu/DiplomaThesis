@@ -16,15 +16,13 @@ body {
 }
 
 .importDataTile {
-    height: 300px;
+    height: 450px;
     background: #fcfcfc;
-    margin: 20px;
-    border-style: dashed;
-    border-color: #e2e2e2;
+    margin-top: 50px;
     border-radius: 3px;
     margin-right: 20%;
     margin-left: 20%;
-    border-width: 2px;
+    padding-top: 50px;
 
     .btn {
         width: 200px;
@@ -38,10 +36,51 @@ body {
             background: #f1e5e6;
         }
     }
+
     .box {
         margin-left: 25%;
         margin-top: 11%;
     }
+}
+
+.contactsTile {
+    height: 150px;
+    background: #fcfcfc;
+    margin-top: 50px;
+    border-radius: 3px;
+    margin-right: 20%;
+    margin-left: 20%;
+    padding-top: 15px;
+    font-size: 18px;
+
+    .row {
+        margin-left: 20px;
+    }
+}
+
+
+.aboutTile {
+    height: 150px;
+    background: #fcfcfc;
+    margin-top: 50px;
+    border-radius: 3px;
+    margin-right: 20%;
+    margin-left: 20%;
+    padding-top: 15px;
+    font-size: 18px;
+
+    .row {
+        margin-left: 20px;
+    }
+}
+
+.contact-label {
+    color: $color_nav;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    font-weight: 900;
+    padding-bottom: 10px;
 }
 
 .container-graph {
@@ -62,6 +101,18 @@ body {
         &:hover {
             background: #cacaca;
         }
+    }
+}
+
+
+.container-contacts {
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 50px;
+
+    .h2 {
+        text-align: center;
+        padding-top: 15px;
     }
 }
 
@@ -245,8 +296,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 .page-loader:after {
     content: '';
-    height: 31px;
-    width: 31px;
+    height: 26px;
+    width: 26px;
     left: 0;
     position: absolute;
     background-color: #721549;
@@ -337,7 +388,6 @@ h1, h2, h3, h4, h5, h6, p {
 
 .btn {
     width: 110%;
-    margin-top: 20px;
 }
 
 
@@ -349,4 +399,108 @@ h1, h2, h3, h4, h5, h6, p {
     background-color: #FFFFC1;
     margin: 10px;
     border: 1px solid #ff6a00;
+}
+
+
+.mydatepicker {
+    position: relative;
+    padding-left: 0 !important;
+
+    .datepicker-icon {
+        position: absolute;
+        bottom: 12px;
+        left: 10px;
+        cursor: pointer;
+    }
+}
+
+
+.datepicker-dropdown {
+    top: 712px;
+    left: 576.5px;
+    right: auto;
+    display: block;
+}
+
+.datepicker-input {
+    width: 495px;
+    padding-left: 30px;
+    margin-bottom: 15px;
+}
+
+
+.loadingBar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 600px;
+    background-color: rgba(200,200,200,0.8);
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    opacity: 1;
+}
+
+.graph-wrapper {
+    position: relative;
+    width: 100%;
+    height: 600px;
+}
+
+.loading-bar-text {
+    position: absolute;
+    top: 8px;
+    left: 530px;
+    width: 30px;
+    height: 50px;
+    margin: auto auto auto auto;
+    font-size: 22px;
+    color: #000000;
+}
+
+
+.outerBorder {
+    position: relative;
+    top: 250px;
+    width: 600px;
+    height: 52px;
+    margin: auto auto auto auto;
+    border: 8px solid rgba(0,0,0,0.1);
+    background: rgb(252,252,252); /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+    border-radius: 72px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+.border {
+    position: absolute;
+    top: 7px;
+    left: 10px;
+    width: 500px;
+    height: 23px;
+    margin: auto auto auto auto;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+    border-radius: 10px;
+}
+
+.bar {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 20px;
+    height: 20px;
+    margin: auto auto auto auto;
+    border-radius: 11px;
+    border: 2px solid rgba(30,30,30,0.05);
+    background: $color_nav;
+    box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
 }

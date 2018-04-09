@@ -156,7 +156,7 @@ namespace Domain.GraphClasses
         /// <param name="node1">The first node.</param>
         /// <param name="node2">The second node.</param>
         /// <returns>The weight of the edge.</returns>
-        public double EdgeWeight(Node<T> node1, Node<T> node2)
+        public double GetEdgeWeight(Node<T> node1, Node<T> node2)
         {
             return Edges.Where(x => x.Node1.Id == node1.Id && x.Node2.Id == node2.Id).Select(x => x.Weight).FirstOrDefault();
         }
@@ -187,7 +187,7 @@ namespace Domain.GraphClasses
         {
             foreach (Node<T> node in Nodes)
             {
-                node.Degree = GetDegree(node);
+                node.Degree = GetNodeDegree(node);
             }
         }
 
@@ -240,38 +240,6 @@ namespace Domain.GraphClasses
         }
 
         /// <summary>
-        /// Returns all vertices with a Leader role
-        /// </summary>
-        public List<Node<T>> GetLeaders()
-        {
-            return Nodes.Select(x => x).Where(x => x.Role == Role.Leader).ToList();
-        }
-
-        /// <summary>
-        /// Returns all vertices with Outsider role
-        /// </summary>
-        public List<Node<T>> GetOutsiders()
-        {
-            return Nodes.Select(x => x).Where(x => x.Role == Role.Outsider).ToList();
-        }
-
-        /// <summary>
-        /// Returns all vertices with a Outermost role
-        /// </summary>
-        public List<Node<T>> GetOutermosts()
-        {
-            return Nodes.Select(x => x).Where(x => x.Role == Role.Outermost).ToList();
-        }
-
-        /// <summary>
-        /// Returns all vertices with a Mediator role
-        /// </summary>
-        public List<Node<T>> GetMediators()
-        {
-            return Nodes.Select(x => x).Where(x => x.Role == Role.Mediator).ToList();
-        }
-
-        /// <summary>
         /// Get community by id
         /// </summary>
         public Community<T> GetCommunityById(int communityId)
@@ -282,7 +250,7 @@ namespace Domain.GraphClasses
         /// <summary>
         /// Computes degree for a node
         /// </summary>
-        public int GetDegree(Node<T> node)
+        public int GetNodeDegree(Node<T> node)
         {
             var degree = GetAdjacentNodes(node).Count;
             return degree;
@@ -291,7 +259,7 @@ namespace Domain.GraphClasses
         /// <summary>
         /// Computes degree for a node
         /// </summary>
-        public double GetDegreeAsSumOfWeights(Node<T> node)
+        public double GetNodeDegreeAsSumOfWeights(Node<T> node)
         {
             HashSet<Edge<T>> incidentEdges = new HashSet<Edge<T>>(GetIncidentEdges(node).ToList());
             double sum = incidentEdges.Select(x => x.Weight).Sum();

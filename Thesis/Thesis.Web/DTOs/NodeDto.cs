@@ -10,5 +10,6 @@ namespace Thesis.Web.DTOs
         public string color { get; set; }
         public string title { get; set; }
         public int size { get; set; }
+        public int group { get; set; }
     }
 }

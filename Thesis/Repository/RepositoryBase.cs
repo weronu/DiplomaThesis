@@ -2,14 +2,13 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using Common;
 using Domain.DomainClasses;
 
 namespace Repository.MSSQL
 {
     public class RepositoryBase
     {
-        private ThesisDbContext _context;
+        private readonly ThesisDbContext _context;
 
         public RepositoryBase(ThesisDbContext context)
         {
@@ -39,16 +38,6 @@ namespace Repository.MSSQL
             return e;
         }
 
-        protected TEntity GetByIdNoTracking<TEntity>(int id, params Expression<Func<TEntity, object>>[] includes) where TEntity : DomainBase
-        {
-            IQueryable<TEntity> qry = _context.Set<TEntity>().Where(x => x.Id == id);
-            foreach (Expression<Func<TEntity, object>> property in includes)
-            {
-                qry = qry.Include(property);
-            }
-            return qry.AsNoTracking().FirstOrDefault();
-        }
-
         protected void Add<TEntity>(TEntity e) where TEntity : DomainBase
         {
             lock (_context)
@@ -75,7 +64,7 @@ namespace Repository.MSSQL
             {
                 var e = _context.Set<TEntity>().FirstOrDefault(x => x.Id == id);
 
-                if (e == null) throw new ThesisException(ErrorMessages.ObjectNotFound);
+                if (e == null) throw new Exception("Object was not found.");
 
                 var entry = _context.Entry(e);
                 if (entry.State == EntityState.Detached)

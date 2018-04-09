@@ -8,7 +8,7 @@ namespace Repository.MSSQL
 {
     public class CommonRepository : RepositoryBase, ICommonRepository
     {
-        private ThesisDbContext _context;
+        private readonly ThesisDbContext _context;
 
         public CommonRepository(ThesisDbContext context) : base(context)
         {
@@ -23,16 +23,6 @@ namespace Repository.MSSQL
         public new TEntity GetById<TEntity>(int id, params Expression<Func<TEntity, object>>[] includes) where TEntity : DomainBase
         {
             return base.GetById(id,includes);
-        }
-
-        public new TEntity GetByIdNoTracking<TEntity>(int id) where TEntity : DomainBase
-        {
-            return base.GetByIdNoTracking<TEntity>(id);
-        }
-
-        public new TEntity GetByIdNoTracking<TEntity>(int id, params Expression<Func<TEntity, object>>[] includes) where TEntity : DomainBase
-        {
-            return base.GetByIdNoTracking(id,includes);
         }
 
         public new void Add<TEntity>(TEntity e) where TEntity : DomainBase

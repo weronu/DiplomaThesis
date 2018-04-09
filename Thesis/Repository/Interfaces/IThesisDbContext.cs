@@ -10,6 +10,5 @@ namespace Repository.MSSQL.Interfaces
 
         DbSet<EmailMessage> EmailMessagess { get; set; }
         DbSet<User> Users { get; set; }
-        DbSet<EmailRecipient> Recipients { get; set; }
     }
 }

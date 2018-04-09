@@ -26,7 +26,7 @@ namespace Application.Console
             //    using (IUnitOfWork uow = UnitOfWorkFactory.CreateUnitOfWork("GLEmailsDatabase"))
             //    {
             //        edges = uow.GraphRepo.ExtractEdgesFromConversation();
-            //        vertices = new HashSet<Node<User>>(uow.GraphRepo.ExtractVerticesFromConversations().OrderByDescending(x => x.Id).ToList());
+            //        vertices = new HashSet<Node<User>>(uow.GraphRepo.ExtractNodesFromConversations().OrderByDescending(x => x.Id).ToList());
             //    }
 
             //    Graph<User> graph = new Graph<User>

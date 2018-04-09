@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model Thesis.Web.Models.GraphViewModel
+@model GraphViewModel
 
 <div class="container-graph">
     @if (Model.FileImported == false)
@@ -19,26 +19,37 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-       
+
         $("#teamMembersDropdown").change(function (e) {
             blockUI();
+
+            var data = JSON.stringify({
+                'model': @Html.Raw(Json.Encode(@Model)),
+                'teamMemberId': $("#teamMembersDropdown").find(":selected").val()
+            });
+
             e.preventDefault();
-            var teamMemberId = $(this).find(":selected").val();
-            var selectid = { "teamMemberId": teamMemberId };
             $.ajax({
-                async: true,
                 url: "@Url.Action("GetSelectedValue", "TeamMembersEmailGraphs")",
-                data: JSON.stringify(selectid),
+                data: data,
+                datatype: "json",
                 type: 'POST',
                 contentType: 'application/json; charset=utf-8',
                 success: function (partialView) {
                     $('#graphView_Partial_Id').html(partialView);
                     unblockUI();
+                },
+                error: function (xhr, data) {
+                    toastr.error(xhr.statusText, "Error", {
+                        "timeOut": "0",
+                        "extendedTimeout": "0"
+                    });
+                    unblockUI();
                 }
             });
             return false;
-        });
-
+    });
     });
 </script>
+
 
