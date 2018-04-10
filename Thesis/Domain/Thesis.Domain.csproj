@@ -54,6 +54,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Brokerage.cs" />
+    <Compile Include="BrokerageBase.cs" />
     <Compile Include="DomainClasses\Conversation.cs" />
     <Compile Include="DomainClasses\ConversationEmails.cs" />
     <Compile Include="DomainClasses\DomainBase.cs" />

@@ -35,6 +35,9 @@
         <div class="col-sm-3">
             <button id="findRolesButton" type="button" class="btn btn-light">Find Roles</button>
         </div>
+        <div class="col-sm-3">
+            <button id="findBrokerageButton" type="button" class="btn btn-light">Find Brokerage</button>
+        </div>
     </div>
 </div>
 <div id="dialog" class="dialog" style="display: none"></div>
@@ -107,6 +110,7 @@
         var findCommunittiesButton = $("#findCommunitiesButton");
         var createEgoNetworkButon = $("#createEgoNetworkButon");
         var findRolesButton = $("#findRolesButton");
+        var findBrokerageButton = $("#findBrokerageButton");
 
         //Attach event handler to submit button
         findCommunittiesButton.click(function (e) {
@@ -124,6 +128,12 @@
         findRolesButton.click(function (e) {
             e.preventDefault();
             findRoles();
+            return false;
+        });
+
+        findBrokerageButton.click(function (e) {
+            e.preventDefault();
+            findBrokerage();
             return false;
         });
 
@@ -201,6 +211,30 @@
         });
         return false;
     }
+
+    function findBrokerage() {
+
+        blockUI();
+        $.ajax({
+            url: "@Url.Action("FindBrokerage", "TeamMembersEmailGraphs")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            success: function (partialView) {
+                $('#graphView_Partial_Id').html(partialView);
+                unblockUI();
+            },
+            error: function(xhr, data) {
+                toastr.error(xhr.statusText, "Error", {
+                    "timeOut": "0",
+                    "extendedTimeout": "0"
+                });
+                unblockUI();
+            }
+        });
+        return false;
+    }
+
 
     function GraphVis() {
             var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));

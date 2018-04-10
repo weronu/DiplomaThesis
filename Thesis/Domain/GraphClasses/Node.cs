@@ -19,5 +19,7 @@ namespace Domain.GraphClasses
 
         public T NodeElement { get; set; }
         public Community<T> Community { get; set; }
+
+        public Brokerage Brokerage { get; set; }
     }
 }

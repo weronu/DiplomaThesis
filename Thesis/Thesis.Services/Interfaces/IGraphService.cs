@@ -14,5 +14,6 @@ namespace Thesis.Services.Interfaces
         FetchItemServiceResponse<Graph<UserDto>> FetchEmailsGraph(string connectionString, DateTime fromDate, DateTime toDate);
         FetchListServiceResponse<DateTime> FetchStartAndEndOfConversation(string connectionString);
         FetchItemServiceResponse<Node<UserDto>> FetchNodeWithBiggestDegree(string connectionString, Graph<UserDto> graph);
+        FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph);
     }
 }

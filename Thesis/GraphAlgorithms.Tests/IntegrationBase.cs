@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
+using Repository.MSSQL;
 
-namespace Repository.MSSQL.Tests.Integration
+namespace GraphAlgorithms.Tests
 {
     public class DevBase
     {

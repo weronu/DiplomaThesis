@@ -242,5 +242,47 @@ namespace Thesis.Services
 
             return response;
         }
+
+        public FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+
+
+            try
+            {
+                using (IUnitOfWork uow = CreateUnitOfWork("GLEmailsDatabaseAdo"))
+                {
+                    int nodeIdByUserName = uow.UserRepo.GetNodeIdByUserName("andrej matejcik");
+                    HashSet<Node<UserDto>> adjacentNodes = graph.GetAdjacentNodes(graph.GetNodeById(nodeIdByUserName));
+
+                    for (int i = 0; i < adjacentNodes.Count; i++)
+                    {
+                        Node<UserDto> nodeA = adjacentNodes.ElementAt(i);
+                        for (int j = i + 1; j < adjacentNodes.Count; j++)
+                        {
+                            Node<UserDto> nodeC = adjacentNodes.ElementAt(j);
+                            {
+                                if (graph.ExistEdgeBetweenNodes(nodeA, nodeC) || nodeA.Id == nodeC.Id)
+                                {
+
+                                    continue;
+                                }
+                                else
+                                {
+                                    return null;
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return response;
+        }
     }
 }
