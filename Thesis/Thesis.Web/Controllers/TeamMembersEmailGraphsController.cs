@@ -454,6 +454,31 @@ namespace Thesis.Web.Controllers
                     return 12;
             }
         }
+
+        [HttpPost]
+        public ActionResult FindBrokerage(GraphViewModel graphViewModel)
+        {
+            try
+            {
+                if (graphViewModel.Graph.Edges.Count != 0 && graphViewModel.Graph.GraphSet.Count == 0)
+                {
+                    foreach (Edge<UserDto> edge in graphViewModel.Graph.Edges)
+                    {
+                        graphViewModel.Graph.CreateGraphSet(edge);
+                    }
+                }
+
+                _graphService.DetectBrokerageInGraph(graphViewModel.Graph);
+            }
+            catch (Exception e)
+            {
+                return new HttpStatusCodeResult(500, e.Message);
+            }
+
+            return View("GraphView_partial", graphViewModel);
+        }
+
+
     }
 
     public static class StaticRandom

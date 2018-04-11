@@ -608,6 +608,9 @@ Päť typov \textit{brokerage} rôl  reprezentujú unikátne sociálne roly zap�
 je negácia \textit{bRc}. S touto definíciou, \textit{brokerage} skóre sa vypočíta súčtom počtu koľko krát táto podmienka platí pre špecifickú kombináciu spojenia aktérov. To znamená, že ak nejaký aktér \textit{x} zohráva pozíciu \textit{coordinator} dva krát a pozíciu \textit{representative} tri krát, tak aktér bude mať skóre pre pozíciu \textit{coordinator} = 2, pre pozíciu  \textit{representative} = 3 a jeho celkové \textit{brokerage} skóre bude 5.
 
 
+Formalizácia \textit{brokerage} rolí podľa Goula a Fernandeza je definovaná pre siete, v ktorých sú spojenia (hrany) orientované, čiže reprezentujúce vzťahy, pre ktoré môžme rozlíšiť odosielateľa a prijímateľa. Keďže v mojej koncepcii siete, kde jednotlivé uzly sú členovia tímu a hrana medzi nimi je práve vtedy, keď medzi nimi prebehla konverzácia, moja vytvorená sieť je neorientovaná. Zovšeobecnenie na neorientovanú sieť je celkom jasné; s takýmito dátami, každá hrana je považovaná za obojsmernú. Aj keď toto prináša jednu dôležitú zmenu originálnej formalizácie: v prípade neorientovaných vzťahov nemôžeme rozlíšiť rolu \textit{gatepeeker} od roly \textit{representative}, pretože neprítomnosť obojsmerných vzťahov redukuje tieto dve roly do jednej a \textit{brokerage} skóre bude pre tieto dve roly identické. \cite{19}
+
+
 \section{Aplikácia}
 Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
 

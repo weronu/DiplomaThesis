@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain;
 using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
@@ -241,6 +242,60 @@ namespace Thesis.Services
             }
 
             return response;
+        }
+
+        public FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+
+            try
+            {
+                using (IUnitOfWork uow = CreateUnitOfWork("GLEmailsDatabaseAdo"))
+                {
+                    int nodeIdByUserName = uow.UserRepo.GetNodeIdByUserName("andrej matejcik");
+                    Node<UserDto> nodeB = graph.GetNodeById(nodeIdByUserName);
+                    HashSet<Node<UserDto>> adjacentNodes = graph.GetAdjacentNodes(nodeB);
+
+                    nodeB.Brokerage = new Brokerage();
+                    foreach (Node<UserDto> nodeA in adjacentNodes)
+                    {
+                        foreach (Node<UserDto> nodeC in adjacentNodes)
+                        {
+                            if (graph.ExistEdgeBetweenNodes(nodeA, nodeC) || nodeA.Id == nodeC.Id)
+                            {
+                                continue;
+                            }
+
+                            if (nodeA.CommunityId != nodeC.CommunityId && nodeA.CommunityId != nodeB.CommunityId && nodeC.CommunityId != nodeB.CommunityId)
+                            {
+                                nodeB.Brokerage.Liaison++;
+                            }
+                            if (nodeA.CommunityId == nodeC.CommunityId && nodeA.CommunityId != nodeB.CommunityId && nodeC.CommunityId != nodeB.CommunityId)
+                            {
+                                nodeB.Brokerage.Itinerant++;
+                            }
+
+                            if (nodeA.CommunityId == nodeB.CommunityId && nodeA.CommunityId == nodeC.CommunityId && nodeB.CommunityId == nodeC.CommunityId)
+                            {
+                                nodeB.Brokerage.Coordinator++;
+                            }
+
+                            if ((nodeA.CommunityId == nodeB.CommunityId && nodeA.CommunityId != nodeC.CommunityId && nodeB.CommunityId != nodeC.CommunityId)
+                                || (nodeB.CommunityId == nodeC.CommunityId && nodeB.CommunityId != nodeA.CommunityId && nodeC.CommunityId != nodeA.CommunityId))
+                            {
+                                nodeB.Brokerage.Representative++;
+                                nodeB.Brokerage.Gatepeeker++;
+                            }
+                        }
+                    }
+                    response.Item = graph;
+                    return response;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

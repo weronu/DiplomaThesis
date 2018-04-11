@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain;
 using Domain.Enums;
 using Domain.GraphClasses;
 
@@ -302,6 +303,17 @@ namespace Graph.Algorithms
             foreach (Community<T> community in _graph.Communities)
             {
                 community.ClosenessCentralityStandartDeviation = GetCommunityClosenessCentralityStandartDeviation(community);
+            }
+        }
+
+
+        public void GetBrokerageRoles(Node<T> node)
+        {
+            foreach (Node<T> neighbour in _graph.GetAdjacentNodes(node))
+            {
+                List<Edge<T>> edges = _graph.Edges.Where(x => x.Node1 == node || x.Node1 == neighbour || x.Node2 == node || x.Node2 == neighbour).ToList();
+                List<BrokerageBase<T>> brokerageBases = new List<BrokerageBase<T>>();
+                
             }
         }
     }

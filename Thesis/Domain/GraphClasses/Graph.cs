@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using Domain.Enums;
 
@@ -151,7 +152,7 @@ namespace Domain.GraphClasses
         }
 
         /// <summary>
-        /// Returns the weight of the edge between two vertices.
+        /// Returns the weight of the edge between two nodes.
         /// </summary>
         /// <param name="node1">The first node.</param>
         /// <param name="node2">The second node.</param>
@@ -267,39 +268,57 @@ namespace Domain.GraphClasses
         }
 
         /// <summary>
-        /// Adjacent vertices of a node
+        /// Adjacent nodes of a node
         /// </summary>
         public HashSet<Node<T>> GetAdjacentNodes(Node<T> node)
         {
             return _graphSet[node.Id];
         }
 
+        public HashSet<Edge<T>> GetAdjacentEdges(Node<T> node)
+        {
+            List<Edge<T>> edges = Edges.Where(x => x.Node1.Id == node.Id || x.Node2.Id == node.Id).ToList();
+            
+
+            return new HashSet<Edge<T>>(edges);
+        }
+
         /// <summary>
-        /// Count of all vertices in a graph
+        /// Count of all nodes in a graph
         /// </summary>
-        public int GetVerticesCount()
+        public int GetNodesCount()
         {
             return Nodes.Count;
         }
 
         /// <summary>
-        /// Count of all vertices in a graph
+        /// Count of all edges in a graph
         /// </summary>
         public int GetEdgesCount()
         {
             return Edges.Count;
         }
 
-        /// <summary>
-        /// Gets node by its id
-        /// </summary>
-        public Node<T> GetNodeById(int vertices)
+        public bool ExistEdgeBetweenNodes(Node<T> node1, Node<T> node2)
         {
-            return Nodes.FirstOrDefault(i => i.Id == vertices);
+            if (_graphSet[node1.Id].Count(x => x.Id == node2.Id) == 0 && _graphSet[node2.Id].Count(x => x.Id == node1.Id) == 0)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
-        /// Returns maximal degree of vertices in a graph
+        /// Gets node by its id
+        /// </summary>
+        public Node<T> GetNodeById(int nodeId)
+        {
+            return Nodes.FirstOrDefault(i => i.Id == nodeId);
+        }
+
+        /// <summary>
+        /// Returns maximal degree of nodes in a graph
         /// </summary>
         public int GetMaximalDegree()
         {
@@ -307,7 +326,7 @@ namespace Domain.GraphClasses
         }
 
         /// <summary>
-        /// Sorting vertices by community id
+        /// Sorting nodes by community id
         /// </summary>
         public IOrderedEnumerable<Node<T>> SortNodesByCommunity()
         {
@@ -372,8 +391,27 @@ namespace Domain.GraphClasses
                 foreach (Node<T> node in communityNodes)
                 {
                     node.Community = community;
+                    node.CommunityId = community.Id;
                 }
+
                 Communities.Add(community);
+            }
+
+            foreach (Node<T> node in Nodes)
+            {
+                List<Node<T>> node1 = Edges.Where(x => x.Node1.Id == node.Id && x.Node1.Community == null).Select(x => x.Node1).ToList();
+                foreach (Node<T> n in node1)
+                {
+                    n.CommunityId = node.CommunityId;
+                    n.Community = node.Community;
+                }
+
+                List<Node<T>> node2 = Edges.Where(x => x.Node2.Id == node.Id && x.Node2.Community == null).Select(x => x.Node2).ToList();
+                foreach (Node<T> n in node2)
+                {
+                    n.CommunityId = node.CommunityId;
+                    n.Community = node.Community;
+                }
             }
         }
     }

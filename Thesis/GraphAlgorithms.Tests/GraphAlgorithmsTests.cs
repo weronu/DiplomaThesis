@@ -4,7 +4,6 @@ using Domain.GraphClasses;
 using Graph.Algorithms;
 using NUnit.Framework;
 using Repository.MSSQL.Interfaces;
-using Repository.MSSQL.Tests.Integration;
 
 namespace GraphAlgorithms.Tests
 {
