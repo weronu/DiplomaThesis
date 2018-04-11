@@ -2,6 +2,7 @@
     Layout = null;
 }
 
+@using Domain.DTOs
 @using Microsoft.Ajax.Utilities
 @model Thesis.Web.Models.GraphViewModel
 <div class="row">
@@ -40,6 +41,48 @@
         </div>
     </div>
 </div>
+@if (@Model.BrokerageDetected)
+{
+    
+    <div class="container-brokerage">
+
+        <label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Coordinator</th>
+                <th>Itinerant</th>
+                <th>Gatepeeker</th>
+                <th>Representative</th>
+                <th>Liaison</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            @{ int a = 1; }
+            @foreach (BrokerageDto broker in @Model.BrokerageDto)
+            {
+
+                <tr>
+                    <th scope="row">@(a++)</th>
+                    <td>@broker.Name</td>
+                    <td>@broker.Coordinator</td>
+                    <td>@broker.Itinerant</td>
+                    <td>@broker.Gatepeeker</td>
+                    <td>@broker.Representative</td>
+                    <td>@broker.Liaison</td>
+                    <td>@broker.TotalBrokerageScore</td>
+                </tr>
+            }
+            </tbody>
+
+        </table>
+    </div>
+}
+
 <div id="dialog" class="dialog" style="display: none"></div>
 
 <script type="text/javascript">
@@ -283,6 +326,7 @@
                         color: {
                             background: '#f5cbee',
                             border: '#dcb7d7',
+                            hover: '#dcb7d7',
                             highlight: {
                                 background: '#dcb7d7',
                                 border: '#BD9DB8'

@@ -504,3 +504,15 @@ h1, h2, h3, h4, h5, h6, p {
     background: $color_nav;
     box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
 }
+
+.container-brokerage {
+    padding-top: 30px;
+}
+
+.top-ten-brokerage-label {
+    color: $color_nav;
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+    padding: 20px;
+}

@@ -402,3 +402,13 @@ h1, h2, h3, h4, h5, h6, p {
   background: #721549;
   box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.4); }
 
+.container-brokerage {
+  padding-top: 30px; }
+
+.top-ten-brokerage-label {
+  color: #721549;
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  padding: 20px; }
+

@@ -15,5 +15,8 @@ namespace Thesis.Web.Models
         public Graph<UserDto> Graph { get; set; }
         public string FromDate { get; set; }
         public string ToDate { get; set; }
+        public bool BrokerageDetected { get; set; }
+
+        public HashSet<BrokerageDto> BrokerageDto { get; set; }
     }
 }

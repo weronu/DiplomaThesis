@@ -238,6 +238,7 @@ namespace Thesis.Services
             }
             catch (Exception e)
             {
+                response.Succeeded = false;
                 throw new Exception(e.Message);
             }
 
@@ -247,13 +248,15 @@ namespace Thesis.Services
         public FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph)
         {
             FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+            if (graph.Communities.Count == 0)
+            {
+                throw new Exception("You have to find communities first!");
+            }
 
             try
             {
-                using (IUnitOfWork uow = CreateUnitOfWork("GLEmailsDatabaseAdo"))
+                foreach (Node<UserDto> nodeB in graph.Nodes)
                 {
-                    int nodeIdByUserName = uow.UserRepo.GetNodeIdByUserName("andrej matejcik");
-                    Node<UserDto> nodeB = graph.GetNodeById(nodeIdByUserName);
                     HashSet<Node<UserDto>> adjacentNodes = graph.GetAdjacentNodes(nodeB);
 
                     nodeB.Brokerage = new Brokerage();
@@ -270,6 +273,7 @@ namespace Thesis.Services
                             {
                                 nodeB.Brokerage.Liaison++;
                             }
+
                             if (nodeA.CommunityId == nodeC.CommunityId && nodeA.CommunityId != nodeB.CommunityId && nodeC.CommunityId != nodeB.CommunityId)
                             {
                                 nodeB.Brokerage.Itinerant++;
@@ -288,12 +292,36 @@ namespace Thesis.Services
                             }
                         }
                     }
-                    response.Item = graph;
-                    return response;
                 }
+                response.Item = graph;
+                response.Succeeded = true;
+                return response;
             }
             catch (Exception e)
             {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
+
+        public FetchListServiceResponse<BrokerageDto> FetchTopTenBrokers(Graph<UserDto> graph, string connectionString)
+        {
+            FetchListServiceResponse<BrokerageDto> response = new FetchListServiceResponse<BrokerageDto>();
+            try
+            {
+                List<BrokerageDto> topTenBrokers;
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    topTenBrokers = uow.GraphRepo.GetTopTenBrokers(graph.Nodes);
+                }
+
+                response.Items = new HashSet<BrokerageDto>(topTenBrokers);
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
                 throw new Exception(e.Message);
             }
         }

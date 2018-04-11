@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Web.Mvc;
 using Domain.DTOs;
 using Domain.Enums;
@@ -136,8 +135,6 @@ namespace Thesis.Web.Controllers
             }
         }
 
-
-
         [HttpPost]
         public ActionResult GetSelectedValue(GraphViewModel model, string teamMemberId)
         {
@@ -228,7 +225,6 @@ namespace Thesis.Web.Controllers
                 model.GraphDto = graphDto;
                 model.FromDate = fromDate.ToString("MM/dd/yyyy");
                 model.ToDate = toDate.ToString("MM/dd/yyyy");
-
             }
             catch (Exception e)
             {
@@ -299,9 +295,9 @@ namespace Thesis.Web.Controllers
                         id = x.Id,
                         label = x.NodeElement.Name,
                         title = $"Node degree: {x.Degree}",
-                        size = 10,
-                        //color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color)
-                        group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group)
+                        size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
+                        group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
+                        shape = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).shape)
                     }).ToList();
                     List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
@@ -359,14 +355,6 @@ namespace Thesis.Web.Controllers
                 }
                 graphViewModel.Graph.SetCommunities(communities);
 
-                int collorsCount = graphViewModel.Graph.Communities.Count;
-                List<string> colors = new List<string>();
-                for (int i = 0; i < collorsCount; i++)
-                {
-                    string color = $"#{StaticRandom.Instance.Next(0x1000000):X6}";
-                    colors.Add(color);
-                }
-
                 graphViewModel.Graph.SetDegrees();
                 List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                 {
@@ -374,7 +362,7 @@ namespace Thesis.Web.Controllers
                     label = x.NodeElement.Name,
                     group = x.CommunityId,
                     title = $"Node degree: {x.Degree}",
-                    size = 10
+                    size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size)
                 }).ToList();
                 List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
@@ -415,10 +403,10 @@ namespace Thesis.Web.Controllers
                     {
                         id = x.Id,
                         label = x.NodeElement.Name,
-                        //color = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).color),
                         group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
                         title = $"Node degree: {x.Degree}",
-                        size = GetNodeSizeBasedOnRole(x)
+                        size = GetNodeSizeBasedOnRole(x),
+                        shape = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).shape)
                     }).ToList();
                     List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() {from = x.Node1.Id, to = x.Node2.Id}).ToList();
 
@@ -468,7 +456,42 @@ namespace Thesis.Web.Controllers
                     }
                 }
 
-                _graphService.DetectBrokerageInGraph(graphViewModel.Graph);
+                FetchItemServiceResponse<Graph<UserDto>> response = _graphService.DetectBrokerageInGraph(graphViewModel.Graph);
+                
+                if (response.Succeeded)
+                {
+                    graphViewModel.Graph = response.Item;
+                    FetchListServiceResponse<BrokerageDto> topTenBrokersResponse = _graphService.FetchTopTenBrokers(graphViewModel.Graph, GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString()));
+
+                    if (topTenBrokersResponse.Succeeded)
+                    {
+                        graphViewModel.BrokerageDto = topTenBrokersResponse.Items;
+                        graphViewModel.BrokerageDetected = true;
+                    }
+
+                    List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
+                    {
+                        id = x.Id,
+                        label = x.NodeElement.Name,
+                        title = $"Node degree: {x.Degree}",
+                        size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
+                        group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group)
+                    }).ToList();
+                    List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
+                    
+                    foreach (NodeDto node in (nodes.Where(x => topTenBrokersResponse.Items.Select(y => y.UserId).Contains(x.id))))
+                    {
+                        node.shape = "diamond";
+                        node.size = 20;
+                    }
+                    
+                    GraphDto graphDto = new GraphDto
+                    {
+                        nodes = nodes,
+                        edges = edges
+                    };
+                    graphViewModel.GraphDto = graphDto;
+                }
             }
             catch (Exception e)
             {
@@ -477,22 +500,5 @@ namespace Thesis.Web.Controllers
 
             return View("GraphView_partial", graphViewModel);
         }
-
-
-    }
-
-    public static class StaticRandom
-    {
-        private static int seed;
-
-        private static readonly ThreadLocal<Random> threadLocal = new ThreadLocal<Random>
-            (() => new Random(Interlocked.Increment(ref seed)));
-
-        static StaticRandom()
-        {
-            seed = Environment.TickCount;
-        }
-
-        public static Random Instance => threadLocal.Value;
     }
 }

@@ -189,6 +189,26 @@ namespace Repository.MSSQL
 
             _context.Database.ExecuteSqlCommand(sql);
         }
+
+        public List<BrokerageDto> GetTopTenBrokers(HashSet<Node<UserDto>> nodes)
+        {
+            List<User> users = _context.Users.ToList();
+
+            List<BrokerageDto> topTenBrokers = (from user in users 
+                join node in nodes on user.Id equals node.Id
+                select new BrokerageDto()
+                {
+                    UserId = user.Id,
+                    Name = user.RawSenderName.ToUpper(),
+                    Coordinator = node.Brokerage.Coordinator,
+                    Gatepeeker = node.Brokerage.Gatepeeker,
+                    Itinerant = node.Brokerage.Itinerant,
+                    Liaison = node.Brokerage.Liaison,
+                    Representative = node.Brokerage.Representative,
+                    TotalBrokerageScore = node.Brokerage.TotalBrokerageScore
+                }).OrderByDescending(x => x.TotalBrokerageScore).Take(10).ToList();
+            return topTenBrokers;
+        }
     }
 
     public class DistinctItemComparer : IEqualityComparer<Edge<UserDto>>

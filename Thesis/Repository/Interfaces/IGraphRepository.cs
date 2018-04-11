@@ -18,5 +18,6 @@ namespace Repository.MSSQL.Interfaces
         void ExtractConversations();
         void ClearDatabaseData();
         HashSet<Edge<UserDto>> ExtractEdgesFromConversation(HashSet<ConversationEmails> conversationEmails);
+        List<BrokerageDto> GetTopTenBrokers(HashSet<Node<UserDto>> nodes);
     }
 }
