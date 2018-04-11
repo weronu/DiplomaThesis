@@ -391,8 +391,27 @@ namespace Domain.GraphClasses
                 foreach (Node<T> node in communityNodes)
                 {
                     node.Community = community;
+                    node.CommunityId = community.Id;
                 }
+
                 Communities.Add(community);
+            }
+
+            foreach (Node<T> node in Nodes)
+            {
+                List<Node<T>> node1 = Edges.Where(x => x.Node1.Id == node.Id && x.Node1.Community == null).Select(x => x.Node1).ToList();
+                foreach (Node<T> n in node1)
+                {
+                    n.CommunityId = node.CommunityId;
+                    n.Community = node.Community;
+                }
+
+                List<Node<T>> node2 = Edges.Where(x => x.Node2.Id == node.Id && x.Node2.Community == null).Select(x => x.Node2).ToList();
+                foreach (Node<T> n in node2)
+                {
+                    n.CommunityId = node.CommunityId;
+                    n.Community = node.Community;
+                }
             }
         }
     }

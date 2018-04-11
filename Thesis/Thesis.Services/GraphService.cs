@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Domain;
 using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
@@ -247,42 +248,54 @@ namespace Thesis.Services
         {
             FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
 
-
             try
             {
                 using (IUnitOfWork uow = CreateUnitOfWork("GLEmailsDatabaseAdo"))
                 {
                     int nodeIdByUserName = uow.UserRepo.GetNodeIdByUserName("andrej matejcik");
-                    HashSet<Node<UserDto>> adjacentNodes = graph.GetAdjacentNodes(graph.GetNodeById(nodeIdByUserName));
+                    Node<UserDto> nodeB = graph.GetNodeById(nodeIdByUserName);
+                    HashSet<Node<UserDto>> adjacentNodes = graph.GetAdjacentNodes(nodeB);
 
-                    for (int i = 0; i < adjacentNodes.Count; i++)
+                    nodeB.Brokerage = new Brokerage();
+                    foreach (Node<UserDto> nodeA in adjacentNodes)
                     {
-                        Node<UserDto> nodeA = adjacentNodes.ElementAt(i);
-                        for (int j = i + 1; j < adjacentNodes.Count; j++)
+                        foreach (Node<UserDto> nodeC in adjacentNodes)
                         {
-                            Node<UserDto> nodeC = adjacentNodes.ElementAt(j);
+                            if (graph.ExistEdgeBetweenNodes(nodeA, nodeC) || nodeA.Id == nodeC.Id)
                             {
-                                if (graph.ExistEdgeBetweenNodes(nodeA, nodeC) || nodeA.Id == nodeC.Id)
-                                {
+                                continue;
+                            }
 
-                                    continue;
-                                }
-                                else
-                                {
-                                    return null;
-                                }
+                            if (nodeA.CommunityId != nodeC.CommunityId && nodeA.CommunityId != nodeB.CommunityId && nodeC.CommunityId != nodeB.CommunityId)
+                            {
+                                nodeB.Brokerage.Liaison++;
+                            }
+                            if (nodeA.CommunityId == nodeC.CommunityId && nodeA.CommunityId != nodeB.CommunityId && nodeC.CommunityId != nodeB.CommunityId)
+                            {
+                                nodeB.Brokerage.Itinerant++;
+                            }
 
+                            if (nodeA.CommunityId == nodeB.CommunityId && nodeA.CommunityId == nodeC.CommunityId && nodeB.CommunityId == nodeC.CommunityId)
+                            {
+                                nodeB.Brokerage.Coordinator++;
+                            }
+
+                            if ((nodeA.CommunityId == nodeB.CommunityId && nodeA.CommunityId != nodeC.CommunityId && nodeB.CommunityId != nodeC.CommunityId)
+                                || (nodeB.CommunityId == nodeC.CommunityId && nodeB.CommunityId != nodeA.CommunityId && nodeC.CommunityId != nodeA.CommunityId))
+                            {
+                                nodeB.Brokerage.Representative++;
+                                nodeB.Brokerage.Gatepeeker++;
                             }
                         }
                     }
+                    response.Item = graph;
+                    return response;
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-
-            return response;
         }
     }
 }
