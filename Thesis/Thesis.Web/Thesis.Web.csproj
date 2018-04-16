@@ -232,6 +232,7 @@
     <Content Include="Content\fontawesome\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome\fontawesome.css" />
     <Content Include="Content\fontawesome\fontawesome.min.css" />
+    <Content Include="Content\graph2d.min.css" />
     <Content Include="Content\inputfile.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />

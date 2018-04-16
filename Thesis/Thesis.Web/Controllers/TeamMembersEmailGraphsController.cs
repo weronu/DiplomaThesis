@@ -59,11 +59,11 @@ namespace Thesis.Web.Controllers
 
                     responseGraph = _graphService.FetchEmailsGraph(GetConnectionStringBasedOnSelectedMember(model.SelectedTeamMemberId.ToString()), from, to);
                 }
-                else
+                else // file is imported
                 {
                     if (model.FromDate == null || model.ToDate == null)
                     {
-                        List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(model.SelectedTeamMemberId.ToString());
+                        List<DateTime> startAndEndDateOfConversations = GetStartAndEndDateOfConversations(model.SelectedTeamMemberId.ToString(), true);
                         model.FromDate = startAndEndDateOfConversations.First().ToString("MM/dd/yyyy");
                         model.ToDate = startAndEndDateOfConversations.Last().ToString("MM/dd/yyyy");
                     }
@@ -102,12 +102,21 @@ namespace Thesis.Web.Controllers
             return View(model);
         }
 
-        private List<DateTime> GetStartAndEndDateOfConversations(string teamMemberId)
+        private List<DateTime> GetStartAndEndDateOfConversations(string teamMemberId, bool isFileImported = false)
         {
             List<DateTime> listOfDates = new List<DateTime>();
             try
             {
-                FetchListServiceResponse<DateTime> startAndEndOfConversation = _graphService.FetchStartAndEndOfConversation(GetConnectionStringBasedOnSelectedMember(teamMemberId));
+                FetchListServiceResponse<DateTime> startAndEndOfConversation;
+                if (isFileImported == false) 
+                {
+                    startAndEndOfConversation = _graphService.FetchStartAndEndOfConversation(GetConnectionStringBasedOnSelectedMember(teamMemberId));
+                }
+                else
+                {
+                    startAndEndOfConversation = _graphService.FetchStartAndEndOfConversation(_importConnectionString);
+                }
+                
                 
                 foreach (DateTime date in startAndEndOfConversation.Items)
                 {
@@ -228,7 +237,7 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                this.AddToastMessage("Error", e.Message, ToastType.Error);
+                return new HttpStatusCodeResult(500, e.Message);
             }
 
             return View("GraphView_partial", model);
@@ -236,7 +245,7 @@ namespace Thesis.Web.Controllers
 
 
         [HttpPost]
-        public ActionResult CreateEgoNetwork(GraphViewModel graphViewModel)
+        public ActionResult CreateEgoNetwork(GraphViewModel graphViewModel, int egoNetworkCenterId)
         {
             try
             {
@@ -252,28 +261,6 @@ namespace Thesis.Web.Controllers
                     }
 
                     HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graphViewModel.Graph);
-
-                    TeamMemberDto selectedTeamMember = graphViewModel.TeamMembers.FirstOrDefault(x => x.Id == graphViewModel.SelectedTeamMemberId);
-                    int egoNetworkCenterId;
-                    if (selectedTeamMember == null && graphViewModel.FileImported)
-                    {
-                        egoNetworkCenterId = graphViewModel.Graph.Nodes.OrderByDescending(i => i.Degree).First().Id;
-                    }
-                    else if (selectedTeamMember != null && graphViewModel.FileImported == false)
-                    {
-                        egoNetworkCenterId = _graphService.FetchNodeIdByUserName(selectedTeamMember.Name, selectedTeamMember.ConnectionString).Item;
-                    }
-                    else
-                    {
-                        throw new Exception("Invalid selected team member.");
-                    }
-
-                    if (egoNetworkCenterId == 0 && selectedTeamMember != null) // default to node with biggest degree
-                    {
-                        
-                        FetchItemServiceResponse<Node<UserDto>> fetchNodeWithBiggestDegree = _graphService.FetchNodeWithBiggestDegree(selectedTeamMember.ConnectionString, graphViewModel.Graph);
-                        egoNetworkCenterId = fetchNodeWithBiggestDegree.Item.Id;
-                    }
 
                     Node<UserDto> egoNetworkCenter = graphViewModel.Graph.GetNodeById(egoNetworkCenterId);
 

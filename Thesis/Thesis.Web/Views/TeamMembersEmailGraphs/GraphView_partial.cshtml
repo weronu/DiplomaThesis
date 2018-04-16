@@ -43,7 +43,7 @@
 </div>
 @if (@Model.BrokerageDetected)
 {
-    
+
     <div class="container-brokerage">
 
         <label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
@@ -80,14 +80,21 @@
             </tbody>
 
         </table>
+        
+        <div id="visualization"></div>
     </div>
-}
+    }
+
+
 
 <div id="dialog" class="dialog" style="display: none"></div>
 
 <script type="text/javascript">
     blockUI();
     $(document).ready(function () {
+
+
+
         $('#daterange').daterangepicker({
             "autoApply": true,
             "startDate": "@Html.Raw(Model.FromDate.FormatInvariant("MM/dd/yyyy"))",
@@ -144,11 +151,24 @@
                 success: function (partialView) {
                     $('#graphView_Partial_Id').html(partialView);
                     unblockUI();
+                },
+                error: function (xhr, data) {
+                    toastr.error(xhr.statusText, "Error", {
+                        "timeOut": "0",
+                        "extendedTimeout": "0"
+                    });
+                    unblockUI();
                 }
             });
         });
 
-        GraphVis();
+        var network = GraphVis();
+
+        var clickedNodeId;
+
+        network.on("click", function (params) {
+            clickedNodeId = this.getNodeAt(params.pointer.DOM)
+        });
 
         var findCommunittiesButton = $("#findCommunitiesButton");
         var createEgoNetworkButon = $("#createEgoNetworkButon");
@@ -164,7 +184,14 @@
 
         createEgoNetworkButon.click(function (e) {
             e.preventDefault();
-            createEgoNetwork();
+            if (clickedNodeId !== undefined) {
+                createEgoNetwork(clickedNodeId);
+            } else {
+                toastr.warning("Please select ego center by click on node.", "Warning", {
+                    "timeOut": "500",
+                    "extendedTimeout": "500"
+                });
+            }
             return false;
         });
 
@@ -183,11 +210,20 @@
         unblockUI();
     });
 
-    function createEgoNetwork() {
+    function createEgoNetwork(egoNetworkCenterId) {
         blockUI();
 
         var data = JSON.stringify({
-            'graphViewModel': @Html.Raw(Json.Encode(@Model))});
+            'graphViewModel': @Html.Raw(Json.Encode(@Model)),
+            'egoNetworkCenterId': egoNetworkCenterId
+        });
+
+        if (egoNetworkCenterId === undefined) {
+            toastr.warning("Please select ego center by click on node.", "Warning", {
+                "timeOut": "0",
+                "extendedTimeout": "0"
+            });
+        }
 
         $.ajax({
             url: "@Url.Action("CreateEgoNetwork", "TeamMembersEmailGraphs")",
@@ -239,16 +275,18 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            success: function (partialView) {
+            success: function(partialView) {
 
-                    $('#graphView_Partial_Id').html(partialView);
-                    unblockUI();
+                $('#graphView_Partial_Id').html(partialView);
+                unblockUI();
             },
             error: function(xhr, data) {
-                toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
-                });
+                toastr.error(xhr.statusText,
+                    "Error",
+                    {
+                        "timeOut": "0",
+                        "extendedTimeout": "0"
+                    });
                 unblockUI();
             }
         });
@@ -263,99 +301,131 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            success: function (partialView) {
+            success: function(partialView) {
                 $('#graphView_Partial_Id').html(partialView);
                 unblockUI();
             },
             error: function(xhr, data) {
-                toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
-                });
+                toastr.error(xhr.statusText,
+                    "Error",
+                    {
+                        "timeOut": "0",
+                        "extendedTimeout": "0"
+                    });
                 unblockUI();
             }
         });
+
+        GraphBrokerage();
         return false;
     }
 
 
     function GraphVis() {
-            var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
-            var edges = @Html.Raw(Json.Encode(Model.GraphDto.edges));
+        var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
+        var edges = @Html.Raw(Json.Encode(Model.GraphDto.edges));
 
-            // create a network
-            var container = document.getElementById('mynetwork');
+        // create a network
+        var container = document.getElementById('mynetwork');
 
-            // provide the data in the vis format
-            var data = {
-                nodes: nodes,
-                edges: edges
-            };
-            var options = {
-                nodes: {
-                    shape: 'dot',
-                    size: 10,
-                    borderWidth: 1,
+        // provide the data in the vis format
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {
+            nodes: {
+                shape: 'dot',
+                size: 10,
+                borderWidth: 1,
+                color: {
+                    background: '#f5cbee',
+                    border: '#dcb7d7'
+                }
+            },
+            interaction: { hover: true },
+            layout: {
+                improvedLayout: false
+            },
+            physics: {
+                forceAtlas2Based: {
+                    gravitationalConstant: -26,
+                    centralGravity: 0.005,
+                    springLength: 230,
+                    springConstant: 0.18
+                },
+                maxVelocity: 146,
+                solver: 'forceAtlas2Based',
+                timestep: 0.35,
+                stabilization: {
+                    enabled: true,
+                    iterations: 2000,
+                    updateInterval: 25
+                }
+            },
+            groups: {
+                0: {
                     color: {
                         background: '#f5cbee',
-                        border: '#dcb7d7'
-                    }
-                },
-                interaction: { hover: true },
-                layout: {
-                    improvedLayout: false
-                },
-                physics: {
-                    forceAtlas2Based: {
-                        gravitationalConstant: -26,
-                        centralGravity: 0.005,
-                        springLength: 230,
-                        springConstant: 0.18
-                    },
-                    maxVelocity: 146,
-                    solver: 'forceAtlas2Based',
-                    timestep: 0.35,
-                    stabilization: {
-                        enabled: true,
-                        iterations: 2000,
-                        updateInterval: 25
-                    }
-                },
-                groups: {
-                    0: {
-                        color: {
-                            background: '#f5cbee',
-                            border: '#dcb7d7',
-                            hover: '#dcb7d7',
-                            highlight: {
-                                background: '#dcb7d7',
-                                border: '#BD9DB8'
-                            }
+                        border: '#dcb7d7',
+                        hover: '#dcb7d7',
+                        highlight: {
+                            background: '#dcb7d7',
+                            border: '#BD9DB8'
                         }
                     }
                 }
-            };
-            // initializing network
-            var network = new vis.Network(container, data, options);
+            }
+        };
+        // initializing network
+        var network = new vis.Network(container, data, options);
 
-            network.on("stabilizationProgress",
-                function(params) {
-                    var maxWidth = 496;
-                    var minWidth = 20;
-                    var widthFactor = params.iterations / params.total;
-                    var width = Math.max(minWidth, maxWidth * widthFactor);
+        network.on("stabilizationProgress",
+            function(params) {
+                var maxWidth = 496;
+                var minWidth = 20;
+                var widthFactor = params.iterations / params.total;
+                var width = Math.max(minWidth, maxWidth * widthFactor);
 
-                    document.getElementById('bar').style.width = width + 'px';
-                    document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
-                });
-            network.once("stabilizationIterationsDone",
-                function() {
-                    document.getElementById('text').innerHTML = '100%';
-                    document.getElementById('bar').style.width = '496px';
-                    document.getElementById('loadingBar').style.opacity = 0;
-                    // really clean the dom element
-                    setTimeout(function() { document.getElementById('loadingBar').style.display = 'none'; }, 500);
-                });
-        }
+                document.getElementById('bar').style.width = width + 'px';
+                document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
+            });
+        network.once("stabilizationIterationsDone",
+            function() {
+                document.getElementById('text').innerHTML = '100%';
+                document.getElementById('bar').style.width = '496px';
+                document.getElementById('loadingBar').style.opacity = 0;
+                // really clean the dom element
+                setTimeout(function() { document.getElementById('loadingBar').style.display = 'none'; }, 500);
+            });
+
+        return network;
+    }
+
+    //function GraphBrokerage() {
+    //    var container = document.getElementById('visualization');
+    //    var items = [
+    //        {x: '2014-06-11', y: 10},
+    //        {x: '2014-06-12', y: 25},
+    //        {x: '2014-06-13', y: 30},
+    //        {x: '2014-06-14', y: 10},
+    //        {x: '2014-06-15', y: 15},
+    //        {x: '2014-06-16', y: 30}
+    //    ];
+
+    //    var dataset = new vis.DataSet(items);
+    //    var options = {
+    //        style:'bar',
+    //        barChart: {width:50, align:'center'}, // align: left, center, right
+    //        drawPoints: false,
+    //        dataAxis: {
+    //            icons:true
+    //        },
+    //        orientation:'top',
+    //        start: '2014-06-10',
+    //        end: '2014-06-18'
+    //    };
+    //    var graph2d = new vis.Graph2d(container, items, options);
+    //}
 </script>
 

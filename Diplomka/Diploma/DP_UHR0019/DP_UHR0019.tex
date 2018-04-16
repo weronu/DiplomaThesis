@@ -9,6 +9,7 @@
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
+\usepackage{cite}
 
 % Zadame pozadovane vstupy pro generovani titulnich stran.
 \ThesisAuthor{Veronika Uhrová}
@@ -326,7 +327,18 @@ Druhá fáza algoritmu spočíva vo vytvorení novej siete, ktorej uzly sú komu
 
 Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizovaná tým, že umožňuje len miestne zmeny komunít a druhá, kde nájdené komunity sú agregované tak, aby bolo možné vytvoriť sieť komunít. Priechody sú opakované iteratívne kým nie je možný žiadny nárast modularity.
 
-\newpage
+\subsection{Ego sieť}
+
+Ego sieť je sieť tvorená uzlami, ktoré sa nazývajú aj \textit{alter} uzlami, ktoré sa formujú okolo určitého uzla, ktorý sa nazýva \textit{ego}. Toto ego sa niekedy zo siete vynecháva za účelom analýzy zmien siete. To záleží od danej analýzy. \cite{21}. Ego je individuálny ústredný uzol. Sieť môže mať toľko ég, koľko má uzlov. Egá môžu byť osoby, skupiny, organizácie alebo celé spoločnosti.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm, height=9cm]{figures/egonet}
+\caption{Príklad ego siete.}
+\end{figure}
+
+\subsubsection{Konštrukcia ego siete}
+
 
 \section{Metódy analýzy sociálnych sietí}
 
@@ -610,6 +622,14 @@ je negácia \textit{bRc}. S touto definíciou, \textit{brokerage} skóre sa vypo
 
 Formalizácia \textit{brokerage} rolí podľa Goula a Fernandeza je definovaná pre siete, v ktorých sú spojenia (hrany) orientované, čiže reprezentujúce vzťahy, pre ktoré môžme rozlíšiť odosielateľa a prijímateľa. Keďže v mojej koncepcii siete, kde jednotlivé uzly sú členovia tímu a hrana medzi nimi je práve vtedy, keď medzi nimi prebehla konverzácia, moja vytvorená sieť je neorientovaná. Zovšeobecnenie na neorientovanú sieť je celkom jasné; s takýmito dátami, každá hrana je považovaná za obojsmernú. Aj keď toto prináša jednu dôležitú zmenu originálnej formalizácie: v prípade neorientovaných vzťahov nemôžeme rozlíšiť rolu \textit{gatepeeker} od roly \textit{representative}, pretože neprítomnosť obojsmerných vzťahov redukuje tieto dve roly do jednej a \textit{brokerage} skóre bude pre tieto dve roly identické. \cite{19}
 
+\subsection{Analýza ega}
+
+- veľkosť
+
+- kompozícia (ake komunity spaja ego, kolko komunit spaja ego, homofilia, homogenita)
+
+- štruktúra - spaja ego inak nespojene uzly (brokerage), má ego spojenia s neredundantnými uzlami, (efektívna sila, efektivita, constraint)
+
 
 \section{Aplikácia}
 Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
@@ -765,6 +785,10 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 
 
 \section{Záver}
+
+\bibliographystyle{alpha}
+\bibliography{mylib}
+
 \subsection{Možnosti rozšírenia a zdokonalenia práce}
 
 
@@ -851,8 +875,23 @@ from the enron email corpus it’s always about the people. Enron is no differen
 		
 	\bibitem{20} Anil Kumar Chaudhary and Laura A. Warner
 		\newline						
-		\textit{Introduction to Social Network Research: Brokerage Typology}	
+		\textit{Introduction to Social Network Research: Brokerage Typology}
+		
+	\bibitem{21} Nick Crossley, Elisa Bellotti
+		\newline						
+		\textit{Introduction to Social Network Research: Brokerage Typology}
+			
+	\bibitem{21} Nick Crossley, Elisa Bellotti, Gemma Edwards, Martin G Everett, Jihan Koskinen, Mark Tranner
+		\newline						
+		\textit{Social network analysis for Ego-Nets}
+		
+	\bibitem[Češ94]{ceska} M. Češka:
+    \emph{Petriho sítě}. Akademické nakladatelství CERM,
+    Brno, 1994. ISBN 80-85867-35-4.
+			
 \end{thebibliography}
+
+
 
 
 \end{document}
