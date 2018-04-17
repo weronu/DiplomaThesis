@@ -19,5 +19,7 @@ namespace Thesis.Web.Models
         public int? SelectedEgoId { get; set; }
 
         public HashSet<BrokerageDto> BrokerageDto { get; set; }
+
+        public List<DataPointDto> DataPoints { get; set; }
     }
 }

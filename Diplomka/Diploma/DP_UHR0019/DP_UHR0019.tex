@@ -9,7 +9,7 @@
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
-\usepackage{cite}
+
 
 % Zadame pozadovane vstupy pro generovani titulnich stran.
 \ThesisAuthor{Veronika Uhrová}
@@ -54,6 +54,7 @@
 
 % Zacatek dokumentu
 \begin{document}
+
 
 % Nechame vysazet titulni strany.
 \MakeTitlePages
@@ -756,6 +757,8 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 
 
 
+Random citation \cite{DUMMY:1} embeddeed in text.
+
 \section{Experimenty}
 
 \subsection{Príprava dát}
@@ -780,14 +783,14 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 
 
 
-	
+
+
 	
 
 
 \section{Záver}
 
-\bibliographystyle{alpha}
-\bibliography{mylib}
+
 
 \subsection{Možnosti rozšírenia a zdokonalenia práce}
 
@@ -795,6 +798,7 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 
 \newpage
 \begin{thebibliography}{99}
+
 	\bibitem{1} Guanting Tang, Jian Pei, and Wo-Shun Luk
 		\newline
 		\textit{Email Mining: Tasks, CommonTechniques, and Tools}
@@ -884,14 +888,13 @@ from the enron email corpus it’s always about the people. Enron is no differen
 	\bibitem{21} Nick Crossley, Elisa Bellotti, Gemma Edwards, Martin G Everett, Jihan Koskinen, Mark Tranner
 		\newline						
 		\textit{Social network analysis for Ego-Nets}
-		
-	\bibitem[Češ94]{ceska} M. Češka:
-    \emph{Petriho sítě}. Akademické nakladatelství CERM,
-    Brno, 1994. ISBN 80-85867-35-4.
-			
+
 \end{thebibliography}
 
 
+\newpage
 
+\bibliography{mybib} 
+\bibliographystyle{ieeetr}
 
 \end{document}

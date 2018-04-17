@@ -9,6 +9,7 @@ using Thesis.Web.DTOs;
 using Thesis.Web.Models;
 using Domain.GraphClasses;
 using Graph.Algorithms;
+using Newtonsoft.Json;
 using Thesis.Services.ResponseTypes;
 
 
@@ -91,7 +92,7 @@ namespace Thesis.Web.Controllers
                     nodes = nodes,
                     edges = edges
                 };
-
+               
                 model.Graph = responseGraph.Item;
                 model.GraphDto = graphDto;
             }
@@ -465,13 +466,22 @@ namespace Thesis.Web.Controllers
                         group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group)
                     }).ToList();
                     List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
-                    
-                    foreach (NodeDto node in (nodes.Where(x => topTenBrokersResponse.Items.Select(y => y.UserId).Contains(x.id))))
+
+                    HashSet<BrokerageDto> topTenBrokers = topTenBrokersResponse.Items;
+                    foreach (NodeDto node in (nodes.Where(x => topTenBrokers.Select(y => y.UserId).Contains(x.id))))
                     {
                         node.shape = "diamond";
                         node.size = 20;
                     }
-                    
+                    List<DataPointDto> datapoints = new List<DataPointDto>();
+                    foreach (BrokerageDto broker in topTenBrokers)
+                    {
+                        DataPointDto dapaPoint = new DataPointDto(broker.Name, broker.TotalBrokerageScore);
+                        datapoints.Add(dapaPoint);
+                    }
+
+                    graphViewModel.DataPoints = datapoints;
+
                     GraphDto graphDto = new GraphDto
                     {
                         nodes = nodes,

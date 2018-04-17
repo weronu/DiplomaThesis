@@ -49,41 +49,42 @@
         <label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
         <table class="table table-hover table-striped">
             <thead>
-            <tr>
-                <th></th>
-                <th>Name</th>
-                <th>Coordinator</th>
-                <th>Itinerant</th>
-                <th>Gatepeeker</th>
-                <th>Representative</th>
-                <th>Liaison</th>
-                <th>Total</th>
-            </tr>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Coordinator</th>
+                    <th>Itinerant</th>
+                    <th>Gatepeeker</th>
+                    <th>Representative</th>
+                    <th>Liaison</th>
+                    <th>Total</th>
+                </tr>
             </thead>
 
             <tbody>
-            @{ int a = 1; }
-            @foreach (BrokerageDto broker in @Model.BrokerageDto)
-            {
+                @{ int a = 1; }
+                @foreach (BrokerageDto broker in @Model.BrokerageDto)
+                {
 
-                <tr>
-                    <th scope="row">@(a++)</th>
-                    <td>@broker.Name</td>
-                    <td>@broker.Coordinator</td>
-                    <td>@broker.Itinerant</td>
-                    <td>@broker.Gatepeeker</td>
-                    <td>@broker.Representative</td>
-                    <td>@broker.Liaison</td>
-                    <td>@broker.TotalBrokerageScore</td>
-                </tr>
-            }
+                    <tr>
+                        <th scope="row">@(a++)</th>
+                        <td>@broker.Name</td>
+                        <td>@broker.Coordinator</td>
+                        <td>@broker.Itinerant</td>
+                        <td>@broker.Gatepeeker</td>
+                        <td>@broker.Representative</td>
+                        <td>@broker.Liaison</td>
+                        <td>@broker.TotalBrokerageScore</td>
+                    </tr>
+                }
             </tbody>
 
         </table>
-        
-        <div id="visualization"></div>
+
+
     </div>
-    }
+    <div id="chartContainer"></div>
+}
 
 
 
@@ -179,7 +180,6 @@
         findCommunittiesButton.click(function (e) {
             e.preventDefault();
             findCommunities();
-            return false;
         });
 
         createEgoNetworkButon.click(function (e) {
@@ -192,20 +192,20 @@
                     "extendedTimeout": "500"
                 });
             }
-            return false;
         });
 
         findRolesButton.click(function (e) {
             e.preventDefault();
             findRoles();
-            return false;
         });
+
 
         findBrokerageButton.click(function (e) {
             e.preventDefault();
             findBrokerage();
-            return false;
+            GraphBrokerage();
         });
+
 
         unblockUI();
     });
@@ -264,7 +264,6 @@
                 unblockUI();
             }
         });
-        return false;
     }
 
     function findRoles() {
@@ -303,6 +302,7 @@
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
             success: function(partialView) {
                 $('#graphView_Partial_Id').html(partialView);
+
                 unblockUI();
             },
             error: function(xhr, data) {
@@ -315,11 +315,34 @@
                 unblockUI();
             }
         });
-
-        GraphBrokerage();
-        return false;
     }
 
+    function GraphBrokerage() {
+        var datapoints =  @Html.Raw(Json.Encode(Model.DataPoints));
+        var datapoints2 =  @Html.Raw(Json.Encode(Model.DataPoints));
+        console.log(datapoints);
+        @*console.log('GraphBrokerage');
+        console.log(@Html.Raw(Model.DataPoints.FirstOrDefault()));*@
+        @*
+        var chart = new CanvasJS.Chart("chartContainer", {
+            theme: "theme2",
+            animationEnabled: true,
+            //title: {
+            //    text: "Simple Column Chart in ASP.NET MVC"
+            //},
+            //subtitles: [
+            //    { text: "Try Resizing the Browser" }
+            //],
+            data: [
+                {
+                    type: "column", //change type to bar, line, area, pie, etc
+                    dataPoints: datapoints
+                }
+            ]
+        });
+        chart.render();*@
+
+    }
 
     function GraphVis() {
         var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
@@ -402,30 +425,8 @@
         return network;
     }
 
-    //function GraphBrokerage() {
-    //    var container = document.getElementById('visualization');
-    //    var items = [
-    //        {x: '2014-06-11', y: 10},
-    //        {x: '2014-06-12', y: 25},
-    //        {x: '2014-06-13', y: 30},
-    //        {x: '2014-06-14', y: 10},
-    //        {x: '2014-06-15', y: 15},
-    //        {x: '2014-06-16', y: 30}
-    //    ];
 
-    //    var dataset = new vis.DataSet(items);
-    //    var options = {
-    //        style:'bar',
-    //        barChart: {width:50, align:'center'}, // align: left, center, right
-    //        drawPoints: false,
-    //        dataAxis: {
-    //            icons:true
-    //        },
-    //        orientation:'top',
-    //        start: '2014-06-10',
-    //        end: '2014-06-18'
-    //    };
-    //    var graph2d = new vis.Graph2d(container, items, options);
-    //}
+
+
 </script>
 
