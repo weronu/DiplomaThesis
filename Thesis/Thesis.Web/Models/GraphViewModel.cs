@@ -20,6 +20,7 @@ namespace Thesis.Web.Models
 
         public HashSet<BrokerageDto> BrokerageDto { get; set; }
 
-        public List<DataPointDto> DataPoints { get; set; }
+        public DataPointDto DataPointDto { get; set; }
+        
     }
 }

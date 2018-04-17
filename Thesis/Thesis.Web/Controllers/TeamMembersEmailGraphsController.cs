@@ -92,7 +92,7 @@ namespace Thesis.Web.Controllers
                     nodes = nodes,
                     edges = edges
                 };
-               
+
                 model.Graph = responseGraph.Item;
                 model.GraphDto = graphDto;
             }
@@ -109,7 +109,7 @@ namespace Thesis.Web.Controllers
             try
             {
                 FetchListServiceResponse<DateTime> startAndEndOfConversation;
-                if (isFileImported == false) 
+                if (isFileImported == false)
                 {
                     startAndEndOfConversation = _graphService.FetchStartAndEndOfConversation(GetConnectionStringBasedOnSelectedMember(teamMemberId));
                 }
@@ -117,8 +117,8 @@ namespace Thesis.Web.Controllers
                 {
                     startAndEndOfConversation = _graphService.FetchStartAndEndOfConversation(_importConnectionString);
                 }
-                
-                
+
+
                 foreach (DateTime date in startAndEndOfConversation.Items)
                 {
                     listOfDates.Add(date);
@@ -303,7 +303,7 @@ namespace Thesis.Web.Controllers
                     graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
                     graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 45;
                 }
-                
+
             }
             catch (Exception e)
             {
@@ -329,7 +329,7 @@ namespace Thesis.Web.Controllers
                 {
                     graphViewModel.Graph.Communities = new HashSet<Community<UserDto>>();
                 }
-                
+
                 Dictionary<int, int> partition = LouvainCommunity.BestPartition(graphViewModel.Graph);
                 Dictionary<int, List<int>> communities = new Dictionary<int, List<int>>();
                 foreach (KeyValuePair<int, int> kvp in partition)
@@ -396,7 +396,7 @@ namespace Thesis.Web.Controllers
                         size = GetNodeSizeBasedOnRole(x),
                         shape = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).shape)
                     }).ToList();
-                    List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() {from = x.Node1.Id, to = x.Node2.Id}).ToList();
+                    List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
                     GraphDto graphDto = new GraphDto
                     {
@@ -409,7 +409,7 @@ namespace Thesis.Web.Controllers
             }
             catch (Exception e)
             {
-                return new HttpStatusCodeResult(500, e.Message); 
+                return new HttpStatusCodeResult(500, e.Message);
             }
             return View("GraphView_partial", graphViewModel);
         }
@@ -445,7 +445,7 @@ namespace Thesis.Web.Controllers
                 }
 
                 FetchItemServiceResponse<Graph<UserDto>> response = _graphService.DetectBrokerageInGraph(graphViewModel.Graph);
-                
+
                 if (response.Succeeded)
                 {
                     graphViewModel.Graph = response.Item;
@@ -473,14 +473,6 @@ namespace Thesis.Web.Controllers
                         node.shape = "diamond";
                         node.size = 20;
                     }
-                    List<DataPointDto> datapoints = new List<DataPointDto>();
-                    foreach (BrokerageDto broker in topTenBrokers)
-                    {
-                        DataPointDto dapaPoint = new DataPointDto(broker.Name, broker.TotalBrokerageScore);
-                        datapoints.Add(dapaPoint);
-                    }
-
-                    graphViewModel.DataPoints = datapoints;
 
                     GraphDto graphDto = new GraphDto
                     {
@@ -496,6 +488,47 @@ namespace Thesis.Web.Controllers
             }
 
             return View("GraphView_partial", graphViewModel);
+        }
+
+        [HttpPost]
+        public ActionResult DrawBrokerageGraph(GraphViewModel graphViewModel)
+        {
+            try
+            {
+                FetchListServiceResponse<BrokerageDto> topTenBrokersResponse = _graphService.FetchTopTenBrokers(graphViewModel.Graph, GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString()));
+
+                if (topTenBrokersResponse.Succeeded)
+                {
+                    graphViewModel.BrokerageDto = topTenBrokersResponse.Items;
+                    graphViewModel.BrokerageDetected = true;
+                }
+                HashSet<BrokerageDto> topTenBrokers = topTenBrokersResponse.Items;
+
+                graphViewModel.DataPointDto = new DataPointDto
+                {
+                    DataPointsCoordinator = new List<DataPoint>(),
+                    DataPointsGatepeeker = new List<DataPoint>(),
+                    DataPointsItinerant = new List<DataPoint>(),
+                    DataPointsLiaison = new List<DataPoint>(),
+                    DataPointsRepresentative = new List<DataPoint>(),
+                    DataPointsTotal = new List<DataPoint>()
+                };
+
+                foreach (BrokerageDto broker in topTenBrokers)
+                {
+                    graphViewModel.DataPointDto.DataPointsCoordinator.Add(new DataPoint(broker.Name, broker.Coordinator));
+                    graphViewModel.DataPointDto.DataPointsGatepeeker.Add(new DataPoint(broker.Name, broker.Gatepeeker));
+                    graphViewModel.DataPointDto.DataPointsItinerant.Add(new DataPoint(broker.Name, broker.Itinerant));
+                    graphViewModel.DataPointDto.DataPointsLiaison.Add(new DataPoint(broker.Name, broker.Liaison));
+                    graphViewModel.DataPointDto.DataPointsRepresentative.Add(new DataPoint(broker.Name, broker.Representative));
+                    graphViewModel.DataPointDto.DataPointsTotal.Add(new DataPoint(broker.Name, broker.TotalBrokerageScore));
+                }
+            }
+            catch (Exception e)
+            {
+                return new HttpStatusCodeResult(500, e.Message);
+            }
+            return View("Graph2d_partial", graphViewModel);
         }
     }
 }

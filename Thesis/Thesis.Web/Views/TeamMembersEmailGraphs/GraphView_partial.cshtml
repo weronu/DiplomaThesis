@@ -44,57 +44,58 @@
 @if (@Model.BrokerageDetected)
 {
 
-    <div class="container-brokerage">
+    <label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
 
-        <label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
-        <table class="table table-hover table-striped">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Coordinator</th>
-                    <th>Itinerant</th>
-                    <th>Gatepeeker</th>
-                    <th>Representative</th>
-                    <th>Liaison</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @{ int a = 1; }
-                @foreach (BrokerageDto broker in @Model.BrokerageDto)
-                {
-
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-brokerage">
+                <table class="table table-hover table-striped">
+                    <thead>
                     <tr>
-                        <th scope="row">@(a++)</th>
-                        <td>@broker.Name</td>
-                        <td>@broker.Coordinator</td>
-                        <td>@broker.Itinerant</td>
-                        <td>@broker.Gatepeeker</td>
-                        <td>@broker.Representative</td>
-                        <td>@broker.Liaison</td>
-                        <td>@broker.TotalBrokerageScore</td>
+                        <th></th>
+                        <th>Name</th>
+                        <th>Coordinator</th>
+                        <th>Itinerant</th>
+                        <th>Gatepeeker</th>
+                        <th>Representative</th>
+                        <th>Liaison</th>
+                        <th>Total</th>
                     </tr>
-                }
-            </tbody>
+                    </thead>
 
-        </table>
+                    <tbody>
+                    @{ int a = 1; }
+                    @foreach (BrokerageDto broker in @Model.BrokerageDto)
+                    {
 
-
+                        <tr>
+                            <th scope="row">@(a++)</th>
+                            <td>@broker.Name</td>
+                            <td>@broker.Coordinator</td>
+                            <td>@broker.Itinerant</td>
+                            <td>@broker.Gatepeeker</td>
+                            <td>@broker.Representative</td>
+                            <td>@broker.Liaison</td>
+                            <td>@broker.TotalBrokerageScore</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    <div id="chartContainer"></div>
-}
 
-
-
-<div id="dialog" class="dialog" style="display: none"></div>
-
-<script type="text/javascript">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-canvas">
+                <div id="graph2d_Partial_Id"></div>
+            </div>
+        </div>
+    </div>
+                        }
+    <script type="text/javascript">
     blockUI();
     $(document).ready(function () {
-
-
 
         $('#daterange').daterangepicker({
             "autoApply": true,
@@ -176,10 +177,11 @@
         var findRolesButton = $("#findRolesButton");
         var findBrokerageButton = $("#findBrokerageButton");
 
-        //Attach event handler to submit button
+
         findCommunittiesButton.click(function (e) {
             e.preventDefault();
             findCommunities();
+            return false;
         });
 
         createEgoNetworkButon.click(function (e) {
@@ -197,15 +199,15 @@
         findRolesButton.click(function (e) {
             e.preventDefault();
             findRoles();
+            return false;
         });
 
 
         findBrokerageButton.click(function (e) {
             e.preventDefault();
             findBrokerage();
-            GraphBrokerage();
+            return false;
         });
-
 
         unblockUI();
     });
@@ -302,7 +304,7 @@
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
             success: function(partialView) {
                 $('#graphView_Partial_Id').html(partialView);
-
+                drawBrokerage();
                 unblockUI();
             },
             error: function(xhr, data) {
@@ -317,31 +319,29 @@
         });
     }
 
-    function GraphBrokerage() {
-        var datapoints =  @Html.Raw(Json.Encode(Model.DataPoints));
-        var datapoints2 =  @Html.Raw(Json.Encode(Model.DataPoints));
-        console.log(datapoints);
-        @*console.log('GraphBrokerage');
-        console.log(@Html.Raw(Model.DataPoints.FirstOrDefault()));*@
-        @*
-        var chart = new CanvasJS.Chart("chartContainer", {
-            theme: "theme2",
-            animationEnabled: true,
-            //title: {
-            //    text: "Simple Column Chart in ASP.NET MVC"
-            //},
-            //subtitles: [
-            //    { text: "Try Resizing the Browser" }
-            //],
-            data: [
-                {
-                    type: "column", //change type to bar, line, area, pie, etc
-                    dataPoints: datapoints
-                }
-            ]
-        });
-        chart.render();*@
+    function drawBrokerage() {
 
+        blockUI();
+        $.ajax({
+            url: "@Url.Action("DrawBrokerageGraph", "TeamMembersEmailGraphs")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            success: function(partialView) {
+                $('#graph2d_Partial_Id').html(partialView);
+
+                unblockUI();
+            },
+            error: function(xhr) {
+                toastr.error(xhr.statusText,
+                    "Error",
+                    {
+                        "timeOut": "0",
+                        "extendedTimeout": "0"
+                    });
+                unblockUI();
+            }
+        });
     }
 
     function GraphVis() {
@@ -428,5 +428,5 @@
 
 
 
-</script>
+    </script>
 

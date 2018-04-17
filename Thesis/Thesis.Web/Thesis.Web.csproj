@@ -183,6 +183,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportXMLFileController.cs" />
     <Compile Include="Controllers\TeamMembersEmailGraphsController.cs" />
+    <Compile Include="DTOs\DataPoint.cs" />
     <Compile Include="DTOs\DataPointDto.cs" />
     <Compile Include="DTOs\EdgeDto.cs" />
     <Compile Include="DTOs\GraphDto.cs" />
@@ -362,6 +363,7 @@
     <Content Include="Views\ImportXMLFile\Index.cshtml" />
     <Content Include="Views\EmailDownload\Index.cshtml" />
     <Content Include="Views\Shared\_Toastr.cshtml" />
+    <Content Include="Views\TeamMembersEmailGraphs\Graph2d_partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

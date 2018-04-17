@@ -22,27 +22,4 @@ function unblockUI() {
     $.unblockUI();
 }
 
-function OnError(xhr, errorType, exception) {
-    var responseText;
-    $("#dialog").html("");
-    try {
-        responseText = jQuery.parseJSON(xhr.responseText);
-        $("#dialog").append("<div><b>" + errorType + " " + exception + "</b></div>");
-        $("#dialog").append("<div><u>Exception</u>:<br /><br />" + responseText.ExceptionType + "</div>");
-        $("#dialog").append("<div><u>StackTrace</u>:<br /><br />" + responseText.StackTrace + "</div>");
-        $("#dialog").append("<div><u>Message</u>:<br /><br />" + responseText.Message + "</div>");
-    } catch (e) {
-        responseText = xhr.responseText;
-        $("#dialog").html(responseText);
-    }
-    $("#dialog").dialog({
-        title: "jQuery Exception Details",
-        width: 700,
-        buttons: {
-            Close: function () {
-                $(this).dialog('close');
-            }
-        }
-    });
-}
 

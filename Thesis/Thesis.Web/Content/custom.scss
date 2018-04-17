@@ -6,7 +6,7 @@ body {
     font-weight: 400;
     color: $color_text;
     padding: 0;
-    height: 2000px;
+    height: 3000px;
 }
 
 .container-tiles {
@@ -104,6 +104,11 @@ body {
     }
 }
 
+.container-canvas {
+    .canvas{
+    position: relative;
+    }
+}
 
 .container-contacts {
     padding-left: 20%;

@@ -6,7 +6,7 @@ body {
   font-weight: 400;
   color: #484848;
   padding: 0;
-  height: 2000px; }
+  height: 3000px; }
 
 .container-tiles {
   position: fixed;
@@ -80,6 +80,9 @@ body {
     background: #e3e3e3; }
     .container-download .btn:hover {
       background: #cacaca; }
+
+.container-canvas .canvas {
+  position: relative; }
 
 .container-contacts {
   padding-left: 20%;

@@ -1,20 +1,14 @@
-﻿using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 
 namespace Thesis.Web.DTOs
 {
     public class DataPointDto
     {
-        public DataPointDto(string x, double y)
-        {
-            X = x;
-            Y = y;
-        }
-
-        [DataMember(Name = "x")]
-        public string X;
-
-        [DataMember(Name = "y")]
-        public double Y;
-
+        public List<DataPoint> DataPointsCoordinator { get; set; }
+        public List<DataPoint> DataPointsItinerant { get; set; }
+        public List<DataPoint> DataPointsGatepeeker { get; set; }
+        public List<DataPoint> DataPointsLiaison { get; set; }
+        public List<DataPoint> DataPointsRepresentative { get; set; }
+        public List<DataPoint> DataPointsTotal { get; set; }
     }
 }
