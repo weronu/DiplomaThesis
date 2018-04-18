@@ -264,26 +264,6 @@ namespace Thesis.Web.Controllers
                     FetchItemServiceResponse<Graph<UserDto>> graphResponse = _graphService.CreateEgoNetwork(graphViewModel.Graph, egoNetworkCenterId);
                     if (graphResponse.Succeeded)
                     {
-
-
-                        //HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graphViewModel.Graph);
-
-                        //Node<UserDto> egoNetworkCenter = graphViewModel.Graph.GetNodeById(egoNetworkCenterId);
-
-                        //HashSet<Node<UserDto>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
-
-                        //foreach (Node<UserDto> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
-                        //{
-                        //    Edge<UserDto> newEdge = new Edge<UserDto>()
-                        //    {
-                        //        Node1 = egoNetworkCenter,
-                        //        Node2 = node
-                        //    };
-                        //    graphViewModel.Graph.AddEdge(newEdge);
-                        //}
-
-                        //graphViewModel.Graph.SetDegrees();
-
                         graphViewModel.Graph = graphResponse.Item;
 
                         List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
@@ -291,7 +271,7 @@ namespace Thesis.Web.Controllers
                             id = x.Id,
                             label = x.NodeElement.Name,
                             title = $"Node degree: {x.Degree}",
-                            size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
+                            size = GetNodeSizeBasedOnRole(x),
                             group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
                             shape = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).shape)
                         }).ToList();
@@ -303,6 +283,11 @@ namespace Thesis.Web.Controllers
                             nodes = nodes,
                             edges = edges
                         };
+
+                        graphDto.nodes.First(x => x.id == egoNetworkCenterId).title = $"Node degree: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).Degree}"
+                                                                                               + ", " + $"E-I Index: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).EIIndex}"
+                                                                                               + ", " + $"Effective size: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).EffectiveSize}";
+                        graphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 25;
 
                         graphViewModel.TeamMembers = TeamMembers;
                         graphViewModel.SelectedTeamMemberId = graphViewModel.SelectedTeamMemberId;

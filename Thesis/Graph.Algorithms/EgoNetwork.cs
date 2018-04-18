@@ -82,5 +82,82 @@ namespace Graph.Algorithms
                 throw new Exception(e.Message);
             }
         }
+
+        public double GetEIIndex(Graph<UserDto> graph, Node<UserDto> egoNetworkCenter)
+        {
+            double index = 0;
+            try
+            {
+                if (graph.Nodes.First().Community == null)
+                {
+                    return 0;
+                }
+
+                HashSet<Node<UserDto>> alters = graph.GetAdjacentNodes(egoNetworkCenter);
+
+                int e = 0;
+                int i = 0;
+
+                foreach (Node<UserDto> alter in alters)
+                {
+                    if (egoNetworkCenter.CommunityId == alter.CommunityId)
+                    {
+                        i++;
+                    }
+                    else if(egoNetworkCenter.CommunityId != alter.CommunityId)
+                    {
+                        e++;
+                    }
+                }
+
+                index = (double) (e - i) / (e + i);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return index;
+        }
+
+        public double GetEffectiveSizeOfEgo(Graph<UserDto> graph, Node<UserDto> egoNetworkCenter)
+        {
+            double effectiveSize = 0;
+            try
+            {
+                HashSet<Node<UserDto>> alters = graph.GetAdjacentNodes(egoNetworkCenter);
+
+                int numberOfAlters = alters.Count;
+                int numberOfTies = 0;
+
+                HashSet<Edge<UserDto>> adjacentEdgesOfEgo = graph.GetAdjacentEdges(egoNetworkCenter);
+
+                List<Edge<UserDto>> tiesInEgoNetwork = new List<Edge<UserDto>>();
+                foreach (Node<UserDto> alter in alters)
+                {
+                    HashSet<Edge<UserDto>> adjacentEdgesOfAlter = graph.GetAdjacentEdges(alter);
+                    List<Edge<UserDto>> list = adjacentEdgesOfAlter.Where(x => alters.Any(i => i.Id == x.Node1.Id) && alters.Any(i => i.Id == x.Node2.Id)).ToList();
+
+                    foreach (Edge<UserDto> edge in adjacentEdgesOfEgo)
+                    {
+                        list.Remove(edge);
+                    }
+                    tiesInEgoNetwork.AddRange(list);
+                }
+
+                tiesInEgoNetwork = tiesInEgoNetwork.Distinct().ToList();
+
+                numberOfTies = tiesInEgoNetwork.Count;
+                int pom = (2 * numberOfTies);
+
+                effectiveSize = numberOfAlters - (double)((double)(pom / (double)numberOfAlters));
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+
+            return Math.Round(effectiveSize);
+        }
     }
 }

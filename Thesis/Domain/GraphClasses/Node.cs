@@ -21,5 +21,8 @@ namespace Domain.GraphClasses
         public Community<T> Community { get; set; }
 
         public Brokerage Brokerage { get; set; }
+
+        public double EIIndex { get; set; }
+        public double EffectiveSize { get; set; }
     }
 }

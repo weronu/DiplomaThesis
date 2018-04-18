@@ -256,7 +256,10 @@ namespace Thesis.Services
                 HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graph);
                 
                 Node<UserDto> egoNetworkCenter = graph.GetNodeById(egoNetworkCenterId);
-
+                if (egoNetworkCenter == null)
+                {
+                    throw new Exception("Ego center node was not found.");
+                }
                 HashSet<Node<UserDto>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
 
                 foreach (Node<UserDto> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
@@ -270,6 +273,14 @@ namespace Thesis.Services
                 }
 
                 graph.SetDegrees();
+
+                double eiIndex = egoNetwork.GetEIIndex(graph, egoNetworkCenter);
+                double effectiveSizeOfEgo = egoNetwork.GetEffectiveSizeOfEgo(graph, egoNetworkCenter);
+
+
+                graph.Nodes.First(x => x.Id == egoNetworkCenter.Id).EIIndex = eiIndex;
+                graph.Nodes.First(x => x.Id == egoNetworkCenterId).EffectiveSize = effectiveSizeOfEgo;
+
 
                 response.Succeeded = true;
                 response.Item = graph;
