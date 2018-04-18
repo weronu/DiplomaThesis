@@ -59,33 +59,37 @@
 \contentsline {subsubsection}{\numberline {6.3.3}Coordinator}{33}{subsubsection.6.3.3}
 \contentsline {subsubsection}{\numberline {6.3.4}Gatepeeker}{33}{subsubsection.6.3.4}
 \contentsline {subsubsection}{\numberline {6.3.5}Representative}{34}{subsubsection.6.3.5}
-\contentsline {subsection}{\numberline {6.4}Identifik\IeC {\'a}cia brokerage rol\IeC {\'\i }}{34}{subsection.6.4}
-\contentsline {subsection}{\numberline {6.5}Anal\IeC {\'y}za ega}{34}{subsection.6.5}
-\contentsline {section}{\numberline {7}Aplik\IeC {\'a}cia}{36}{section.7}
-\contentsline {subsection}{\numberline {7.1}\IeC {\v S}pecifik\IeC {\'a}cia}{36}{subsection.7.1}
-\contentsline {subsubsection}{\numberline {7.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{36}{subsubsection.7.1.1}
-\contentsline {subsection}{\numberline {7.2}N\IeC {\'a}vrh}{37}{subsection.7.2}
-\contentsline {subsubsection}{\numberline {7.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{38}{subsubsection.7.2.1}
-\contentsline {subsection}{\numberline {7.3}D\IeC {\^o}le\IeC {\v z}it\IeC {\'e} rozhodnutia}{40}{subsection.7.3}
-\contentsline {subsubsection}{\numberline {7.3.1}Dostupnos\IeC {\v t} d\IeC {\'a}t}{40}{subsubsection.7.3.1}
-\contentsline {subsubsection}{\numberline {7.3.2}Webov\IeC {\'a} vs. desktopov\IeC {\'a} aplik\IeC {\'a}cia}{40}{subsubsection.7.3.2}
-\contentsline {subsection}{\numberline {7.4}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{40}{subsection.7.4}
-\contentsline {subsection}{\numberline {7.5}Import d\IeC {\'a}t}{42}{subsection.7.5}
-\contentsline {subsection}{\numberline {7.6}Implement\IeC {\'a}cia}{42}{subsection.7.6}
-\contentsline {subsubsection}{\numberline {7.6.1}Kon\IeC {\v s}trukcia siete}{42}{subsubsection.7.6.1}
-\contentsline {subsubsection}{\numberline {7.6.2}Triedy pre graf, vrcholy a hrany}{43}{subsubsection.7.6.2}
-\contentsline {section}{\numberline {8}Experimenty}{44}{section.8}
-\contentsline {subsection}{\numberline {8.1}Pr\IeC {\'\i }prava d\IeC {\'a}t}{44}{subsection.8.1}
-\contentsline {subsection}{\numberline {8.2}Import d\IeC {\'a}t}{44}{subsection.8.2}
-\contentsline {subsection}{\numberline {8.3}Vizualiz\IeC {\'a}cia}{44}{subsection.8.3}
-\contentsline {subsection}{\numberline {8.4}Detekcia komun\IeC {\'\i }t}{44}{subsection.8.4}
-\contentsline {subsubsection}{\numberline {8.4.1}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{44}{subsubsection.8.4.1}
-\contentsline {subsection}{\numberline {8.5}Ego sie\IeC {\v t}}{44}{subsection.8.5}
-\contentsline {subsubsection}{\numberline {8.5.1}Zmeny siete v z\IeC {\'a}vislosti nad vo\IeC {\v l}bou ega}{44}{subsubsection.8.5.1}
-\contentsline {subsection}{\numberline {8.6}Anal\IeC {\'y}za rol\IeC {\'\i }}{44}{subsection.8.6}
-\contentsline {subsubsection}{\numberline {8.6.1}SSRM}{44}{subsubsection.8.6.1}
-\contentsline {subsubsection}{\numberline {8.6.2}Brokerage}{44}{subsubsection.8.6.2}
-\contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{44}{section.9}
-\contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{44}{subsection.9.1}
-\contentsline {section}{Literatura}{45}{subsection.9.1}
+\contentsline {subsubsection}{\numberline {6.3.6}Identifik\IeC {\'a}cia brokerage rol\IeC {\'\i }}{34}{subsubsection.6.3.6}
+\contentsline {subsection}{\numberline {6.4}Anal\IeC {\'y}za ega}{34}{subsection.6.4}
+\contentsline {subsubsection}{\numberline {6.4.1}Ve\IeC {\v l}kos\IeC {\v t} ego siete}{35}{subsubsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.2}Kompoz\IeC {\'\i }cia ego siete}{35}{subsubsection.6.4.2}
+\contentsline {subsubsection}{\numberline {6.4.3}\IeC {\v S}trukt\IeC {\'u}ra ego siete}{36}{subsubsection.6.4.3}
+\contentsline {paragraph}{\numberline {6.4.3.1}Efekt\IeC {\'\i }vna sila}{36}{paragraph.6.4.3.1}
+\contentsline {section}{\numberline {7}Aplik\IeC {\'a}cia}{38}{section.7}
+\contentsline {subsection}{\numberline {7.1}\IeC {\v S}pecifik\IeC {\'a}cia}{38}{subsection.7.1}
+\contentsline {subsubsection}{\numberline {7.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{38}{subsubsection.7.1.1}
+\contentsline {subsection}{\numberline {7.2}N\IeC {\'a}vrh}{39}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{40}{subsubsection.7.2.1}
+\contentsline {subsection}{\numberline {7.3}D\IeC {\^o}le\IeC {\v z}it\IeC {\'e} rozhodnutia}{42}{subsection.7.3}
+\contentsline {subsubsection}{\numberline {7.3.1}Dostupnos\IeC {\v t} d\IeC {\'a}t}{42}{subsubsection.7.3.1}
+\contentsline {subsubsection}{\numberline {7.3.2}Webov\IeC {\'a} vs. desktopov\IeC {\'a} aplik\IeC {\'a}cia}{42}{subsubsection.7.3.2}
+\contentsline {subsection}{\numberline {7.4}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{42}{subsection.7.4}
+\contentsline {subsection}{\numberline {7.5}Import d\IeC {\'a}t}{44}{subsection.7.5}
+\contentsline {subsection}{\numberline {7.6}Implement\IeC {\'a}cia}{44}{subsection.7.6}
+\contentsline {subsubsection}{\numberline {7.6.1}Kon\IeC {\v s}trukcia siete}{44}{subsubsection.7.6.1}
+\contentsline {subsubsection}{\numberline {7.6.2}Triedy pre graf, vrcholy a hrany}{45}{subsubsection.7.6.2}
+\contentsline {section}{\numberline {8}Experimenty}{46}{section.8}
+\contentsline {subsection}{\numberline {8.1}Pr\IeC {\'\i }prava d\IeC {\'a}t}{46}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.2}Import d\IeC {\'a}t}{46}{subsection.8.2}
+\contentsline {subsection}{\numberline {8.3}Vizualiz\IeC {\'a}cia}{46}{subsection.8.3}
+\contentsline {subsection}{\numberline {8.4}Detekcia komun\IeC {\'\i }t}{46}{subsection.8.4}
+\contentsline {subsubsection}{\numberline {8.4.1}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{46}{subsubsection.8.4.1}
+\contentsline {subsection}{\numberline {8.5}Ego sie\IeC {\v t}}{46}{subsection.8.5}
+\contentsline {subsubsection}{\numberline {8.5.1}Zmeny siete v z\IeC {\'a}vislosti nad vo\IeC {\v l}bou ega}{46}{subsubsection.8.5.1}
+\contentsline {subsection}{\numberline {8.6}Anal\IeC {\'y}za rol\IeC {\'\i }}{46}{subsection.8.6}
+\contentsline {subsubsection}{\numberline {8.6.1}SSRM}{46}{subsubsection.8.6.1}
+\contentsline {subsubsection}{\numberline {8.6.2}Brokerage}{46}{subsubsection.8.6.2}
+\contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{46}{section.9}
+\contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{46}{subsection.9.1}
 \contentsline {section}{Literatura}{47}{subsection.9.1}
+\contentsline {section}{Literatura}{49}{subsection.9.1}

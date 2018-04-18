@@ -245,6 +245,43 @@ namespace Thesis.Services
             return response;
         }
 
+        public FetchItemServiceResponse<Graph<UserDto>> CreateEgoNetwork(Graph<UserDto> graph, int egoNetworkCenterId)
+        {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+
+            try
+            {
+                EgoNetwork egoNetwork = new EgoNetwork();
+
+                HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graph);
+                
+                Node<UserDto> egoNetworkCenter = graph.GetNodeById(egoNetworkCenterId);
+
+                HashSet<Node<UserDto>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
+
+                foreach (Node<UserDto> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
+                {
+                    Edge<UserDto> newEdge = new Edge<UserDto>()
+                    {
+                        Node1 = egoNetworkCenter,
+                        Node2 = node
+                    };
+                    graph.AddEdge(newEdge);
+                }
+
+                graph.SetDegrees();
+
+                response.Succeeded = true;
+                response.Item = graph;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+            return response;
+        }
+
         public FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph)
         {
             FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();

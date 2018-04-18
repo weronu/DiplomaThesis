@@ -261,49 +261,58 @@ namespace Thesis.Web.Controllers
                         }
                     }
 
-                    HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graphViewModel.Graph);
-
-                    Node<UserDto> egoNetworkCenter = graphViewModel.Graph.GetNodeById(egoNetworkCenterId);
-
-                    HashSet<Node<UserDto>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
-
-                    foreach (Node<UserDto> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
+                    FetchItemServiceResponse<Graph<UserDto>> graphResponse = _graphService.CreateEgoNetwork(graphViewModel.Graph, egoNetworkCenterId);
+                    if (graphResponse.Succeeded)
                     {
-                        Edge<UserDto> newEdge = new Edge<UserDto>()
+
+
+                        //HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graphViewModel.Graph);
+
+                        //Node<UserDto> egoNetworkCenter = graphViewModel.Graph.GetNodeById(egoNetworkCenterId);
+
+                        //HashSet<Node<UserDto>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
+
+                        //foreach (Node<UserDto> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
+                        //{
+                        //    Edge<UserDto> newEdge = new Edge<UserDto>()
+                        //    {
+                        //        Node1 = egoNetworkCenter,
+                        //        Node2 = node
+                        //    };
+                        //    graphViewModel.Graph.AddEdge(newEdge);
+                        //}
+
+                        //graphViewModel.Graph.SetDegrees();
+
+                        graphViewModel.Graph = graphResponse.Item;
+
+                        List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                         {
-                            Node1 = egoNetworkCenter,
-                            Node2 = node
+                            id = x.Id,
+                            label = x.NodeElement.Name,
+                            title = $"Node degree: {x.Degree}",
+                            size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
+                            group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
+                            shape = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).shape)
+                        }).ToList();
+
+                        List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() {from = x.Node1.Id, to = x.Node2.Id}).ToList();
+
+                        GraphDto graphDto = new GraphDto
+                        {
+                            nodes = nodes,
+                            edges = edges
                         };
-                        graphViewModel.Graph.AddEdge(newEdge);
+
+                        graphViewModel.TeamMembers = TeamMembers;
+                        graphViewModel.SelectedTeamMemberId = graphViewModel.SelectedTeamMemberId;
+                        graphViewModel.Graph = graphViewModel.Graph;
+                        graphViewModel.GraphDto = graphDto;
+
+                        graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
+                        graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 45;
                     }
-
-                    graphViewModel.Graph.SetDegrees();
-                    List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
-                    {
-                        id = x.Id,
-                        label = x.NodeElement.Name,
-                        title = $"Node degree: {x.Degree}",
-                        size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
-                        group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
-                        shape = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).shape)
-                    }).ToList();
-                    List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
-
-                    GraphDto graphDto = new GraphDto
-                    {
-                        nodes = nodes,
-                        edges = edges
-                    };
-
-                    graphViewModel.TeamMembers = TeamMembers;
-                    graphViewModel.SelectedTeamMemberId = graphViewModel.SelectedTeamMemberId;
-                    graphViewModel.Graph = graphViewModel.Graph;
-                    graphViewModel.GraphDto = graphDto;
-
-                    graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
-                    graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 45;
                 }
-
             }
             catch (Exception e)
             {

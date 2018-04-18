@@ -19,10 +19,13 @@
 \contentsline {figure}{\numberline {13}{\ignorespaces Coordinator brokerage\relax }}{33}{figure.caption.22}
 \contentsline {figure}{\numberline {14}{\ignorespaces Gatekeeper brokerage\relax }}{33}{figure.caption.23}
 \contentsline {figure}{\numberline {15}{\ignorespaces Representative brokerage\relax }}{34}{figure.caption.24}
-\contentsline {figure}{\numberline {16}{\ignorespaces UseCase Diagram\relax }}{37}{figure.caption.25}
-\contentsline {figure}{\numberline {17}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{38}{figure.caption.26}
-\contentsline {figure}{\numberline {18}{\ignorespaces Triedny diagram - Repository pattern\relax }}{39}{figure.caption.27}
-\contentsline {figure}{\numberline {19}{\ignorespaces Model-View-Controller\relax }}{40}{figure.caption.28}
-\contentsline {figure}{\numberline {20}{\ignorespaces Jednoduch\IeC {\'a} sie\IeC {\v t} vytvoren\IeC {\'a} s pou\IeC {\v z}it\IeC {\'\i }m kni\IeC {\v z}nice vis.js\relax }}{41}{figure.caption.29}
-\contentsline {figure}{\numberline {21}{\ignorespaces Pr\IeC {\'\i }klad pou\IeC {\v z}itia kni\IeC {\v z}nice vis.js\relax }}{41}{figure.caption.30}
-\contentsline {figure}{\numberline {22}{\ignorespaces Dom\IeC {\'e}nov\IeC {\'y} model\relax }}{42}{figure.caption.31}
+\contentsline {figure}{\numberline {16}{\ignorespaces Ve\IeC {\v l}kos\IeC {\v t} ega - stupe\IeC {\v n} uzla: 6\relax }}{35}{figure.caption.25}
+\contentsline {figure}{\numberline {17}{\ignorespaces M\IeC {\'a}lo \IeC {\v s}truktur\IeC {\'a}lnych dier vs. ve\IeC {\v l}a \IeC {\v s}truktur\IeC {\'a}lnych dier.\relax }}{36}{figure.caption.26}
+\contentsline {figure}{\numberline {18}{\ignorespaces Pr\IeC {\'\i }klad v\IeC {\'y}po\IeC {\v c}tu efekt\IeC {\'\i }vnej sily\relax }}{37}{figure.caption.27}
+\contentsline {figure}{\numberline {19}{\ignorespaces UseCase Diagram\relax }}{39}{figure.caption.28}
+\contentsline {figure}{\numberline {20}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{40}{figure.caption.29}
+\contentsline {figure}{\numberline {21}{\ignorespaces Triedny diagram - Repository pattern\relax }}{41}{figure.caption.30}
+\contentsline {figure}{\numberline {22}{\ignorespaces Model-View-Controller\relax }}{42}{figure.caption.31}
+\contentsline {figure}{\numberline {23}{\ignorespaces Jednoduch\IeC {\'a} sie\IeC {\v t} vytvoren\IeC {\'a} s pou\IeC {\v z}it\IeC {\'\i }m kni\IeC {\v z}nice vis.js\relax }}{43}{figure.caption.32}
+\contentsline {figure}{\numberline {24}{\ignorespaces Pr\IeC {\'\i }klad pou\IeC {\v z}itia kni\IeC {\v z}nice vis.js\relax }}{43}{figure.caption.33}
+\contentsline {figure}{\numberline {25}{\ignorespaces Dom\IeC {\'e}nov\IeC {\'y} model\relax }}{44}{figure.caption.34}

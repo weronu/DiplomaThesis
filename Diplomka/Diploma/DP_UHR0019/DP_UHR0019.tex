@@ -616,7 +616,7 @@ V tomto type \textit{brokerage} roly \textit{broker}(B) a jeden z dvoch neprepoj
 \caption{Representative brokerage}
 \end{figure}
 
-\subsection{Identifikácia brokerage rolí}
+\subsubsection{Identifikácia brokerage rolí}
 Päť typov \textit{brokerage} rôl  reprezentujú unikátne sociálne roly zapúzdrujúce elementárny aspekt aktérovej štrukturálnej pozície v danej sieti. Jeden jednotlivec však môže zohrávať viac \textit{brokerage} rolí naraz. Preto Gould \& Fernandez [15] kvantifikovali celkovú participáciu jednotlivca v \textit{brokerage} rolách pomocou \textit{brokerage} skóra. Formálne definovali \textit{brokerage} v grafe reprezentujúcom asymetrickú reláciu \textit{R}: Nech \textit{a} je \textit{broker} medzi \textit{b} a \textit{c} iba ak \textit{bRa, aRc} a   ${ a\overline{R}c }$, kde \textit{bRa} indikuje, že \textit{b} je prepojené s \textit{a} reláciou \textit{R} a ${ b\overline{R}c }$
 je negácia \textit{bRc}. S touto definíciou, \textit{brokerage} skóre sa vypočíta súčtom počtu koľko krát táto podmienka platí pre špecifickú kombináciu spojenia aktérov. To znamená, že ak nejaký aktér \textit{x} zohráva pozíciu \textit{coordinator} dva krát a pozíciu \textit{representative} tri krát, tak aktér bude mať skóre pre pozíciu \textit{coordinator} = 2, pre pozíciu  \textit{representative} = 3 a jeho celkové \textit{brokerage} skóre bude 5.
 
@@ -624,12 +624,64 @@ je negácia \textit{bRc}. S touto definíciou, \textit{brokerage} skóre sa vypo
 Formalizácia \textit{brokerage} rolí podľa Goula a Fernandeza je definovaná pre siete, v ktorých sú spojenia (hrany) orientované, čiže reprezentujúce vzťahy, pre ktoré môžme rozlíšiť odosielateľa a prijímateľa. Keďže v mojej koncepcii siete, kde jednotlivé uzly sú členovia tímu a hrana medzi nimi je práve vtedy, keď medzi nimi prebehla konverzácia, moja vytvorená sieť je neorientovaná. Zovšeobecnenie na neorientovanú sieť je celkom jasné; s takýmito dátami, každá hrana je považovaná za obojsmernú. Aj keď toto prináša jednu dôležitú zmenu originálnej formalizácie: v prípade neorientovaných vzťahov nemôžeme rozlíšiť rolu \textit{gatepeeker} od roly \textit{representative}, pretože neprítomnosť obojsmerných vzťahov redukuje tieto dve roly do jednej a \textit{brokerage} skóre bude pre tieto dve roly identické. \cite{19}
 
 \subsection{Analýza ega}
+Analýza ego sietí sa stáva stále viac dôležitou s rastom sietí. Je oveľa jednoduchšie v obrovských sieťach analyzovať ego a jeho okolie ako celú sieť ako celok. Napríklad ak jeden človek má priemerne 5 blízkych osôb, potom v meste s populáciou desať tisíc ľudí bude päťdesiat tisíc priateľských väzieb. A ak by sme chceli študovať známosti? Riešením by bol výber podmnožiny obyvateľov mesta a ich \textit{alter} uzlov.
 
-- veľkosť
 
-- kompozícia (ake komunity spaja ego, kolko komunit spaja ego, homofilia, homogenita)
+Ďalšou odpoveďou na otázku, prečo študovať ego siete, je to, že niekedy nás nezaujíma sieť ako celok alebo komunity a podobne, ale zaujímajú nás dôležití alebo inak zaujímaví jednotlivci (lídri, umelci, tínedžeri a pod.) Sieť ega je zaujímavá, pretože je zdrojom informácií, sociálnej podpory, prístupu ku zdrojom, vplyvu a ďalších faktorov.
 
-- štruktúra - spaja ego inak nespojene uzly (brokerage), má ego spojenia s neredundantnými uzlami, (efektívna sila, efektivita, constraint)
+\subsubsection{Veľkosť ego siete}
+Veľkosť ego siete je jednoduchá, ale veľavravná charakteristika. Definuje ju stupeň ego uzla, alebo teda počet \textit{alter} uzlov ega. Hovorí o sociálnej podpore, prístupu k informáciám a zdrojom.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm, height=9cm]{figures/egonet}
+\caption{Veľkosť ega - stupeň uzla: 6}
+\end{figure}
+
+\subsubsection{Kompozícia ego siete}
+Čo sa týka kompozície ego siete, môžme sledovať podobnosť medzi egom a jeho \textit{alter} uzlami. Pre reprezentáciu podobnosti sa používa \textit{homofília}. Môžeme predpokladať, že existuje vzťah medzi nejakým javom a tým, či ego zdieľa so svojimi \textit{alter} uzlami nejakú vlastnosť (profesia, vzdelanie a pod.) Napríklad je prirodzené, keď niekto, kto zastáva pozíciu CFO (Chief Financial Officer) je obklopený ľudmi, ktorí riešia financie alebo napríklad politici bývajú obklopení členmi rovnakej politickej strany. 
+
+Pre identifikáciu homifílie som využila prítomnosť komunít v sieti a použila som \textit{Krackhard-Sternov E-I index}  \cite{22}.
+
+${
+\frac{E-I}{E+I}
+}$
+
+\begin{itemize}
+\item \textit{E} je počet spojení s členmi inej skupiny (komunity) \textit{I} je počet spojení s členmi rovnakej skupiny (komunity)
+\item nadobúda hodnoty od -1(homofília) do +1(heterofília)
+\end{itemize}
+
+
+
+\subsubsection{Štruktúra ego siete}
+Štrukturálna analýza sa opiera o informácie, či existujú alebo neexistujú spojenia medzi \textit{alter} uzlami ego uzla. Princíp spočíva v tom, že nedostatok spojení medzi \textit{alter} uzlami môže priniesť určité benefity samotnému egu. Tento princíp sa v analýze sociálnych sietí nazýva princíp štrukturálnych dier (ang. \textit{structural holes}). Medzi benefity, ktoré prinášajú štrukturálne diery egu patria prístup k novým informáciám, moci alebo k slobode.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm, height=7.5cm]{figures/structuralholes}
+\caption{Málo štrukturálnych dier vs. veľa štrukturálnych dier.}
+\end{figure}
+
+
+Koncept štrukturálnych dier je koncept analýzy sociálnych sietí vyvinutý R. S. Burtom. Predstavil tento pojem v snahe vysvetliť vznik rozdielov v sociálnom kapitále. Burtova teória naznačuje, že jednotlivci majú isté výhody alebo nevýhody podľa toho, ako sú zakotvené v spoločenských štruktúrach. Štrukturálna diera je chápaná ako medzera medzi dvoma jednotlivcami (chýbajúca hrana medzi uzlami), ktorí majú doplňujúce zdroje informácií. \textit{Burt, R. (2004). "Structural holes and good ideas". American Journal of Sociology (110): 349–399.} - doplnit citaciu
+
+\paragraph{Efektívna sila}
+\hfill \break
+Burt predstavil mieru redundancie siete, Borgatti vyvinul zjednodušenú verziu efektívnej veľkosti pre nevážené siete. (doplnit citaciu:   Borgatti, Stephen (1997). "Structural Holes: Unpacking Burt's Redundancy Measures". Connections. INSNA. Retrieved 2016.)
+
+ Redundancia ${ = \frac{2t}{n}}$, kde \textit{t} je počet všetkých spojení v egocentrickej sieti (s výnimkou spojení k egu) a \textit{n} je počet všetkých uzlov v egocentrickej sieti (s výnimoku ega). Táto formula môže byť modifikovaná pre výpočet efektívnej sily ego siete.
+
+ Efektívna sila ego siete ${ = n - \frac{2t}{n}}$ (rozdiel počtu \textit{alter} uzlov ega a sumy ich redundancií = ${6-1.33 = 4.67}$)
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm, height=8cm]{figures/efectivesize}
+\caption{Príklad výpočtu efektívnej sily}
+\end{figure}
 
 
 \section{Aplikácia}
@@ -885,6 +937,10 @@ from the enron email corpus it’s always about the people. Enron is no differen
 	\bibitem{21} Nick Crossley, Elisa Bellotti, Gemma Edwards, Martin G Everett, Jihan Koskinen, Mark Tranner
 		\newline						
 		\textit{Social network analysis for Ego-Nets}
+		
+		\bibitem{22} Rich DeJordy, Dan Halgin - Boston Collegeand theWinston Center for Leadership and Ethics
+		\newline						
+		\textit{Introduction toEgo Network Analysis}
 
 \end{thebibliography}
 

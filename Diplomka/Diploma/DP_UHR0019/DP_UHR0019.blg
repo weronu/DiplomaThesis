@@ -18,10 +18,11 @@ Warning--I didn't find a database entry for "17"
 Warning--I didn't find a database entry for "18"
 Warning--I didn't find a database entry for "16"
 Warning--I didn't find a database entry for "19"
+Warning--I didn't find a database entry for "22"
 Warning--I didn't find a database entry for "11"
 You've used 1 entry,
             1876 wiz_defined-function locations,
-            495 strings with 3560 characters,
+            496 strings with 3562 characters,
 and the built_in function-call counts, 168 in all, are:
 = -- 14
 > -- 4
@@ -60,4 +61,4 @@ warning$ -- 0
 while$ -- 1
 width$ -- 2
 write$ -- 11
-(There were 16 warnings)
+(There were 17 warnings)
