@@ -348,7 +348,8 @@ h1, h2, h3, h4, h5, h6, p {
 .graph-wrapper {
   position: relative;
   width: 100%;
-  height: 600px; }
+  height: 600px;
+  margin-top: 15px; }
 
 .loading-bar-text {
   position: absolute;
@@ -410,6 +411,12 @@ h1, h2, h3, h4, h5, h6, p {
 
 .container-brokerage {
   padding-top: 30px; }
+
+.container-statistics {
+  padding-top: 15px; }
+
+.table th, .table td {
+  color: #721549; }
 
 .top-ten-brokerage-label {
   color: #721549;

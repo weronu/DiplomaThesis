@@ -1,0 +1,41 @@
+﻿@{
+    Layout = null;
+}
+@model Thesis.Web.Models.GraphViewModel
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="container-statistics">
+            <table class="table table-hover table-striped">
+                <tbody>
+                <tr>
+                    <th>NUMBER OF EMAILS</th>
+                    <td>@Model.NetworkStatisticsDto.NumberOfEmails</td>
+                </tr>
+                <tr>
+                    <th>NUMBER OF CONVERSATIONS</th>
+                    <td>@Model.NetworkStatisticsDto.NumberOfConversations</td>
+                </tr>
+                <tr>
+                    <th>NUMBER OF USERS</th>
+                    <td>@Model.NetworkStatisticsDto.NumberOfUsers</td>
+                </tr>
+                    <tr>
+                        <th>BIGGEST EMAIL SENDER</th>
+                        <td>@Model.NetworkStatisticsDto.BiggestEmailSender</td>
+                    </tr>
+                <tr>
+                    <th>MOST EMAILS IN CONVERSATION</th>
+                    <td>@Model.NetworkStatisticsDto.TheBiggestNumberOfEmailsInConversation</td>
+                </tr>
+                <tr>
+                    <th>PEEK HOUR</th>
+                    <td>@Model.NetworkStatisticsDto.PeekHour</td>
+                </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

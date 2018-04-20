@@ -10,7 +10,6 @@ using Thesis.Web.DTOs;
 using Thesis.Web.Models;
 using Domain.GraphClasses;
 using Graph.Algorithms;
-using Newtonsoft.Json;
 using Thesis.Services.ResponseTypes;
 
 
@@ -207,8 +206,17 @@ namespace Thesis.Web.Controllers
                 DateTime fromDate = DateTime.ParseExact(from, "MM/dd/yyyy", null);
                 DateTime toDate = DateTime.ParseExact(to, "MM/dd/yyyy", null);
 
-
-                string connectionString = GetConnectionStringBasedOnSelectedMember(selectedTeamMemberId);
+                string connectionString;
+                if (selectedTeamMemberId == null)
+                {
+                    connectionString = _importConnectionString;
+                    model.FileImported = true;
+                }
+                else
+                {
+                    connectionString = GetConnectionStringBasedOnSelectedMember(selectedTeamMemberId);
+                }
+                    
 
                 FetchItemServiceResponse<Graph<UserDto>> responseGraph = _graphService.FetchEmailsGraph(connectionString, fromDate, toDate);
 
@@ -231,7 +239,14 @@ namespace Thesis.Web.Controllers
                 };
 
                 model.TeamMembers = TeamMembers;
-                model.SelectedTeamMemberId = Int32.Parse(selectedTeamMemberId);
+                if (selectedTeamMemberId == null)
+                {
+                    model.SelectedTeamMemberId = null;
+                }
+                else
+                {
+                    model.SelectedTeamMemberId = int.Parse(selectedTeamMemberId);
+                }
                 model.Graph = responseGraph.Item;
                 model.GraphDto = graphDto;
                 model.FromDate = fromDate.ToString("MM/dd/yyyy");
@@ -253,7 +268,6 @@ namespace Thesis.Web.Controllers
             {
                 if (graphViewModel.Graph != null)
                 {
-                    EgoNetwork egoNetwork = new EgoNetwork();
                     if (graphViewModel.Graph.Edges.Count != 0)
                     {
                         foreach (Edge<UserDto> edge in graphViewModel.Graph.Edges)
@@ -289,7 +303,7 @@ namespace Thesis.Web.Controllers
                                                                                                + ", " + $"E-I Index: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).EIIndex}"
                                                                                                + ", " + $"Effective size: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).EffectiveSize}";
                         graphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 25;
-
+                        graphViewModel.SelectedEgoId = egoNetworkCenterId;
                         graphViewModel.TeamMembers = TeamMembers;
                         graphViewModel.SelectedTeamMemberId = graphViewModel.SelectedTeamMemberId;
                         graphViewModel.Graph = graphViewModel.Graph;
@@ -393,12 +407,22 @@ namespace Thesis.Web.Controllers
                     }).ToList();
                     List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
+                    if (nodes.FirstOrDefault(x => x.id == graphViewModel.SelectedEgoId) != null)
+                    {
+                        nodes.First(x => x.id == graphViewModel.SelectedEgoId).size = 25;
+                    }
+
+                    foreach (Node<UserDto> node in graphViewModel.Graph.Nodes.Where(x => x.Role != 0))
+                    {
+                        nodes.First(x => x.id == node.Id).shape = GetNodeShapeBasedOnRole(node);
+                    }
+
                     GraphDto graphDto = new GraphDto
                     {
                         nodes = nodes,
                         edges = edges
                     };
-
+                    graphViewModel.RolesDetected = true;
                     graphViewModel.GraphDto = graphDto;
                 }
             }
@@ -423,6 +447,23 @@ namespace Thesis.Web.Controllers
                     return 9;
                 default:
                     return 12;
+            }
+        }
+
+        private static string GetNodeShapeBasedOnRole(Node<UserDto> node)
+        {
+            switch (node.Role)
+            {
+                case Role.Leader:
+                    return "star";
+                case Role.Mediator:
+                    return "square";
+                case Role.Outermost:
+                    return "triangle";
+                case Role.Outsider:
+                    return "triangleDown";
+                default:
+                    return "dot";
             }
         }
 
@@ -457,7 +498,7 @@ namespace Thesis.Web.Controllers
                         id = x.Id,
                         label = x.NodeElement.Name,
                         title = $"Node degree: {x.Degree}",
-                        size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
+                        size = 20,
                         group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group)
                     }).ToList();
                     List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
@@ -466,7 +507,6 @@ namespace Thesis.Web.Controllers
                     foreach (NodeDto node in (nodes.Where(x => topTenBrokers.Select(y => y.UserId).Contains(x.id))))
                     {
                         node.shape = "diamond";
-                        node.size = 20;
                     }
 
                     GraphDto graphDto = new GraphDto
@@ -474,6 +514,7 @@ namespace Thesis.Web.Controllers
                         nodes = nodes,
                         edges = edges
                     };
+                    graphViewModel.RolesDetected = false;
                     graphViewModel.GraphDto = graphDto;
                 }
             }
@@ -555,9 +596,12 @@ namespace Thesis.Web.Controllers
         {
             try
             {
-                string connectionString = GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString());
+                DateTime fromDate = DateTime.ParseExact(graphViewModel.FromDate, "MM/dd/yyyy", null);
+                DateTime toDate = DateTime.ParseExact(graphViewModel.ToDate, "MM/dd/yyyy", null);
 
-                FetchListServiceResponse<DataPoint> mostUsedEmailDomains = _graphService.FetchMostUsedEmailDomains(connectionString);
+                string connectionString = graphViewModel.FileImported == false ? GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString()) : _importConnectionString;
+
+                FetchListServiceResponse<DataPoint> mostUsedEmailDomains = _graphService.FetchMostUsedEmailDomains(connectionString, fromDate, toDate);
                 if (mostUsedEmailDomains.Succeeded)
                 {
                     graphViewModel.EmailDomains = mostUsedEmailDomains.Items;
@@ -571,23 +615,25 @@ namespace Thesis.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult DrawNetworkStati(GraphViewModel graphViewModel)
+        public ActionResult DrawNetworkStatistics(GraphViewModel graphViewModel)
         {
             try
             {
-                string connectionString = GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString());
+                DateTime fromDate = DateTime.ParseExact(graphViewModel.FromDate, "MM/dd/yyyy", null);
+                DateTime toDate = DateTime.ParseExact(graphViewModel.ToDate, "MM/dd/yyyy", null);
+                string connectionString = graphViewModel.FileImported == false ? GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString()) : _importConnectionString;
 
-                FetchItemServiceResponse<NetworkStatisticsDto> mostUsedEmailDomains = _graphService.FetchEmailNetworkStatistics(connectionString);
+                FetchItemServiceResponse<NetworkStatisticsDto> mostUsedEmailDomains = _graphService.FetchEmailNetworkStatistics(connectionString, fromDate, toDate);
                 if (mostUsedEmailDomains.Succeeded)
                 {
-                    //TODO
+                    graphViewModel.NetworkStatisticsDto = mostUsedEmailDomains.Item;
                 }
             }
             catch (Exception e)
             {
                 return new HttpStatusCodeResult(500, e.Message);
             }
-            return View("GraphPie2d_partial", graphViewModel); //TODO
+            return View("NetworkStatistics_partial", graphViewModel); 
         }
 
     }

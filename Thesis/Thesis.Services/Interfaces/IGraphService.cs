@@ -19,7 +19,7 @@ namespace Thesis.Services.Interfaces
         FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph);
         FetchListServiceResponse<BrokerageDto> FetchTopTenBrokers(Graph<UserDto> graph, string connectionString);
         FetchItemServiceResponse<Graph<UserDto>> CreateEgoNetwork(Graph<UserDto> graph, int egoNetworkCenterId);
-        FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString);
-        FetchItemServiceResponse<NetworkStatisticsDto> FetchEmailNetworkStatistics(string connectionString);
+        FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString, DateTime fromDate, DateTime toDate);
+        FetchItemServiceResponse<NetworkStatisticsDto> FetchEmailNetworkStatistics(string connectionString, DateTime fromDate, DateTime toDate);
     }
 }

@@ -14,45 +14,17 @@
     </div>
 </div>
 
-<label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
+<div id="network_statistics_partial">
+    
+</div>
 
 <div class="row">
     <div class="col-md-12">
-        <div class="container-brokerage">
-            <table class="table table-hover table-striped">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Coordinator</th>
-                    <th>Itinerant</th>
-                    <th>Gatepeeker</th>
-                    <th>Representative</th>
-                    <th>Liaison</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                @foreach (BrokerageDto broker in @Model.BrokerageDto)
-                {
-
-                    <tr>
-                        <td>@broker.Name</td>
-                        <td>@broker.Coordinator</td>
-                        <td>@broker.Itinerant</td>
-                        <td>@broker.Gatepeeker</td>
-                        <td>@broker.Representative</td>
-                        <td>@broker.Liaison</td>
-                        <td>@broker.TotalBrokerageScore</td>
-                    </tr>
-                }
-                </tbody>
-            </table>
+        <div class="container-canvas">
+            <div id="graphPie2d_Partial_Id"></div>
         </div>
     </div>
 </div>
-
 <div id="wrapper" class="graph-wrapper">
     <div id="mynetwork" class="graph-network"></div>
     <div id="loadingBar" class="loadingBar">
@@ -82,13 +54,7 @@
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <div class="container-canvas">
-            <div id="graphPie2d_Partial_Id"></div>
-        </div>
-    </div>
-</div>
+
 
 @if (@Model.BrokerageDetected)
 {
@@ -215,8 +181,10 @@
 
         });
 
-        var network = GraphVis();
         viewStatistics();
+        var network = GraphVis();
+        viewDomainGraph();
+        
 
         var clickedNodeId;
 
@@ -397,7 +365,7 @@
         return false;
     }
 
-        function viewStatistics() {
+        function viewDomainGraph() {
             blockUI();
             $.ajax({
                 async: true,
@@ -421,6 +389,29 @@
             return false;
         }
 
+    function viewStatistics() {
+        
+        $.ajax({
+            async: true,
+            url: "@Url.Action("DrawNetworkStatistics", "TeamMembersEmailGraphs")",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (partialView) {
+                $('#network_statistics_partial').html(partialView);
+                unblockUI();
+            },
+            error: function (xhr, data) {
+                toastr.error(xhr.statusText, "Error", {
+                    "timeOut": "2000",
+                    "extendedTimeout": "2000"
+                });
+                unblockUI();
+            }
+        });
+        unblockUI();
+        return false;
+    }
 
     function GraphVis() {
         var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
@@ -478,6 +469,24 @@
                 }
             }
         };
+
+        if (@Html.Raw(Json.Encode(Model.RolesDetected)) == true) {
+            // legend
+            var mynetwork = document.getElementById('mynetwork');
+            var x = - mynetwork.clientWidth / 2 - 450;
+            var y = - mynetwork.clientHeight / 2 - 150;
+            console.log(x);
+            console.log(y);
+            console.log(mynetwork.clientWidth);
+            console.log(mynetwork.clientHeight);
+            var step = 70;
+            nodes.push({ id: 5000, x: x, y: y, label: 'Leader', shape: 'star', color:'#721549', value: 1, fixed: true, physics:false, chosen: false});
+            nodes.push({ id: 5001, x: x, y: y + step, label: 'Mediator', shape: 'square', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5002, x: x, y: y + 2 * step, label: 'Outermost', shape: 'triangle', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5003, x: x, y: y + 3 * step, label: 'Outsider', shape: 'triangleDown', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5004, x: x, y: y + 4 * step, label: 'Not detected', shape: 'dot', color: '#721549', value: 1, fixed: true,  physics:false, chosen:false});
+        }
+
         // initializing network
         var network = new vis.Network(container, data, options);
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Domain.DomainClasses;
@@ -210,12 +211,13 @@ namespace Repository.MSSQL
             return topTenBrokers;
         }
 
-        public NetworkStatisticsDto GetEmailNetworkStatistics()
+        public NetworkStatisticsDto GetEmailNetworkStatistics(DateTime fromDate, DateTime toDate)
         {
             const string biggestEmailSender = @"SELECT UPPER(u.Name) FROM
                                             (
                                             SELECT TOP 1 em.SenderId
                                             FROM EmailMessages em
+											WHERE em.Sent BETWEEN @fromDate and @toDate
                                             GROUP BY SenderId
                                             ORDER BY COUNT(em.SenderId) DESC
                                             ) t
@@ -223,21 +225,46 @@ namespace Repository.MSSQL
                                             ";
 
             const string peekHour = @"SELECT TOP 1 cast(DATEPART(HOUR, Sent) as VARCHAR(2)) + ':00-'  + cast(DATEPART(HOUR, Sent)+1 as VARCHAR(2)) + ':00'
-                                        FROM EmailMessages
+                                        FROM EmailMessages em
+                                        WHERE em.Sent BETWEEN @fromDate and @toDate
                                         GROUP BY DATEPART(HOUR, Sent)
                                         ORDER BY COUNT(*) DESC";
+
             const string biggestNumberOfEmailsInConversations = @"SELECT TOP 1 COUNT(*)  
-                                                            FROM Conversations
+                                                            FROM Conversations c
+															INNER JOIN EmailMessages em ON c.EmailMessageId = em.Id
+															WHERE em.Sent BETWEEN @fromDate and @toDate
                                                             GROUP BY ConversationId
                                                             ORDER BY COUNT(*) DESC";
+
+            const string emailCount = @"SELECT COUNT(*)
+                                        FROM EmailMessages
+                                        WHERE Sent BETWEEN @fromDate and @toDate";
+
+            const string userCount = @"SELECT count(distinct u.id)
+                                        FROM Users u 
+                                        INNER JOIN EmailMessages em on u.Id = em.SenderId
+                                        WHERE em.Sent BETWEEN @fromDate and @toDate";
+
+            const string conversationCount = @"SELECT COUNT(DISTINCT c.ConversationId)
+                                                FROM Conversations c
+                                                INNER JOIN EmailMessages em on c.EmailMessageId = em.Id
+                                                WHERE em.Sent BETWEEN @fromDate and @toDate";
+
+
             NetworkStatisticsDto statisticsDto = new NetworkStatisticsDto
             {
-                NumberOfUsers = _context.Users.Count(),
-                NumberOfEmails = _context.EmailMessagess.Count(),
-                NumberOfConversations = _context.Conversations.Count(),
-                BiggestEmailSender = _context.Database.SqlQuery<string>(biggestEmailSender).FirstOrDefault(),
-                PeekHour = _context.Database.SqlQuery<string>(peekHour).FirstOrDefault(),
-                TheBiggestNumberOfEmailsInConversation = _context.Database.SqlQuery<int>(biggestNumberOfEmailsInConversations).FirstOrDefault()
+                NumberOfUsers = _context.Database.SqlQuery<int>(userCount, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
+
+                NumberOfEmails = _context.Database.SqlQuery<int>(emailCount, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
+
+                NumberOfConversations = _context.Database.SqlQuery<int>(conversationCount, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
+
+                BiggestEmailSender = _context.Database.SqlQuery<string>(biggestEmailSender, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
+
+                PeekHour = _context.Database.SqlQuery<string>(peekHour, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
+
+                TheBiggestNumberOfEmailsInConversation = _context.Database.SqlQuery<int>(biggestNumberOfEmailsInConversations, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
             };
 
             return statisticsDto;

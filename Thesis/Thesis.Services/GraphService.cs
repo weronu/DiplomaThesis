@@ -374,7 +374,7 @@ namespace Thesis.Services
             }
         }
 
-        public FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString)
+        public FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString, DateTime fromDate, DateTime toDate)
         {
             FetchListServiceResponse<DataPoint> response = new FetchListServiceResponse<DataPoint>();
             try
@@ -382,7 +382,7 @@ namespace Thesis.Services
                 List<DataPoint> mostUsedEmailDomains;
                 using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
                 {
-                    mostUsedEmailDomains = uow.UserRepo.GetTenMostUsedEmailDomains();
+                    mostUsedEmailDomains = uow.UserRepo.GetTenMostUsedEmailDomains(fromDate, toDate);
                 }
 
                 response.Items = new HashSet<DataPoint>(mostUsedEmailDomains);
@@ -396,7 +396,7 @@ namespace Thesis.Services
             }
         }
 
-        public FetchItemServiceResponse<NetworkStatisticsDto> FetchEmailNetworkStatistics(string connectionString)
+        public FetchItemServiceResponse<NetworkStatisticsDto> FetchEmailNetworkStatistics(string connectionString, DateTime fromDate, DateTime toDate)
         {
             FetchItemServiceResponse<NetworkStatisticsDto> response = new FetchItemServiceResponse<NetworkStatisticsDto>();
             try
@@ -404,7 +404,7 @@ namespace Thesis.Services
                 NetworkStatisticsDto emailNetworkStatistics;
                 using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
                 {
-                    emailNetworkStatistics = uow.GraphRepo.GetEmailNetworkStatistics();
+                    emailNetworkStatistics = uow.GraphRepo.GetEmailNetworkStatistics(fromDate, toDate);
                 }
 
                 response.Item = emailNetworkStatistics;
