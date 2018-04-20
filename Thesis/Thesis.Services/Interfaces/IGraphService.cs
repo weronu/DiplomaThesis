@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
 using Thesis.Services.ResponseTypes;
@@ -18,5 +19,6 @@ namespace Thesis.Services.Interfaces
         FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph);
         FetchListServiceResponse<BrokerageDto> FetchTopTenBrokers(Graph<UserDto> graph, string connectionString);
         FetchItemServiceResponse<Graph<UserDto>> CreateEgoNetwork(Graph<UserDto> graph, int egoNetworkCenterId);
+        FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString);
     }
 }

@@ -419,6 +419,9 @@ h1, h2, h3, h4, h5, h6, p {
     }
 }
 
+.daterangepicker.dropdown-menu.ltr.show-calendar.opensright {
+    top: 100px !important;
+}
 
 .datepicker-dropdown {
     top: 712px;
@@ -428,7 +431,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .datepicker-input {
-    width: 495px;
+    width: 100%;
     padding-left: 30px;
     margin-bottom: 15px;
 }
@@ -520,4 +523,9 @@ h1, h2, h3, h4, h5, h6, p {
     text-align: center;
     width: 100%;
     padding: 20px;
+}
+
+.pie-chart-container{
+    width: 100px;
+    height: 100px;
 }

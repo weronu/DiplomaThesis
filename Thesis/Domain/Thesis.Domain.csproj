@@ -45,6 +45,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Brokerage.cs" />
+    <Compile Include="DomainClasses\DataPoint.cs" />
     <Compile Include="DTOs\BrokerageDto.cs" />
     <Compile Include="DomainClasses\Conversation.cs" />
     <Compile Include="DomainClasses\ConversationEmails.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="DomainClasses\UserEmail.cs" />
     <Compile Include="DTOs\EmailDownloadDto.cs" />
     <Compile Include="DTOs\EmailXML.cs" />
+    <Compile Include="DTOs\StatisticsDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="Enums\Role.cs" />
     <Compile Include="GraphClasses\Community.cs" />

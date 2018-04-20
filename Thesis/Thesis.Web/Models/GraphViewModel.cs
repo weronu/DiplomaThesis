@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
 using Thesis.Web.DTOs;
@@ -21,6 +22,8 @@ namespace Thesis.Web.Models
         public HashSet<BrokerageDto> BrokerageDto { get; set; }
 
         public DataPointDto DataPointDto { get; set; }
+
+        public HashSet<DataPoint> EmailDomains { get; set; }
         
     }
 }

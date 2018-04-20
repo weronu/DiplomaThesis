@@ -209,6 +209,36 @@ namespace Repository.MSSQL
                 }).OrderByDescending(x => x.TotalBrokerageScore).Take(10).ToList();
             return topTenBrokers;
         }
+
+        public NetworkStatisticsDto GetEmailNetworkStatistics()
+        {
+            const string biggestEmailSender = @"SELECT UPPER(u.Name) FROM
+                                            (
+                                            SELECT TOP 1 em.SenderId
+                                            FROM EmailMessages em
+                                            GROUP BY SenderId
+                                            ORDER BY COUNT(em.SenderId) DESC
+                                            ) t
+                                            INNER JOIN Users u on t.SenderId = u.Id
+                                            ";
+
+            const string peekHour = @"";
+            const string biggestNumberOfEmailsInConversations = @"SELECT TOP 1 COUNT(*)  
+                                                            FROM Conversations
+                                                            GROUP BY ConversationId
+                                                            ORDER BY COUNT(*) DESC";
+            NetworkStatisticsDto statisticsDto = new NetworkStatisticsDto
+            {
+                NumberOfUsers = _context.Users.Count(),
+                NumberOfEmails = _context.EmailMessagess.Count(),
+                NumberOfConversations = _context.Conversations.Count(),
+                BiggestEmailSender = _context.Database.SqlQuery<string>(biggestEmailSender).FirstOrDefault(),
+                PeekHour = _context.Database.SqlQuery<string>(peekHour).FirstOrDefault(),
+                TheBiggestNumberOfEmailsInConversation = _context.Database.SqlQuery<int>(biggestNumberOfEmailsInConversations).FirstOrDefault()
+            };
+
+            return statisticsDto;
+        }
     }
 
     public class DistinctItemComparer : IEqualityComparer<Edge<UserDto>>

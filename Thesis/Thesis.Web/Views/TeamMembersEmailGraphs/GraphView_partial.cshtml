@@ -13,6 +13,46 @@
         </div>
     </div>
 </div>
+
+<label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="container-brokerage">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Coordinator</th>
+                    <th>Itinerant</th>
+                    <th>Gatepeeker</th>
+                    <th>Representative</th>
+                    <th>Liaison</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                @foreach (BrokerageDto broker in @Model.BrokerageDto)
+                {
+
+                    <tr>
+                        <td>@broker.Name</td>
+                        <td>@broker.Coordinator</td>
+                        <td>@broker.Itinerant</td>
+                        <td>@broker.Gatepeeker</td>
+                        <td>@broker.Representative</td>
+                        <td>@broker.Liaison</td>
+                        <td>@broker.TotalBrokerageScore</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
 <div id="wrapper" class="graph-wrapper">
     <div id="mynetwork" class="graph-network"></div>
     <div id="loadingBar" class="loadingBar">
@@ -41,6 +81,15 @@
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="container-canvas">
+            <div id="graphPie2d_Partial_Id"></div>
+        </div>
+    </div>
+</div>
+
 @if (@Model.BrokerageDetected)
 {
 
@@ -51,34 +100,34 @@
             <div class="container-brokerage">
                 <table class="table table-hover table-striped">
                     <thead>
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Coordinator</th>
-                        <th>Itinerant</th>
-                        <th>Gatepeeker</th>
-                        <th>Representative</th>
-                        <th>Liaison</th>
-                        <th>Total</th>
-                    </tr>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Coordinator</th>
+                            <th>Itinerant</th>
+                            <th>Gatepeeker</th>
+                            <th>Representative</th>
+                            <th>Liaison</th>
+                            <th>Total</th>
+                        </tr>
                     </thead>
 
                     <tbody>
-                    @{ int a = 1; }
-                    @foreach (BrokerageDto broker in @Model.BrokerageDto)
-                    {
+                        @{ int a = 1; }
+                        @foreach (BrokerageDto broker in @Model.BrokerageDto)
+                        {
 
-                        <tr>
-                            <th scope="row">@(a++)</th>
-                            <td>@broker.Name</td>
-                            <td>@broker.Coordinator</td>
-                            <td>@broker.Itinerant</td>
-                            <td>@broker.Gatepeeker</td>
-                            <td>@broker.Representative</td>
-                            <td>@broker.Liaison</td>
-                            <td>@broker.TotalBrokerageScore</td>
-                        </tr>
-                    }
+                            <tr>
+                                <th scope="row">@(a++)</th>
+                                <td>@broker.Name</td>
+                                <td>@broker.Coordinator</td>
+                                <td>@broker.Itinerant</td>
+                                <td>@broker.Gatepeeker</td>
+                                <td>@broker.Representative</td>
+                                <td>@broker.Liaison</td>
+                                <td>@broker.TotalBrokerageScore</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
             </div>
@@ -92,8 +141,9 @@
             </div>
         </div>
     </div>
-                        }
-    <script type="text/javascript">
+                            }
+
+<script type="text/javascript">
     blockUI();
     $(document).ready(function () {
 
@@ -162,9 +212,11 @@
                     unblockUI();
                 }
             });
+
         });
 
         var network = GraphVis();
+        viewStatistics();
 
         var clickedNodeId;
 
@@ -176,7 +228,6 @@
         var createEgoNetworkButon = $("#createEgoNetworkButon");
         var findRolesButton = $("#findRolesButton");
         var findBrokerageButton = $("#findBrokerageButton");
-
 
         findCommunittiesButton.click(function (e) {
             e.preventDefault();
@@ -222,8 +273,8 @@
 
         if (egoNetworkCenterId === undefined) {
             toastr.warning("Please select ego center by click on node.", "Warning", {
-                "timeOut": "0",
-                "extendedTimeout": "0"
+                "timeOut": "2000",
+                "extendedTimeout": "02000"
             });
         }
 
@@ -238,8 +289,8 @@
             },
             error: function (xhr, data) {
                 toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
+                    "timeOut": "2000",
+                    "extendedTimeout": "2000"
                 });
                 unblockUI();
             }
@@ -260,8 +311,8 @@
             },
             error: function (xhr, data) {
                 toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
+                    "timeOut": "2000",
+                    "extendedTimeout": "2000"
                 });
                 unblockUI();
             }
@@ -285,8 +336,8 @@
                 toastr.error(xhr.statusText,
                     "Error",
                     {
-                        "timeOut": "0",
-                        "extendedTimeout": "0"
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
                     });
                 unblockUI();
             }
@@ -311,8 +362,8 @@
                 toastr.error(xhr.statusText,
                     "Error",
                     {
-                        "timeOut": "0",
-                        "extendedTimeout": "0"
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
                     });
                 unblockUI();
             }
@@ -336,13 +387,40 @@
                 toastr.error(xhr.statusText,
                     "Error",
                     {
-                        "timeOut": "0",
-                        "extendedTimeout": "0"
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
                     });
                 unblockUI();
             }
         });
+        unblockUI();
+        return false;
     }
+
+        function viewStatistics() {
+            blockUI();
+            $.ajax({
+                async: true,
+                url: "@Url.Action("DrawEmailDomainsGraph", "TeamMembersEmailGraphs")",
+                data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (partialView) {
+                    $('#graphPie2d_Partial_Id').html(partialView);
+                    unblockUI();
+                },
+                error: function (xhr, data) {
+                    toastr.error(xhr.statusText, "Error", {
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
+                    });
+                    unblockUI();
+                }
+            });
+            unblockUI();
+            return false;
+        }
+
 
     function GraphVis() {
         var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
@@ -428,5 +506,5 @@
 
 
 
-    </script>
+</script>   
 

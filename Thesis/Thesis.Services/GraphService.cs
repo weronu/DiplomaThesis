@@ -373,5 +373,48 @@ namespace Thesis.Services
                 throw new Exception(e.Message);
             }
         }
+
+        public FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString)
+        {
+            FetchListServiceResponse<DataPoint> response = new FetchListServiceResponse<DataPoint>();
+            try
+            {
+                List<DataPoint> mostUsedEmailDomains;
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    mostUsedEmailDomains = uow.UserRepo.GetTenMostUsedEmailDomains();
+                }
+
+                response.Items = new HashSet<DataPoint>(mostUsedEmailDomains);
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
+
+        public FetchItemServiceResponse<NetworkStatisticsDto> FetchEmailNetworkStatistics(string connectionString)
+        {
+            FetchItemServiceResponse<NetworkStatisticsDto> response = new FetchItemServiceResponse<NetworkStatisticsDto>();
+            try
+            {
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    uow.GraphRepo.GetEmailNetworkStatistics();
+                }
+
+
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

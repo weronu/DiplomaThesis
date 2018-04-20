@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Domain.DomainClasses;
 
 namespace Thesis.Web.DTOs
 {

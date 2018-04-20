@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.Enums;
 using Thesis.Services.Interfaces;
@@ -510,12 +511,36 @@ namespace Thesis.Web.Controllers
 
                 foreach (BrokerageDto broker in topTenBrokers)
                 {
-                    graphViewModel.DataPointDto.DataPointsCoordinator.Add(new DataPoint(broker.Name, broker.Coordinator));
-                    graphViewModel.DataPointDto.DataPointsGatepeeker.Add(new DataPoint(broker.Name, broker.Gatepeeker));
-                    graphViewModel.DataPointDto.DataPointsItinerant.Add(new DataPoint(broker.Name, broker.Itinerant));
-                    graphViewModel.DataPointDto.DataPointsLiaison.Add(new DataPoint(broker.Name, broker.Liaison));
-                    graphViewModel.DataPointDto.DataPointsRepresentative.Add(new DataPoint(broker.Name, broker.Representative));
-                    graphViewModel.DataPointDto.DataPointsTotal.Add(new DataPoint(broker.Name, broker.TotalBrokerageScore));
+                    graphViewModel.DataPointDto.DataPointsCoordinator.Add(new DataPoint()
+                    {
+                        label = broker.Name,
+                        y = broker.Coordinator
+                    });
+                    graphViewModel.DataPointDto.DataPointsGatepeeker.Add(new DataPoint()
+                    {
+                        label = broker.Name,
+                        y = broker.Gatepeeker
+                    });
+                    graphViewModel.DataPointDto.DataPointsItinerant.Add(new DataPoint()
+                    {
+                        label = broker.Name,
+                        y = broker.Itinerant
+                    });
+                    graphViewModel.DataPointDto.DataPointsLiaison.Add(new DataPoint()
+                    {
+                        label = broker.Name,
+                        y = broker.Liaison
+                    });
+                    graphViewModel.DataPointDto.DataPointsRepresentative.Add(new DataPoint()
+                    {
+                        label = broker.Name,
+                        y = broker.Representative
+                    });
+                    graphViewModel.DataPointDto.DataPointsTotal.Add(new DataPoint()
+                    {
+                        label = broker.Name,
+                        y = broker.TotalBrokerageScore
+                    });
                 }
             }
             catch (Exception e)
@@ -524,5 +549,26 @@ namespace Thesis.Web.Controllers
             }
             return View("Graph2d_partial", graphViewModel);
         }
+
+        [HttpPost]
+        public ActionResult DrawEmailDomainsGraph(GraphViewModel graphViewModel)
+        {
+            try
+            {
+                string connectionString = GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString());
+
+                FetchListServiceResponse<DataPoint> mostUsedEmailDomains = _graphService.FetchMostUsedEmailDomains(connectionString);
+                if (mostUsedEmailDomains.Succeeded)
+                {
+                    graphViewModel.EmailDomains = mostUsedEmailDomains.Items;
+                }
+            }
+            catch (Exception e)
+            {
+                return new HttpStatusCodeResult(500, e.Message);
+            }
+            return View("GraphPie2d_partial", graphViewModel);
+        }
+
     }
 }
