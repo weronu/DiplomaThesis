@@ -570,5 +570,25 @@ namespace Thesis.Web.Controllers
             return View("GraphPie2d_partial", graphViewModel);
         }
 
+        [HttpPost]
+        public ActionResult DrawNetworkStati(GraphViewModel graphViewModel)
+        {
+            try
+            {
+                string connectionString = GetConnectionStringBasedOnSelectedMember(graphViewModel.SelectedTeamMemberId.ToString());
+
+                FetchItemServiceResponse<NetworkStatisticsDto> mostUsedEmailDomains = _graphService.FetchEmailNetworkStatistics(connectionString);
+                if (mostUsedEmailDomains.Succeeded)
+                {
+                    //TODO
+                }
+            }
+            catch (Exception e)
+            {
+                return new HttpStatusCodeResult(500, e.Message);
+            }
+            return View("GraphPie2d_partial", graphViewModel); //TODO
+        }
+
     }
 }

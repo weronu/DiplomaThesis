@@ -222,7 +222,10 @@ namespace Repository.MSSQL
                                             INNER JOIN Users u on t.SenderId = u.Id
                                             ";
 
-            const string peekHour = @"";
+            const string peekHour = @"SELECT TOP 1 cast(DATEPART(HOUR, Sent) as VARCHAR(2)) + ':00-'  + cast(DATEPART(HOUR, Sent)+1 as VARCHAR(2)) + ':00'
+                                        FROM EmailMessages
+                                        GROUP BY DATEPART(HOUR, Sent)
+                                        ORDER BY COUNT(*) DESC";
             const string biggestNumberOfEmailsInConversations = @"SELECT TOP 1 COUNT(*)  
                                                             FROM Conversations
                                                             GROUP BY ConversationId

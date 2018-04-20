@@ -401,12 +401,13 @@ namespace Thesis.Services
             FetchItemServiceResponse<NetworkStatisticsDto> response = new FetchItemServiceResponse<NetworkStatisticsDto>();
             try
             {
+                NetworkStatisticsDto emailNetworkStatistics;
                 using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
                 {
-                    uow.GraphRepo.GetEmailNetworkStatistics();
+                    emailNetworkStatistics = uow.GraphRepo.GetEmailNetworkStatistics();
                 }
 
-
+                response.Item = emailNetworkStatistics;
                 response.Succeeded = true;
                 return response;
             }
