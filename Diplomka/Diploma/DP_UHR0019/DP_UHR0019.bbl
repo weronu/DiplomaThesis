@@ -1,7 +1,84 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
-\bibitem{DUMMY:1}
-J.~Doe, {\em The Book without Title}.
-\newblock Dummy Publisher, 2100.
+\bibitem{3}
+J.~Diesner, T.~L. Frantz, and K.~M. Carley, ``Communication networks from the
+  enron email corpus “it's always about the people. enron is no
+  different”,'' {\em Computational \& Mathematical Organization Theory},
+  vol.~11, no.~3, pp.~201--228, 2005.
+
+\bibitem{2}
+X.~Fu, S.-H. Hong, N.~S. Nikolov, X.~Shen, Y.~Wu, and K.~Xuk, ``Visualization
+  and analysis of email networks,'' in {\em Visualization, 2007. APVIS'07. 2007
+  6th International Asia-Pacific Symposium on}, pp.~1--8, IEEE, 2007.
+
+\bibitem{4}
+A.~Chapanond, M.~S. Krishnamoorthy, and B.~Yener, ``Graph theoretic and
+  spectral analysis of enron email data,'' {\em Computational \& Mathematical
+  Organization Theory}, vol.~11, no.~3, pp.~265--281, 2005.
+
+\bibitem{1}
+G.~Tang, J.~Pei, and W.-S. Luk, ``Email mining: tasks, common techniques, and
+  tools,'' {\em Knowledge and Information Systems}, vol.~41, no.~1, pp.~1--31,
+  2014.
+
+\bibitem{9}
+A.~Abnar, M.~Takaffoli, R.~Rabbany, and O.~R. Za{\"\i}ane, ``Ssrm: structural
+  social role mining for dynamic social networks,'' {\em Social Network
+  Analysis and Mining}, vol.~5, no.~1, p.~56, 2015.
+
+\bibitem{10}
+S.~Zehnalova, Z.~Horak, and M.~Kudelka, ``Email conversation network analysis:
+  Work groups and teams in organizations,'' in {\em Advances in Social Networks
+  Analysis and Mining (ASONAM), 2015 IEEE/ACM International Conference on},
+  pp.~1262--1268, IEEE, 2015.
+
+\bibitem{13}
+``Do millennial and gen z consumers still use email?.''
+  \url{https://www.bluecore.com/blog/do-millennials-use-email/}.
+\newblock 2017-09-30.
+
+\bibitem{8}
+M.~E. Newman, ``The structure and function of complex networks,'' {\em SIAM
+  review}, vol.~45, no.~2, pp.~167--256, 2003.
+
+\bibitem{12}
+V.~D. Blondel, J.-L. Guillaume, R.~Lambiotte, and E.~Lefebvre, ``Fast unfolding
+  of communities in large networks,'' {\em Journal of statistical mechanics:
+  theory and experiment}, vol.~2008, no.~10, p.~P10008, 2008.
+
+\bibitem{15}
+R.~V. Gould and R.~M. Fernandez, ``Structures of mediation: A formal approach
+  to brokerage in transaction networks,'' {\em Sociological methodology},
+  pp.~89--126, 1989.
+
+\bibitem{17}
+P.~V. Marsden, ``Brokerage behavior in restricted exchange networks,'' {\em
+  Social structure and network analysis}, vol.~7, no.~4, pp.~341--410, 1982.
+
+\bibitem{18}
+R.~S. Burt, {\em Structural holes: The social structure of competition}.
+\newblock Harvard university press, 2009.
+
+\bibitem{16}
+K.~Stovel and L.~Shaw, ``Brokerage,'' {\em Annual Review of Sociology},
+  vol.~38, pp.~139--158, 2012.
+
+\bibitem{19}
+E.~S. Spiro, R.~M. Acton, and C.~T. Butts, ``Extended structures of mediation:
+  Re-examining brokerage in dynamic networks,'' {\em Social Networks}, vol.~35,
+  no.~1, pp.~130--143, 2013.
+
+\bibitem{22}
+R.~DeJordy and D.~Halgin, ``Introduction to ego network analysis,'' {\em Boston
+  MA: Boston College and the Winston Center for Leadership \& Ethics}, 2008.
+
+\bibitem{11}
+``{Active Record vs. Repository pattern} repository pattern.''
+  \url{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}.
+\newblock 2017-09-30.
+
+\bibitem{5}
+``{TeamNET} data.'' \url{http://inflex.cz:8075/TeamNETdata}.
+\newblock 2017-09-30.
 
 \end{thebibliography}

@@ -93,4 +93,3 @@
 \contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{55}{section.9}
 \contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{55}{subsection.9.1}
 \contentsline {section}{Literatura}{56}{subsection.9.1}
-\contentsline {section}{Literatura}{58}{subsection.9.1}
