@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using Domain.DTOs;
 using Domain.Enums;
 
 namespace Domain.GraphClasses
@@ -11,6 +13,7 @@ namespace Domain.GraphClasses
 
         public HashSet<Node<T>> Nodes { get; set; }
         public HashSet<Edge<T>> Edges { get; set; }
+        public HashSet<Edge<T>> EgoEdges { get; set; }
         public Dictionary<string, HashSet<Node<T>>> GraphSet => ToJsonDictionary(_graphSet);
 
         
@@ -27,6 +30,7 @@ namespace Domain.GraphClasses
         public Graph()
         {
             Edges = new HashSet<Edge<T>>();
+            EgoEdges = new HashSet<Edge<T>>();
             Nodes = new HashSet<Node<T>>();
             _graphSet = new Dictionary<int, HashSet<Node<T>>>();
             Communities = new HashSet<Community<T>>();
@@ -387,7 +391,7 @@ namespace Domain.GraphClasses
                     communityNodes.Add(GetNodeById(i));
                     node.CommunityId = kvp.Key;
                 }
-                Community<T> community = new Community<T> {Id = kvp.Key, CommunityNodes = communityNodes};
+                Community<T> community = new Community<T> {Id = kvp.Key + 1, CommunityNodes = communityNodes};
                 foreach (Node<T> node in communityNodes)
                 {
                     node.Community = community;
@@ -412,6 +416,23 @@ namespace Domain.GraphClasses
                     n.CommunityId = node.CommunityId;
                     n.Community = node.Community;
                 }
+            }
+        }
+
+        public void SetCommunityNodes()
+        {
+            if (Communities.Count == 0)
+            {
+                throw new Exception("There are no communities");
+            }
+
+            foreach (Community<T> community in Communities)
+            {
+                community.CommunityNodes = new HashSet<Node<T>>();
+            }
+            foreach (Node<T> node in Nodes)
+            {
+                Communities.First(x => x.Id == node.CommunityId).CommunityNodes.Add(node);
             }
         }
     }

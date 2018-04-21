@@ -3,6 +3,7 @@
 }
 
 @using Domain.DTOs
+@using Domain.GraphClasses
 @using Microsoft.Ajax.Utilities
 @model Thesis.Web.Models.GraphViewModel
 <div class="row">
@@ -25,6 +26,30 @@
         </div>
     </div>
 </div>
+@if (@Model.Graph.Communities.Count > 0)
+{
+    <div class="row">
+        <label class="top-ten-brokerage-label">COMMUNITIES</label>
+
+        <div class="col-md-12">
+            <div class="container-communities">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                    @foreach (Community<UserDto> community in @Model.Graph.Communities)
+                    {
+                        <tr>
+                            <th>Community @community.Id</th>
+                            <td>@community.CommunityNodes.Count nodes</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+}
+
 <div id="wrapper" class="graph-wrapper">
     <div id="mynetwork" class="graph-network"></div>
     <div id="loadingBar" class="loadingBar">
@@ -184,7 +209,7 @@
         viewStatistics();
         var network = GraphVis();
         viewDomainGraph();
-        
+
 
         var clickedNodeId;
 
@@ -390,7 +415,7 @@
         }
 
     function viewStatistics() {
-        
+
         $.ajax({
             async: true,
             url: "@Url.Action("DrawNetworkStatistics", "TeamMembersEmailGraphs")",
@@ -470,44 +495,50 @@
             }
         };
 
-        if (@Html.Raw(Json.Encode(Model.RolesDetected)) == true) {
-            // legend
-            var mynetwork = document.getElementById('mynetwork');
-            var x = - mynetwork.clientWidth / 2 - 450;
-            var y = - mynetwork.clientHeight / 2 - 150;
-            console.log(x);
-            console.log(y);
-            console.log(mynetwork.clientWidth);
-            console.log(mynetwork.clientHeight);
-            var step = 70;
-            nodes.push({ id: 5000, x: x, y: y, label: 'Leader', shape: 'star', color:'#721549', value: 1, fixed: true, physics:false, chosen: false});
-            nodes.push({ id: 5001, x: x, y: y + step, label: 'Mediator', shape: 'square', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
-            nodes.push({ id: 5002, x: x, y: y + 2 * step, label: 'Outermost', shape: 'triangle', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
-            nodes.push({ id: 5003, x: x, y: y + 3 * step, label: 'Outsider', shape: 'triangleDown', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
-            nodes.push({ id: 5004, x: x, y: y + 4 * step, label: 'Not detected', shape: 'dot', color: '#721549', value: 1, fixed: true,  physics:false, chosen:false});
+        var mynetwork1 = document.getElementById('mynetwork');
+        var x = - mynetwork1.clientWidth / 2 - 750;
+        var y = - mynetwork1.clientHeight / 2 - 350;
+        var step = 70;
+
+        if (@Html.Raw(Json.Encode(Model.RolesDetected)) === true)
+        {
+            nodes.push({ id: 5000, x: x + 100, y: y + 0 * step, label: 'Leader', shape: 'star', color:'#721549', value: 1, fixed: true, physics:false, chosen: false});
+            nodes.push({ id: 5001, x: x + 100, y: y + 1 * step, label: 'Mediator', shape: 'square', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5002, x: x + 100, y: y + 2 * step, label: 'Outermost', shape: 'triangle', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5003, x: x + 100, y: y + 3 * step, label: 'Outsider', shape: 'triangleDown', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5004, x: x + 100, y: y + 4 * step, label: 'Not detected', shape: 'dot', color: '#721549', value: 1, fixed: true,  physics:false, chosen:false});
         }
 
-        // initializing network
-        var network = new vis.Network(container, data, options);
+        if (@Html.Raw(Json.Encode(Model.Graph.Communities.Count > 0)))
+        {
+            var communities = @Html.Raw(Json.Encode(Model.Graph.Communities));
+            for (var i = 0, len = communities.length; i < len; i++)
+            {
+               nodes.push({ id: 6000 + i, x: x, y: y + i * step, label: 'Community ' + communities[i].Id, shape: 'dot', group: i + 1, color: '#721549', value: 1, fixed: true, physics: false, chosen: false});
+           }
+        }
 
-        network.on("stabilizationProgress",
+                // initializing network
+                var network = new vis.Network(container, data, options);
+
+                network.on("stabilizationProgress",
             function(params) {
-                var maxWidth = 496;
-                var minWidth = 20;
-                var widthFactor = params.iterations / params.total;
-                var width = Math.max(minWidth, maxWidth * widthFactor);
+                    var maxWidth = 496;
+                    var minWidth = 20;
+                    var widthFactor = params.iterations / params.total;
+                    var width = Math.max(minWidth, maxWidth * widthFactor);
 
-                document.getElementById('bar').style.width = width + 'px';
-                document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
-            });
+                    document.getElementById('bar').style.width = width + 'px';
+                    document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
+                });
         network.once("stabilizationIterationsDone",
             function() {
-                document.getElementById('text').innerHTML = '100%';
-                document.getElementById('bar').style.width = '496px';
-                document.getElementById('loadingBar').style.opacity = 0;
-                // really clean the dom element
-                setTimeout(function() { document.getElementById('loadingBar').style.display = 'none'; }, 500);
-            });
+                    document.getElementById('text').innerHTML = '100%';
+                    document.getElementById('bar').style.width = '496px';
+                    document.getElementById('loadingBar').style.opacity = 0;
+                    // really clean the dom element
+                    setTimeout(function() { document.getElementById('loadingBar').style.display = 'none'; }, 500);
+                });
 
         return network;
     }

@@ -18,6 +18,7 @@ namespace Thesis.Web.Models
         public string ToDate { get; set; }
         public bool BrokerageDetected { get; set; }
         public bool RolesDetected { get; set; }
+        public bool CommunitiesDetected { get; set; }
         public int? SelectedEgoId { get; set; }
 
         public HashSet<BrokerageDto> BrokerageDto { get; set; }

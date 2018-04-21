@@ -786,8 +786,6 @@ Pre moju aplikáciu som používala len časť \textit{Network}.
 \end{figure}
 
 
-
-
 \subsection{Import dát}
 Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL procedúrou, ktorá rozparsuje emailové dáta na jednodlivé entity - \textit{User, EmailMessage, UserEmail} a \textit{Conversation} a uloží ich do SQL databázy.
 
@@ -812,28 +810,81 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 Random citation \cite{DUMMY:1} embeddeed in text.
 
 \section{Experimenty}
-
-\subsection{Príprava dát}
-
-
-\subsection{Import dát}
+V tejto kapitole popisujem experimenty, ktoré som previedla nad rôznymi emailovými sadami v implementovanej aplikácii. Popisujem ako aj prípravu dát, tak aj import a ďalej vizualizáciu jednotlivých datasetov a tiež výsledky a porovnanie analytických metód. V prvej časti popisujem analýzu agregovanej sady ako celkovú analýzu týmu a v druhej časti porovnávam výsledky dvoch vybraných jednotlivcov.
 
 
-\subsection{Vizualizácia}
+\subsection{Príprava a import dát}
+Ako už bolo spomenuté, pre samotnú analýzu som nepoužila žiadny verejne dostupný dataset, ale použila som svoju emailovú sadu. Navyše moji traja kolegovia mi takisto poskytli emailové dáta. V dobe, keď som od nich emaily požadovala, moja aplikácia ešte nebola hotová a tak sa pre získanie ich emailov použila externá aplikácia \textit{TeamNet Data} \cite{5}. Emailové sady boli poskytnuté v súbore formátu XML.
 
 
-\subsection{Detekcia komunít}
-\subsubsection{Zmeny komunít v čase}
+Keďže sme kolegovia a pracujeme spolu v tíme nachádzali sme sa viac krát v rovnakej emailovej komunikácii a tak sa v sadách vyskytovali emaily duplikátne. Pre spracúvanie emailov som vytvorila SQL procedúru, ktorá jednotlivé XML súbor načíta, rozdelí emaily, používateľov a konverzácie na jednolivé entity a naimportuje ich do SQL databázy. Pre odstránenie duplikátov som použila SQL skript, ktorý zaručil odstránenie duplikátnych položiek. S tako uloženými emailovými dátami používam pre import do aplikácie \textit{Entity framework}, ktorý zaručuje prenos dát medzi aplikáciou a SQL databázou.
 
-\subsection{Ego sieť}
-\subsubsection{Zmeny siete v závislosti nad voľbou ega}
+Po spustení aplikácie mám na výber stiahnuť si svoj XML súbor o svojej emailovej schránky, naimportovať ho do aplikácie a ďalej prezerať svoje emailové dáta. Keďže emailové sady som už mala predpripravené, mohla som postupovať priamo k vizualizácii a analýze.
+
+\subsection{Analýza tímu}
+
+\subsubsection{Vizualizácia datasetu}
+Aplikácia umožňuje výber vizualizácie jednotlivých členov týmu a tiež celého týmu celkovo. S výberom daného datasetu sa pre danú sieť zobrazia aj základné informácie ako počet emailov, odosielateľov emailov, najpoužívanejšie emaulové domény a podobne.
 
 
-\subsection{Analýza rolí}
+\begin{figure}[H]
+\centering
+\includegraphics[width=14cm, height=5cm]{figures/team_tab_celkovo}
+\caption{Základné informácie o tímovej sieti.}
+\label{team_tab_celkovo}
+\end{figure}
+
+Na obr. \ref{team_tab_celkovo} sú zobrazené základné informácie o agregovanej sieti. Štyria sme celkovo napísali 21738 emailov z toho bolo detekovaných 4149 konverzácií. Celkovo sa na emailovej komunikácii podieľalo 370 používateľov. Najviac emailov v agregovanej sade poslal používateľ \textit{Tibor Palatka}. Hodina, kedy sa posielalo celkovo najviac emailov bola medzi ôsmou a deviatou hodinou ráno, čiže to je čas, kedy ľudia prídu do práce a prvé, čo urobia je, že si skontrolujú emaily. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm, height=6cm]{figures/team_domain_celkovo}
+\caption{Najviac používané emailové domény.}
+\label{team_domain_celkovo}
+\end{figure}
+
+Na obr. \ref{team_domain_celkovo} sú zobrazené emailové domén, z ktorých používatelia najvic posielali emaily. Najviac emailov sa poslalo z domén \textit{rec-global.com} a \textit{globallogic.com}, ktoré sú oficiálne domény spoločnosti, v ktorej pracujem. Ostatné domény patria zákazníkom, s ktorými ako spoločnosť spolupracujeme. 
+
+Na obr. \ref{team_net_celkovo} je vizualizácia celkovej siete tímu v základnej podobe.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=16cm, height=10cm]{figures/team_net_celkovo}
+\caption{Vizualizácia siete.}
+\label{team_net_celkovo}
+\end{figure}
+
+
+\subsubsection{Detekcia komunít}
+Aplikácia umožňuje detekovať komunity v sieti a následne ich vizualizovať. Pre ďalšiu analýzu poskytujem v nasledujúcej tabuľke základné informácie o členoch tímu. Pre analýzu komunít využívam to, že každý nastúpil do práce v iný rok, takže na prelome týchto rokov by mal byť zaznamenaný nárast komunít.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ c c c }
+ Meno & Aktuálna pozícia &  Dátum nástupu do firmy \\ 
+ \hline
+ Andrej Parimucha &Test engineer  & 1.7.2011 \\  
+ Veronika Uhrová & Junior Developer  & 1.9.2016  \\
+ Andrej Matejčík & Medior Developer  & 1.6.2017 \\
+ Tibor Palatka & Lead Developer & 1.11.2010 \\
+\end{tabular}
+\caption{Informácie o členoch tímu}
+\end{table} 
+
+
+\paragraph{Zmeny komunít v čase}
+
+\subsubsection{Ego sieť}
+\paragraph{Zmeny siete v závislosti nad voľbou ega}
+
+
+\subsubsection{Analýza rolí}
 \subsubsection{SSRM}
 \subsubsection{Brokerage}
 
 
+\subsection{Porovnanie jednotlivých členov týmu}
 
 
 

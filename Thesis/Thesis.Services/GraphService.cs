@@ -251,6 +251,13 @@ namespace Thesis.Services
 
             try
             {
+                if (graph.EgoEdges.Count > 0)
+                {
+                    foreach (Edge<UserDto> egoEdge in graph.EgoEdges)
+                    {
+                        graph.Edges.RemoveWhere(x => x.Node1.Id == egoEdge.Node1.Id && x.Node2.Id == egoEdge.Node2.Id);
+                    }
+                }
                 EgoNetwork egoNetwork = new EgoNetwork();
 
                 HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graph);
@@ -270,6 +277,7 @@ namespace Thesis.Services
                         Node2 = node
                     };
                     graph.AddEdge(newEdge);
+                    graph.EgoEdges.Add(newEdge);
                 }
 
                 graph.SetDegrees();

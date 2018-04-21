@@ -105,9 +105,14 @@ body {
 }
 
 .container-canvas {
+    padding-bottom: 30px;
     .canvas{
     position: relative;
     }
+}
+
+.container-buttons {
+    margin-bottom: 30px; 
 }
 
 .container-contacts {
@@ -522,6 +527,11 @@ h1, h2, h3, h4, h5, h6, p {
     padding-top: 15px;
 }
 
+
+.container-communities {
+    padding-top: 15px;
+}
+
 .table th, .table td {
     color: #721549;
 }
@@ -531,7 +541,6 @@ h1, h2, h3, h4, h5, h6, p {
     font-size: 18px;
     text-align: center;
     width: 100%;
-    padding: 20px;
 }
 
 .pie-chart-container{

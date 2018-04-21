@@ -311,6 +311,7 @@ namespace Thesis.Web.Controllers
 
                         graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
                         graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 45;
+                        graphViewModel.Graph.SetCommunityNodes();
                     }
                 }
             }
@@ -416,7 +417,7 @@ namespace Thesis.Web.Controllers
                     {
                         nodes.First(x => x.id == node.Id).shape = GetNodeShapeBasedOnRole(node);
                     }
-
+                    graphViewModel.Graph.SetCommunityNodes();
                     GraphDto graphDto = new GraphDto
                     {
                         nodes = nodes,
@@ -514,6 +515,7 @@ namespace Thesis.Web.Controllers
                         nodes = nodes,
                         edges = edges
                     };
+                    graphViewModel.Graph.SetCommunityNodes();
                     graphViewModel.RolesDetected = false;
                     graphViewModel.GraphDto = graphDto;
                 }
