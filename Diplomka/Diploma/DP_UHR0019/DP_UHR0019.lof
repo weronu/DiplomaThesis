@@ -14,21 +14,29 @@
 \contentsline {figure}{\numberline {8}{\ignorespaces Vizualiz\IeC {\'a}cia krokov Louvainovho algoritmu. \relax }}{26}{figure.caption.9}
 \contentsline {figure}{\numberline {9}{\ignorespaces Pr\IeC {\'\i }klad ego siete.\relax }}{27}{figure.caption.10}
 \contentsline {figure}{\numberline {10}{\ignorespaces Pr\IeC {\'\i }klad brokerage procesu\relax }}{33}{figure.caption.19}
-\contentsline {figure}{\numberline {11}{\ignorespaces Liaison brokerage\relax }}{33}{figure.caption.20}
+\contentsline {figure}{\numberline {11}{\ignorespaces Liaison brokerage\relax }}{34}{figure.caption.20}
 \contentsline {figure}{\numberline {12}{\ignorespaces Itinerant brokerage\relax }}{34}{figure.caption.21}
-\contentsline {figure}{\numberline {13}{\ignorespaces Coordinator brokerage\relax }}{34}{figure.caption.22}
-\contentsline {figure}{\numberline {14}{\ignorespaces Gatekeeper brokerage\relax }}{34}{figure.caption.23}
+\contentsline {figure}{\numberline {13}{\ignorespaces Coordinator brokerage\relax }}{35}{figure.caption.22}
+\contentsline {figure}{\numberline {14}{\ignorespaces Gatekeeper brokerage\relax }}{35}{figure.caption.23}
 \contentsline {figure}{\numberline {15}{\ignorespaces Representative brokerage\relax }}{35}{figure.caption.24}
-\contentsline {figure}{\numberline {16}{\ignorespaces Ve\IeC {\v l}kos\IeC {\v t} ega - stupe\IeC {\v n} uzla: 6\relax }}{36}{figure.caption.25}
-\contentsline {figure}{\numberline {17}{\ignorespaces M\IeC {\'a}lo \IeC {\v s}truktur\IeC {\'a}lnych dier vs. ve\IeC {\v l}a \IeC {\v s}truktur\IeC {\'a}lnych dier.\relax }}{37}{figure.caption.26}
-\contentsline {figure}{\numberline {18}{\ignorespaces Pr\IeC {\'\i }klad v\IeC {\'y}po\IeC {\v c}tu efekt\IeC {\'\i }vnej sily\relax }}{38}{figure.caption.27}
-\contentsline {figure}{\numberline {19}{\ignorespaces UseCase Diagram\relax }}{40}{figure.caption.28}
-\contentsline {figure}{\numberline {20}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{41}{figure.caption.29}
-\contentsline {figure}{\numberline {21}{\ignorespaces Triedny diagram - Repository pattern\relax }}{42}{figure.caption.30}
-\contentsline {figure}{\numberline {22}{\ignorespaces Model-View-Controller\relax }}{43}{figure.caption.31}
-\contentsline {figure}{\numberline {23}{\ignorespaces Jednoduch\IeC {\'a} sie\IeC {\v t} vytvoren\IeC {\'a} s pou\IeC {\v z}it\IeC {\'\i }m kni\IeC {\v z}nice vis.js\relax }}{44}{figure.caption.32}
-\contentsline {figure}{\numberline {24}{\ignorespaces Pr\IeC {\'\i }klad pou\IeC {\v z}itia kni\IeC {\v z}nice vis.js\relax }}{44}{figure.caption.33}
-\contentsline {figure}{\numberline {25}{\ignorespaces Dom\IeC {\'e}nov\IeC {\'y} model\relax }}{45}{figure.caption.34}
-\contentsline {figure}{\numberline {26}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie o t\IeC {\'\i }movej sieti.\relax }}{48}{figure.caption.35}
-\contentsline {figure}{\numberline {27}{\ignorespaces Najviac pou\IeC {\v z}\IeC {\'\i }van\IeC {\'e} emailov\IeC {\'e} dom\IeC {\'e}ny.\relax }}{48}{figure.caption.36}
-\contentsline {figure}{\numberline {28}{\ignorespaces Vizualiz\IeC {\'a}cia siete.\relax }}{49}{figure.caption.37}
+\contentsline {figure}{\numberline {16}{\ignorespaces Ve\IeC {\v l}kos\IeC {\v t} ega - stupe\IeC {\v n} uzla: 6\relax }}{37}{figure.caption.25}
+\contentsline {figure}{\numberline {17}{\ignorespaces M\IeC {\'a}lo \IeC {\v s}truktur\IeC {\'a}lnych dier vs. ve\IeC {\v l}a \IeC {\v s}truktur\IeC {\'a}lnych dier.\relax }}{38}{figure.caption.26}
+\contentsline {figure}{\numberline {18}{\ignorespaces Pr\IeC {\'\i }klad v\IeC {\'y}po\IeC {\v c}tu efekt\IeC {\'\i }vnej sily\relax }}{39}{figure.caption.27}
+\contentsline {figure}{\numberline {19}{\ignorespaces UseCase Diagram\relax }}{41}{figure.caption.28}
+\contentsline {figure}{\numberline {20}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{42}{figure.caption.29}
+\contentsline {figure}{\numberline {21}{\ignorespaces Triedny diagram - Repository pattern\relax }}{43}{figure.caption.30}
+\contentsline {figure}{\numberline {22}{\ignorespaces Model-View-Controller\relax }}{44}{figure.caption.31}
+\contentsline {figure}{\numberline {23}{\ignorespaces Jednoduch\IeC {\'a} sie\IeC {\v t} vytvoren\IeC {\'a} s pou\IeC {\v z}it\IeC {\'\i }m kni\IeC {\v z}nice vis.js\relax }}{45}{figure.caption.32}
+\contentsline {figure}{\numberline {24}{\ignorespaces Pr\IeC {\'\i }klad pou\IeC {\v z}itia kni\IeC {\v z}nice vis.js\relax }}{45}{figure.caption.33}
+\contentsline {figure}{\numberline {25}{\ignorespaces Dom\IeC {\'e}nov\IeC {\'y} model\relax }}{46}{figure.caption.34}
+\contentsline {figure}{\numberline {26}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie o t\IeC {\'\i }movej sieti.\relax }}{49}{figure.caption.35}
+\contentsline {figure}{\numberline {27}{\ignorespaces Najviac pou\IeC {\v z}\IeC {\'\i }van\IeC {\'e} emailov\IeC {\'e} dom\IeC {\'e}ny.\relax }}{49}{figure.caption.36}
+\contentsline {figure}{\numberline {28}{\ignorespaces Vizualiz\IeC {\'a}cia siete.\relax }}{50}{figure.caption.37}
+\contentsline {figure}{\numberline {29}{\ignorespaces Vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v t\IeC {\'\i }movej sieti za celkov\IeC {\'y} \IeC {\v c}as\relax }}{51}{figure.caption.39}
+\contentsline {figure}{\numberline {30}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t v t\IeC {\'\i }movej sieti za celkov\IeC {\'y} \IeC {\v c}as\relax }}{51}{figure.caption.40}
+\contentsline {figure}{\numberline {31}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za prv\IeC {\'y} \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{52}{figure.caption.41}
+\contentsline {figure}{\numberline {32}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za druh\IeC {\'y} \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{52}{figure.caption.42}
+\contentsline {figure}{\numberline {33}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za tret\IeC {\'\i } \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{53}{figure.caption.43}
+\contentsline {figure}{\numberline {34}{\ignorespaces Po\IeC {\v c}et detekovan\IeC {\'y}ch \IeC {\v s}truktur\IeC {\'a}lnyh r\IeC {\^o}l\relax }}{54}{figure.caption.45}
+\contentsline {figure}{\numberline {35}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za tret\IeC {\'\i } \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{54}{figure.caption.46}
+\contentsline {figure}{\numberline {36}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za tret\IeC {\'\i } \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{54}{figure.caption.47}

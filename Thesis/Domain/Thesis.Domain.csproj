@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Brokerage.cs" />
     <Compile Include="DomainClasses\DataPoint.cs" />
+    <Compile Include="DomainClasses\SSRMRolesDto.cs" />
     <Compile Include="DTOs\BrokerageDto.cs" />
     <Compile Include="DomainClasses\Conversation.cs" />
     <Compile Include="DomainClasses\ConversationEmails.cs" />

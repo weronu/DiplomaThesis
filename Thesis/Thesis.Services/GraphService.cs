@@ -4,6 +4,7 @@ using System.Linq;
 using Domain;
 using Domain.DomainClasses;
 using Domain.DTOs;
+using Domain.Enums;
 using Domain.GraphClasses;
 using Graph.Algorithms;
 using Repository.MSSQL.Interfaces;
@@ -284,10 +285,11 @@ namespace Thesis.Services
 
                 double eiIndex = egoNetwork.GetEIIndex(graph, egoNetworkCenter);
                 double effectiveSizeOfEgo = egoNetwork.GetEffectiveSizeOfEgo(graph, egoNetworkCenter);
-
+                int connectedCommunities = egoNetwork.GetNumberOfConnectedCommunities(graph, egoNetworkCenter);
 
                 graph.Nodes.First(x => x.Id == egoNetworkCenter.Id).EIIndex = eiIndex;
                 graph.Nodes.First(x => x.Id == egoNetworkCenterId).EffectiveSize = effectiveSizeOfEgo;
+                graph.Nodes.First(x => x.Id == egoNetworkCenterId).CommunitiesConnected = connectedCommunities;
 
 
                 response.Succeeded = true;
@@ -416,6 +418,40 @@ namespace Thesis.Services
                 }
 
                 response.Item = emailNetworkStatistics;
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
+
+
+        public FetchItemServiceResponse<SSRMRolesDto> FetchSSRMRolesCounts(Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<SSRMRolesDto> response = new FetchItemServiceResponse<SSRMRolesDto>();
+            try
+            {
+                if (graph.Nodes.All(x => x.Role == 0))
+                {
+                    throw new Exception("Detect SSRM roles first!");
+                }
+                int leadersCount = graph.Nodes.Count(x => x.Role == Role.Leader);
+                int mediatorsCount = graph.Nodes.Count(x => x.Role == Role.Mediator);
+                int outermostsCount = graph.Nodes.Count(x => x.Role == Role.Outermost);
+                int outsidersCount = graph.Nodes.Count(x => x.Role == Role.Outsider);
+
+                SSRMRolesDto ssrmRolesDto = new SSRMRolesDto()
+                {
+                    LeaderCount = leadersCount,
+                    MediatorsCount = mediatorsCount,
+                    OutsiderCount = outsidersCount,
+                    OutermostCount = outermostsCount
+                };
+
+                response.Item = ssrmRolesDto;
                 response.Succeeded = true;
                 return response;
             }

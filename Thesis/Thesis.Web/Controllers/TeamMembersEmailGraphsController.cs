@@ -301,7 +301,8 @@ namespace Thesis.Web.Controllers
 
                         graphDto.nodes.First(x => x.id == egoNetworkCenterId).title = $"Node degree: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).Degree}"
                                                                                                + ", " + $"E-I Index: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).EIIndex}"
-                                                                                               + ", " + $"Effective size: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).EffectiveSize}";
+                                                                                               + ", " + $"Effective size: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).EffectiveSize}"
+                                                                                               + ", " + $"Connected communities: {graphViewModel.Graph.Nodes.First(x => x.Id == egoNetworkCenterId).CommunitiesConnected}" ;
                         graphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 25;
                         graphViewModel.SelectedEgoId = egoNetworkCenterId;
                         graphViewModel.TeamMembers = TeamMembers;
@@ -393,9 +394,12 @@ namespace Thesis.Web.Controllers
                 }
 
                 FetchItemServiceResponse<Graph<UserDto>> response = _graphService.DetectRolesInGraph(graphViewModel.Graph);
+                
                 if (response.Succeeded)
                 {
                     graphViewModel.Graph = response.Item;
+                    FetchItemServiceResponse<SSRMRolesDto> ssrmRolesCounts = _graphService.FetchSSRMRolesCounts(graphViewModel.Graph);
+                    graphViewModel.SsrmRolesDto = ssrmRolesCounts.Item;
 
                     List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                     {

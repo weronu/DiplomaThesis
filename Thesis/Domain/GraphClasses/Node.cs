@@ -24,5 +24,7 @@ namespace Domain.GraphClasses
 
         public double EIIndex { get; set; }
         public double EffectiveSize { get; set; }
+
+        public int CommunitiesConnected { get; set; }
     }
 }

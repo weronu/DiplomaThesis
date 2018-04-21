@@ -159,5 +159,23 @@ namespace Graph.Algorithms
 
             return Math.Round(effectiveSize);
         }
+
+        public int GetNumberOfConnectedCommunities(Graph<UserDto> graph, Node<UserDto> egoCenter)
+        {
+            try
+            {
+                if (graph.Communities.Count == 0)
+                {
+                    throw new Exception("You have to detect communities first!");
+                }
+                HashSet<Node<UserDto>> alters = graph.GetAdjacentNodes(egoCenter);
+                List<int> connnectedCommunities = alters.Select(x => x.CommunityId).Distinct().ToList();
+                return connnectedCommunities.Count;
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
     }
 }

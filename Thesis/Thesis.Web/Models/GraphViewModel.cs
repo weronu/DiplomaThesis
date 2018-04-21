@@ -20,7 +20,7 @@ namespace Thesis.Web.Models
         public bool RolesDetected { get; set; }
         public bool CommunitiesDetected { get; set; }
         public int? SelectedEgoId { get; set; }
-
+        public SSRMRolesDto SsrmRolesDto { get; set; }
         public HashSet<BrokerageDto> BrokerageDto { get; set; }
 
         public DataPointDto DataPointDto { get; set; }

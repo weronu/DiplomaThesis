@@ -339,7 +339,7 @@ Ego sieť je sieť tvorená uzlami, ktoré sa nazývajú aj \textit{alter} uzlam
 \end{figure}
 
 \subsubsection{Konštrukcia ego siete}
-
+V tejto práci konštruujem ego sieť tak, že k uzlu, ktorý bol vybraný ako ego, sa pridajú hrany tak, aby spájal doposiaľ neprepojené komponenty siete. To môže pomôcť k analýze toho, či by sa daný človek hodil do vodcovskej pozície na základe jeho starých spojení. To, že sú k nemu pridané nové spojenia by bolo prirodzené, ak by sa daný jednotlivec dostal naozaj do vodcovskej (alebo inak egocentrickej) role. Príkladom môže byť napríklad to, keď sa v spoločnosti hľadá nový projektový manažér a z danej siete môžme detekovať, či sa človek s danými vlohami nenachádza aj v aktuálnom tíme na nižšej pozícii.
 
 \section{Metódy analýzy sociálnych sietí}
 
@@ -829,7 +829,7 @@ Aplikácia umožňuje výber vizualizácie jednotlivých členov týmu a tiež c
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=14cm, height=5cm]{figures/team_tab_celkovo}
+\includegraphics[width=14cm, height=5.5cm]{figures/team_tab_celkovo}
 \caption{Základné informácie o tímovej sieti.}
 \label{team_tab_celkovo}
 \end{figure}
@@ -864,7 +864,7 @@ Aplikácia umožňuje detekovať komunity v sieti a následne ich vizualizovať.
 \begin{tabular}{ c c c }
  Meno & Aktuálna pozícia &  Dátum nástupu do firmy \\ 
  \hline
- Andrej Parimucha &Test engineer  & 1.7.2011 \\  
+ Andrej Parimucha & Test engineer  & 1.7.2011 \\  
  Veronika Uhrová & Junior Developer  & 1.9.2016  \\
  Andrej Matejčík & Medior Developer  & 1.6.2017 \\
  Tibor Palatka & Lead Developer & 1.11.2010 \\
@@ -872,19 +872,111 @@ Aplikácia umožňuje detekovať komunity v sieti a následne ich vizualizovať.
 \caption{Informácie o členoch tímu}
 \end{table} 
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=17cm, height=10cm]{figures/team_communities_celkovo}
+\caption{Vizualizácia komunít v tímovej sieti za celkový čas}
+\end{figure}
+
+Celkovo bolo v sieti detekovaných 13 komunít. Najväčšia komunita má 57 uzlov, najmenšia má 2 uzly. Celkové zloženie komunít je zobrazené na nasledujúcom obrázku.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm, height=8.5cm]{figures/team_communities_tab_celkovo}
+\caption{Rozloženie komunít v tímovej sieti za celkový čas}
+\end{figure}
 
 \paragraph{Zmeny komunít v čase}
+\hfill \break
+
+Zmeny komunít som zaznamenávala v dátumoch, kedy jednotliví členovia tímu nastupovali do práce. Prvým časovým úsekom, ktorý som sledovala bolo obdobie medzi 1.11.2010 - 1.7.2011, kedy bol zamestnancom spoločnosti zatiaľ len jeden z nás. Boli detekované dve komunity, rozloženie uzlov je zobrazené na obrázku \ref{team_communities_first}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm, height=4.5cm]{figures/team_communities_tab_first}
+\caption{Rozloženie komunít za prvý časový úsek}
+\label{team_communities_first}
+\end{figure}
+
+
+Ďalší interval, ktorý som zvolila bol interval medzi 1.11.2010 - 31.8.2016, ktorý reprezentuje čas, kedy boli zamestnancami dvaja jednotlivci. Detekovaných bolo 9 komunít. 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm, height=6cm]{figures/team_communities_tab_second}
+\caption{Rozloženie komunít za druhý časový úsek}
+\label{team_communities_second}
+\end{figure}
+
+Do príchodu ďalšieho kolegu (interval 1.11.2010 - 31.5.2017) bolo detekovaných 12 komunít, čiže mojim príchodom do firmy pribudli tri komunity, to znamená že príchodom ďalšieho kolegu počet komunít vzrástol o jednu komunitu. Na ďalšom obrázku je zobrazené rozloženie komunít v treťom intervale.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=8cm, height=7cm]{figures/team_communities_tab_third}
+\caption{Rozloženie komunít za tretí časový úsek}
+\label{team_communities_third}
+\end{figure}
+
+
 
 \subsubsection{Ego sieť}
-\paragraph{Zmeny siete v závislosti nad voľbou ega}
+Pre analýzu ego siete som vybrala troch jednotlivcov, z ktorých som vytvorila ego uzol a vytvorila pre nich ego sieť. Porovnávala som jednotlivé metriky a počet komunít, ktoré spájali. Vyberala som uzly s rozdielnou centralitou, aby som mohla sledovať porovnanie medzi výsledkami. Porovnanie je možné vidieť v tabuľke.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c| }
+ \hline
+ Meno vybraného jednotlivca & Stupeň uzla & Počet prepojených komunít & Efektívna veľkosť & E-I index \\ 
+ \hline
+ Tibor Palatka    & 129  & 13  & 127  &  0.52 \\  
+  \hline
+ Andrej Parimucha &  81  &  11 & 72 & 0.06  \\ 
+  \hline
+ Attila Soltézs   & 20   &  11 &  18 & 0.4  \\ 
+  \hline
+
+\end{tabular}
+\caption{Informácie o vytvorenej ego sieti}
+\end{table} 
 
 
 \subsubsection{Analýza rolí}
-\subsubsection{SSRM}
-\subsubsection{Brokerage}
+
+Analýzu rolí som prevádzala na sieti s vytvoreným ego uzlom (ako ego uzol som zvolila uzol s najväčším stupňom). 
+
+\paragraph{SSRM}
+\hfill \break
+V na obr. \ref{team_ssrm} sú zobrazené počty detekovaných štrukturálnych rôl v sieti. Uzly, ktoré boli detekované ako \textit{leader} zastávajú v reálnom živote pozíciu \textit{Lead developer}, \textit{Tester}, \textit{Product owner}, \textit{HR manager}, \textit{Project manager}, \textit{Sales manager}, \textit{IT Consultant} a ďalší \textit{Project manager}. Žiadny uzol nebol detekovaný ako \textit{Mediator}. Tri uzly boli detekované ako \textit{Outermost}, čo majú byť menej dôležitý jedinci a naozaj som sa s nimi ani s ich menom v práci nestretla.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=5cm, height=3.5cm]{figures/team_ssrm}
+\caption{Počet detekovaných štrukturálnyh rôl}
+\label{team_ssrm}
+\end{figure}
 
 
-\subsection{Porovnanie jednotlivých členov týmu}
+\paragraph{Brokerage}
+V na obr. \ref{team_brokerage} je zobrazených desať najväčších \textit{broker} aktérov v sieti spolu s grafom ich čiatkovým skóre pre každú \textit{brokerage} rolu, ako aj celkové \textit{brokerage} skóre.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm, height=7cm]{figures/team_brokerage_tab}
+\caption{Rozloženie komunít za tretí časový úsek}
+\label{team_brokerage}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm, height=6cm]{figures/team_brokerage_graph}
+\caption{Rozloženie komunít za tretí časový úsek}
+\label{team_brokerage}
+\end{figure}
+
+\subsection{Analýza jednotlivcov}
 
 
 

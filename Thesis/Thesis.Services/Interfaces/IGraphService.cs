@@ -21,5 +21,6 @@ namespace Thesis.Services.Interfaces
         FetchItemServiceResponse<Graph<UserDto>> CreateEgoNetwork(Graph<UserDto> graph, int egoNetworkCenterId);
         FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString, DateTime fromDate, DateTime toDate);
         FetchItemServiceResponse<NetworkStatisticsDto> FetchEmailNetworkStatistics(string connectionString, DateTime fromDate, DateTime toDate);
+        FetchItemServiceResponse<SSRMRolesDto> FetchSSRMRolesCounts(Graph<UserDto> graph);
     }
 }

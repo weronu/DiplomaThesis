@@ -29,9 +29,8 @@
 @if (@Model.Graph.Communities.Count > 0)
 {
     <div class="row">
-        <label class="top-ten-brokerage-label">COMMUNITIES</label>
-
-        <div class="col-md-12">
+        <div class="col-md-6">
+            <label class="top-ten-brokerage-label">COMMUNITIES</label>
             <div class="container-communities">
                 <table class="table table-hover table-striped">
                     <tbody>
@@ -46,9 +45,41 @@
                 </table>
             </div>
         </div>
-    </div>
 
+        @if (@Model.RolesDetected)
+        {
+
+            <div class="col-md-6">
+                <label class="top-ten-brokerage-label">SSRM Roles</label>
+                <div class="container-communities">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Leader</th>
+                                <td>@Model.SsrmRolesDto.LeaderCount</td>
+                            </tr>
+                            <tr>
+                                <th>Mediator</th>
+                                <td>@Model.SsrmRolesDto.MediatorsCount</td>
+                            </tr>
+                            <tr>
+                                <th>OuterMost</th>
+                                <td>@Model.SsrmRolesDto.OutermostCount</td>
+                            </tr>
+                            <tr>
+                                <th>OuterMost</th>
+                                <td>@Model.SsrmRolesDto.OutsiderCount</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
 }
+
+
+
 
 <div id="wrapper" class="graph-wrapper">
     <div id="mynetwork" class="graph-network"></div>
@@ -78,7 +109,6 @@
         </div>
     </div>
 </div>
-
 
 
 @if (@Model.BrokerageDetected)
