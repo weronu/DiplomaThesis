@@ -62,10 +62,10 @@
 
 % A nasleduje text zaverecne prace.
 \section{Úvod}
-V stručnom úvode je popísaná motivácia, ktorá viedla k vypracovaniu tejto diplomovej práce, vízia toho, čo sa malo dosiahnuť a hrubá štruktúra vypracovaného textu.
+V stručnom úvode je popísaná motivácia, ktorá viedla k vypracovaniu tejto diplomovej práce a vízia toho, čo sa malo dosiahnuť a hrubá štruktúra vypracovaného textu.
 
 \subsection{Motivácia}
-S cieľom uľahčiť používanie emailov a prebádať podnikateľský potenciál emailov, analýza emailov dosiahla pozoruhodný pokrok v oblasti výskumu, ale aj v praxi. Emaily teda možno považovať za zmiešanú štruktúru obsahujúcu údaje o ľuďoch zo sociálnych alebo aj organizačných aspektov.
+S cieľom uľahčiť používanie emailov a prebádať podnikateľský potenciál emailov, analýza emailov dosiahla pozoruhodný pokrok nielen v oblasti výskumu, ale aj v praxi. Emaily možno považovať za zmiešanú štruktúru obsahujúcu údaje o ľuďoch zo sociálnych alebo aj organizačných aspektov.
 
 \textbf{Obsah emailu ako textové a netextové dáta} 
 \newline Emaily sú písané viac stručne ako väčšina ostatných dokumentov, často obsahujú hovorové výrazy a abreviácie, ktoré sa nenachádzajú v bežných slovníkoch, preto štandartné techniky analýzy textov pri práci s emailovými dátami  nemusia byť efektívne.
@@ -80,15 +80,15 @@ Hlavné problémy, ktoré sú investigované v analýze emailov sú detekcia spa
 \subsection{Vízia}
 Cieľom práce je oboznámiť čitateľa s oblasťou sociálnych sietí a špeciálne s témou analýzy emailových dát a tieto znalosti demonštrovať nad reálnymi emailovými dátami. Pre uskutočnenie tohto cieľa je potrebné naštudovať informácie z oblasti analýzy emailov, reprezentácie emailu v sieti a vizualizácie sociálnych sietí vrátanie aktuálnych metód publikovaných v článkoch. K tomu sa viaže tiež prieskum reprezentácie a konštrukcie emailu ako prvku sociálnej siete. 
 
-Ďalej boli vybrané metódy detekcie rolí v sociálnej sieti a navrhnutá aplikácia, ktorá umožňuje analyzovať a vizualizovať analytické výsledky. V tejto aplikácii s jednoduchým a použiteľným užívateľským rozhraním budú implementované vybrané metódy analýzy a bude navrhnutá prehľadná vizualizácia vzťahov. Nakoniec bude vytvorená analýza jedného prvku siete a výsledky experimentov budú zrozumiteľne prezentované.
+Ďalej boli vybrané metódy detekcie rolí v sociálnej sieti a navrhnutá aplikácia, ktorá umožňuje analyzovať a vizualizovať analytické výsledky. V tejto aplikácii s jednoduchým a použiteľným užívateľským rozhraním sú implementované vybrané metódy analýzy a je navrhnutá prehľadná vizualizácia vzťahov. Nakoniec je vytvorená analýza tímu podľa emailových dát a porovnanie dvoch prvkoch siete a výsledky experimentov sú zrozumiteľne prezentované.
 
 \subsection{Štruktúra práce}
-V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktoré sa zaoberajú analýzou emailov a reprezentácii emailu v sociálnych sieťach. Ďalej sa čitateľ zoznámi s emailom ako komunikačným prostriedkom a dozvie sa, ako sú na tom emaily s popularitou aktuálne. Potom je uvedený stručný prehľad teórie grafov a definícií určitých pojmov, ktorý je nevyhnutný k porozumeniu ďalších kapitol. V ďalšej kapitole píšem o sociálnych sieťach, ich histórii a analýze sociálnych sietí a komunitnej štruktúre sociálnych sietí. Neskôr prechádzam k popisu a reprezentácie frameworku pre detekciu štrukturálnych rolí, popisujem sociálne roly definovaná v rámci tohto frameworku a následnej v ďalšej kapitole referujem pomocou akých metód sa sociálne roly v rámci tohto frameworku identifikujú. Na základe všetkých poznatkov práce je navrhnutá aplikácia vhodná k sledovaniu sociálnych rolí v emailovej sieti.  Ešte pred záverom sú uvedené výsledky prevedených experimentov týkajúcich sa poznatkami skúmanej sociálnej siete.
+V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktoré sa zaoberajú analýzou emailov a reprezentáciou emailu v sociálnych sieťach. Ďalej sa čitateľ zoznámi s emailom ako komunikačným prostriedkom a dozvie sa, ako sú na tom emaily s popularitou aktuálne. Potom je uvedený stručný prehľad teórie grafov a definícií určitých pojmov, ktorý je nevyhnutný k porozumeniu ďalších kapitol. V ďalšej kapitole píšem o sociálnych sieťach, ich histórii a analýze sociálnych sietí, komunitnej štruktúre sociálnych sietí a ego sieťach. Neskôr prechádzam k popisu a reprezentácie frameworku pre detekciu štrukturálnych rolí, popisujem sociálne roly definované v rámci tohto frameworku a následne v ďalšej kapitole referujem pomocou akých metód sa sociálne roly v rámci tohto frameworku identifikujú. Ďalej popisujem ďalšiu metódu pre identifikáciu rolí zo sociálnych sietí - \textit{brokerage}. Na základe všetkých poznatkov práce je navrhnutá aplikácia vhodná k sledovaniu výsledkov navrhnutých metód pre analýzu emailových sietí.  Ešte pred záverom sú uvedené výsledky prevedených experimentov týkajúcich sa poznatkami skúmanej sociálnej siete.
 
 
 \section{Súvisiace práce}
 
-Pre odhaľovanie vzťahov medzi ľuďmi, skupina a organizáciami z emalových sietí boli aplikované mnohé techniky a modely analýzy sociálnych sietí. Mnoho štúdií použilo maily spoločnosti \textit{Enron} kvôli nedostatku dostupných veľkých súborov. 
+Pre odhaľovanie vzťahov medzi ľuďmi, skupinami a organizáciami z emalových sietí boli aplikované mnohé techniky a modely analýzy sociálnych sietí. Mnoho štúdií použilo maily spoločnosti \textit{Enron} kvôli nedostatku dostupných veľkých súborov. 
 
 
 Napríklad Diesner, Carley a Frantz v \cite{3} zkonštruovali z mailovej komunikácie spoločnosti Enron orientovaný graf zo vzťahu odosielateľ-príjemca, kde hrany boli vážené frekvenciou mailov, ktoré si medzi sebou poslali v čase. Potom aplikovali techniky analýzy sociálnych sietí. V práci popísali, ako vylepšili originálnu sadu a súčasné zistenia ich investigáciou vďaka analýze sociálnych sietí. Skúmajú dynamiku, štruktúru a vlastnosti organizačnej komunikačnej siete ako aj charakteristiky a vzory komunikačného správania zamestnancov z rôznych organizačných levelov. Zistili, že počas obdobia krízy sa komunikácia medzi zamestnancami stala viac rôznorodejšia v súvislosti so zavedenými kontaktami a formálnymi rolami. Taktiež počas obdobia kríz, predtým nekomunikujúci zamestnanci sa začali zapájať do vzájomného rozhovoru, takže interpersonálna komunikácia bola intenzívnejšia a sieť sa tým rozširovala. Tieto zistenia poskytli cenný pohľad do organizačnej krízy reálneho sveta, čo môže byť ďalej využité pre validáciu alebo tvorbu teórií a dynamických modelov organizačných kríz a tým to vedie k lepšiemu porozumeniu základných príčin organizačných kríz v organizáciách.
@@ -194,7 +194,7 @@ Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=5cm,height=4.5cm]{figures/uplnygraf}
+\includegraphics[width=5.5cm,height=5cm]{figures/uplnygraf}
 \caption{Úplný graf}
 \end{figure}
 
@@ -328,7 +328,11 @@ Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizov
 
 \subsection{Ego sieť}
 
-Ego sieť je sieť tvorená uzlami, ktoré sa nazývajú aj \textit{alter} uzlami, ktoré sa formujú okolo určitého uzla, ktorý sa nazýva \textit{ego}. Toto ego sa niekedy zo siete vynecháva za účelom analýzy zmien siete. To záleží od danej analýzy. \cite{21}. Ego je individuálny ústredný uzol. Sieť môže mať toľko ég, koľko má uzlov. Egá môžu byť osoby, skupiny, organizácie alebo celé spoločnosti.
+Ego sieť je sieť tvorená uzlami, ktoré sa nazývajú aj \textit{alter} uzlami, ktoré sa formujú okolo určitého uzla, ktorý sa nazýva \textit{ego}. Toto ego sa niekedy zo siete vynecháva za účelom analýzy zmien siete. To záleží od danej analýzy \cite{6}. Ego je individuálny ústredný uzol. Sieť môže mať toľko ég, koľko má uzlov. Egá môžu byť osoby, skupiny, organizácie alebo celé spoločnosti.
+
+
+\subsubsection{Konštrukcia ego siete}
+V tejto práci konštruujem ego sieť tak, že k uzlu, ktorý bol vybraný ako ego, sa pridajú hrany tak, aby spájal doposiaľ neprepojené komponenty siete. To môže pomôcť k analýze toho, či by sa daný človek hodil do vodcovskej pozície na základe jeho starých spojení. To, že sú k nemu pridané nové spojenia by bolo prirodzené, ak by sa daný jednotlivec dostal naozaj do vodcovskej (alebo inak egocentrickej) role. Príkladom môže byť napríklad to, keď sa v spoločnosti hľadá nový projektový manažér a z danej siete môžme detekovať, či sa človek s danými vlohami nenachádza aj v aktuálnom tíme, ale na nižšej pozícii.
 
 \begin{figure}[H]
 \centering
@@ -336,8 +340,6 @@ Ego sieť je sieť tvorená uzlami, ktoré sa nazývajú aj \textit{alter} uzlam
 \caption{Príklad ego siete.}
 \end{figure}
 
-\subsubsection{Konštrukcia ego siete}
-V tejto práci konštruujem ego sieť tak, že k uzlu, ktorý bol vybraný ako ego, sa pridajú hrany tak, aby spájal doposiaľ neprepojené komponenty siete. To môže pomôcť k analýze toho, či by sa daný človek hodil do vodcovskej pozície na základe jeho starých spojení. To, že sú k nemu pridané nové spojenia by bolo prirodzené, ak by sa daný jednotlivec dostal naozaj do vodcovskej (alebo inak egocentrickej) role. Príkladom môže byť napríklad to, keď sa v spoločnosti hľadá nový projektový manažér a z danej siete môžme detekovať, či sa človek s danými vlohami nenachádza aj v aktuálnom tíme na nižšej pozícii.
 
 \section{Metódy analýzy sociálnych sietí}
 
@@ -569,11 +571,11 @@ Typy sprostredkovateľov sú \textit{liaison}, \textit{itinerant}, \textit{coord
 
 \subsubsection{Liaison}
 
-\textit{Liaison brokerage} je \textit{broker} spojenie medzi dvoma rozdielnymi skupinami, do ktorých on nepatrí. Na obrázku je \textit{broker} (B) spojený s dvoma skupinami (A a C), ale nie je súčasťou ani jednej tejto skupiny. 
+\textit{Liaison brokerage} je \textit{broker} spojenie medzi dvoma rozdielnymi skupinami, do ktorých on nepatrí. Na obrázku je \textit{broker} (B) spojený s dvoma skupinami (A a C), ale nie je súčasťou ani jednej tejto skupiny a teda tvorí spojenie medzi aktérom A a aktérom C. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=4cm, height=4cm]{figures/liaison}
+\includegraphics[width=3cm, height=3cm]{figures/liaison}
 \caption{Liaison brokerage}
 \end{figure}
 
@@ -582,7 +584,7 @@ Pri tomto type \textit{brokerage} roly dvaja neprepojení aktéri (A a C) patria
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=4cm, height=4cm]{figures/itineran}
+\includegraphics[width=3cm, height=3cm]{figures/itineran}
 \caption{Itinerant brokerage}
 \end{figure}
 
@@ -591,7 +593,7 @@ V role \textit{coordinator} všetci traja aktéri patria do rovnakej skupiny a s
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=4cm, height=4cm]{figures/coordinator}
+\includegraphics[width=3cm, height=3cm]{figures/coordinator}
 \caption{Coordinator brokerage}
 \end{figure}
 
@@ -600,7 +602,7 @@ V tomto type \textit{brokerage} roly \textit{broker}(B) a jeden z dvoch neprepoj
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=4cm, height=4cm]{figures/gatepeeker}
+\includegraphics[width=3cm, height=3cm]{figures/gatepeeker}
 \caption{Gatekeeper brokerage}
 \end{figure}
 
@@ -610,7 +612,7 @@ V tomto type \textit{brokerage} roly \textit{broker}(B) a jeden z dvoch neprepoj
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=4cm, height=4cm]{figures/representative}
+\includegraphics[width=3cm, height=3cm]{figures/representative}
 \caption{Representative brokerage}
 \end{figure}
 
@@ -633,7 +635,7 @@ Veľkosť ego siete je jednoduchá, ale veľavravná charakteristika. Definuje j
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=10cm, height=9cm]{figures/egonet}
+\includegraphics[width=8cm, height=7cm]{figures/egonet}
 \caption{Veľkosť ega - stupeň uzla: 6}
 \end{figure}
 
@@ -666,7 +668,7 @@ ${
 
 Koncept štrukturálnych dier je koncept analýzy sociálnych sietí vyvinutý R. S. Burtom. Predstavil tento pojem v snahe vysvetliť vznik rozdielov v sociálnom kapitále. Burtova teória naznačuje, že jednotlivci majú isté výhody alebo nevýhody podľa toho, ako sú zakotvené v spoločenských štruktúrach. Štrukturálna diera je chápaná ako medzera medzi dvoma jednotlivcami (chýbajúca hrana medzi uzlami), ktorí majú doplňujúce zdroje informácií. \cite{burt2004structural}
 
-\paragraph{Efektívna sila}
+\paragraph{Efektívna veľkosť} 
 \hfill \break
 Burt predstavil mieru redundancie siete, Borgatti vyvinul zjednodušenú verziu efektívnej veľkosti pre nevážené siete \cite{borgatti1997structural}. Redundancia ${ = \frac{2t}{n}}$, kde \textit{t} je počet všetkých spojení v egocentrickej sieti (s výnimkou spojení k egu) a \textit{n} je počet všetkých uzlov v egocentrickej sieti (s výnimoku ega). Táto formula môže byť modifikovaná pre výpočet efektívnej sily ego siete. Efektívna sila ego siete ${ = n - \frac{2t}{n}}$ (rozdiel počtu \textit{alter} uzlov ega a sumy ich redundancií = ${6-1.33 = 4.67}$)
 
@@ -677,6 +679,7 @@ Burt predstavil mieru redundancie siete, Borgatti vyvinul zjednodušenú verziu 
 \caption{Príklad výpočtu efektívnej sily}
 \end{figure}
 
+Čím viac je každý uzol odpojený od ostatných primárnych kontaktov, tým vyššia bude efektívna veľkosť. Tento indikátor nadobúda hodnoty od 1 (sieť poskytuje len jediné spojenie (hranu)) až do celkového počtu spojení, kedy každý kontakt (alter) je neredundantný.
 
 \section{Aplikácia}
 Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
@@ -790,8 +793,21 @@ Do aplikácie je možné nahrať XML súbor, ktorý je spracovaný uloženou SQL
 \caption{Doménový model}
 \end{figure}
 
+
+
+
 \subsection{Implementácia}
 Aplikácia je napísaná v jazyku C\#, grafické rozhranie je naimplementované pomocou návrhového vzoru Model View Controller a graf bol vizualizovaný pomocou knižnice vis.js. Aplikácia bola vyvíjaná vo Visual Studiu 2017.
+
+\subsubsection{Metóda pre získanie emailových dát}
+Pre získanie emailových dát z emailovej schránky som naimplementovala metódu, ktorá sa pomocou protokolu IMAP pripojí na danú emailovú schránku a stiahne emaily vo forme XML súboru. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=15cm, height=7cm]{figures/konfiguracia_emailu}
+\caption{Príklad konfigurácie emailu pre získanie emailov}
+\end{figure}
+
 
 \subsubsection{Konštrukcia siete}
 Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií.
@@ -801,24 +817,41 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 
 
 
-Random citation \cite{DUMMY:1} embeddeed in text.
-
 \section{Experimenty}
-V tejto kapitole popisujem experimenty, ktoré som previedla nad rôznymi emailovými sadami v implementovanej aplikácii. Popisujem ako aj prípravu dát, tak aj import a ďalej vizualizáciu jednotlivých datasetov a tiež výsledky a porovnanie analytických metód. V prvej časti popisujem analýzu agregovanej sady ako celkovú analýzu týmu a v druhej časti porovnávam výsledky dvoch vybraných jednotlivcov.
+V tejto kapitole popisujem experimenty, ktoré som previedla nad rôznymi emailovými sadami v implementovanej aplikácii. Popisujem ako aj prípravu dát, tak aj import a ďalej vizualizáciu jednotlivých datasetov a tiež výsledky a porovnanie analytických metód. V prvej časti popisujem analýzu agregovanej sady ako celkovú analýzu tímu a v druhej časti popisujem analýzu jednotlivca.
 
-
-\subsection{Príprava a import dát}
-Ako už bolo spomenuté, pre samotnú analýzu som nepoužila žiadny verejne dostupný dataset, ale použila som svoju emailovú sadu. Navyše moji traja kolegovia mi takisto poskytli emailové dáta. V dobe, keď som od nich emaily požadovala, moja aplikácia ešte nebola hotová a tak sa pre získanie ich emailov použila externá aplikácia \textit{TeamNet Data} \cite{5}. Emailové sady boli poskytnuté v súbore formátu XML.
-
-
-Keďže sme kolegovia a pracujeme spolu v tíme nachádzali sme sa viac krát v rovnakej emailovej komunikácii a tak sa v sadách vyskytovali emaily duplikátne. Pre spracúvanie emailov som vytvorila SQL procedúru, ktorá jednotlivé XML súbor načíta, rozdelí emaily, používateľov a konverzácie na jednolivé entity a naimportuje ich do SQL databázy. Pre odstránenie duplikátov som použila SQL skript, ktorý zaručil odstránenie duplikátnych položiek. S tako uloženými emailovými dátami používam pre import do aplikácie \textit{Entity framework}, ktorý zaručuje prenos dát medzi aplikáciou a SQL databázou.
-
-Po spustení aplikácie mám na výber stiahnuť si svoj XML súbor o svojej emailovej schránky, naimportovať ho do aplikácie a ďalej prezerať svoje emailové dáta. Keďže emailové sady som už mala predpripravené, mohla som postupovať priamo k vizualizácii a analýze.
 
 \subsection{Analýza tímu}
 
+Analýzu tímu som previedla na agregovanej emailovej sade, ktorá obsahuje email od štyroch jednotlivcov. Základné informácie o tomto datasete sú uvedené v tabuľke. Ďalej popisujem aj prípravu a import dát do aplikácie.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ c c c }
+  &  počet \\ 
+ \hline
+ Emaily  & 21738 \\  
+ Konverzácie  & 4149  \\
+ Požívatelia  & 370 \\
+ Používatelia, ktorí sú aspoň v jednej konverzácii  & 273 \\  
+ Emaily poslané z pracovného emailu  & 20367  \\
+\end{tabular}
+\caption{Základné informácie o datasete}
+\label{tabulkazaklinfo}
+\end{table} 
+
+\subsubsection{Príprava a import dát}
+Ako už bolo spomenuté, pre samotnú analýzu som nepoužila žiadny verejne dostupný dataset, ale použila som svoju emailovú sadu a emailové sady od mojich troch kolegov z práce. V dobe, keď som od nich emaily požadovala, moja aplikácia ešte nebola hotová a tak sa pre získanie ich emailov použila externá aplikácia \textit{TeamNet Data} \cite{5}. Emailové sady boli poskytnuté v súbore formátu XML.
+
+
+Keďže sme kolegovia a pracujeme spolu v tíme, nachádzali sme sa viac krát v rovnakej emailovej komunikácii, takže sa v sadách vyskytovali emaily duplikátne. Pre spracúvanie emailov som vytvorila SQL procedúru, ktorá jednotlivé XML súbor načíta, rozdelí emaily, používateľov a konverzácie na jednolivé entity a naimportuje ich do SQL databázy. Pre odstránenie duplikátov som použila SQL skript, ktorý zaručil odstránenie duplikátnych položiek. S tako uloženými emailovými dátami používam pre import do aplikácie \textit{Entity framework}, ktorý zaručuje prenos dát medzi aplikáciou a SQL databázou.
+
+Po spustení aplikácie mám na výber stiahnuť si svoj XML súbor o svojej emailovej schránky, naimportovať ho do aplikácie a ďalej prezerať svoje emailové dáta. Keďže emailové sady som už mala predpripravené, mohla som postupovať priamo k vizualizácii a analýze.
+
+
+
 \subsubsection{Vizualizácia datasetu}
-Aplikácia umožňuje výber vizualizácie jednotlivých členov týmu a tiež celého týmu celkovo. S výberom daného datasetu sa pre danú sieť zobrazia aj základné informácie ako počet emailov, odosielateľov emailov, najpoužívanejšie emaulové domény a podobne.
+Aplikácia umožňuje výber vizualizácie jednotlivých členov tímu a tiež celého tímu celkovo. S výberom daného datasetu sa pre danú sieť zobrazia aj základné informácie ako počet emailov, odosielateľov emailov, najpoužívanejšie emaulové domény a podobne.
 
 
 \begin{figure}[H]
@@ -921,7 +954,7 @@ Pre analýzu ego siete som vybrala troch jednotlivcov, z ktorých som vytvorila 
 \centering
 \begin{tabular}{ |c|c|c|c|c| }
  \hline
- Meno vybraného jednotlivca & Stupeň uzla & Počet prepojených komunít & Efektívna veľkosť & E-I index \\ 
+ Meno jednotlivca & Stupeň uzla & Počet prepojených komunít & Efektívna veľkosť & E-I index \\ 
  \hline
  Tibor Palatka    & 129  & 13  & 127  &  0.52 \\  
   \hline
@@ -934,6 +967,8 @@ Pre analýzu ego siete som vybrala troch jednotlivcov, z ktorých som vytvorila 
 \caption{Informácie o vytvorenej ego sieti}
 \end{table} 
 
+
+Podľa veľkosti, čiže stupňa uzla môžem povedať, že uzol s veľkosťou 129 bude mať určie väčší sociálnu podporu od ostatných aktérov v sieti, väčší prísun k zdrojom a informáciám v porovnaní s uzlami s veľkosťou 81 alebo 20. Čo sa týka počtu prepojených komunít sú ale títo aktéri na tom podobne a spájajú porovnateľné množstvo komunít. Podľa E-I indexu môžem povedať, že ego sieť každého aktéra je heterofílna a tak sa v svojej práci stretávajú so širokou skálou ľudí, nielen s ľuďmi z podobného okolia.
 
 \subsubsection{Analýza rolí}
 
@@ -971,7 +1006,116 @@ V na obr. \ref{team_brokerage_tab} a \ref{team_brokerage_graph} je zobrazených 
 \label{team_brokerage_graph}
 \end{figure}
 
-\subsection{Analýza jednotlivcov}
+\subsection{Analýza jednotlivca}
+V tejto časti popisujem analýzu jednotlivca od získania emailových dát z emailového účtu, importu do aplikácie a zobrazenie výsledkov metód v aplikácii. Pre analýzu jednotlivca používam svoju emailovú sadu pre demonštrovanie získavania a importu emailov .
+
+\subsubsection{Príprava a import dát}
+Pre získanie emailových dát z emailovej schránky používam navrhnutú aplikáciu. Po zadaní emailového účtu, používateľského mena, hesla, adresu servera a portu získam XML súbor s emailami, ktorý naimportujem do aplikácie a zobrazí sa mi moja emailová sieť.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm, height=9cm]{figures/analyza_jednotlivca_net}
+\caption{Analýza jednotlivca - základná vizualizácia}
+\label{team_brokerage_graph}
+\end{figure}
+
+\subsubsection{Informácie o datasete}
+Spolu s vizualizáciou datasetu sa zobrazia aj základné štatistiky o datasete. Moja emailová schránka obsahuje 3135 emailov, ktoré napísalo 155 používateľov a bolo detekovaných 512 konverzácií. Osoba, ktorá napísala najviac emailov bol používateľ \textit{Attila Soltezs}, ktorý zastáva pozíciu \textit{Project manager}. Hodina, kedy sa písalo najviac emailov bola medzi siedmou a ôsmou hodinou ráno. Celkový sumár spolu s najpoužívanejšími emailovými doménami je na obrázku \ref{analyza_jednotlivca_stat}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm, height=13cm]{figures/analyza_jednotlivca_stat}
+\caption{Analýza jednotlivca - základné štatistiky}
+\label{analyza_jednotlivca_stat}
+\end{figure}
+
+
+\subsubsection{Detekcia komunít}
+Celkovo bolo v dataste detekovaných 9 komunít. Najväčšia komunita obsahuje 26 uzlov, najmenšia komunita obsahuje 2 uzly. 
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm, height=8cm]{figures/analyza_jednotlivca_komunity}
+\caption{Analýza jednotlivca - vizualizácia komunít}
+\label{analyza_jednotlivca_stat}
+\end{figure}
+
+
+\paragraph{Zmeny komunít v čase}
+
+Pre zmeny komunít v čase som využila obdobia, kedy som pracovala na iných projektoch a teda sa komunity môžu v týchto intervaloch líšiť. Obdobie prvého projektu je v intervale od 1.9.2016 do 1.3.2017 a obdobie druhého je od 1.3.2017 do súčasnej doby, povedzme do 31.3.2018. 
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm, height=8cm]{figures/analyza_jednotlivca_komunity_firstInt}
+\caption{Analýza jednotlivca - Vizualizácia komunít v prvom časovom intervale}
+\label{analyza_jednotlivca_komunity_firstInt}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=12cm, height=8cm]{figures/analyza_jednotlivca_komunity_secondInt}
+\caption{Analýza jednotlivca - vizualizácia komunít v druhom časovom intervale}
+\label{analyza_jednotlivca_komunity_secondInt}
+\end{figure}
+
+Ako vidieť na obrázkoch \ref{analyza_jednotlivca_komunity_firstInt} a \ref{analyza_jednotlivca_komunity_secondInt} zloženie komunít sa líši, či už zložením jednotlivých uzlov, tak aj veľkosťou a počtom, čo je samozrejme prirodzené, keďže som komunikovala v týchto intervaloch s inými osobami. V prvom intervale bolo detekovaných 9 komunít, najväčšia komunita mala 16 uzlov, najmenšia 2 uzly. Čo sa týka druhého intervalu, bolo detekovaných 6 komunít, najväčšia komunita obsahovala 17 uzlov najmenšia rovnako 2 uzly.
+
+
+\subsubsection{Ego sieť}
+Pre analýzu ega som vybrala cielene troch jednotlivcov zo siete, ktorí pracujú na rozdielnej pozícii. Vybrala som jedného developera, jedného projektového manažéra a testera. Z každého z nich vytváram v sieti ego a v nasledujúcej tabuľke porovnávam ich silu v sieti.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c| }
+ \hline
+ Aktér & Pozícia & Prepojené komunity & Efektívna veľkosť & E-I index \\ 
+ \hline
+Veronika Uhrová  & developer  & 8  & 28  &  -0.06 \\  
+  \hline
+  Attila Soltézs &  projektový manažér  &  11 & 15 & -0.25  \\ 
+  \hline
+  Andrej Primucha & tester   &  4 &  5 & 0  \\ 
+  \hline
+
+\end{tabular}
+\caption{Informácie o vytvorenej ego sieti}
+\end{table} 
+
+\subsubsection{Analýza rolí}
+Analýzu rolí som prevádzala na sieti s detekovaným ego uzlom, ktorý som zvolila podľa najväčšieho stupňa uzla.
+
+\paragraph{SSRM}
+\hfill \break
+Analýza štrukturálnych rolí dopadla podľa očakávaní. Boli detekované tri uzly s rolou \textit{leader} a jeden uzol s rolou \textit{mediator}. Uzly detekované ako \textit{leader} pracujú na pozíciách \textit{Project Manager}, \textit{Product owner} a \textit{Developer}. Možno trochu nezvyčajné je, že mňa ako developera môj algoritmus identifikoval ako  \textit{leader} rolu. Keď  to premietnem do reálneho života, kde je v tíme jediná žena, môžem povedať, že táto detekcia dáva zmysel.
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm, height=7cm]{figures/analyza_jednotlivca_ssrm_detail}
+\caption{Analýza jednotlivca - detail detekcie \textit{leader} roly}
+\end{figure}
+
+\paragraph{Brokerage}
+\hfill \break
+V na obr. \ref{analyza_jednotlivca_brokerage} a \ref{analyza_jednotlivca_brokerage_graph} je zobrazených desať najväčších \textit{broker} aktérov v sieti spolu s grafom ich čiatkovým skóre pre každú \textit{brokerage} rolu, ako aj celkové \textit{brokerage} skóre.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm, height=7cm]{figures/analyza_jednotlivca_brokerage}
+\caption{Desať aktérov s najväčším \textit{brokerage} skórom}
+\label{analyza_jednotlivca_brokerage}
+\end{figure}
+
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=13cm, height=7cm]{figures/analyza_jednotlivca_brokerage_graph}
+\caption{Desať aktérov s najväčším \textit{brokerage} skórom - graf}
+\label{analyza_jednotlivca_brokerage_graph}
+\end{figure}
 
 
 

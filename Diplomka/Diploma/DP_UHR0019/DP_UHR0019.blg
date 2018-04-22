@@ -3,47 +3,44 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: DP_UHR0019.aux
 The style file: ieeetr.bst
 Database file #1: mybib.bib
-Warning--I didn't find a database entry for "21"
-Warning--I didn't find a database entry for "DUMMY:1"
-You've used 19 entries,
+You've used 20 entries,
             1876 wiz_defined-function locations,
-            590 strings with 6325 characters,
-and the built_in function-call counts, 5091 in all, are:
-= -- 540
-> -- 150
+            593 strings with 6535 characters,
+and the built_in function-call counts, 5307 in all, are:
+= -- 555
+> -- 170
 < -- 0
-+ -- 59
-- -- 40
-* -- 339
-:= -- 685
-add.period$ -- 23
-call.type$ -- 19
++ -- 66
+- -- 46
+* -- 355
+:= -- 721
+add.period$ -- 25
+call.type$ -- 20
 change.case$ -- 18
 chr.to.int$ -- 0
-cite$ -- 19
-duplicate$ -- 266
-empty$ -- 497
-format.name$ -- 40
-if$ -- 1271
+cite$ -- 20
+duplicate$ -- 275
+empty$ -- 517
+format.name$ -- 46
+if$ -- 1321
 int.to.chr$ -- 0
-int.to.str$ -- 19
-missing$ -- 17
-newline$ -- 64
-num.names$ -- 16
-pop$ -- 63
+int.to.str$ -- 20
+missing$ -- 19
+newline$ -- 68
+num.names$ -- 17
+pop$ -- 69
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 194
+skip$ -- 195
 stack$ -- 0
 substring$ -- 366
-swap$ -- 118
+swap$ -- 119
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 54
-width$ -- 21
-write$ -- 192
-(There were 2 warnings)
+while$ -- 55
+width$ -- 22
+write$ -- 201

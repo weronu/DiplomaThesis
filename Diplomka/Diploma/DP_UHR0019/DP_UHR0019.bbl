@@ -35,7 +35,7 @@ S.~Zehnalova, Z.~Horak, and M.~Kudelka, ``Email conversation network analysis:
 \bibitem{13}
 ``Do millennial and gen z consumers still use email?.''
   \url{https://www.bluecore.com/blog/do-millennials-use-email/}.
-\newblock 2017-09-30.
+\newblock 2017-03-30.
 
 \bibitem{8}
 M.~E. Newman, ``The structure and function of complex networks,'' {\em SIAM
@@ -45,6 +45,12 @@ M.~E. Newman, ``The structure and function of complex networks,'' {\em SIAM
 V.~D. Blondel, J.-L. Guillaume, R.~Lambiotte, and E.~Lefebvre, ``Fast unfolding
   of communities in large networks,'' {\em Journal of statistical mechanics:
   theory and experiment}, vol.~2008, no.~10, p.~P10008, 2008.
+
+\bibitem{6}
+N.~Crossley, E.~Bellotti, G.~Edwards, M.~G. Everett, J.~Koskinen, and
+  M.~Tranmer, {\em Social network analysis for ego-nets: Social network
+  analysis for actor-centred networks}.
+\newblock Sage, 2015.
 
 \bibitem{15}
 R.~V. Gould and R.~M. Fernandez, ``Structures of mediation: A formal approach
@@ -83,7 +89,7 @@ S.~P. Borgatti, ``Structural holes: Unpacking burt’s redundancy measures,''
 \bibitem{11}
 ``{Active Record vs. Repository pattern} repository pattern.''
   \url{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}.
-\newblock 2017-09-30.
+\newblock 2018-01-15.
 
 \bibitem{5}
 ``{TeamNET} data.'' \url{http://inflex.cz:8075/TeamNETdata}.
