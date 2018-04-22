@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Domain.DomainClasses;
 using Domain.DTOs;
 using Domain.GraphClasses;
@@ -18,5 +19,7 @@ namespace Repository.MSSQL.Interfaces
         void ExtractConversations();
         void ClearDatabaseData();
         HashSet<Edge<UserDto>> ExtractEdgesFromConversation(HashSet<ConversationEmails> conversationEmails);
+        List<BrokerageDto> GetTopTenBrokers(HashSet<Node<UserDto>> nodes);
+        NetworkStatisticsDto GetEmailNetworkStatistics(DateTime fromDate, DateTime toDate);
     }
 }

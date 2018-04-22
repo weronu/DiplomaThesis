@@ -305,16 +305,5 @@ namespace Graph.Algorithms
                 community.ClosenessCentralityStandartDeviation = GetCommunityClosenessCentralityStandartDeviation(community);
             }
         }
-
-
-        public void GetBrokerageRoles(Node<T> node)
-        {
-            foreach (Node<T> neighbour in _graph.GetAdjacentNodes(node))
-            {
-                List<Edge<T>> edges = _graph.Edges.Where(x => x.Node1 == node || x.Node1 == neighbour || x.Node2 == node || x.Node2 == neighbour).ToList();
-                List<BrokerageBase<T>> brokerageBases = new List<BrokerageBase<T>>();
-                
-            }
-        }
     }
 }

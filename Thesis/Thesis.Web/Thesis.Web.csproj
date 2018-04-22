@@ -101,6 +101,7 @@
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.ValueTuple.4.4.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
@@ -182,6 +183,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportXMLFileController.cs" />
     <Compile Include="Controllers\TeamMembersEmailGraphsController.cs" />
+    <Compile Include="DTOs\DataPointDto.cs" />
     <Compile Include="DTOs\EdgeDto.cs" />
     <Compile Include="DTOs\GraphDto.cs" />
     <Compile Include="DTOs\NodeDto.cs" />
@@ -232,6 +234,7 @@
     <Content Include="Content\fontawesome\fontawesome-all.min.css" />
     <Content Include="Content\fontawesome\fontawesome.css" />
     <Content Include="Content\fontawesome\fontawesome.min.css" />
+    <Content Include="Content\graph2d.min.css" />
     <Content Include="Content\inputfile.css" />
     <Content Include="Content\toastr.css" />
     <Content Include="Content\webfonts\fa-brands-400.svg" />
@@ -279,6 +282,7 @@
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\daterangepicker.scss" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\canvasjs.js" />
     <Content Include="Scripts\custom.js" />
     <Content Include="Scripts\daterangepicker.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -359,6 +363,9 @@
     <Content Include="Views\ImportXMLFile\Index.cshtml" />
     <Content Include="Views\EmailDownload\Index.cshtml" />
     <Content Include="Views\Shared\_Toastr.cshtml" />
+    <Content Include="Views\TeamMembersEmailGraphs\Graph2d_partial.cshtml" />
+    <Content Include="Views\TeamMembersEmailGraphs\GraphPie2d_partial.cshtml" />
+    <Content Include="Views\TeamMembersEmailGraphs\NetworkStatistics_partial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\uploads\" />

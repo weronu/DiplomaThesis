@@ -79,7 +79,7 @@ namespace Thesis.Services
         {
             try
             {
-                using (XmlWriter writer = XmlWriter.Create("emails.xml"))
+                using (XmlWriter writer = XmlWriter.Create("D:/emails.xml"))
                 {
                     writer.WriteStartElement("Messages");
                     foreach (EmailXML emailXml in emails)

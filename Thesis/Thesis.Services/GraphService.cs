@@ -4,6 +4,7 @@ using System.Linq;
 using Domain;
 using Domain.DomainClasses;
 using Domain.DTOs;
+using Domain.Enums;
 using Domain.GraphClasses;
 using Graph.Algorithms;
 using Repository.MSSQL.Interfaces;
@@ -238,22 +239,82 @@ namespace Thesis.Services
             }
             catch (Exception e)
             {
+                response.Succeeded = false;
                 throw new Exception(e.Message);
             }
 
             return response;
         }
 
-        public FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph)
+        public FetchItemServiceResponse<Graph<UserDto>> CreateEgoNetwork(Graph<UserDto> graph, int egoNetworkCenterId)
         {
             FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
 
             try
             {
-                using (IUnitOfWork uow = CreateUnitOfWork("GLEmailsDatabaseAdo"))
+                if (graph.EgoEdges.Count > 0)
                 {
-                    int nodeIdByUserName = uow.UserRepo.GetNodeIdByUserName("andrej matejcik");
-                    Node<UserDto> nodeB = graph.GetNodeById(nodeIdByUserName);
+                    foreach (Edge<UserDto> egoEdge in graph.EgoEdges)
+                    {
+                        graph.Edges.RemoveWhere(x => x.Node1.Id == egoEdge.Node1.Id && x.Node2.Id == egoEdge.Node2.Id);
+                    }
+                }
+                EgoNetwork egoNetwork = new EgoNetwork();
+
+                HashSet<HashSet<Node<UserDto>>> subGraphs = egoNetwork.FindConectedSubgraphs(graph);
+                
+                Node<UserDto> egoNetworkCenter = graph.GetNodeById(egoNetworkCenterId);
+                if (egoNetworkCenter == null)
+                {
+                    throw new Exception("Ego center node was not found.");
+                }
+                HashSet<Node<UserDto>> nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph = egoNetwork.GetNodesWithMaximalDegreeInSubgraphs(subGraphs, egoNetworkCenter);
+
+                foreach (Node<UserDto> node in nodesWithMAximalDegreeInSubgraphsAximalDegreeInSubgraph)
+                {
+                    Edge<UserDto> newEdge = new Edge<UserDto>()
+                    {
+                        Node1 = egoNetworkCenter,
+                        Node2 = node
+                    };
+                    graph.AddEdge(newEdge);
+                    graph.EgoEdges.Add(newEdge);
+                }
+
+                graph.SetDegrees();
+
+                double eiIndex = egoNetwork.GetEIIndex(graph, egoNetworkCenter);
+                double effectiveSizeOfEgo = egoNetwork.GetEffectiveSizeOfEgo(graph, egoNetworkCenter);
+                int connectedCommunities = egoNetwork.GetNumberOfConnectedCommunities(graph, egoNetworkCenter);
+
+                graph.Nodes.First(x => x.Id == egoNetworkCenter.Id).EIIndex = eiIndex;
+                graph.Nodes.First(x => x.Id == egoNetworkCenterId).EffectiveSize = effectiveSizeOfEgo;
+                graph.Nodes.First(x => x.Id == egoNetworkCenterId).CommunitiesConnected = connectedCommunities;
+
+
+                response.Succeeded = true;
+                response.Item = graph;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+            return response;
+        }
+
+        public FetchItemServiceResponse<Graph<UserDto>> DetectBrokerageInGraph(Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<Graph<UserDto>> response = new FetchItemServiceResponse<Graph<UserDto>>();
+            if (graph.Communities.Count == 0)
+            {
+                throw new Exception("You have to find communities first!");
+            }
+
+            try
+            {
+                foreach (Node<UserDto> nodeB in graph.Nodes)
+                {
                     HashSet<Node<UserDto>> adjacentNodes = graph.GetAdjacentNodes(nodeB);
 
                     nodeB.Brokerage = new Brokerage();
@@ -270,6 +331,7 @@ namespace Thesis.Services
                             {
                                 nodeB.Brokerage.Liaison++;
                             }
+
                             if (nodeA.CommunityId == nodeC.CommunityId && nodeA.CommunityId != nodeB.CommunityId && nodeC.CommunityId != nodeB.CommunityId)
                             {
                                 nodeB.Brokerage.Itinerant++;
@@ -288,12 +350,114 @@ namespace Thesis.Services
                             }
                         }
                     }
-                    response.Item = graph;
-                    return response;
                 }
+                response.Item = graph;
+                response.Succeeded = true;
+                return response;
             }
             catch (Exception e)
             {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
+
+        public FetchListServiceResponse<BrokerageDto> FetchTopTenBrokers(Graph<UserDto> graph, string connectionString)
+        {
+            FetchListServiceResponse<BrokerageDto> response = new FetchListServiceResponse<BrokerageDto>();
+            try
+            {
+                List<BrokerageDto> topTenBrokers;
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    topTenBrokers = uow.GraphRepo.GetTopTenBrokers(graph.Nodes);
+                }
+
+                response.Items = new HashSet<BrokerageDto>(topTenBrokers);
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
+
+        public FetchListServiceResponse<DataPoint> FetchMostUsedEmailDomains(string connectionString, DateTime fromDate, DateTime toDate)
+        {
+            FetchListServiceResponse<DataPoint> response = new FetchListServiceResponse<DataPoint>();
+            try
+            {
+                List<DataPoint> mostUsedEmailDomains;
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    mostUsedEmailDomains = uow.UserRepo.GetTenMostUsedEmailDomains(fromDate, toDate);
+                }
+
+                response.Items = new HashSet<DataPoint>(mostUsedEmailDomains);
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
+
+        public FetchItemServiceResponse<NetworkStatisticsDto> FetchEmailNetworkStatistics(string connectionString, DateTime fromDate, DateTime toDate)
+        {
+            FetchItemServiceResponse<NetworkStatisticsDto> response = new FetchItemServiceResponse<NetworkStatisticsDto>();
+            try
+            {
+                NetworkStatisticsDto emailNetworkStatistics;
+                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
+                {
+                    emailNetworkStatistics = uow.GraphRepo.GetEmailNetworkStatistics(fromDate, toDate);
+                }
+
+                response.Item = emailNetworkStatistics;
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
+                throw new Exception(e.Message);
+            }
+        }
+
+
+        public FetchItemServiceResponse<SSRMRolesDto> FetchSSRMRolesCounts(Graph<UserDto> graph)
+        {
+            FetchItemServiceResponse<SSRMRolesDto> response = new FetchItemServiceResponse<SSRMRolesDto>();
+            try
+            {
+                if (graph.Nodes.All(x => x.Role == 0))
+                {
+                    throw new Exception("Detect SSRM roles first!");
+                }
+                int leadersCount = graph.Nodes.Count(x => x.Role == Role.Leader);
+                int mediatorsCount = graph.Nodes.Count(x => x.Role == Role.Mediator);
+                int outermostsCount = graph.Nodes.Count(x => x.Role == Role.Outermost);
+                int outsidersCount = graph.Nodes.Count(x => x.Role == Role.Outsider);
+
+                SSRMRolesDto ssrmRolesDto = new SSRMRolesDto()
+                {
+                    LeaderCount = leadersCount,
+                    MediatorsCount = mediatorsCount,
+                    OutsiderCount = outsidersCount,
+                    OutermostCount = outermostsCount
+                };
+
+                response.Item = ssrmRolesDto;
+                response.Succeeded = true;
+                return response;
+            }
+            catch (Exception e)
+            {
+                response.Succeeded = false;
                 throw new Exception(e.Message);
             }
         }

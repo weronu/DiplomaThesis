@@ -7,6 +7,6 @@
         public int Coordinator { get; set; }
         public int Gatepeeker { get; set; }
         public int Representative { get; set; }
-        public int TotalBrokerageScore { get; set; }
+        public int TotalBrokerageScore => Liaison + Itinerant + Coordinator + Gatepeeker + Representative;
     }
 }

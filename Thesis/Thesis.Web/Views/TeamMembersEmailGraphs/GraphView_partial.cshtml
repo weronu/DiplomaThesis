@@ -2,6 +2,8 @@
     Layout = null;
 }
 
+@using Domain.DTOs
+@using Domain.GraphClasses
 @using Microsoft.Ajax.Utilities
 @model Thesis.Web.Models.GraphViewModel
 <div class="row">
@@ -12,6 +14,73 @@
         </div>
     </div>
 </div>
+
+<div id="network_statistics_partial">
+    
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="container-canvas">
+            <div id="graphPie2d_Partial_Id"></div>
+        </div>
+    </div>
+</div>
+@if (@Model.Graph.Communities.Count > 0)
+{
+    <div class="row">
+        <div class="col-md-6">
+            <label class="top-ten-brokerage-label">COMMUNITIES</label>
+            <div class="container-communities">
+                <table class="table table-hover table-striped">
+                    <tbody>
+                    @foreach (Community<UserDto> community in @Model.Graph.Communities)
+                    {
+                        <tr>
+                            <th>Community @community.Id</th>
+                            <td>@community.CommunityNodes.Count nodes</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        @if (@Model.RolesDetected)
+        {
+
+            <div class="col-md-6">
+                <label class="top-ten-brokerage-label">SSRM Roles</label>
+                <div class="container-communities">
+                    <table class="table table-hover table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Leader</th>
+                                <td>@Model.SsrmRolesDto.LeaderCount</td>
+                            </tr>
+                            <tr>
+                                <th>Mediator</th>
+                                <td>@Model.SsrmRolesDto.MediatorsCount</td>
+                            </tr>
+                            <tr>
+                                <th>OuterMost</th>
+                                <td>@Model.SsrmRolesDto.OutermostCount</td>
+                            </tr>
+                            <tr>
+                                <th>OuterMost</th>
+                                <td>@Model.SsrmRolesDto.OutsiderCount</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+
+
+
 <div id="wrapper" class="graph-wrapper">
     <div id="mynetwork" class="graph-network"></div>
     <div id="loadingBar" class="loadingBar">
@@ -40,11 +109,65 @@
         </div>
     </div>
 </div>
-<div id="dialog" class="dialog" style="display: none"></div>
+
+
+@if (@Model.BrokerageDetected)
+{
+
+    <label class="top-ten-brokerage-label">TOP 10 BROKERS</label>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-brokerage">
+                <table class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Name</th>
+                            <th>Coordinator</th>
+                            <th>Itinerant</th>
+                            <th>Gatepeeker</th>
+                            <th>Representative</th>
+                            <th>Liaison</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @{ int a = 1; }
+                        @foreach (BrokerageDto broker in @Model.BrokerageDto)
+                        {
+
+                            <tr>
+                                <th scope="row">@(a++)</th>
+                                <td>@broker.Name</td>
+                                <td>@broker.Coordinator</td>
+                                <td>@broker.Itinerant</td>
+                                <td>@broker.Gatepeeker</td>
+                                <td>@broker.Representative</td>
+                                <td>@broker.Liaison</td>
+                                <td>@broker.TotalBrokerageScore</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="container-canvas">
+                <div id="graph2d_Partial_Id"></div>
+            </div>
+        </div>
+    </div>
+                            }
 
 <script type="text/javascript">
     blockUI();
     $(document).ready(function () {
+
         $('#daterange').daterangepicker({
             "autoApply": true,
             "startDate": "@Html.Raw(Model.FromDate.FormatInvariant("MM/dd/yyyy"))",
@@ -101,18 +224,34 @@
                 success: function (partialView) {
                     $('#graphView_Partial_Id').html(partialView);
                     unblockUI();
+                },
+                error: function (xhr, data) {
+                    toastr.error(xhr.statusText, "Error", {
+                        "timeOut": "0",
+                        "extendedTimeout": "0"
+                    });
+                    unblockUI();
                 }
             });
+
         });
 
-        GraphVis();
+        viewStatistics();
+        var network = GraphVis();
+        viewDomainGraph();
+
+
+        var clickedNodeId;
+
+        network.on("click", function (params) {
+            clickedNodeId = this.getNodeAt(params.pointer.DOM)
+        });
 
         var findCommunittiesButton = $("#findCommunitiesButton");
         var createEgoNetworkButon = $("#createEgoNetworkButon");
         var findRolesButton = $("#findRolesButton");
         var findBrokerageButton = $("#findBrokerageButton");
 
-        //Attach event handler to submit button
         findCommunittiesButton.click(function (e) {
             e.preventDefault();
             findCommunities();
@@ -121,8 +260,14 @@
 
         createEgoNetworkButon.click(function (e) {
             e.preventDefault();
-            createEgoNetwork();
-            return false;
+            if (clickedNodeId !== undefined) {
+                createEgoNetwork(clickedNodeId);
+            } else {
+                toastr.warning("Please select ego center by click on node.", "Warning", {
+                    "timeOut": "2000",
+                    "extendedTimeout": "2000"
+                });
+            }
         });
 
         findRolesButton.click(function (e) {
@@ -130,6 +275,7 @@
             findRoles();
             return false;
         });
+
 
         findBrokerageButton.click(function (e) {
             e.preventDefault();
@@ -140,11 +286,20 @@
         unblockUI();
     });
 
-    function createEgoNetwork() {
+    function createEgoNetwork(egoNetworkCenterId) {
         blockUI();
 
         var data = JSON.stringify({
-            'graphViewModel': @Html.Raw(Json.Encode(@Model))});
+            'graphViewModel': @Html.Raw(Json.Encode(@Model)),
+            'egoNetworkCenterId': egoNetworkCenterId
+        });
+
+        if (egoNetworkCenterId === undefined) {
+            toastr.warning("Please select ego center by click on node.", "Warning", {
+                "timeOut": "2000",
+                "extendedTimeout": "02000"
+            });
+        }
 
         $.ajax({
             url: "@Url.Action("CreateEgoNetwork", "TeamMembersEmailGraphs")",
@@ -157,8 +312,8 @@
             },
             error: function (xhr, data) {
                 toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
+                    "timeOut": "2000",
+                    "extendedTimeout": "2000"
                 });
                 unblockUI();
             }
@@ -179,13 +334,12 @@
             },
             error: function (xhr, data) {
                 toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
+                    "timeOut": "2000",
+                    "extendedTimeout": "2000"
                 });
                 unblockUI();
             }
         });
-        return false;
     }
 
     function findRoles() {
@@ -196,16 +350,18 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            success: function (partialView) {
+            success: function(partialView) {
 
-                    $('#graphView_Partial_Id').html(partialView);
-                    unblockUI();
+                $('#graphView_Partial_Id').html(partialView);
+                unblockUI();
             },
             error: function(xhr, data) {
-                toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
-                });
+                toastr.error(xhr.statusText,
+                    "Error",
+                    {
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
+                    });
                 unblockUI();
             }
         });
@@ -220,82 +376,183 @@
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
-            success: function (partialView) {
+            success: function(partialView) {
                 $('#graphView_Partial_Id').html(partialView);
+                drawBrokerage();
                 unblockUI();
             },
             error: function(xhr, data) {
+                toastr.error(xhr.statusText,
+                    "Error",
+                    {
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
+                    });
+                unblockUI();
+            }
+        });
+    }
+
+    function drawBrokerage() {
+
+        blockUI();
+        $.ajax({
+            url: "@Url.Action("DrawBrokerageGraph", "TeamMembersEmailGraphs")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            success: function(partialView) {
+                $('#graph2d_Partial_Id').html(partialView);
+
+                unblockUI();
+            },
+            error: function(xhr) {
+                toastr.error(xhr.statusText,
+                    "Error",
+                    {
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
+                    });
+                unblockUI();
+            }
+        });
+        unblockUI();
+        return false;
+    }
+
+        function viewDomainGraph() {
+            blockUI();
+            $.ajax({
+                async: true,
+                url: "@Url.Action("DrawEmailDomainsGraph", "TeamMembersEmailGraphs")",
+                data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+                type: 'POST',
+                contentType: 'application/json; charset=utf-8',
+                success: function (partialView) {
+                    $('#graphPie2d_Partial_Id').html(partialView);
+                    unblockUI();
+                },
+                error: function (xhr, data) {
+                    toastr.error(xhr.statusText, "Error", {
+                        "timeOut": "2000",
+                        "extendedTimeout": "2000"
+                    });
+                    unblockUI();
+                }
+            });
+            unblockUI();
+            return false;
+        }
+
+    function viewStatistics() {
+
+        $.ajax({
+            async: true,
+            url: "@Url.Action("DrawNetworkStatistics", "TeamMembersEmailGraphs")",
+            data: JSON.stringify(@Html.Raw(Json.Encode(@Model))),
+            type: 'POST',
+            contentType: 'application/json; charset=utf-8',
+            success: function (partialView) {
+                $('#network_statistics_partial').html(partialView);
+                unblockUI();
+            },
+            error: function (xhr, data) {
                 toastr.error(xhr.statusText, "Error", {
-                    "timeOut": "0",
-                    "extendedTimeout": "0"
+                    "timeOut": "2000",
+                    "extendedTimeout": "2000"
                 });
                 unblockUI();
             }
         });
+        unblockUI();
         return false;
     }
 
-
     function GraphVis() {
-            var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
-            var edges = @Html.Raw(Json.Encode(Model.GraphDto.edges));
+        var nodes = @Html.Raw(Json.Encode(Model.GraphDto.nodes));
+        var edges = @Html.Raw(Json.Encode(Model.GraphDto.edges));
 
-            // create a network
-            var container = document.getElementById('mynetwork');
+        // create a network
+        var container = document.getElementById('mynetwork');
 
-            // provide the data in the vis format
-            var data = {
-                nodes: nodes,
-                edges: edges
-            };
-            var options = {
-                nodes: {
-                    shape: 'dot',
-                    size: 10,
-                    borderWidth: 1,
+        // provide the data in the vis format
+        var data = {
+            nodes: nodes,
+            edges: edges
+        };
+        var options = {
+            nodes: {
+                shape: 'dot',
+                size: 10,
+                borderWidth: 1,
+                color: {
+                    background: '#f5cbee',
+                    border: '#dcb7d7'
+                }
+            },
+            interaction: { hover: true },
+            layout: {
+                improvedLayout: false
+            },
+            physics: {
+                forceAtlas2Based: {
+                    gravitationalConstant: -26,
+                    centralGravity: 0.005,
+                    springLength: 230,
+                    springConstant: 0.18
+                },
+                maxVelocity: 146,
+                solver: 'forceAtlas2Based',
+                timestep: 0.35,
+                stabilization: {
+                    enabled: true,
+                    iterations: 2000,
+                    updateInterval: 25
+                }
+            },
+            groups: {
+                0: {
                     color: {
                         background: '#f5cbee',
-                        border: '#dcb7d7'
-                    }
-                },
-                interaction: { hover: true },
-                layout: {
-                    improvedLayout: false
-                },
-                physics: {
-                    forceAtlas2Based: {
-                        gravitationalConstant: -26,
-                        centralGravity: 0.005,
-                        springLength: 230,
-                        springConstant: 0.18
-                    },
-                    maxVelocity: 146,
-                    solver: 'forceAtlas2Based',
-                    timestep: 0.35,
-                    stabilization: {
-                        enabled: true,
-                        iterations: 2000,
-                        updateInterval: 25
-                    }
-                },
-                groups: {
-                    0: {
-                        color: {
-                            background: '#f5cbee',
-                            border: '#dcb7d7',
-                            highlight: {
-                                background: '#dcb7d7',
-                                border: '#BD9DB8'
-                            }
+                        border: '#dcb7d7',
+                        hover: '#dcb7d7',
+                        highlight: {
+                            background: '#dcb7d7',
+                            border: '#BD9DB8'
                         }
                     }
                 }
-            };
-            // initializing network
-            var network = new vis.Network(container, data, options);
+            }
+        };
 
-            network.on("stabilizationProgress",
-                function(params) {
+        var mynetwork1 = document.getElementById('mynetwork');
+        var x = - mynetwork1.clientWidth / 2 - 750;
+        var y = - mynetwork1.clientHeight / 2 - 350;
+        var step = 70;
+
+        if (@Html.Raw(Json.Encode(Model.RolesDetected)) === true)
+        {
+            nodes.push({ id: 5000, x: x + 100, y: y + 0 * step, label: 'Leader', shape: 'star', color:'#721549', value: 1, fixed: true, physics:false, chosen: false});
+            nodes.push({ id: 5001, x: x + 100, y: y + 1 * step, label: 'Mediator', shape: 'square', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5002, x: x + 100, y: y + 2 * step, label: 'Outermost', shape: 'triangle', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5003, x: x + 100, y: y + 3 * step, label: 'Outsider', shape: 'triangleDown', color: '#721549', value: 1, fixed: true,  physics:false, chosen: false});
+            nodes.push({ id: 5004, x: x + 100, y: y + 4 * step, label: 'Not detected', shape: 'dot', color: '#721549', value: 1, fixed: true,  physics:false, chosen:false});
+        }
+
+        if (@Html.Raw(Json.Encode(Model.Graph.Communities.Count > 0)))
+        {
+            var communities = @Html.Raw(Json.Encode(Model.Graph.Communities));
+            for (var i = 0, len = communities.length; i < len; i++)
+            {
+               nodes.push({ id: 6000 + i, x: x, y: y + i * step, label: 'Community ' + communities[i].Id, shape: 'dot', group: i + 1, color: '#721549', value: 1, fixed: true, physics: false, chosen: false});
+           }
+        }
+
+                // initializing network
+                var network = new vis.Network(container, data, options);
+
+                network.on("stabilizationProgress",
+            function(params) {
                     var maxWidth = 496;
                     var minWidth = 20;
                     var widthFactor = params.iterations / params.total;
@@ -304,14 +561,20 @@
                     document.getElementById('bar').style.width = width + 'px';
                     document.getElementById('text').innerHTML = Math.round(widthFactor * 100) + '%';
                 });
-            network.once("stabilizationIterationsDone",
-                function() {
+        network.once("stabilizationIterationsDone",
+            function() {
                     document.getElementById('text').innerHTML = '100%';
                     document.getElementById('bar').style.width = '496px';
                     document.getElementById('loadingBar').style.opacity = 0;
                     // really clean the dom element
                     setTimeout(function() { document.getElementById('loadingBar').style.display = 'none'; }, 500);
                 });
-        }
-</script>
+
+        return network;
+    }
+
+
+
+
+</script>   
 

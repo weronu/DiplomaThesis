@@ -6,7 +6,7 @@ body {
     font-weight: 400;
     color: $color_text;
     padding: 0;
-    height: 2000px;
+    height: 3000px;
 }
 
 .container-tiles {
@@ -104,6 +104,16 @@ body {
     }
 }
 
+.container-canvas {
+    padding-bottom: 30px;
+    .canvas{
+    position: relative;
+    }
+}
+
+.container-buttons {
+    margin-bottom: 30px; 
+}
 
 .container-contacts {
     padding-left: 20%;
@@ -414,6 +424,9 @@ h1, h2, h3, h4, h5, h6, p {
     }
 }
 
+.daterangepicker.dropdown-menu.ltr.show-calendar.opensright {
+    top: 100px !important;
+}
 
 .datepicker-dropdown {
     top: 712px;
@@ -423,7 +436,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .datepicker-input {
-    width: 495px;
+    width: 100%;
     padding-left: 30px;
     margin-bottom: 15px;
 }
@@ -448,6 +461,7 @@ h1, h2, h3, h4, h5, h6, p {
     position: relative;
     width: 100%;
     height: 600px;
+    margin-top: 15px;
 }
 
 .loading-bar-text {
@@ -503,4 +517,33 @@ h1, h2, h3, h4, h5, h6, p {
     border: 2px solid rgba(30,30,30,0.05);
     background: $color_nav;
     box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+}
+
+.container-brokerage {
+    padding-top: 30px;
+}
+
+.container-statistics {
+    padding-top: 15px;
+}
+
+
+.container-communities {
+    padding-top: 15px;
+}
+
+.table th, .table td {
+    color: #721549;
+}
+
+.top-ten-brokerage-label {
+    color: $color_nav;
+    font-size: 18px;
+    text-align: center;
+    width: 100%;
+}
+
+.pie-chart-container{
+    width: 100px;
+    height: 100px;
 }
