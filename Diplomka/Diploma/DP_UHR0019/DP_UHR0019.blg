@@ -5,45 +5,45 @@ The style file: ieeetr.bst
 Database file #1: mybib.bib
 Warning--I didn't find a database entry for "21"
 Warning--I didn't find a database entry for "DUMMY:1"
-You've used 17 entries,
+You've used 19 entries,
             1876 wiz_defined-function locations,
-            576 strings with 6081 characters,
-and the built_in function-call counts, 4501 in all, are:
-= -- 471
-> -- 142
+            590 strings with 6325 characters,
+and the built_in function-call counts, 5091 in all, are:
+= -- 540
+> -- 150
 < -- 0
-+ -- 55
-- -- 38
-* -- 299
-:= -- 608
-add.period$ -- 21
-call.type$ -- 17
-change.case$ -- 16
++ -- 59
+- -- 40
+* -- 339
+:= -- 685
+add.period$ -- 23
+call.type$ -- 19
+change.case$ -- 18
 chr.to.int$ -- 0
-cite$ -- 17
-duplicate$ -- 234
-empty$ -- 440
-format.name$ -- 38
-if$ -- 1123
+cite$ -- 19
+duplicate$ -- 266
+empty$ -- 497
+format.name$ -- 40
+if$ -- 1271
 int.to.chr$ -- 0
-int.to.str$ -- 17
-missing$ -- 15
-newline$ -- 58
-num.names$ -- 14
-pop$ -- 61
+int.to.str$ -- 19
+missing$ -- 17
+newline$ -- 64
+num.names$ -- 16
+pop$ -- 63
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 169
+skip$ -- 194
 stack$ -- 0
-substring$ -- 310
-swap$ -- 102
+substring$ -- 366
+swap$ -- 118
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 46
-width$ -- 19
-write$ -- 170
+while$ -- 54
+width$ -- 21
+write$ -- 192
 (There were 2 warnings)
