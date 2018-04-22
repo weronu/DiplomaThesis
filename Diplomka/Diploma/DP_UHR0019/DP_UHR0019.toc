@@ -81,7 +81,7 @@
 \contentsline {subsubsection}{\numberline {7.6.2}Kon\IeC {\v s}trukcia siete}{47}{subsubsection.7.6.2}
 \contentsline {subsubsection}{\numberline {7.6.3}Triedy pre graf, vrcholy a hrany}{47}{subsubsection.7.6.3}
 \contentsline {section}{\numberline {8}Experimenty}{48}{section.8}
-\contentsline {subsection}{\numberline {8.1}Anal\IeC {\'y}za t\IeC {\'\i }mu}{48}{subsection.8.1}
+\contentsline {subsection}{\numberline {8.1}Anal\IeC {\'y}za emailovej komunik\IeC {\'a}cie t\IeC {\'\i }mu}{48}{subsection.8.1}
 \contentsline {subsubsection}{\numberline {8.1.1}Pr\IeC {\'\i }prava a import d\IeC {\'a}t}{48}{subsubsection.8.1.1}
 \contentsline {subsubsection}{\numberline {8.1.2}Vizualiz\IeC {\'a}cia datasetu}{49}{subsubsection.8.1.2}
 \contentsline {subsubsection}{\numberline {8.1.3}Detekcia komun\IeC {\'\i }t}{50}{subsubsection.8.1.3}
@@ -96,9 +96,14 @@
 \contentsline {subsubsection}{\numberline {8.2.3}Detekcia komun\IeC {\'\i }t}{57}{subsubsection.8.2.3}
 \contentsline {paragraph}{\numberline {8.2.3.1}Zmeny komun\IeC {\'\i }t v \IeC {\v c}ase}{58}{paragraph.8.2.3.1}
 \contentsline {subsubsection}{\numberline {8.2.4}Ego sie\IeC {\v t}}{59}{subsubsection.8.2.4}
-\contentsline {subsubsection}{\numberline {8.2.5}Anal\IeC {\'y}za rol\IeC {\'\i }}{59}{subsubsection.8.2.5}
+\contentsline {subsubsection}{\numberline {8.2.5}Anal\IeC {\'y}za rol\IeC {\'\i }}{60}{subsubsection.8.2.5}
 \contentsline {paragraph}{\numberline {8.2.5.1}SSRM}{60}{paragraph.8.2.5.1}
 \contentsline {paragraph}{\numberline {8.2.5.2}Brokerage}{60}{paragraph.8.2.5.2}
 \contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{62}{section.9}
 \contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{62}{subsection.9.1}
-\contentsline {section}{Literatura}{63}{subsection.9.1}
+\contentsline {subsection}{\numberline {9.2}Mo\IeC {\v z}n\IeC {\'e} roz\IeC {\v s}\IeC {\'\i }renia aplik\IeC {\'a}cie}{62}{subsection.9.2}
+\contentsline {subsubsection}{\numberline {9.2.1}Vizualiz\IeC {\'a}cia ve\IeC {\v l}k\IeC {\'y}h grafov}{62}{subsubsection.9.2.1}
+\contentsline {subsubsection}{\numberline {9.2.2}Viac mo\IeC {\v z}nost\IeC {\'\i } filtrovania}{62}{subsubsection.9.2.2}
+\contentsline {subsubsection}{\numberline {9.2.3}Zobrazenie viac inform\IeC {\'a}ci\IeC {\'\i } o hran\IeC {\'a}ch a vrcholoch}{62}{subsubsection.9.2.3}
+\contentsline {subsubsection}{\numberline {9.2.4}Roz\IeC {\v s}\IeC {\'\i }renie analytick\IeC {\'y}ch met\IeC {\'o}d}{62}{subsubsection.9.2.4}
+\contentsline {section}{Literatura}{63}{subsubsection.9.2.4}

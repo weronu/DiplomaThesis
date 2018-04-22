@@ -75,7 +75,7 @@
 \BOOKMARK [3][-]{subsubsection.7.6.2}{Kon\235trukcia\040siete}{subsection.7.6}% 75
 \BOOKMARK [3][-]{subsubsection.7.6.3}{Triedy\040pre\040graf,\040vrcholy\040a\040hrany}{subsection.7.6}% 76
 \BOOKMARK [1][-]{section.8}{Experimenty}{}% 77
-\BOOKMARK [2][-]{subsection.8.1}{Anal\375za\040t\355mu}{section.8}% 78
+\BOOKMARK [2][-]{subsection.8.1}{Anal\375za\040emailovej\040komunik\341cie\040t\355mu}{section.8}% 78
 \BOOKMARK [3][-]{subsubsection.8.1.1}{Pr\355prava\040a\040import\040d\341t}{subsection.8.1}% 79
 \BOOKMARK [3][-]{subsubsection.8.1.2}{Vizualiz\341cia\040datasetu}{subsection.8.1}% 80
 \BOOKMARK [3][-]{subsubsection.8.1.3}{Detekcia\040komun\355t}{subsection.8.1}% 81
@@ -95,4 +95,9 @@
 \BOOKMARK [4][-]{paragraph.8.2.5.2}{Brokerage}{subsubsection.8.2.5}% 95
 \BOOKMARK [1][-]{section.9}{Z\341ver}{}% 96
 \BOOKMARK [2][-]{subsection.9.1}{Mo\236nosti\040roz\235\355renia\040a\040zdokonalenia\040pr\341ce}{section.9}% 97
-\BOOKMARK [1][-]{subsection.9.1}{Literatura}{}% 98
+\BOOKMARK [2][-]{subsection.9.2}{Mo\236n\351\040roz\235\355renia\040aplik\341cie}{section.9}% 98
+\BOOKMARK [3][-]{subsubsection.9.2.1}{\376\377\000V\000i\000z\000u\000a\000l\000i\000z\000\341\000c\000i\000a\000\040\000v\000e\001\076\000k\000\375\000h\000\040\000g\000r\000a\000f\000o\000v}{subsection.9.2}% 99
+\BOOKMARK [3][-]{subsubsection.9.2.2}{Viac\040mo\236nost\355\040filtrovania}{subsection.9.2}% 100
+\BOOKMARK [3][-]{subsubsection.9.2.3}{Zobrazenie\040viac\040inform\341ci\355\040o\040hran\341ch\040a\040vrcholoch}{subsection.9.2}% 101
+\BOOKMARK [3][-]{subsubsection.9.2.4}{Roz\235\355renie\040analytick\375ch\040met\363d}{subsection.9.2}% 102
+\BOOKMARK [1][-]{subsubsection.9.2.4}{Literatura}{}% 103

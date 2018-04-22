@@ -21,7 +21,7 @@
 \contentsline {figure}{\numberline {15}{\ignorespaces Representative brokerage\relax }}{36}{figure.caption.24}
 \contentsline {figure}{\numberline {16}{\ignorespaces Ve\IeC {\v l}kos\IeC {\v t} ega - stupe\IeC {\v n} uzla: 6\relax }}{37}{figure.caption.25}
 \contentsline {figure}{\numberline {17}{\ignorespaces M\IeC {\'a}lo \IeC {\v s}truktur\IeC {\'a}lnych dier vs. ve\IeC {\v l}a \IeC {\v s}truktur\IeC {\'a}lnych dier.\relax }}{38}{figure.caption.26}
-\contentsline {figure}{\numberline {18}{\ignorespaces Pr\IeC {\'\i }klad v\IeC {\'y}po\IeC {\v c}tu efekt\IeC {\'\i }vnej sily\relax }}{39}{figure.caption.27}
+\contentsline {figure}{\numberline {18}{\ignorespaces Pr\IeC {\'\i }klad v\IeC {\'y}po\IeC {\v c}tu redundancie\relax }}{39}{figure.caption.27}
 \contentsline {figure}{\numberline {19}{\ignorespaces UseCase Diagram\relax }}{41}{figure.caption.28}
 \contentsline {figure}{\numberline {20}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{42}{figure.caption.29}
 \contentsline {figure}{\numberline {21}{\ignorespaces Triedny diagram - Repository pattern\relax }}{43}{figure.caption.30}
@@ -39,13 +39,13 @@
 \contentsline {figure}{\numberline {33}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za druh\IeC {\'y} \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{52}{figure.caption.44}
 \contentsline {figure}{\numberline {34}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za tret\IeC {\'\i } \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{53}{figure.caption.45}
 \contentsline {figure}{\numberline {35}{\ignorespaces Po\IeC {\v c}et detekovan\IeC {\'y}ch \IeC {\v s}truktur\IeC {\'a}lnyh r\IeC {\^o}l\relax }}{54}{figure.caption.47}
-\contentsline {figure}{\numberline {36}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}re\relax }}{54}{figure.caption.48}
-\contentsline {figure}{\numberline {37}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}re - graf\relax }}{55}{figure.caption.49}
+\contentsline {figure}{\numberline {36}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom\relax }}{54}{figure.caption.48}
+\contentsline {figure}{\numberline {37}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom - graf\relax }}{55}{figure.caption.49}
 \contentsline {figure}{\numberline {38}{\ignorespaces Anal\IeC {\'y}za jednotlivca - z\IeC {\'a}kladn\IeC {\'a} vizualiz\IeC {\'a}cia\relax }}{56}{figure.caption.50}
 \contentsline {figure}{\numberline {39}{\ignorespaces Anal\IeC {\'y}za jednotlivca - z\IeC {\'a}kladn\IeC {\'e} \IeC {\v s}tatistiky\relax }}{57}{figure.caption.51}
 \contentsline {figure}{\numberline {40}{\ignorespaces Anal\IeC {\'y}za jednotlivca - vizualiz\IeC {\'a}cia komun\IeC {\'\i }t\relax }}{58}{figure.caption.52}
 \contentsline {figure}{\numberline {41}{\ignorespaces Anal\IeC {\'y}za jednotlivca - Vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v prvom \IeC {\v c}asovom intervale\relax }}{58}{figure.caption.53}
 \contentsline {figure}{\numberline {42}{\ignorespaces Anal\IeC {\'y}za jednotlivca - vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v druhom \IeC {\v c}asovom intervale\relax }}{59}{figure.caption.54}
 \contentsline {figure}{\numberline {43}{\ignorespaces Anal\IeC {\'y}za jednotlivca - detail detekcie \textit {leader} roly\relax }}{60}{figure.caption.56}
-\contentsline {figure}{\numberline {44}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom\relax }}{60}{figure.caption.57}
+\contentsline {figure}{\numberline {44}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom\relax }}{61}{figure.caption.57}
 \contentsline {figure}{\numberline {45}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom - graf\relax }}{61}{figure.caption.58}
