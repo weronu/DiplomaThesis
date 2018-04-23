@@ -32,52 +32,55 @@
 \contentsline {subsection}{\numberline {5.1}Hist\IeC {\'o}ria soci\IeC {\'a}lnych siet\IeC {\'\i }}{24}{subsection.5.1}
 \contentsline {subsection}{\numberline {5.2}Anal\IeC {\'y}za soci\IeC {\'a}lnych siet\IeC {\'\i }}{24}{subsection.5.2}
 \contentsline {subsection}{\numberline {5.3}Komunity v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{25}{subsection.5.3}
-\contentsline {subsection}{\numberline {5.4}Detekcia komun\IeC {\'\i }t}{26}{subsection.5.4}
-\contentsline {subsubsection}{\numberline {5.4.1}Louvainov algoritmus pre detekciu komun\IeC {\'\i }t}{26}{subsubsection.5.4.1}
-\contentsline {subsection}{\numberline {5.5}Ego sie\IeC {\v t}}{27}{subsection.5.5}
-\contentsline {subsubsection}{\numberline {5.5.1}Kon\IeC {\v s}trukcia ego siete}{27}{subsubsection.5.5.1}
-\contentsline {section}{\numberline {6}Met\IeC {\'o}dy anal\IeC {\'y}zy soci\IeC {\'a}lnych siet\IeC {\'\i }}{29}{section.6}
-\contentsline {subsection}{\numberline {6.1}SSRM - Framework pre detekciu \IeC {\v s}truktur\IeC {\'a}lnych rol\IeC {\'\i } v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{29}{subsection.6.1}
-\contentsline {subsubsection}{\numberline {6.1.1}Rola v kontexte SSRM}{29}{subsubsection.6.1.1}
-\contentsline {subsubsection}{\numberline {6.1.2}Roly definovan\IeC {\'e} v SSRM}{29}{subsubsection.6.1.2}
-\contentsline {paragraph}{\numberline {6.1.2.1}Leader}{30}{paragraph.6.1.2.1}
-\contentsline {paragraph}{\numberline {6.1.2.2}Outermost}{30}{paragraph.6.1.2.2}
-\contentsline {paragraph}{\numberline {6.1.2.3}Mediator}{30}{paragraph.6.1.2.3}
-\contentsline {paragraph}{\numberline {6.1.2.4}Outsider}{30}{paragraph.6.1.2.4}
-\contentsline {subsection}{\numberline {6.2}Identifik\IeC {\'a}cia \IeC {\v s}truktur\IeC {\'a}lnych soci\IeC {\'a}lnych rol\IeC {\'\i }}{30}{subsection.6.2}
-\contentsline {paragraph}{\numberline {6.2.0.1}Outsider}{31}{paragraph.6.2.0.1}
-\contentsline {subsubsection}{\numberline {6.2.1}Leader}{31}{subsubsection.6.2.1}
-\contentsline {paragraph}{\numberline {6.2.1.1}Closeness centrality (Centralita bl\IeC {\'\i }zkosti)}{31}{paragraph.6.2.1.1}
-\contentsline {subsubsection}{\numberline {6.2.2}Outermost}{31}{subsubsection.6.2.2}
-\contentsline {subsubsection}{\numberline {6.2.3}Mediator}{31}{subsubsection.6.2.3}
-\contentsline {paragraph}{\numberline {6.2.3.1}LBeweeness}{31}{paragraph.6.2.3.1}
-\contentsline {paragraph}{\numberline {6.2.3.2}CBetweeness}{32}{paragraph.6.2.3.2}
-\contentsline {paragraph}{\numberline {6.2.3.3}Normalizovan\IeC {\'a} verzia CBetweeness}{32}{paragraph.6.2.3.3}
-\contentsline {paragraph}{\numberline {6.2.3.4}Sk\IeC {\'o}re rozmanitosti}{33}{paragraph.6.2.3.4}
-\contentsline {subsection}{\numberline {6.3}Brokerage roly}{33}{subsection.6.3}
-\contentsline {subsubsection}{\numberline {6.3.1}Liaison}{35}{subsubsection.6.3.1}
-\contentsline {subsubsection}{\numberline {6.3.2}Itinerant}{35}{subsubsection.6.3.2}
-\contentsline {subsubsection}{\numberline {6.3.3}Coordinator}{35}{subsubsection.6.3.3}
-\contentsline {subsubsection}{\numberline {6.3.4}Gatepeeker}{36}{subsubsection.6.3.4}
-\contentsline {subsubsection}{\numberline {6.3.5}Representative}{36}{subsubsection.6.3.5}
-\contentsline {subsubsection}{\numberline {6.3.6}Identifik\IeC {\'a}cia brokerage rol\IeC {\'\i }}{36}{subsubsection.6.3.6}
-\contentsline {subsection}{\numberline {6.4}Anal\IeC {\'y}za ega}{37}{subsection.6.4}
-\contentsline {subsubsection}{\numberline {6.4.1}Ve\IeC {\v l}kos\IeC {\v t} ego siete}{37}{subsubsection.6.4.1}
-\contentsline {subsubsection}{\numberline {6.4.2}Kompoz\IeC {\'\i }cia ego siete}{38}{subsubsection.6.4.2}
-\contentsline {subsubsection}{\numberline {6.4.3}\IeC {\v S}trukt\IeC {\'u}ra ego siete}{38}{subsubsection.6.4.3}
-\contentsline {paragraph}{\numberline {6.4.3.1}Efekt\IeC {\'\i }vna ve\IeC {\v l}kos\IeC {\v t}}{39}{paragraph.6.4.3.1}
-\contentsline {section}{\numberline {7}Aplik\IeC {\'a}cia}{40}{section.7}
-\contentsline {subsection}{\numberline {7.1}\IeC {\v S}pecifik\IeC {\'a}cia}{40}{subsection.7.1}
-\contentsline {subsubsection}{\numberline {7.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{40}{subsubsection.7.1.1}
-\contentsline {subsection}{\numberline {7.2}N\IeC {\'a}vrh}{41}{subsection.7.2}
-\contentsline {subsubsection}{\numberline {7.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{42}{subsubsection.7.2.1}
+\contentsline {subsubsection}{\numberline {5.3.1}H2: Predpoklad s\IeC {\'u}vislosti a hustoty}{25}{subsubsection.5.3.1}
+\contentsline {subsubsection}{\numberline {5.3.2}Maxim\IeC {\'a}lne kliky}{26}{subsubsection.5.3.2}
+\contentsline {subsection}{\numberline {5.4}Siln\IeC {\'e} a slab\IeC {\'e} komunity}{26}{subsection.5.4}
+\contentsline {subsection}{\numberline {5.5}Detekcia komun\IeC {\'\i }t}{27}{subsection.5.5}
+\contentsline {subsubsection}{\numberline {5.5.1}Louvainov algoritmus pre detekciu komun\IeC {\'\i }t}{27}{subsubsection.5.5.1}
+\contentsline {subsection}{\numberline {5.6}Ego sie\IeC {\v t}}{29}{subsection.5.6}
+\contentsline {subsubsection}{\numberline {5.6.1}Kon\IeC {\v s}trukcia ego siete}{29}{subsubsection.5.6.1}
+\contentsline {section}{\numberline {6}Met\IeC {\'o}dy anal\IeC {\'y}zy soci\IeC {\'a}lnych siet\IeC {\'\i }}{30}{section.6}
+\contentsline {subsection}{\numberline {6.1}SSRM - Framework pre detekciu \IeC {\v s}truktur\IeC {\'a}lnych rol\IeC {\'\i } v soci\IeC {\'a}lnych sie\IeC {\v t}ach}{30}{subsection.6.1}
+\contentsline {subsubsection}{\numberline {6.1.1}Rola v kontexte SSRM}{30}{subsubsection.6.1.1}
+\contentsline {subsubsection}{\numberline {6.1.2}Roly definovan\IeC {\'e} v SSRM}{30}{subsubsection.6.1.2}
+\contentsline {paragraph}{\numberline {6.1.2.1}Leader}{31}{paragraph.6.1.2.1}
+\contentsline {paragraph}{\numberline {6.1.2.2}Outermost}{31}{paragraph.6.1.2.2}
+\contentsline {paragraph}{\numberline {6.1.2.3}Mediator}{31}{paragraph.6.1.2.3}
+\contentsline {paragraph}{\numberline {6.1.2.4}Outsider}{31}{paragraph.6.1.2.4}
+\contentsline {subsection}{\numberline {6.2}Identifik\IeC {\'a}cia \IeC {\v s}truktur\IeC {\'a}lnych soci\IeC {\'a}lnych rol\IeC {\'\i }}{31}{subsection.6.2}
+\contentsline {paragraph}{\numberline {6.2.0.1}Outsider}{32}{paragraph.6.2.0.1}
+\contentsline {subsubsection}{\numberline {6.2.1}Leader}{32}{subsubsection.6.2.1}
+\contentsline {paragraph}{\numberline {6.2.1.1}Closeness centrality (Centralita bl\IeC {\'\i }zkosti)}{32}{paragraph.6.2.1.1}
+\contentsline {subsubsection}{\numberline {6.2.2}Outermost}{32}{subsubsection.6.2.2}
+\contentsline {subsubsection}{\numberline {6.2.3}Mediator}{32}{subsubsection.6.2.3}
+\contentsline {paragraph}{\numberline {6.2.3.1}LBeweeness}{32}{paragraph.6.2.3.1}
+\contentsline {paragraph}{\numberline {6.2.3.2}CBetweeness}{33}{paragraph.6.2.3.2}
+\contentsline {paragraph}{\numberline {6.2.3.3}Normalizovan\IeC {\'a} verzia CBetweeness}{33}{paragraph.6.2.3.3}
+\contentsline {paragraph}{\numberline {6.2.3.4}Sk\IeC {\'o}re rozmanitosti}{34}{paragraph.6.2.3.4}
+\contentsline {subsection}{\numberline {6.3}Brokerage roly}{34}{subsection.6.3}
+\contentsline {subsubsection}{\numberline {6.3.1}Liaison}{36}{subsubsection.6.3.1}
+\contentsline {subsubsection}{\numberline {6.3.2}Itinerant}{36}{subsubsection.6.3.2}
+\contentsline {subsubsection}{\numberline {6.3.3}Coordinator}{36}{subsubsection.6.3.3}
+\contentsline {subsubsection}{\numberline {6.3.4}Gatepeeker}{37}{subsubsection.6.3.4}
+\contentsline {subsubsection}{\numberline {6.3.5}Representative}{37}{subsubsection.6.3.5}
+\contentsline {subsubsection}{\numberline {6.3.6}Identifik\IeC {\'a}cia brokerage rol\IeC {\'\i }}{37}{subsubsection.6.3.6}
+\contentsline {subsection}{\numberline {6.4}Anal\IeC {\'y}za ega}{38}{subsection.6.4}
+\contentsline {subsubsection}{\numberline {6.4.1}Ve\IeC {\v l}kos\IeC {\v t} ego siete}{38}{subsubsection.6.4.1}
+\contentsline {subsubsection}{\numberline {6.4.2}Kompoz\IeC {\'\i }cia ego siete}{39}{subsubsection.6.4.2}
+\contentsline {subsubsection}{\numberline {6.4.3}\IeC {\v S}trukt\IeC {\'u}ra ego siete}{39}{subsubsection.6.4.3}
+\contentsline {paragraph}{\numberline {6.4.3.1}Efekt\IeC {\'\i }vna ve\IeC {\v l}kos\IeC {\v t}}{40}{paragraph.6.4.3.1}
+\contentsline {section}{\numberline {7}Aplik\IeC {\'a}cia}{41}{section.7}
+\contentsline {subsection}{\numberline {7.1}\IeC {\v S}pecifik\IeC {\'a}cia}{41}{subsection.7.1}
+\contentsline {subsubsection}{\numberline {7.1.1}Funk\IeC {\v c}n\IeC {\'e} po\IeC {\v z}iadavky}{41}{subsubsection.7.1.1}
+\contentsline {subsection}{\numberline {7.2}N\IeC {\'a}vrh}{42}{subsection.7.2}
+\contentsline {subsubsection}{\numberline {7.2.1}N\IeC {\'a}vrhov\IeC {\'e} vzory}{43}{subsubsection.7.2.1}
 \contentsline {subsection}{\numberline {7.3}D\IeC {\^o}le\IeC {\v z}it\IeC {\'e} rozhodnutia}{44}{subsection.7.3}
 \contentsline {subsubsection}{\numberline {7.3.1}Dostupnos\IeC {\v t} d\IeC {\'a}t}{44}{subsubsection.7.3.1}
 \contentsline {subsubsection}{\numberline {7.3.2}Webov\IeC {\'a} vs. desktopov\IeC {\'a} aplik\IeC {\'a}cia}{44}{subsubsection.7.3.2}
 \contentsline {subsection}{\numberline {7.4}Pou\IeC {\v z}it\IeC {\'e} kni\IeC {\v z}nice}{44}{subsection.7.4}
 \contentsline {subsection}{\numberline {7.5}Import d\IeC {\'a}t}{46}{subsection.7.5}
 \contentsline {subsection}{\numberline {7.6}Implement\IeC {\'a}cia}{46}{subsection.7.6}
-\contentsline {subsubsection}{\numberline {7.6.1}Met\IeC {\'o}da pre z\IeC {\'\i }skanie emailov\IeC {\'y}ch d\IeC {\'a}t}{46}{subsubsection.7.6.1}
+\contentsline {subsubsection}{\numberline {7.6.1}Met\IeC {\'o}da pre z\IeC {\'\i }skanie emailov\IeC {\'y}ch d\IeC {\'a}t}{47}{subsubsection.7.6.1}
 \contentsline {subsubsection}{\numberline {7.6.2}Kon\IeC {\v s}trukcia siete}{47}{subsubsection.7.6.2}
 \contentsline {subsubsection}{\numberline {7.6.3}Triedy pre graf, vrcholy a hrany}{47}{subsubsection.7.6.3}
 \contentsline {section}{\numberline {8}Experimenty}{48}{section.8}
@@ -101,9 +104,6 @@
 \contentsline {paragraph}{\numberline {8.2.5.2}Brokerage}{60}{paragraph.8.2.5.2}
 \contentsline {section}{\numberline {9}Z\IeC {\'a}ver}{62}{section.9}
 \contentsline {subsection}{\numberline {9.1}Mo\IeC {\v z}nosti roz\IeC {\v s}\IeC {\'\i }renia a zdokonalenia pr\IeC {\'a}ce}{62}{subsection.9.1}
-\contentsline {subsection}{\numberline {9.2}Mo\IeC {\v z}n\IeC {\'e} roz\IeC {\v s}\IeC {\'\i }renia aplik\IeC {\'a}cie}{62}{subsection.9.2}
-\contentsline {subsubsection}{\numberline {9.2.1}Vizualiz\IeC {\'a}cia ve\IeC {\v l}k\IeC {\'y}h grafov}{62}{subsubsection.9.2.1}
-\contentsline {subsubsection}{\numberline {9.2.2}Viac mo\IeC {\v z}nost\IeC {\'\i } filtrovania}{62}{subsubsection.9.2.2}
-\contentsline {subsubsection}{\numberline {9.2.3}Zobrazenie viac inform\IeC {\'a}ci\IeC {\'\i } o hran\IeC {\'a}ch a vrcholoch}{62}{subsubsection.9.2.3}
-\contentsline {subsubsection}{\numberline {9.2.4}Roz\IeC {\v s}\IeC {\'\i }renie analytick\IeC {\'y}ch met\IeC {\'o}d}{62}{subsubsection.9.2.4}
-\contentsline {section}{Literatura}{63}{subsubsection.9.2.4}
+\contentsline {subsubsection}{\numberline {9.1.1}Mo\IeC {\v z}n\IeC {\'e} roz\IeC {\v s}\IeC {\'\i }renia aplik\IeC {\'a}cie}{62}{subsubsection.9.1.1}
+\contentsline {section}{Literatura}{63}{subsubsection.9.1.1}
+\contentsline {section}{\numberline {10}Pr\IeC {\'\i }lohy}{65}{section.10}

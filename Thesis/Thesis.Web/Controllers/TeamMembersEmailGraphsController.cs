@@ -288,7 +288,7 @@ namespace Thesis.Web.Controllers
                             title = $"Node degree: {x.Degree}",
                             size = GetNodeSizeBasedOnRole(x),
                             group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
-                            shape = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).shape)
+                            shape = "dot"
                         }).ToList();
 
                         List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() {from = x.Node1.Id, to = x.Node2.Id}).ToList();
@@ -310,6 +310,8 @@ namespace Thesis.Web.Controllers
                         graphViewModel.Graph = graphViewModel.Graph;
                         graphViewModel.GraphDto = graphDto;
 
+                        graphViewModel.RolesDetected = false;
+                        graphViewModel.BrokerageDetected = false;
                         graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).color = "#721549";
                         graphViewModel.GraphDto.nodes.First(x => x.id == egoNetworkCenterId).size = 45;
                         graphViewModel.Graph.SetCommunityNodes();
@@ -361,7 +363,8 @@ namespace Thesis.Web.Controllers
                     label = x.NodeElement.Name,
                     group = x.CommunityId,
                     title = $"Node degree: {x.Degree}",
-                    size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size)
+                    size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
+                    shape = "dot"
                 }).ToList();
                 List<EdgeDto> edges = graphViewModel.Graph.Edges.Select(x => new EdgeDto() { from = x.Node1.Id, to = x.Node2.Id }).ToList();
 
@@ -371,7 +374,9 @@ namespace Thesis.Web.Controllers
                     edges = edges
                 };
 
-                graphViewModel.GraphDto = graphDto;
+                graphViewModel.RolesDetected = false;
+                graphViewModel.BrokerageDetected = false;
+            graphViewModel.GraphDto = graphDto;
             }
             catch (Exception e)
             {
@@ -428,6 +433,7 @@ namespace Thesis.Web.Controllers
                         edges = edges
                     };
                     graphViewModel.RolesDetected = true;
+                    graphViewModel.BrokerageDetected = false;
                     graphViewModel.GraphDto = graphDto;
                 }
             }

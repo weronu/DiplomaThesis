@@ -37,9 +37,33 @@ S.~Zehnalova, Z.~Horak, and M.~Kudelka, ``Email conversation network analysis:
   \url{https://www.bluecore.com/blog/do-millennials-use-email/}.
 \newblock 2017-03-30.
 
+\bibitem{blondel2008fast}
+V.~D. Blondel, J.-L. Guillaume, R.~Lambiotte, and E.~Lefebvre, ``Fast unfolding
+  of communities in large networks,'' {\em Journal of statistical mechanics:
+  theory and experiment}, vol.~2008, no.~10, p.~P10008, 2008.
+
 \bibitem{8}
 M.~E. Newman, ``The structure and function of complex networks,'' {\em SIAM
   review}, vol.~45, no.~2, pp.~167--256, 2003.
+
+\bibitem{barabasi2016network}
+A.-L. Barab{\'a}si, {\em Network science}.
+\newblock Cambridge university press, 2016.
+
+\bibitem{luce1949method}
+R.~D. Luce and A.~D. Perry, ``A method of matrix analysis of group structure,''
+  {\em Psychometrika}, vol.~14, no.~2, pp.~95--116, 1949.
+
+\bibitem{flake2000efficient}
+G.~W. Flake, S.~Lawrence, and C.~L. Giles, ``Efficient identification of web
+  communities,'' in {\em Proceedings of the sixth ACM SIGKDD international
+  conference on Knowledge discovery and data mining}, pp.~150--160, ACM, 2000.
+
+\bibitem{radicchi2004defining}
+F.~Radicchi, C.~Castellano, F.~Cecconi, V.~Loreto, and D.~Parisi, ``Defining
+  and identifying communities in networks,'' {\em Proceedings of the National
+  Academy of Sciences of the United States of America}, vol.~101, no.~9,
+  pp.~2658--2663, 2004.
 
 \bibitem{12}
 V.~D. Blondel, J.-L. Guillaume, R.~Lambiotte, and E.~Lefebvre, ``Fast unfolding
@@ -90,6 +114,15 @@ S.~P. Borgatti, ``Structural holes: Unpacking burt’s redundancy measures,''
 ``{Active Record vs. Repository pattern} repository pattern.''
   \url{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}.
 \newblock 2018-01-15.
+
+\bibitem{louvain}
+``Louvainsharp - fast louvain method of community detection in c\#.''
+  \url{http://www.markusmobius.org/software/louvainsharp-fast-louvain-method-community-detection-c}.
+\newblock 2017-12-12.
+
+\bibitem{canvas}
+``Canvas.js.'' \url{https://canvasjs.com/}.
+\newblock 2018-04-20.
 
 \bibitem{5}
 ``{TeamNET} data.'' \url{http://inflex.cz:8075/TeamNETdata}.

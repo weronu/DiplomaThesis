@@ -201,7 +201,8 @@ Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u
 
 \subsection{Stupeň vrcholu}
 
-Stupeň vrcholu je počet vrcholov spojených s týmto vrcholom hranou, inými slovami: počet jeho susedov. V orientovanom grafe sa ešte rozlišuje vstupný a výstupný stupeň vrcholu podľa toho, koľko hrán z vrcholu vychádza alebo do neho vchádza.
+Stupeň vrcholu je počet vrcholov spojených s týmto vrcholom hranou, inými slovami: počet jeho susedov. V orientovanom grafe sa ešte rozlišuje vstupný a výstupný stupeň vrcholu podľa toho, koľko hrán z vrcholu vychádza alebo do neho vchádza. Stupeň vrcholu \textit{u} je ${deg(u) = \left |\left \{ e  \epsilon E | u \epsilon e   \right \} \right |}$
+
 
 \subsection{Cesta}
 
@@ -247,7 +248,7 @@ A_{ij} - \frac{d_{i}d_{j}}{2m}
 \end{bmatrix} \delta (c_{i}, c_{j})
 }
    \end{equation*}
-   \caption{Def: Modularita}
+   \caption{Def: Modularita \cite{blondel2008fast}}
 \end{mycapequ}
 
 
@@ -286,18 +287,73 @@ rovnako ako populárna téma pre výskum.
 Sociálne siete sú riedke grafy zložené z hustých podgrafov. Tieto husté podgrafy sú nazývané
 komunity. Najčastejšia definícia komunity: \textit{Komunita je zhluk uzlov, kde počet vnútorných hrán v komunite je väčší ako počet vnokajších hrán – mimo komunity}. \cite{8}
 
-Algoritmy pre dolovanie komunít sú založené na spojoch medzi uzlami, ktoré naznačujú
-spojenie dvoch entít. Napr. SCAN (Structural Clustering Algorithm for Networks) je metóda
-pre detekciu komunít v súvislosti na to, ako uzly zdieľajú svojich susedov len s ohľadom na
-priame spojenie. Teda ak sú dva uzly spojené a tiež zdieľajú rozumné množstvo ich susedov,
-patria do rovnakej komunity.
+
+\subsubsection{H2: Predpoklad súvislosti a hustoty}
+Komunity sú lokálne husto prepojené subgrafy v sieti. Toto očakávanie sa opiera o dva odlišné predpoklady:
+\begin{description}
+\item \textbf{Predpoklad súvislosti}
+
+
+Každá komunita odpovedá súvislému podgrafu, podobne ako subgrafy tvorené oranžovými, zelenými alebo fialovými uzlami na obrázku \ref{komunity}. V dôsledku toho, ak sa sieť skladá z dvoch izolovaných komponent, každá komunita je obmedzená len na jednu komponentu. Táto hypotéza tiež naznačuje, že na tejto zložke sa komunita nemôže skladať z dvoch subgafov, ktoré nemajú vzájomnú väzbu. V dôsledku toho oranžové a zelené uzly tvoria samostané komunity. \cite{barabasi2016network}
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm,height=10cm]{figures/comunities}
-\caption{Sieť s viacerými komunitami}
+\includegraphics[width=5cm,height=4cm]{figures/komm}
+\caption{Komunity}
+\label{komunity}
 \end{figure}
+
+\item \textbf{Predpoklad hustoty}
+
+
+Uzly v komunite viac pravdepodobne združujú ďalších členov komunity než uzly v iných komunitách. Oranžové, zelené a fialové uzly toto očakávanie spĺňajú. \cite{barabasi2016network}
+
+\end{description}
+
+Inými slovami, všetci členovia komunity musia byť dosiahnuteľní cez ostatných členov tej istej komunity (súvislosť). V tom istom čase predpokladáme, že uzly, ktoré patria do komunity majú vyššiu pravdepodobnosť spájať ostatných členov tejto komunity ako uzly, ktoré do tejto komunity nepatria (hustota). \cite{barabasi2016network}
+
+\subsubsection{Maximálne kliky}
+Jeden z prvých článkov o štruktúre spoločenstva publikovaný v roku 1949, definoval komunitu ako skupinu jednotlivcov, ktorej členovia sa navzájom poznajú \cite{luce1949method}. V teoretických termínoch grafov to znamená, že komunita je komplexný subgraf alebo klika. Klika automaticky uspokojuje H2 - je to spojený subgraf s maximálnou hustotou väzieb. Aj keď zobrazenie komunít ako kliky má niekoľko nevýhod: 
+\begin{itemize}
+\item Zatiaľ čo v sieťach sú časté trojuholníky, väčšie kliky sú vzácne. 
+\item Požiadavka na to, aby komunita bola kompletný subgraf, môže byť príliš reštriktívna a chýba mnoho ďalších legitímnych komunít. \cite{barabasi2016network}
+\end{itemize}
+
+
+\subsection{Silné a slabé komunity}
+Zvažujme súvislý subgraf \textit{C} s \textit{$N_{c}$} uzlami v sieti. Vnútorný stupeň $k_{i}^{int}$ uzla \textit{i} je počet prepojení, ktoré sa pripojujú k iným uzlom v \textit{C}. Externý stupeň $k_{i}^{ext}$ je počt spojení, ktoré sa pripojujú k zbytku siete. Ak je $k_{i}^{ext} = 0$, každý sused \textit{i} je vnútri \textit{C} a preto  \textit{C} je dobr komunita pre uzol \textit{i}. Ak je $k_{i}^{int} = 0$, musí byť uzol priradený k inej komunite. Tieto definície nám umožňujú rozlíšiť dva druhy spoločenstva.
+
+\begin{description}
+\item \textbf{Silná komunita}
+
+
+\textit{C} je silná komunita, ak každý uzol vnútri \textit{C} má viac spojení vo vnútri komunity ako s celou sieťou \cite{flake2000efficient}, \cite{radicchi2004defining}. Konkrétne, podgraf \textit{C} tvorí slabú komunitu ak pre každý uzol \textit{$i\quad \epsilon \quad C$}: 
+
+
+\begin{mycapequ}[!ht]
+      \begin{equation*}
+    k_{i}^{int}(C) > k_{i}^{ext}(C)
+   \end{equation*}
+   \caption{Def: Silná komunita \cite{barabasi2016network}}
+\end{mycapequ}
+
+\newpage
+
+\item \textbf{Slabá komunita}
+
+
+\textit{C} je slabá komunita, ak celkový vnútorný stupeň subgrafu prekračuje svoj celkový externý stupeň \cite{radicchi2004defining}. Konkrétne subgraf \textit{C} tvorí slabú komunitu ak:
+
+
+\begin{mycapequ}[!ht]
+      \begin{equation*}
+    \sum_{i \epsilon C} k_{i}^{int} (C) > \sum_{i \epsilon C} k_{i}^{ext} (C)
+   \end{equation*}
+   \caption{Def: Slabá komunita \cite{barabasi2016network}}
+\end{mycapequ}
+
+\end{description}
 
 
 \subsection{Detekcia komunít}
@@ -704,7 +760,7 @@ Aplikácia slúži ako užívateľské rozhranie na anlýzu emailovej komunikác
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm, height=12cm]{figures/diagram_usecase}
+\includegraphics[width=10cm, height=10cm]{figures/diagram_usecase}
 \caption{UseCase Diagram}
 \end{figure}
 
@@ -715,7 +771,7 @@ Aplikácia je vytvorená ako .NET aplikácia (veria .NET Frameworku 4.6). Je vyt
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=15cm, height=9cm]{figures/diagram_komponent}
+\includegraphics[width=11cm, height=5cm]{figures/diagram_komponent}
 \caption{Diagram komponent znázorňujúci jednotlivé komponenty architektúry aplikácie}
 \end{figure}
 
@@ -723,11 +779,12 @@ Aplikácia je vytvorená ako .NET aplikácia (veria .NET Frameworku 4.6). Je vyt
 
 \indent
 \indent \textbf{Repository}
+
 Návrhový vzor Repository je základným kameňom doménou riadeného návrhu. Model aplikácie teda nemá poňatie o tom, akým spôsobom je perzistovaný. O to sa stará práve Repository. Naviac práve vďaka tomu, že sa o persistenciu stará cudzí objekt, stačí poznať len jeho rozhranie a v prípad potreby ho ľahko nahradiť iným. \cite{11}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm, height=14cm]{figures/diagram_class}
+\includegraphics[width=12cm, height=11cm]{figures/diagram_class}
 \caption{Triedny diagram - Repository pattern}
 \end{figure}
 
@@ -763,10 +820,10 @@ Bolo nutné sa rozhodnúť, či vyvíjať aplikáciu ako webovú alebo desktopov
 \subsection{Použité knižnice}
 
 
-\textbf{vis.js}
+\textbf{Vis.js}
 
 
-\noindent Vis.js je dynamická vizualizačná knižnica. Knižnica je navrhnutá tak, aby bola ľahko ovládateľná a aby mohla spracovať veľké množstvo dynamických dát a umožňovala manipuláciu s dátami a interakciu s nimi. Knižnica sa skladá z častí \textit{DataSet, Timeline, Network, Graph2d} a \textit{Graph3d}.
+Vis.js je dynamická vizualizačná knižnica. Knižnica je navrhnutá tak, aby bola ľahko ovládateľná a aby mohla spracovať veľké množstvo dynamických dát a umožňovala manipuláciu s dátami a interakciu s nimi. Knižnica sa skladá z častí \textit{DataSet, Timeline, Network, Graph2d} a \textit{Graph3d}.
 Pre moju aplikáciu som používala len časť \textit{Network}.
 
 \begin{figure}[H]
@@ -781,6 +838,18 @@ Pre moju aplikáciu som používala len časť \textit{Network}.
 \includegraphics[width=9.5cm, height=12cm]{figures/vis_basiccode}
 \caption{Príklad použitia knižnice vis.js}
 \end{figure}
+
+\textbf{LouvainSharp}
+
+
+Ďalšou použitou knižnicou bola knižnica \textit{LouvainSharp}, ktorá implementuje Louvainov algoritmus detekcie komunít v jazyku C. Naviac je knižnica paralelizovaná pomocou \textit{plinq} pre maximalizáciu rýchlosti. \cite{louvain}
+
+\hfill \break
+
+\textbf{Canvas.js}
+
+Ďalšou použitou grafickou knižnicou je knižnica \textit{canvas.js}. Je to HTML5 knižnica, ktorá umožňuje responzívne vykresľovanie grafov. Táto knižnica bola použitá pre vykreslenie koláčového a stĺpcového grafu. \cite{canvas}
+
 
 
 \subsection{Import dát}
@@ -1126,23 +1195,42 @@ Práca splnila všetky zadané ciele. Boli naštudované rešerše obdobných ri
 
 \subsection{Možnosti rozšírenia a zdokonalenia práce}
 
-\subsection{Možné rozšírenia aplikácie}
+\subsubsection{Možné rozšírenia aplikácie}
 
-\subsubsection{Vizualizácia veľkýh grafov}
+\begin{description}
+\item \textbf{Vizualizácia veľkýh grafov}
+
+
 Využiteľnosti aplikácie by pomohlo, kebz vedela vizualizovať aj rádovo väčšie grafy. So zobrazovaním rozsiahlych grafov sa v práci nepočítalo a už pri zobrazovaní emailov celého  tímu nebolo celkom pole pre vykreslenie grafu dostačujúce, čo bolo limitované aj knižnicou \textit{vis.js}.
 
 
-\subsubsection{Viac možností filtrovania}
+\item \textbf{Viac možností filtrovania}
+
 V aplikácii môže používateľ filtrovať emailovú komunikáciu podľa času. Mohlo by byť užitočné nastavenie filtru aj podľa iného kritéria.
 
-\subsubsection{Zobrazenie viac informácií o hranách a vrcholoch}
+
+\item \textbf{Zobrazenie viac informácií o hranách a vrcholoch}
+
 Aplikácia umožňuje zobraziť informácie o stupni vrcholu. Pri analýze grafu ako takom by bolo dobré rozšíriť tieto informácie napríklad o metriky a ďalšie charakteristiky siete.
 
-
-\subsubsection{Rozšírenie analytických metód}
+\item \textbf{Rozšírenie analytických metód}
 Aplikácia sa sústredí na anlýzu siete zo štrukturálneho hľadiska, každopádne by bolo užitočné aplikáciu obohatiť o ďalšie analytické metódy, ktoré by pomohli emailovú komunikáciu spoznať ešte hlbšie.
+
+\end{description}
+
 
 \bibliography{mybib} 
 \bibliographystyle{ieeetr}
+
+
+\section{Prílohy}
+
+Súčasťou diplomovej práce je CD, ktorého súčasťou je:
+\begin{enumerate}
+\item zdrojový kód aplikácie
+\item použité datasety
+\item SQL skripty
+\end{enumerate}
+
 
 \end{document}
