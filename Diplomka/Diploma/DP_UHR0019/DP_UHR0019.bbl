@@ -1,5 +1,9 @@
 \begin{thebibliography}{10}
 
+\bibitem{brokerage_borgatti}
+``Steve borgatti: Brokerage.''
+  http://www.analytictech.com/Essex/Lectures/Brokerage.pdf.
+
 \bibitem{3}
 J.~Diesner, T.~L. Frantz, and K.~M. Carley, ``Communication networks from the
   enron email corpus “it's always about the people. enron is no
@@ -35,7 +39,7 @@ S.~Zehnalova, Z.~Horak, and M.~Kudelka, ``Email conversation network analysis:
 \bibitem{13}
 ``Do millennial and gen z consumers still use email?.''
   \url{https://www.bluecore.com/blog/do-millennials-use-email/}.
-\newblock 2017-03-30.
+\newblock Navštívené: 2017-03-30.
 
 \bibitem{blondel2008fast}
 V.~D. Blondel, J.-L. Guillaume, R.~Lambiotte, and E.~Lefebvre, ``Fast unfolding
@@ -113,19 +117,19 @@ S.~P. Borgatti, ``Structural holes: Unpacking burt’s redundancy measures,''
 \bibitem{11}
 ``{Active Record vs. Repository pattern} repository pattern.''
   \url{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}.
-\newblock 2018-01-15.
+\newblock Navštívené: 2018-01-15.
 
 \bibitem{louvain}
 ``Louvainsharp - fast louvain method of community detection in c\#.''
   \url{http://www.markusmobius.org/software/louvainsharp-fast-louvain-method-community-detection-c}.
-\newblock 2017-12-12.
+\newblock Navštívené: 2017-12-12.
 
 \bibitem{canvas}
 ``Canvas.js.'' \url{https://canvasjs.com/}.
-\newblock 2018-04-20.
+\newblock Navštívené: 2018-04-20.
 
 \bibitem{5}
 ``{TeamNET} data.'' \url{http://inflex.cz:8075/TeamNETdata}.
-\newblock 2017-09-30.
+\newblock Navštívené: 2017-09-30.
 
 \end{thebibliography}

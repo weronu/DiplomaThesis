@@ -19,33 +19,34 @@
 \contentsline {figure}{\numberline {13}{\ignorespaces Coordinator brokerage\relax }}{36}{figure.caption.24}
 \contentsline {figure}{\numberline {14}{\ignorespaces Gatekeeper brokerage\relax }}{37}{figure.caption.25}
 \contentsline {figure}{\numberline {15}{\ignorespaces Representative brokerage\relax }}{37}{figure.caption.26}
-\contentsline {figure}{\numberline {16}{\ignorespaces Ve\IeC {\v l}kos\IeC {\v t} ega - stupe\IeC {\v n} uzla: 6\relax }}{38}{figure.caption.27}
-\contentsline {figure}{\numberline {17}{\ignorespaces M\IeC {\'a}lo \IeC {\v s}truktur\IeC {\'a}lnych dier vs. ve\IeC {\v l}a \IeC {\v s}truktur\IeC {\'a}lnych dier.\relax }}{39}{figure.caption.28}
-\contentsline {figure}{\numberline {18}{\ignorespaces Pr\IeC {\'\i }klad v\IeC {\'y}po\IeC {\v c}tu redundancie\relax }}{40}{figure.caption.29}
-\contentsline {figure}{\numberline {19}{\ignorespaces UseCase Diagram\relax }}{42}{figure.caption.30}
-\contentsline {figure}{\numberline {20}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{42}{figure.caption.31}
-\contentsline {figure}{\numberline {21}{\ignorespaces Triedny diagram - Repository pattern\relax }}{43}{figure.caption.32}
-\contentsline {figure}{\numberline {22}{\ignorespaces Model-View-Controller\relax }}{44}{figure.caption.33}
-\contentsline {figure}{\numberline {23}{\ignorespaces Jednoduch\IeC {\'a} sie\IeC {\v t} vytvoren\IeC {\'a} s pou\IeC {\v z}it\IeC {\'\i }m kni\IeC {\v z}nice vis.js\relax }}{45}{figure.caption.34}
-\contentsline {figure}{\numberline {24}{\ignorespaces Pr\IeC {\'\i }klad pou\IeC {\v z}itia kni\IeC {\v z}nice vis.js\relax }}{45}{figure.caption.35}
-\contentsline {figure}{\numberline {25}{\ignorespaces Dom\IeC {\'e}nov\IeC {\'y} model\relax }}{46}{figure.caption.36}
-\contentsline {figure}{\numberline {26}{\ignorespaces Pr\IeC {\'\i }klad konfigur\IeC {\'a}cie emailu pre z\IeC {\'\i }skanie emailov\relax }}{47}{figure.caption.37}
-\contentsline {figure}{\numberline {27}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie o t\IeC {\'\i }movej sieti.\relax }}{49}{figure.caption.39}
-\contentsline {figure}{\numberline {28}{\ignorespaces Najviac pou\IeC {\v z}\IeC {\'\i }van\IeC {\'e} emailov\IeC {\'e} dom\IeC {\'e}ny.\relax }}{49}{figure.caption.40}
-\contentsline {figure}{\numberline {29}{\ignorespaces Vizualiz\IeC {\'a}cia siete.\relax }}{50}{figure.caption.41}
-\contentsline {figure}{\numberline {30}{\ignorespaces Vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v t\IeC {\'\i }movej sieti za celkov\IeC {\'y} \IeC {\v c}as\relax }}{51}{figure.caption.43}
-\contentsline {figure}{\numberline {31}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t v t\IeC {\'\i }movej sieti za celkov\IeC {\'y} \IeC {\v c}as\relax }}{51}{figure.caption.44}
-\contentsline {figure}{\numberline {32}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za prv\IeC {\'y} \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{52}{figure.caption.45}
-\contentsline {figure}{\numberline {33}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za druh\IeC {\'y} \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{52}{figure.caption.46}
-\contentsline {figure}{\numberline {34}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za tret\IeC {\'\i } \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{53}{figure.caption.47}
-\contentsline {figure}{\numberline {35}{\ignorespaces Po\IeC {\v c}et detekovan\IeC {\'y}ch \IeC {\v s}truktur\IeC {\'a}lnyh r\IeC {\^o}l\relax }}{54}{figure.caption.49}
-\contentsline {figure}{\numberline {36}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom\relax }}{54}{figure.caption.50}
-\contentsline {figure}{\numberline {37}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom - graf\relax }}{55}{figure.caption.51}
-\contentsline {figure}{\numberline {38}{\ignorespaces Anal\IeC {\'y}za jednotlivca - z\IeC {\'a}kladn\IeC {\'a} vizualiz\IeC {\'a}cia\relax }}{56}{figure.caption.52}
-\contentsline {figure}{\numberline {39}{\ignorespaces Anal\IeC {\'y}za jednotlivca - z\IeC {\'a}kladn\IeC {\'e} \IeC {\v s}tatistiky\relax }}{57}{figure.caption.53}
-\contentsline {figure}{\numberline {40}{\ignorespaces Anal\IeC {\'y}za jednotlivca - vizualiz\IeC {\'a}cia komun\IeC {\'\i }t\relax }}{58}{figure.caption.54}
-\contentsline {figure}{\numberline {41}{\ignorespaces Anal\IeC {\'y}za jednotlivca - Vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v prvom \IeC {\v c}asovom intervale\relax }}{58}{figure.caption.55}
-\contentsline {figure}{\numberline {42}{\ignorespaces Anal\IeC {\'y}za jednotlivca - vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v druhom \IeC {\v c}asovom intervale\relax }}{59}{figure.caption.56}
-\contentsline {figure}{\numberline {43}{\ignorespaces Anal\IeC {\'y}za jednotlivca - detail detekcie \textit {leader} roly\relax }}{60}{figure.caption.58}
-\contentsline {figure}{\numberline {44}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom\relax }}{61}{figure.caption.59}
-\contentsline {figure}{\numberline {45}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom - graf\relax }}{61}{figure.caption.60}
+\contentsline {figure}{\numberline {16}{\ignorespaces Identifik\IeC {\'a}cie \textit {brokerage} rol\IeC {\'\i } \cite {brokerage_borgatti}\relax }}{39}{figure.caption.27}
+\contentsline {figure}{\numberline {17}{\ignorespaces Ve\IeC {\v l}kos\IeC {\v t} ega - stupe\IeC {\v n} uzla: 6\relax }}{39}{figure.caption.28}
+\contentsline {figure}{\numberline {18}{\ignorespaces M\IeC {\'a}lo \IeC {\v s}truktur\IeC {\'a}lnych dier vs. ve\IeC {\v l}a \IeC {\v s}truktur\IeC {\'a}lnych dier.\relax }}{40}{figure.caption.29}
+\contentsline {figure}{\numberline {19}{\ignorespaces Pr\IeC {\'\i }klad v\IeC {\'y}po\IeC {\v c}tu redundancie\relax }}{41}{figure.caption.30}
+\contentsline {figure}{\numberline {20}{\ignorespaces UseCase Diagram\relax }}{43}{figure.caption.31}
+\contentsline {figure}{\numberline {21}{\ignorespaces Diagram komponent zn\IeC {\'a}zor\IeC {\v n}uj\IeC {\'u}ci jednotliv\IeC {\'e} komponenty architekt\IeC {\'u}ry aplik\IeC {\'a}cie\relax }}{43}{figure.caption.32}
+\contentsline {figure}{\numberline {22}{\ignorespaces Triedny diagram - Repository pattern\relax }}{44}{figure.caption.33}
+\contentsline {figure}{\numberline {23}{\ignorespaces Model-View-Controller\relax }}{45}{figure.caption.34}
+\contentsline {figure}{\numberline {24}{\ignorespaces Jednoduch\IeC {\'a} sie\IeC {\v t} vytvoren\IeC {\'a} s pou\IeC {\v z}it\IeC {\'\i }m kni\IeC {\v z}nice vis.js\relax }}{46}{figure.caption.35}
+\contentsline {figure}{\numberline {25}{\ignorespaces Pr\IeC {\'\i }klad pou\IeC {\v z}itia kni\IeC {\v z}nice vis.js\relax }}{46}{figure.caption.36}
+\contentsline {figure}{\numberline {26}{\ignorespaces Dom\IeC {\'e}nov\IeC {\'y} model\relax }}{47}{figure.caption.37}
+\contentsline {figure}{\numberline {27}{\ignorespaces Pr\IeC {\'\i }klad konfigur\IeC {\'a}cie emailu pre z\IeC {\'\i }skanie emailov\relax }}{48}{figure.caption.38}
+\contentsline {figure}{\numberline {28}{\ignorespaces Z\IeC {\'a}kladn\IeC {\'e} inform\IeC {\'a}cie o t\IeC {\'\i }movej sieti.\relax }}{50}{figure.caption.40}
+\contentsline {figure}{\numberline {29}{\ignorespaces Najviac pou\IeC {\v z}\IeC {\'\i }van\IeC {\'e} emailov\IeC {\'e} dom\IeC {\'e}ny.\relax }}{50}{figure.caption.41}
+\contentsline {figure}{\numberline {30}{\ignorespaces Vizualiz\IeC {\'a}cia siete.\relax }}{51}{figure.caption.42}
+\contentsline {figure}{\numberline {31}{\ignorespaces Vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v t\IeC {\'\i }movej sieti za celkov\IeC {\'y} \IeC {\v c}as\relax }}{52}{figure.caption.44}
+\contentsline {figure}{\numberline {32}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t v t\IeC {\'\i }movej sieti za celkov\IeC {\'y} \IeC {\v c}as\relax }}{52}{figure.caption.45}
+\contentsline {figure}{\numberline {33}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za prv\IeC {\'y} \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{53}{figure.caption.46}
+\contentsline {figure}{\numberline {34}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za druh\IeC {\'y} \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{53}{figure.caption.47}
+\contentsline {figure}{\numberline {35}{\ignorespaces Rozlo\IeC {\v z}enie komun\IeC {\'\i }t za tret\IeC {\'\i } \IeC {\v c}asov\IeC {\'y} \IeC {\'u}sek\relax }}{54}{figure.caption.48}
+\contentsline {figure}{\numberline {36}{\ignorespaces Po\IeC {\v c}et detekovan\IeC {\'y}ch \IeC {\v s}truktur\IeC {\'a}lnyh r\IeC {\^o}l\relax }}{55}{figure.caption.50}
+\contentsline {figure}{\numberline {37}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom\relax }}{55}{figure.caption.51}
+\contentsline {figure}{\numberline {38}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom - graf\relax }}{56}{figure.caption.52}
+\contentsline {figure}{\numberline {39}{\ignorespaces Anal\IeC {\'y}za jednotlivca - z\IeC {\'a}kladn\IeC {\'a} vizualiz\IeC {\'a}cia\relax }}{57}{figure.caption.53}
+\contentsline {figure}{\numberline {40}{\ignorespaces Anal\IeC {\'y}za jednotlivca - z\IeC {\'a}kladn\IeC {\'e} \IeC {\v s}tatistiky\relax }}{58}{figure.caption.54}
+\contentsline {figure}{\numberline {41}{\ignorespaces Anal\IeC {\'y}za jednotlivca - vizualiz\IeC {\'a}cia komun\IeC {\'\i }t\relax }}{58}{figure.caption.55}
+\contentsline {figure}{\numberline {42}{\ignorespaces Anal\IeC {\'y}za jednotlivca - Vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v prvom \IeC {\v c}asovom intervale\relax }}{59}{figure.caption.56}
+\contentsline {figure}{\numberline {43}{\ignorespaces Anal\IeC {\'y}za jednotlivca - vizualiz\IeC {\'a}cia komun\IeC {\'\i }t v druhom \IeC {\v c}asovom intervale\relax }}{59}{figure.caption.57}
+\contentsline {figure}{\numberline {44}{\ignorespaces Anal\IeC {\'y}za jednotlivca - detail detekovan\IeC {\'y}ch SSRM rol\IeC {\'\i }\relax }}{61}{figure.caption.59}
+\contentsline {figure}{\numberline {45}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom\relax }}{61}{figure.caption.60}
+\contentsline {figure}{\numberline {46}{\ignorespaces Desa\IeC {\v t} akt\IeC {\'e}rov s najv\IeC {\"a}\IeC {\v c}\IeC {\v s}\IeC {\'\i }m \textit {brokerage} sk\IeC {\'o}rom - graf\relax }}{62}{figure.caption.61}

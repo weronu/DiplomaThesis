@@ -36,6 +36,12 @@ namespace Repository.MSSQL
                 dataPoint.y = Math.Round(((dataPoint.y * 100) / sum), 1);
             }
 
+            for (int i = 0; i < dataPoints.Count; i++)
+            {
+                int pom = i + 1;
+                dataPoints[i].label = "exampledomain" + pom + ".com";
+            }
+
             return dataPoints;
         }
     }

@@ -679,6 +679,31 @@ je negácia \textit{bRc}. S touto definíciou, \textit{brokerage} skóre sa vypo
 
 Formalizácia \textit{brokerage} rolí podľa Goula a Fernandeza je definovaná pre siete, v ktorých sú spojenia (hrany) orientované, čiže reprezentujúce vzťahy, pre ktoré môžme rozlíšiť odosielateľa a prijímateľa. Keďže v mojej koncepcii siete, kde jednotlivé uzly sú členovia tímu a hrana medzi nimi je práve vtedy, keď medzi nimi prebehla konverzácia, moja vytvorená sieť je neorientovaná. Zovšeobecnenie na neorientovanú sieť je celkom jasné; s takýmito dátami, každá hrana je považovaná za obojsmernú. Aj keď toto prináša jednu dôležitú zmenu originálnej formalizácie: v prípade neorientovaných vzťahov nemôžeme rozlíšiť rolu \textit{gatepeeker} od roly \textit{representative}, pretože neprítomnosť obojsmerných vzťahov redukuje tieto dve roly do jednej a \textit{brokerage} skóre bude pre tieto dve roly identické. \cite{19}
 
+
+
+\subsubsection{Popis metódy pre identifikáciu brokerage rolí}
+Podmienka pre detekovanie brokerage rolí je prítomnosť komunít. Pre každý uzol grafu si získam jeho susedné uzly. Tento uzol označujem ako \textit{B} uzol. Potom prechádzam jeho susedné uzly každý s každým a kontrolujem, do akej komunity daný uzol patrí. Počas týchto priechodov označujem tieto uzly ako uzol \textit{A} a uzol \textit{C} a vyhodnocujem nasledovné podmienky:
+
+\begin{enumerate}
+\item Pokiaľ medzi uzlami  \textit{A} a \textit{C} existuje hrana, preskočím ich a začínam priechod znova. Ak medzi nimi hrana nie je, prechádzam na podmienku 2.
+
+\item Pokiaľ uzly \textit{B} a \textit{A} a \textit{C} nepatria do jednej spoločnej komunity, uzol \textit{B} je identifikovaný ako \textit{Liaison} a navýši sa jeho skóre pre túto rolu.
+
+\item Pokiaľ sú uzly \textit{A} a \textit{C} v rovnakej komunite a uzol \textit{B} je v rozdielnej komunite, uzol \textit{B} je detekovaný ako \textit{Itinerant (Consultant)}  a navýši sa jeho skóre pre túto rolu.
+
+\item Pokiaľ sú uzly \textit{A} a \textit{B}, \textit{C} v rovnakej komunite a uzol \textit{C} je v inej komunite alebo ak sú uzly \textit{B} a \textit{C} v rovnakej komunite a uzol \textit{A} je v inej komunite, uzol je detekovaný ako \textit{Representative} a zároveň ako \textit{Gatepeeker}, pretože nerozlišujem smer spojenia uzlov a teda im skóre navýšim zhodne.
+
+
+Jeden uzol môže byť identifikovaný aj všetkými \textit{brokerage} rolami. Keď je priechod všetkými uzlami dokončený, spočíta sa celkové \textit{brokerage} skóre súčtom čiastkových skóre pre každú rolu.
+
+\end{enumerate}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=10cm,height=5cm]{figures/brokerage_algoritmus}
+\caption{Identifikácie \textit{brokerage} rolí \cite{brokerage_borgatti}}
+\end{figure}
+
 \subsection{Analýza ega}
 Analýza ego sietí sa stáva stále viac dôležitou s rastom sietí. Je oveľa jednoduchšie v obrovských sieťach analyzovať ego a jeho okolie ako celú sieť ako celok. Napríklad ak jeden človek má priemerne 5 blízkych osôb, potom v meste s populáciou desať tisíc ľudí bude päťdesiat tisíc priateľských väzieb. A ak by sme chceli študovať známosti? Riešením by bol výber podmnožiny obyvateľov mesta a ich \textit{alter} uzlov.
 
@@ -691,7 +716,7 @@ Veľkosť ego siete je jednoduchá, ale veľavravná charakteristika. Definuje j
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=8cm, height=7cm]{figures/egonet}
+\includegraphics[width=6cm, height=5cm]{figures/egonet}
 \caption{Veľkosť ega - stupeň uzla: 6}
 \end{figure}
 
@@ -879,7 +904,7 @@ Pre získanie emailových dát z emailovej schránky som naimplementovala metód
 
 
 \subsubsection{Konštrukcia siete}
-Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií.
+Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Tako teda vyváram neorientovaný nevážený graf. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií. 
 
 \subsubsection{Triedy pre graf, vrcholy a hrany}
 Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcholy a hrany drží ako \texttt{Dictionary<int, HashSet<Node<T>{}>{}>}, čiže ako mapu vrcholov s ich susednými vrcholmi. Pre uloženie vrcholov a hrán grafu slúžia zoznamy hrán a vrcholov uložené ako \texttt{HashSet<Node<T> >} a \texttt{HashSet<Edge<T>{}>}. Trieda je generická preto, aby bolo možné vytvoriť graf pre rôzne entity. Triedy reprezentujúce vrcholy a hrany sú tiež generické a predstavujú ich \texttt{Node<T>} a \texttt{Edge<T>}. Pre identifikáciu komunity, bola vztvorená trieda \texttt{Comunity<T>}.
@@ -888,6 +913,8 @@ Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcho
 
 \section{Experimenty}
 V tejto kapitole popisujem experimenty, ktoré som previedla nad rôznymi emailovými sadami vo vytvorenej aplikácii. Popisujem prípravu a import dát, ďalej vizualizáciu jednotlivých datasetov a tiež výsledky a porovnanie vybraných analytických metód. V prvej časti popisujem analýzu agregovanej sady ako celkovú analýzu emailovej komunikácie tímu a v druhej časti popisujem analýzu emailovej komunikácie jednotlivca.
+
+\noindent \textit{Poznámka: Z dôvodu ochrany osobných údajov sú všetky mená osôb a domén anonymizované.}
 
 
 \subsection{Analýza emailovej komunikácie tímu}
@@ -925,21 +952,21 @@ Aplikácia umožňuje výber vizualizácie jednotlivých členov tímu a tiež c
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=14cm, height=5.5cm]{figures/team_tab_celkovo}
+\includegraphics[width=12cm, height=4.5cm]{figures/team_tab_celkovo}
 \caption{Základné informácie o tímovej sieti.}
 \label{team_tab_celkovo}
 \end{figure}
 
-Na obr. \ref{team_tab_celkovo} sú zobrazené základné informácie o agregovanej sieti. Štyria sme celkovo napísali 21738 emailov z toho bolo detekovaných 4149 konverzácií. Celkovo sa na emailovej komunikácii podieľalo 370 používateľov. Najviac emailov v agregovanej sade poslal používateľ \textit{Tibor Palatka}. Hodina, kedy sa posielalo celkovo najviac emailov bola medzi ôsmou a deviatou hodinou ráno, čiže to je čas, kedy ľudia prídu do práce a prvé, čo urobia je, že si skontrolujú emaily. 
+Na obr. \ref{team_tab_celkovo} sú zobrazené základné informácie o agregovanej sieti. Štyria sme celkovo napísali 21738 emailov z toho bolo detekovaných 4149 konverzácií. Celkovo sa na emailovej komunikácii podieľalo 370 používateľov. Najviac emailov v agregovanej sade poslal používateľ \textit{User 328}. Hodina, kedy sa posielalo celkovo najviac emailov bola medzi ôsmou a deviatou hodinou ráno, čiže to je čas, kedy ľudia prídu do práce a prvé, čo urobia je, že si skontrolujú emaily. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=15cm, height=6cm]{figures/team_domain_celkovo}
+\includegraphics[width=14.5cm, height=5.5cm]{figures/team_domain_celkovo}
 \caption{Najviac používané emailové domény.}
 \label{team_domain_celkovo}
 \end{figure}
 
-Na obr. \ref{team_domain_celkovo} sú zobrazené emailové domén, z ktorých používatelia najvic posielali emaily. Najviac emailov sa poslalo z domén \textit{rec-global.com} a \textit{globallogic.com}, ktoré sú oficiálne domény spoločnosti, v ktorej pracujem. Ostatné domény patria zákazníkom, s ktorými ako spoločnosť spolupracujeme. 
+Na obr. \ref{team_domain_celkovo} sú zobrazené emailové domén, z ktorých používatelia najvic posielali emaily. Najviac emailov sa poslalo z domén, ktoré sú oficiálne domény spoločnosti, v ktorej pracujem. Ostatné domény patria zákazníkom, s ktorými ako spoločnosť spolupracujeme. 
 
 Na obr. \ref{team_net_celkovo} je vizualizácia celkovej siete tímu v základnej podobe.
 
@@ -960,10 +987,10 @@ Aplikácia umožňuje detekovať komunity v sieti a následne ich vizualizovať.
 \begin{tabular}{ c c c }
  Meno & Aktuálna pozícia &  Dátum nástupu do firmy \\ 
  \hline
- Andrej Parimucha & Test engineer  & 1.7.2011 \\  
- Veronika Uhrová & Junior Developer  & 1.9.2016  \\
- Andrej Matejčík & Medior Developer  & 1.6.2017 \\
- Tibor Palatka & Lead Developer & 1.11.2010 \\
+ Člen tímu 1 & Test engineer  & 1.7.2011 \\  
+ Člen tímu 2  & Junior Developer  & 1.9.2016  \\
+ Člen tímu 3  & Medior Developer  & 1.6.2017 \\
+ Člen tímu 4  & Lead Developer & 1.11.2010 \\
 \end{tabular}
 \caption{Informácie o členoch tímu}
 \end{table} 
@@ -1023,13 +1050,13 @@ Pre analýzu ego siete som vybrala troch jednotlivcov, z ktorých som vytvorila 
 \centering
 \begin{tabular}{ |c|c|c|c|c| }
  \hline
- Meno jednotlivca & Stupeň uzla & Počet prepojených komunít & Efektívna veľkosť & E-I index \\ 
+  & Stupeň uzla & Počet prepojených komunít & Efektívna veľkosť & E-I index \\ 
  \hline
- Tibor Palatka    & 129  & 13  & 127  &  0.52 \\  
+ Aktér 1    & 129  & 13  & 127  &  0.52 \\  
   \hline
- Andrej Parimucha &  81  &  11 & 72 & 0.06  \\ 
+ Aktér 2 &  81  &  11 & 72 & 0.06  \\ 
   \hline
- Attila Soltézs   & 20   &  11 &  18 & 0.4  \\ 
+ Aktér 3   & 20   &  11 &  18 & 0.4  \\ 
   \hline
 
 \end{tabular}
@@ -1049,7 +1076,7 @@ V na obr. \ref{team_ssrm} sú zobrazené počty detekovaných štrukturálnych r
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=6cm, height=4cm]{figures/team_ssrm}
+\includegraphics[width=6cm, height=3.5cm]{figures/team_ssrm}
 \caption{Počet detekovaných štrukturálnyh rôl}
 \label{team_ssrm}
 \end{figure}
@@ -1076,7 +1103,7 @@ V na obr. \ref{team_brokerage_tab} a \ref{team_brokerage_graph} je zobrazených 
 \end{figure}
 
 \subsection{Analýza jednotlivca}
-V tejto časti popisujem analýzu jednotlivca od získania emailových dát z emailového účtu, importu do aplikácie a zobrazenie výsledkov metód v aplikácii. Pre analýzu jednotlivca používam svoju emailovú sadu pre demonštrovanie získavania a importu emailov .
+V tejto časti popisujem analýzu jednotlivca od získania emailových dát z emailového účtu, importu do aplikácie a zobrazenie výsledkov metód v aplikácii. Pre analýzu jednotlivca používam svoju emailovú sadu pre demonštrovanie získavania a importu emailov.
 
 \subsubsection{Príprava a import dát}
 Pre získanie emailových dát z emailovej schránky používam navrhnutú aplikáciu. Po zadaní emailového účtu, používateľského mena, hesla, adresu servera a portu získam XML súbor s emailami, ktorý naimportujem do aplikácie a zobrazí sa mi moja emailová sieť.
@@ -1090,11 +1117,11 @@ Pre získanie emailových dát z emailovej schránky používam navrhnutú aplik
 \end{figure}
 
 \subsubsection{Informácie o datasete}
-Spolu s vizualizáciou datasetu sa zobrazia aj základné štatistiky o datasete. Moja emailová schránka obsahuje 3135 emailov, ktoré napísalo 155 používateľov a bolo detekovaných 512 konverzácií. Osoba, ktorá napísala najviac emailov bol používateľ \textit{Attila Soltezs}, ktorý zastáva pozíciu \textit{Project manager}. Hodina, kedy sa písalo najviac emailov bola medzi siedmou a ôsmou hodinou ráno. Celkový sumár spolu s najpoužívanejšími emailovými doménami je na obrázku \ref{analyza_jednotlivca_stat}.
+Spolu s vizualizáciou datasetu sa zobrazia aj základné štatistiky o datasete. Moja emailová schránka obsahuje 3135 emailov, ktoré napísalo 155 používateľov a bolo detekovaných 512 konverzácií. Osoba, ktorá napísala najviac emailov bol používateľ, ktorý zastáva pozíciu \textit{Project manager}. Hodina, kedy sa písalo najviac emailov bola medzi siedmou a ôsmou hodinou ráno. Celkový sumár spolu s najpoužívanejšími emailovými doménami je na obrázku \ref{analyza_jednotlivca_stat}.
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=13cm, height=13cm]{figures/analyza_jednotlivca_stat}
+\includegraphics[width=13cm, height=10cm]{figures/analyza_jednotlivca_stat}
 \caption{Analýza jednotlivca - základné štatistiky}
 \label{analyza_jednotlivca_stat}
 \end{figure}
@@ -1112,7 +1139,7 @@ Celkovo bolo v dataste detekovaných 9 komunít. Najväčšia komunita obsahuje 
 
 
 \paragraph{Zmeny komunít v čase}
-
+\hfill \break
 Pre zmeny komunít v čase som využila obdobia, kedy som pracovala na iných projektoch a teda sa komunity môžu v týchto intervaloch líšiť. Obdobie prvého projektu je v intervale od 1.9.2016 do 1.3.2017 a obdobie druhého je od 1.3.2017 do súčasnej doby, povedzme do 31.3.2018. 
 
 
@@ -1142,11 +1169,11 @@ Pre analýzu ega som vybrala cielene troch jednotlivcov zo siete, ktorí pracuj�
  \hline
  Aktér & Pozícia & Prepojené komunity & Efektívna veľkosť & E-I index \\ 
  \hline
-Veronika Uhrová  & developer  & 8  & 28  &  -0.06 \\  
+ Aktér 1  & developer  & 8  & 28  &  -0.06 \\  
   \hline
-  Attila Soltézs &  projektový manažér  &  9 & 15 & -0.25  \\ 
+  Aktér 2 &  projektový manažér  &  9 & 15 & -0.25  \\ 
   \hline
-  Andrej Primucha & tester   &  4 &  5 & 0  \\ 
+  Aktér 3 & tester   &  4 &  5 & 0  \\ 
   \hline
 
 \end{tabular}
@@ -1165,8 +1192,8 @@ Analýza štrukturálnych rolí dopadla podľa očakávaní. Boli detekované tr
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm, height=7cm]{figures/analyza_jednotlivca_ssrm_detail}
-\caption{Analýza jednotlivca - detail detekcie \textit{leader} roly}
+\includegraphics[width=12cm, height=8cm]{figures/analyza_jednotlivca_ssrm_detail}
+\caption{Analýza jednotlivca - detail detekovaných SSRM rolí}
 \end{figure}
 
 \paragraph{Brokerage}
@@ -1188,7 +1215,7 @@ V na obr. \ref{analyza_jednotlivca_brokerage} a \ref{analyza_jednotlivca_brokera
 \label{analyza_jednotlivca_brokerage_graph}
 \end{figure}
 
-
+Používatelia, ktorí boli detekovaní ako \textit{broker} jednotlivci, zastávajú vo firme pozície ako \textit{Asistent}, \textit{Lead developer}, \textit{Product owner}, \textit{Consultant} alebo \textit{Marketing specialist}.
 
 \section{Záver}
 Práca splnila všetky zadané ciele. Boli naštudované rešerše obdobných riešení a analytických prístupov a vybrané metódy analýzy sietí vhodné pre analýzu emailovej komunikácie. Na tomto základe bolo navrhnuté používateľské rozhranie pre analýzu emailovej komunikácie a vizualizáciu analytických výstupov. Toto používateľské rozhranie umožňuje získavanie emailových správ z vybraného zdroja, import týchto alebo inak získaných dát, vizualizáciu a zobrazenie výsledkov jednotlivých metód pre analýzu emailovej komunikácie. Aplikácia umožňuje zobrazenie základných informácií o emailovej komunikácii, vizualizáciu siete, detekciu komunít, tvorbu ego siete, detekciu štrukturálnych rolí a detekciu \textit{brokerage} rolí v emailovej sieti. Následne boli uvedené experimenty analýzy emailovej komunikácie tímu a emailovej komunikácie jednotlivca.
