@@ -108,38 +108,6 @@ namespace Thesis.Services
             return response;
         }
 
-        public FetchItemServiceResponse<int> FetchNodeIdByUserName(string name, string connectionString)
-        {
-            FetchItemServiceResponse<int> response = new FetchItemServiceResponse<int>();
-            try
-            {
-
-                using (IUnitOfWork uow = CreateUnitOfWork(connectionString))
-                {
-                    int nodeId = uow.UserRepo.GetNodeIdByUserName(name);
-                    response.Item = nodeId;
-                }
-
-                if (response.Item == 0)
-                {
-                    response.Succeeded = false;
-                    response.Error = ("Node was not found.");
-                }
-            }
-            catch (Exception e)
-            {
-                response.Succeeded = false;
-                response.Error = ($"Import of file failed with an error: {e.Message}");
-
-                if (e.InnerException != null)
-                {
-                    response.Error = ($"Additional error: {e.InnerException.Message}");
-                }
-            }
-
-            return response;
-        }
-
         public FetchItemServiceResponse<Node<UserDto>> FetchNodeWithBiggestDegree(string connectionString, Graph<UserDto> graph)
         {
             FetchItemServiceResponse<Node<UserDto>> response = new FetchItemServiceResponse<Node<UserDto>>();

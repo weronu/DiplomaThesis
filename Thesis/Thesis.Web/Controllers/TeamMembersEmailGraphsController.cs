@@ -22,10 +22,10 @@ namespace Thesis.Web.Controllers
 
         private readonly List<TeamMemberDto> TeamMembers = new List<TeamMemberDto>()
         {
-            new TeamMemberDto() {Id = 1, Name = "Veronika Uhrova", ConnectionString = "GLEmailsDatabaseVeronika"},
-            new TeamMemberDto() {Id = 2, Name = "Tibor Palatka", ConnectionString = "GLEmailsDatabaseTibor"},
-            new TeamMemberDto() {Id = 3, Name = "Andrej Parimucha", ConnectionString = "GLEmailsDatabaseAndrej"},
-            new TeamMemberDto() {Id = 4, Name = "Andrej Matejcik", ConnectionString = "GLEmailsDatabaseAdo"},
+            new TeamMemberDto() {Id = 1, Name = "Team member 1", ConnectionString = "GLEmailsDatabaseVeronika"},
+            new TeamMemberDto() {Id = 2, Name = "Team member 2", ConnectionString = "GLEmailsDatabaseTibor"},
+            new TeamMemberDto() {Id = 3, Name = "Team member 3", ConnectionString = "GLEmailsDatabaseAndrej"},
+            new TeamMemberDto() {Id = 4, Name = "Team member 4 ", ConnectionString = "GLEmailsDatabaseAdo"},
             new TeamMemberDto() {Id = 5, Name = "Explore whole team network", ConnectionString = "GLEmailsDatabase"},
         };
 
@@ -80,7 +80,7 @@ namespace Thesis.Web.Controllers
                 List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
                 {
                     id = x.Id,
-                    label = x.NodeElement.Name,
+                    label = "User " + x.NodeElement.Id,
                     title = $"Node degree: {x.Degree}",
                     size = 10,
                     color = "#f5cbee"
@@ -170,7 +170,7 @@ namespace Thesis.Web.Controllers
                 List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
                 {
                     id = x.Id,
-                    label = x.NodeElement.Name,
+                    label = "User " + x.NodeElement.Id,
                     title = $"Node degree: {x.Degree}",
                     size = 10,
                     color = "#f5cbee"
@@ -225,7 +225,7 @@ namespace Thesis.Web.Controllers
                 List<NodeDto> nodes = responseGraph.Item.Nodes.Select(x => new NodeDto()
                 {
                     id = x.Id,
-                    label = x.NodeElement.Name,
+                    label = "User" + x.NodeElement.Id,
                     title = $"Node degree: {x.Degree}",
                     size = 10,
                     color = "#f5cbee"
@@ -284,7 +284,7 @@ namespace Thesis.Web.Controllers
                         List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                         {
                             id = x.Id,
-                            label = x.NodeElement.Name,
+                            label = "User " + x.NodeElement.Id,
                             title = $"Node degree: {x.Degree}",
                             size = GetNodeSizeBasedOnRole(x),
                             group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
@@ -359,8 +359,8 @@ namespace Thesis.Web.Controllers
                 graphViewModel.Graph.SetDegrees();
                 List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                 {
-                    id = x.Id,
-                    label = x.NodeElement.Name,
+                    id = x.Id, 
+                    label = "User " + x.NodeElement.Id,
                     group = x.CommunityId,
                     title = $"Node degree: {x.Degree}",
                     size = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).size),
@@ -409,7 +409,7 @@ namespace Thesis.Web.Controllers
                     List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                     {
                         id = x.Id,
-                        label = x.NodeElement.Name,
+                        label = "User " + x.NodeElement.Id,
                         group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group),
                         title = $"Node degree: {x.Degree}",
                         size = GetNodeSizeBasedOnRole(x),
@@ -507,7 +507,7 @@ namespace Thesis.Web.Controllers
                     List<NodeDto> nodes = graphViewModel.Graph.Nodes.Select(x => new NodeDto()
                     {
                         id = x.Id,
-                        label = x.NodeElement.Name,
+                        label = "User" + x.NodeElement.Id,
                         title = $"Node degree: {x.Degree}",
                         size = 20,
                         group = (graphViewModel.GraphDto.nodes.First(y => y.id == x.Id).group)

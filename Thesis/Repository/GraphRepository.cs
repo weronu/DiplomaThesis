@@ -101,7 +101,7 @@ namespace Repository.MSSQL
                             NodeElement = new UserDto()
                             {
                                 Id = conversationEmailSet1.Sender.Id,
-                                Name = conversationEmailSet1.Sender.Name
+                                Name = "User " + conversationEmailSet1.Sender.Id
                             } 
                            
                         },
@@ -111,7 +111,7 @@ namespace Repository.MSSQL
                             NodeElement = new UserDto()
                             {
                                 Id = conversationEmailSet2.Sender.Id,
-                                Name = conversationEmailSet2.Sender.Name
+                                Name = "User " + conversationEmailSet2.Sender.Id
                             }
                         },
                         Weight = 2
@@ -146,7 +146,7 @@ namespace Repository.MSSQL
                                                                                     NodeElement = new UserDto()
                                                                                     {
                                                                                         Id = conversationEmailSet1.Sender.Id,
-                                                                                        Name = conversationEmailSet1.Sender.Name
+                                                                                        Name = "User " + conversationEmailSet1.Sender.Id
                                                                                     }
 
                                                                                 },
@@ -156,7 +156,7 @@ namespace Repository.MSSQL
                                                                                     NodeElement = new UserDto()
                                                                                     {
                                                                                         Id = conversationEmailSet2.Sender.Id,
-                                                                                        Name = conversationEmailSet2.Sender.Name
+                                                                                        Name = "User " + conversationEmailSet2.Sender.Id
                                                                                     }
                                                                                 },
                                                                                 Weight = 2
@@ -200,7 +200,7 @@ namespace Repository.MSSQL
                 select new BrokerageDto()
                 {
                     UserId = user.Id,
-                    Name = user.RawSenderName.ToUpper(),
+                    Name = "USER " + user.Id,
                     Coordinator = node.Brokerage.Coordinator,
                     Gatepeeker = node.Brokerage.Gatepeeker,
                     Itinerant = node.Brokerage.Itinerant,
@@ -213,7 +213,7 @@ namespace Repository.MSSQL
 
         public NetworkStatisticsDto GetEmailNetworkStatistics(DateTime fromDate, DateTime toDate)
         {
-            const string biggestEmailSender = @"SELECT UPPER(u.Name) FROM
+            const string biggestEmailSender = @"SELECT u.Id FROM
                                             (
                                             SELECT TOP 1 em.SenderId
                                             FROM EmailMessages em
@@ -251,6 +251,7 @@ namespace Repository.MSSQL
                                                 INNER JOIN EmailMessages em on c.EmailMessageId = em.Id
                                                 WHERE em.Sent BETWEEN @fromDate and @toDate";
 
+            int biggestEmailSenderId = _context.Database.SqlQuery<int>(biggestEmailSender, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault();
 
             NetworkStatisticsDto statisticsDto = new NetworkStatisticsDto
             {
@@ -260,7 +261,7 @@ namespace Repository.MSSQL
 
                 NumberOfConversations = _context.Database.SqlQuery<int>(conversationCount, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
 
-                BiggestEmailSender = _context.Database.SqlQuery<string>(biggestEmailSender, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
+                BiggestEmailSender = "User " + biggestEmailSenderId,
 
                 PeekHour = _context.Database.SqlQuery<string>(peekHour, new SqlParameter("@fromDate", fromDate), new SqlParameter("@toDate", toDate)).FirstOrDefault(),
 

@@ -16,14 +16,6 @@ namespace Repository.MSSQL
             this._dbContext = _dbContext;   
         }
 
-        public int GetNodeIdByUserName(string name)
-        {
-            return (from user in _dbContext.Users
-                where user.Name == name
-                select user.Id).FirstOrDefault();
-        }
-
-
         public List<DataPoint> GetTenMostUsedEmailDomains(DateTime fromDate, DateTime toDate)
         {
             string sql = @"SELECT TOP 10 substring(ue.Email, CHARINDEX(char(64), ue.Email) + 1, len(ue.Email) - CHARINDEX(char(64), ue.Email)) AS label, CAST(COUNT(*) AS FLOAT) as y
