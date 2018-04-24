@@ -129,7 +129,7 @@ Pri vytváraní emailu emailovým klientom sú väčšinou do hlavičky vložen�
 \item \textbf{Reply-To} - špecifikuje adresu, na ktorú je zaslaná prípadná odpoveď
 \item \textbf{Subjekt} - predmet správy daný užívateľom
 \item \textbf{To} - udáva adresu príjemcu správy
-\item \textbf{Message-Id} unikátny identifikátor, ktorý je priradený MTA
+\item \textbf{Message-Id} - unikátny identifikátor, ktorý je priradený MTA
 \end{itemize}
 
 Telo emailu obsahuje samotné dáta určené pre adresáta. 
@@ -368,7 +368,7 @@ Problém detekcie komunít vyžaduje  rozdelenie siete do komunít husto prepoje
 Veľmi obľúbeným a rýchlym algoritmom pre detekciu komunít je Louvainova metóda, ktorú navrhli Blondel, Guillaume, Lambiotte a Lefebvre \cite{12}. Je to jednoduchá metóda pre exktrakciu komunitnej štruktúry veľkých sietí. Je to heuristická metóda, ktorá je postavená na optimalizácii modularity. Je preukázané, že prekoná všetky ostatné známe metódy detekcie komunít, pokiaľ ide o čas výpočtu. Navyše kvalita detekovaných komunít je veľmi dobrá.
 
 
-Výpočet algoritmu je rozdelený do dvoch fáz, ktoré sa iteratívne opakujú. Predpokladajme, že začíname s váženou sieťou s \textit{N} uzlami. Ako prvé označíme každý uzol siete inou komunitou. Takže v tomto prvotnom rozdelení je toľko komunít, ako je uzlov. Potom pre každý uzol \textit{i} uvažujeme susedov \textit{j} a vyhodnotíme prírastok modularity, ktorý by nastal, ak z sme odstránili uzol \textit{i} z jeho komunity a priradili by sme ho do komunity uzla \textit{j}. Uzol \textit{i} je potom vložený do komunity, pre ktorú je tento prírastok najvyšší, ale len ak je tento prírastok kladný. Ak nie je možný žiadny kladný prírastok, uzol \textit{i} ostáva vo svojej komunite. Tento proces je aplikovaný opätovne a sekvenčne pre všetky uzly kým sa nedosiahne žiadne zlepšenie a prvá fáza je kompletná. Prvá fáza končí, keď je dosiahnuté lokálne maximum modularity, keď žiadny uzol už nemôže zlepšiť modularitu. Je taktiež dôležité, že výstup algoritmu záleží na postupe, v ktorom sú uzly brané do úvahy. Výsledky algoritmu ale naznačujú, že usporiadanie uzlov nemá významný vplyv na získanú modularitu. Zoradenie však môže ovplyvniť výpočtový čas. Problém pri výbere objednávky preto stojí za to študovať, pretože by mohol poskytnúť dobrú heuristiku na zvýšenie výpočtového času.
+Výpočet algoritmu je rozdelený do dvoch fáz, ktoré sa iteratívne opakujú. Predpokladajme, že začíname s váženou sieťou s \textit{N} uzlami. Pokiaľ ide o neváženú sieť, základná hodnota váhy je 1. Ako prvé označíme každý uzol siete inou komunitou. Takže v tomto prvotnom rozdelení je toľko komunít, ako je uzlov. Potom pre každý uzol \textit{i} uvažujeme susedov \textit{j} a vyhodnotíme prírastok modularity, ktorý by nastal, ak z sme odstránili uzol \textit{i} z jeho komunity a priradili by sme ho do komunity uzla \textit{j}. Uzol \textit{i} je potom vložený do komunity, pre ktorú je tento prírastok najvyšší, ale len ak je tento prírastok kladný. Ak nie je možný žiadny kladný prírastok, uzol \textit{i} ostáva vo svojej komunite. Tento proces je aplikovaný opätovne a sekvenčne pre všetky uzly kým sa nedosiahne žiadne zlepšenie a prvá fáza je kompletná. Prvá fáza končí, keď je dosiahnuté lokálne maximum modularity, keď žiadny uzol už nemôže zlepšiť modularitu. Je taktiež dôležité, že výstup algoritmu záleží na postupe, v ktorom sú uzly brané do úvahy. Výsledky algoritmu ale naznačujú, že usporiadanie uzlov nemá významný vplyv na získanú modularitu. Zoradenie však môže ovplyvniť výpočtový čas. Problém pri výbere objednávky preto stojí za to študovať, pretože by mohol poskytnúť dobrú heuristiku na zvýšenie výpočtového času.
 
 
 Druhá fáza algoritmu spočíva vo vytvorení novej siete, ktorej uzly sú komunity nájdené počas prvej fázy algoritmu. K tomu, aby sa nová sieť vytvorila, váhy spojení medzi novými uzlami sú dané sumou váh prepojení medzi uzlami korešpondujúcih dvoch komunít. Spojenia medzi uzlami tej istej komunity vedú k slučkám v novej sieti. Keď je druhá fáza kompletná, je možné znovu aplikovať prvú fázu algoritmu na výslednú váženú sieť a proces opakovať. Pri konštrukcii sa počet komunít znižuje pri každom priechode. Proces sa opajuje, kým nie sú žiadne ďalšie zmeny a dosiahne sa maximálna modularita.
@@ -694,13 +694,13 @@ Podmienka pre detekovanie brokerage rolí je prítomnosť komunít. Pre každý 
 \item Pokiaľ sú uzly \textit{A} a \textit{B}, \textit{C} v rovnakej komunite a uzol \textit{C} je v inej komunite alebo ak sú uzly \textit{B} a \textit{C} v rovnakej komunite a uzol \textit{A} je v inej komunite, uzol je detekovaný ako \textit{Representative} a zároveň ako \textit{Gatepeeker}, pretože nerozlišujem smer spojenia uzlov a teda im skóre navýšim zhodne.
 
 
-Jeden uzol môže byť identifikovaný aj všetkými \textit{brokerage} rolami. Keď je priechod všetkými uzlami dokončený, spočíta sa celkové \textit{brokerage} skóre súčtom čiastkových skóre pre každú rolu.
+Jeden uzol môže byť identifikovaný aj všetkými \textit{brokerage} rolami. Keď je priechod všetkými uzlami dokončený, spočíta sa celkové skóre súčtom čiastkových skóre pre každú rolu.
 
 \end{enumerate}
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=10cm,height=5cm]{figures/brokerage_algoritmus}
+\includegraphics[width=10cm,height=4cm]{figures/brokerage_algoritmus}
 \caption{Identifikácie \textit{brokerage} rolí \cite{brokerage_borgatti}}
 \end{figure}
 
@@ -785,7 +785,7 @@ Aplikácia slúži ako užívateľské rozhranie na anlýzu emailovej komunikác
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=10cm, height=10cm]{figures/diagram_usecase}
+\includegraphics[width=10cm, height=11cm]{figures/diagram_usecase}
 \caption{UseCase Diagram}
 \end{figure}
 
@@ -904,7 +904,7 @@ Pre získanie emailových dát z emailovej schránky som naimplementovala metód
 
 
 \subsubsection{Konštrukcia siete}
-Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Tako teda vyváram neorientovaný nevážený graf. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií. 
+Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Takto teda vyváram neorientovaný nevážený graf. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií. 
 
 \subsubsection{Triedy pre graf, vrcholy a hrany}
 Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcholy a hrany drží ako \texttt{Dictionary<int, HashSet<Node<T>{}>{}>}, čiže ako mapu vrcholov s ich susednými vrcholmi. Pre uloženie vrcholov a hrán grafu slúžia zoznamy hrán a vrcholov uložené ako \texttt{HashSet<Node<T> >} a \texttt{HashSet<Edge<T>{}>}. Trieda je generická preto, aby bolo možné vytvoriť graf pre rôzne entity. Triedy reprezentujúce vrcholy a hrany sú tiež generické a predstavujú ich \texttt{Node<T>} a \texttt{Edge<T>}. Pre identifikáciu komunity, bola vztvorená trieda \texttt{Comunity<T>}.
