@@ -7,6 +7,8 @@
 \usepackage{graphicx}
 \usepackage[utf8]{inputenc}
 \usepackage{color}
+\usepackage{theorem}
+
 
 
 % Zadame pozadovane vstupy pro generovani titulnich stran.
@@ -16,7 +18,7 @@
 
 \EnglishThesisTitle{Analysis of Email Communication}
 
-\SubmissionDate{\now}
+\SubmissionDate{2018}
 
 % Pokud nechceme nikomu dekovat makro zapoznamkujeme.
 \Thanks{Moje poďakovanie patrí predovšetkým doc. Milošovi Kudělkovi, Ph.D. za odborné konzultácie a vedenie mojej diplomovej práce.}
@@ -35,7 +37,7 @@
 
 \CzechKeywords{email, sociálna sieť, sociálna rola, ego sieť, vizualizácia, brokerage}
 
-\EnglishAbstract{This paper studies current methods for analysing emails and detecting social roles in email data. This is followed by getting acquainted with the email and its popularity nowadays. Also, this thesis presents basic theoretical concepts and a theoretical overview of network representation. Here are also the basics of social networking and community detection. There is also written a framework for structural social roles detection and their identification.Another method for social network analysis is identification of brokerage roles. Based on this knowledge, an aplicaion is developed to analyze and visualize analytical outputs. Finally, experiments on the findings of the emailed data are presented.}
+\EnglishAbstract{This paper studies current methods for analysing emails and detecting social roles in email data. This is followed by getting acquainted with the email and its popularity nowadays. Also, this thesis presents basic theoretical concepts and a theoretical overview of network representation. Here are also the basics of social networking and community detection. There is also written a framework for structural social roles detection and their identification. Another method for social network analysis is identification of brokerage roles. Based on this knowledge, an application is developed to analyze and visualize analytical outputs. Finally, experiments on the findings of the emailed data are presented.}
 
 \EnglishKeywords{email, social network, social role, ego network, visualization, brokerage}
 
@@ -48,7 +50,9 @@
 
 \DeclareCaptionType{mycapequ}[][List of equations]
 \captionsetup[mycapequ]{labelformat=empty}
- 
+
+
+
 
 % Zacatek dokumentu
 \begin{document}
@@ -68,22 +72,22 @@ V stručnom úvode je popísaná motivácia, ktorá viedla k vypracovaniu tejto 
 S cieľom uľahčiť používanie emailov a prebádať podnikateľský potenciál emailov, analýza emailov dosiahla pozoruhodný pokrok nielen v oblasti výskumu, ale aj v praxi. Emaily možno považovať za zmiešanú štruktúru obsahujúcu údaje o ľuďoch zo sociálnych alebo aj organizačných aspektov.
 
 \textbf{Obsah emailu ako textové a netextové dáta} 
-\newline Emaily sú písané viac stručne ako väčšina ostatných dokumentov, často obsahujú hovorové výrazy a abreviácie, ktoré sa nenachádzajú v bežných slovníkoch, preto štandartné techniky analýzy textov pri práci s emailovými dátami  nemusia byť efektívne.
+\newline Emaily sú písané viac stručne ako väčšina ostatných dokumentov, často obsahujú hovorové výrazy a skratky, ktoré sa nenachádzajú v bežných slovníkoch, preto štandartné techniky analýzy textov pri práci s emailovými dátami  nemusia byť efektívne.
 
 Emaily tiež obsahujú bohatšie typy dát, ako napríklad URL linky, HTML tagy alebo obrázky. Niektoré štúdie jednoducho zjednodušia tieto netextové dátové vstupy v štádiu predpripravovania dát - vymažu ich a ďalej pracujú len s textovými dátami. Tieto netextové dáta však môžu byť užitočné v iných oblastiach, ako napríklad detekcia spamu. 
 
 
 \textbf{Emaily reprezentujúce ľudské sociálne organizačné vzťahy} 
 \newline Emailová aktivita sama o sebe reprezentuje bohaté ľudské sociálne a organizačné vzťahy, ktoré spájajú ľudí do komunít a komplexných sysémov. Porozumenie organizačných štruktúr alebo vzťahov naprieč ľudmi v organizácii môže byť veľmi užitočné aj v reálnom živote. 
-Hlavné problémy, ktoré sú investigované v analýze emailov sú detekcia spamu, kategorizácia emailov, analýza kontaktov, analýza vlastností emailových sietí a vizualizácia emailov.
+Hlavné problémy, ktoré sa riešia v analýze emailov sú detekcia spamu, kategorizácia emailov, analýza kontaktov, analýza vlastností emailových sietí a vizualizácia emailov.
 
 \subsection{Vízia}
-Cieľom práce je oboznámiť čitateľa s oblasťou sociálnych sietí a špeciálne s témou analýzy emailových dát a tieto znalosti demonštrovať nad reálnymi emailovými dátami. Pre uskutočnenie tohto cieľa je potrebné naštudovať informácie z oblasti analýzy emailov, reprezentácie emailu v sieti a vizualizácie sociálnych sietí vrátanie aktuálnych metód publikovaných v článkoch. K tomu sa viaže tiež prieskum reprezentácie a konštrukcie emailu ako prvku sociálnej siete. 
+Cieľom práce je oboznámiť čitateľa s oblasťou sociálnych sietí a špeciálne s témou analýzy emailových dát a tieto znalosti demonštrovať nad reálnymi emailovými dátami. Pre uskutočnenie tohto cieľa je potrebné naštudovať informácie z oblasti analýzy emailov, reprezentácie emailu v sieti a vizualizácie sociálnych sietí vrátanie aktuálnych metód publikovaných v článkoch. \newline K tomu sa viaže tiež prieskum reprezentácie a konštrukcie emailu ako prvku sociálnej siete. 
 
 Ďalej boli vybrané metódy detekcie rolí v sociálnej sieti a navrhnutá aplikácia, ktorá umožňuje analyzovať a vizualizovať analytické výsledky. V tejto aplikácii s jednoduchým a použiteľným užívateľským rozhraním sú implementované vybrané metódy analýzy a je navrhnutá prehľadná vizualizácia vzťahov. Nakoniec je vytvorená analýza tímu podľa emailových dát a porovnanie dvoch prvkoch siete a výsledky experimentov sú zrozumiteľne prezentované.
 
 \subsection{Štruktúra práce}
-V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktoré sa zaoberajú analýzou emailov a reprezentáciou emailu v sociálnych sieťach. Ďalej sa čitateľ zoznámi s emailom ako komunikačným prostriedkom a dozvie sa, ako sú na tom emaily s popularitou aktuálne. Potom je uvedený stručný prehľad teórie grafov a definícií určitých pojmov, ktorý je nevyhnutný k porozumeniu ďalších kapitol. V ďalšej kapitole píšem o sociálnych sieťach, ich histórii a analýze sociálnych sietí, komunitnej štruktúre sociálnych sietí a ego sieťach. Neskôr prechádzam k popisu a reprezentácie frameworku pre detekciu štrukturálnych rolí, popisujem sociálne roly definované v rámci tohto frameworku a následne v ďalšej kapitole referujem pomocou akých metód sa sociálne roly v rámci tohto frameworku identifikujú. Ďalej popisujem ďalšiu metódu pre identifikáciu rolí zo sociálnych sietí - \textit{brokerage}. Na základe všetkých poznatkov práce je navrhnutá aplikácia vhodná k sledovaniu výsledkov navrhnutých metód pre analýzu emailových sietí.  Ešte pred záverom sú uvedené výsledky prevedených experimentov týkajúcich sa poznatkami skúmanej sociálnej siete.
+V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktoré sa zaoberajú analýzou emailov a reprezentáciou emailu v sociálnych sieťach. Ďalej sa čitateľ zoznámi s emailom ako komunikačným prostriedkom a dozvie sa, ako sú na tom emaily s popularitou aktuálne. Potom je uvedený stručný prehľad teórie grafov a definícií určitých pojmov, ktorý je nevyhnutný k porozumeniu ďalších kapitol. V ďalšej kapitole píšem o sociálnych sieťach, ich histórii a analýze sociálnych sietí, komunitnej štruktúre sociálnych sietí a ego sieťach. Neskôr prechádzam k popisu a reprezentácie frameworku pre detekciu štrukturálnych rolí, popisujem sociálne roly definované v \newline rámci tohto frameworku a následne v ďalšej kapitole referujem pomocou akých metód sa sociálne roly v rámci tohto frameworku identifikujú. Ďalej popisujem ďalšiu metódu pre identifikáciu rolí zo sociálnych sietí, tzv. sprostredkovateľské role (ang. \textit{brokerage}). Na základe všetkých poznatkov práce je navrhnutá aplikácia vhodná k sledovaniu výsledkov navrhnutých metód pre analýzu emailových sietí.  Ešte pred záverom sú uvedené výsledky prevedených experimentov týkajúcich sa poznatkami skúmanej sociálnej siete.
 
 
 \section{Súvisiace práce}
@@ -91,13 +95,13 @@ V prvej kapitole je uvedený prieskum o aktuálnych vedeckých článkoch, ktor�
 Pre odhaľovanie vzťahov medzi ľuďmi, skupinami a organizáciami z emalových sietí boli aplikované mnohé techniky a modely analýzy sociálnych sietí. Mnoho štúdií použilo maily spoločnosti \textit{Enron} kvôli nedostatku dostupných veľkých súborov. 
 
 
-Napríklad Diesner, Carley a Frantz v \cite{3} zkonštruovali z mailovej komunikácie spoločnosti Enron orientovaný graf zo vzťahu odosielateľ-príjemca, kde hrany boli vážené frekvenciou mailov, ktoré si medzi sebou poslali v čase. Potom aplikovali techniky analýzy sociálnych sietí. V práci popísali, ako vylepšili originálnu sadu a súčasné zistenia ich investigáciou vďaka analýze sociálnych sietí. Skúmajú dynamiku, štruktúru a vlastnosti organizačnej komunikačnej siete ako aj charakteristiky a vzory komunikačného správania zamestnancov z rôznych organizačných levelov. Zistili, že počas obdobia krízy sa komunikácia medzi zamestnancami stala viac rôznorodejšia v súvislosti so zavedenými kontaktami a formálnymi rolami. Taktiež počas obdobia kríz, predtým nekomunikujúci zamestnanci sa začali zapájať do vzájomného rozhovoru, takže interpersonálna komunikácia bola intenzívnejšia a sieť sa tým rozširovala. Tieto zistenia poskytli cenný pohľad do organizačnej krízy reálneho sveta, čo môže byť ďalej využité pre validáciu alebo tvorbu teórií a dynamických modelov organizačných kríz a tým to vedie k lepšiemu porozumeniu základných príčin organizačných kríz v organizáciách.
+Napríklad Diesner, Carley a Frantz v \cite{3} zkonštruovali z mailovej komunikácie spoločnosti Enron orientovaný graf zo vzťahu odosielateľ-príjemca, kde hrany boli vážené frekvenciou mailov, ktoré si medzi sebou poslali v čase. Potom aplikovali techniky analýzy sociálnych sietí. V práci popísali, ako vylepšili originálnu sadu a súčasné zistenia ich investigáciou vďaka analýze sociálnych sietí. Skúmajú dynamiku, štruktúru a vlastnosti organizačnej komunikačnej siete ako aj charakteristiky a vzory komunikačného správania zamestnancov z rôznych organizačných stupňov. Zistili, že počas obdobia krízy sa komunikácia medzi zamestnancami stala viac rôznorodejšia v súvislosti so zavedenými kontaktami a formálnymi rolami. Taktiež počas obdobia kríz, predtým nekomunikujúci zamestnanci sa začali zapájať do vzájomného rozhovoru, takže interpersonálna komunikácia bola intenzívnejšia a sieť sa tým rozširovala. Tieto zistenia poskytli cenný pohľad do organizačnej krízy reálneho sveta, čo môže byť ďalej využité pre validáciu alebo tvorbu teórií a dynamických modelov organizačných kríz a tým to vedie k lepšiemu porozumeniu základných príčin organizačných kríz v organizáciách.
 
 
-Xiaoyan Fu v \cite{2} prezentoval rôzne metódy pre vizualizáciu emailových sietí. Vizualizácia objavuje komunikačné vzory medzi rôznymi skupinami, zobrazuje centrálnu analýzu s dôrazom na významné uzly.
+Xiaoyan Fu v \cite{2} prezentoval rôzne metódy pre vizualizáciu emailových sietí. Vizualizácia objavuje komunikačné vzory medzi rôznymi skupinami, zobrazuje analýzu centralí s dôrazom na významné uzly.
 V práci zkonštruovali 2D vizualizáciu temporálnej emailovej siete, ktorá analyzuje vývoj emailových vzťahov, ktoré sa menia v priebehu času a zobrazenie prostredia pre nájdenie sociálnych kruhov odvodených od siete. Každá metóda bola vyhodnotená s rôznymi datasetmi od výskumnej orgnizácie. Taktiež rozšírili ich metódu pre vizuálnu analýzu siete emailových vírusov.
 
-Ďalej Chapanond, Krishnamoorthy, Yener v \cite{4} použil sieťové metriky a spektrálnu analýzu k analýze či už orientovaného alebo neorientovaného grafu emailov, ktorý skonštruoval zmenou prahovej hodnoty (napr. počtom vymenených emailov medzi užívateľmi). Ich výskum je postavený na vytvorení emailového grafu a štúdiu jeho vlatností či už pomocou teórie grafov alebo technikami spektrálnej analýzy. Grafová teoretická analýza zahŕňa výpočet niekoľkých grafových metrík, ako napríklad rozdelenie podľa stupňov, priemerný pomer vzdialeností, zhlukovací koeficient alebo kompaktnosť emailového grafu. Hodnoty metrík v dátovej sade emailov spoločnosti Enron porovnali aj s inými emailovými dátami. 
+Ďalej Chapanond, Krishnamoorthy, Yener v \cite{4} použili sieťové metriky a spektrálnu analýzu k analýze či už orientovaného alebo neorientovaného grafu emailov, ktorú skonštruovali zmenou prahovej hodnoty (napr. počtom vymenených emailov medzi užívateľmi). Ich výskum je postavený na vytvorení emailového grafu a štúdiu jeho vlatností či už pomocou teórie grafov alebo technikami spektrálnej analýzy. Grafová teoretická analýza zahŕňa výpočet niekoľkých grafových metrík, ako napríklad rozdelenie podľa stupňov, priemerný pomer vzdialeností, zhlukovací koeficient alebo kompaktnosť emailového grafu. Hodnoty metrík v dátovej sade emailov spoločnosti Enron porovnali aj s inými emailovými dátami. 
 
 Jednou z univerzálnejších prác je aj práca autorov Guanting Tang, Jian Pei, and Wo-Shun Luk \cite{1}. Je to stručný prehľad hlavných výskumných snáh o analýzu mailov a popis metód, ktoré sa pri tejto analýze používajú. Nie len čo sa týka analytických alebo implemetnačných úloh, ale aj nástrojov, ktoré nám pri analýze vedia pomôcť. Aby zdôraznili rozdiely medzi analýzou mailov a bežnou analýzou textu, organizujú prieskum do piatich ťažších úloh a to:  detekcia nevyžiadanej pošty, kategorizácia emailov, analýza kontaktov, analýza vlastností emailovej siete a vizualizácia emailov. Tieto úlohy sú vlastne začlenené do rôznych spôsobov používania emailov. Systemaicky preskúmavajú bežne používané techniky a tiež budujú diskusiu o dostupných softwarových nástrojoch.
 
@@ -122,13 +126,22 @@ Pri vytváraní emailu emailovým klientom sú väčšinou do hlavičky vložen�
 
 \begin{itemize}
 \item \textbf{Date} - aktuálny čas počítača, ktorý vložil záhlavie
+
 \item \textbf{From} - adresa odosielateľa
-\item \textbf{Cc} - špecifikuje ďalších adresátov
-\item \textbf{Bcc} - umožňuje rozosielanie správy medzi viacerých adresátov
-\item \textbf{Priotity} - priorita emailu, interpretácia sa líši vzhľadom k MUA
+
+\item \textbf{Cc} - skratka pre \textit{carbon copy}; adresáti označení ako \textit{CC} dostanú automaticky kópiu správy. Zoznam príjemcov CC je viditeľný pre všetkých ostatných príjemcov, na rozdiel od BCC.
+
+
+\item \textbf{Bcc} - skratka pre \textit{blind carbon copy} - pri odosielaní emailu adresáti označení ako BCC dostanú do schránky kópiu emailovej správy, pričom jednotliví príjemcovia nevidia zoznam ostatných príjemcov ako v prípade kópie typu \textit{CC}
+
+\item \textbf{Priority} - priorita emailu, interpretácia sa líši vzhľadom k MUA
+
 \item \textbf{Reply-To} - špecifikuje adresu, na ktorú je zaslaná prípadná odpoveď
+
 \item \textbf{Subjekt} - predmet správy daný užívateľom
+
 \item \textbf{To} - udáva adresu príjemcu správy
+
 \item \textbf{Message-Id} - unikátny identifikátor, ktorý je priradený MTA
 \end{itemize}
 
@@ -149,15 +162,27 @@ V tomto výskume boli spotrebitelia pýtaní, akú formu komunikácie preferujú
 \end{figure}
 
 
-\section{Definície a klasifikácie}
+\section{Teoretický základ}
 V tejto kapitole popisujem všetky teoretické pojmy a metódy, ktoré v tejto práci spomínam a používam. V tejto kapitole budem používať matematické názvy podľa kontextu, v ktorom sa budem nachádzať.
 
 \subsection{Graf}
-\begin{itemize}
 
-\item \textbf{Neorientovaný graf}
+\begin{definition}
+\textit{Graf G} (tiež jednoduchý graf alebo obyčajný graf) je usporiadaná dvojica \textit{G=(V,E)}, kde \textit{V} je neprázdna množina vrcholov a \textit{E} je množina hrán - množina (niektorých) dvojprvkových podmnožín množiny \textit{V}.  \cite{kovavr2012uvod}
+\label{ukazkygrafov}
+\end{definition}
 
-Neorientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V, E)}, kde \textit{V} je neprázdna množina \textit{vrcholov} a \textit{E} je neprázdna množina \textit{hrán} - množina (niektorých) dvojprvkových podmnožín množiny \textit{V}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=11cm,height=4cm]{figures/ukazkygrafov}
+\caption{Ukážky grafov}
+\end{figure}
+
+
+\begin{definition}
+Neorientovaným grafom nazývame dvojicu \textit{G=(V,E)}, kde \textit{V} je množina uzlov, \textit{E} je množina jednoprvkových alebo dvojprvkových podmnožín \textit{V}. \cite{demel2002grafy}
+\end{definition}
 
 \begin{figure}[H]
 \centering
@@ -165,9 +190,10 @@ Neorientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V, E)}, kde \
 \caption{Neorientovaný graf}
 \end{figure}
 
-\item \textbf{Orientovaný graf}
 
-Orientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V,E)}, kde V je množina \textit{vrcholov} a množina orientovaných \textit{hrán} je $E \subseteq  V \times V$. 
+\begin{definition}
+\textit{Orientovaným grafom} rozumieme usporiadanú dvojicu \textit{G = (V,E)}, kde \textit{V} je množina \textit{vrcholov} a množina \textit{orientovaných hrán} je $E \subseteq  V \times V$. 
+\end{definition}
 
 \begin{figure}[H]
 \centering
@@ -175,22 +201,23 @@ Orientovaným grafom rozumieme usporiadanú dvojicu \textit{G = (V,E)}, kde V je
 \caption{Orientovaný graf}
 \end{figure}
 
-\end{itemize}
-\newpage
-\subsection{Súvislosť grafu}
+\begin{definition}
+Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u}, ak v grafe existuje sled z vrcholu \textit{u} do vrcholu \textit{v}. Graf nazveme \textit{súvislý}, ak pre každé dva vrcholy \textit{u, v} je vrchol v dosiahnuteľný z vrcholu u. V opačnom prípade je graf \textit{nesúvislý}. \cite{kovavr2012uvod}
+\end{definition}
 
-Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u}, ak v grafe existuje sled z vrcholu \textit{u} do vrcholu \textit{v}. Graf nazveme \textit{súvislý}, ak pre každé dva vrcholy \textit{u, v} je vrchol v dosiahnuteľný z vrcholu u. V opačnom prípade je graf \textit{nesúvislý}.
+
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=10cm,height=4.5cm]{figures/suvisly_vs_nesuvisly}
+\includegraphics[width=9cm,height=3.5cm]{figures/suvisly_vs_nesuvisly}
 \caption{Súvislý (1) a nesúvislý graf (2)}
 \end{figure}
 
 
-\subsection{Úplný graf}
+\begin{definition}
+Graf na \textit{n} vrcholoch, kde ${n \epsilon N}$, ktorý obsahuje všetkých ${\binom{n}{2}}$ hrán sa nazýva úplný alebo tiež kompletný graf a značí sa ${K_{n}}$. \cite{kovavr2012uvod}
+\end{definition}
 
-Úplný graf na ${n}$ vrcholoch je neorientovaný graf, ktorý má hranu medzi každými dvoma vrcholmi. Počet jeho hrán je ${m = n ( n - 1) / 2}$.
 
 \begin{figure}[H]
 \centering
@@ -199,57 +226,89 @@ Hovoríme, že vrchol \textit{v} je \textit{dosiahnuteľný} z vrcholu \textit{u
 \end{figure}
 
 
-\subsection{Stupeň vrcholu}
+\begin{definition}
+\textit{Stupeň vrcholu} v grafe \textit{G} je definovaný ako počet hrán, s ktorými je vrchol incidentný. \cite{kovavr2012uvod}
+\end{definition}
 
-Stupeň vrcholu je počet vrcholov spojených s týmto vrcholom hranou, inými slovami: počet jeho susedov. V orientovanom grafe sa ešte rozlišuje vstupný a výstupný stupeň vrcholu podľa toho, koľko hrán z vrcholu vychádza alebo do neho vchádza. Stupeň vrcholu \textit{u} je ${deg(u) = \left |\left \{ e  \epsilon E | u \epsilon e   \right \} \right |}$
+\begin{equation}
+{deg(u) = \left |\left \{ e  \epsilon E | u \epsilon e   \right \} \right |}
+\end{equation}
 
 
-\subsection{Cesta}
+\begin{definition}
+\textit{Ťah} je sled, v ktorom sa neopakujú žiadne hrany a \textit{cesta} je sled, v ktorom sa neopakujú žiadne vrcholy. Uzavrená cesta je cesta, ktorá začína a končí v rovnakom uzle. \cite{kovavr2012uvod}
+\end{definition}
 
-Cesta je postupnosť vrcholov v grafe taká, že medzi každými dvoma vrcholmi cesty je hrana a vrcholy sa neopakujú. V orientovaných grafoch sa ešte rozlišuje smer cesty, pričom orientácia hrán je stále rovnaká. Dĺžka cesty je počet hrán, ktoré obsahuje.
-
-\subsection{Uzavretá cesta}
-
-Uzavrená cesta, kružnica v neorientovanom a cyklus v orientovanom grafe, je cesta, ktorá začína a končí v rovnakom uzle.
-
-\subsection{Komponenta grafu}
-
-Komponenta grafu je súvislá časť grafu a medzi vrcholmi z rôznych komponent neexistuje žiadna hrana.
 
 \subsection{Metriky}
 V tejto časti popisujem metriky, ktoré v rámci identifikácie rolí v sieti používam. Ďalšie informácie o metrikách, ich praktickom využití a ich ďalších variantách sú zhrnuté v kapitole \ref{identifikacia}.
 
-\subsubsection{Closeness centrality (Centralita blízkosti)}
-Táto centralita meria dôležitosť vrcholu grafu podľa priemernej hodnoty vzdialenosti od všetkých ostatných vrcholov v sieti. Aby dôležité vcholy mali vyššie číslo, je táto centralita počítaná ako inverzná hodnota tohto priemeru. Vrchol dôležitý podľa tejto metriky môže mať dobrý prístup k informáciám o ostaných vrcholoch alebo naopak môže ostatné vrcholz rýchlejšie ovplyvňovať.
+\subsubsection{Closeness centrality (Centralita blízkosti)} \label{kapitola_closeness}
+\begin{definition}
+Hodnota closeness centrality vrcholu \textit{i} je
+\begin{equation}
+{C_{i} = \frac{1}{l_{i}}} 
+\label{equation_closeness_centrality}
+\end{equation}
+\end{definition}
 
-Priemernú vzdialenosť vrcholu ${x_{i}}$ od ostatných vcholov možno formálne zapísať ako ${l_{i} = \frac{1}{n}\sum_{j}d_{ij}}$, kde \textit{n} je počet vrcholov v grafe a ${d_{ij}}$ je najkratšia cesta medzi vrcholmi  ${x_{i}}$ a  ${x_{j}}$. Centralita je potom  ${C_{i} = \frac{1}{l_{i}}}$.
+kde ${{l_{i} = \frac{1}{n}\sum_{j}d_{ij}}}$ je priemerná vzdialenosť vrcholu ${x_{i}}$ od ostatných vcholov, \textit{n} je počet vrcholov v grafe a ${d_{ij}}$ je najkratšia cesta medzi vrcholmi  ${x_{i}}$ a  ${x_{j}}$. 
+
+
+
+Táto centralita meria dôležitosť vrcholu grafu podľa priemernej hodnoty vzdialenosti od všetkých ostatných vrcholov v sieti. Aby dôležité vcholy mali vyššie číslo, je táto centralita počítaná ako inverzná hodnota tohto priemeru. Vrchol dôležitý podľa tejto metriky môže mať dobrý prístup k informáciám o ostaných vrcholoch alebo naopak môže ostatné vrcholy rýchlejšie ovplyvňovať.
 
 
 
 \subsubsection{Betweeness centrality (Centralita medziľahlosti)}
-Táto centralita sa odlišuje od ostatných uvedených. Jej hodnota pre vrchol je počet najkratších ciest medzi každými dvoma vrcholmi v grafe, na ktorých hodnotený vrchol leží. Pokiaľ medzi vrcholmi v sieti tečú nejaké informácie alebo sa posielajú správy, hodnota tejto metriky vyjadruje, aké množstvo informácií cez daný vrchol prejde. Táto centralita je tiež názorný príklad toho, že každá metrika počíta dôležitost vrcholu úplne inak. Vrchol s vysokou centralitou medziľahlosti môže mať malý stupeň a nemusí ležať blízko ostatních vrcholov, stačí, keď cez neho  prechádza veľa najkratších ciest. To môže nastať, pokiaľ vrchol je most medzi dvoma alebo viacerými komponentami v grafe, v extrémnom prípade pokiaľ je v strede grafu v tvare hviezdy (viď obrázok).
 
-Betweeness vrcholu ${x_{i}}$ možno spočítať ako ${B_{i} = \sum_{st}^{}\frac{n^{i}_{st}}{g_{st}}}$, kde ${g_{st}}$ je počet všetkých najkratších ciest medzi vrcholmi ${x_{i}}$ a ${x_{j}}$ a ${n^{i}_{st}}$ je počet najkratších ciest, ktoré naviac vedú cez vrchol ${x_{i}}$. 
+\begin{definition}
+Hodnota betweeness centrality vrcholu \textit{i} je 
+\begin{equation}
+{B_{i} = \sum_{st}^{}\frac{n^{i}_{st}}{g_{st}}}
+\label{equation_closeness_centrality}
+\end{equation}
+\end{definition}
+
+kde kde ${g_{st}}$ je počet všetkých najkratších ciest medzi vrcholmi ${x_{i}}$ a ${x_{j}}$ a ${n^{i}_{st}}$ je počet najkratších ciest, ktoré naviac vedú cez vrchol ${x_{i}}$. 
+
+
+Jej hodnota pre vrchol vychádza z počtu najkratších ciest medzi každými dvoma vrcholmi v grafe, na ktorých hodnotený vrchol leží. Pokiaľ medzi vrcholmi v sieti tečú nejaké informácie alebo sa posielajú správy, hodnota tejto metriky vyjadruje, aké množstvo informácií cez daný vrchol prejde. Táto centralita je tiež názorný príklad toho, že každá metrika počíta dôležitost vrcholu úplne inak. Vrchol s vysokou centralitou medziľahlosti môže mať malý stupeň a nemusí ležať blízko ostatních vrcholov, stačí, keď cez neho  prechádza veľa najkratších ciest. To môže nastať, pokiaľ vrchol je most medzi dvoma alebo viacerými komponentami v grafe, v extrémnom prípade pokiaľ je v strede grafu v tvare hviezdy (viď obrázok \ref{graf_v_tvare_hviezdy}).
+
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=6cm, height=5cm]{figures/graph_star}
 \caption{Graf v tvare hviezdy}
+\label{graf_v_tvare_hviezdy}
 \end{figure}
 
 \subsubsection{Modularita}
-Modularita je metrika, ktorá udáva rozdiel medzi počtom existujúcich hrán medzi vrcholmi rovnakého typu a počtom takých hrán v náhodne vytvorenom grafe v pomeru ku všetkým exitujúcim hranám. Vrcholy rovnakého typu sú tie, ktoré patria alebo majú patriť do rovnakej skupiny alebo triedy (komunity).
 
-\begin{mycapequ}[!ht]
-      \begin{equation*}    
+\begin{definition}
+Modularita je definovaná ako 
+
+
+\begin{equation}    
 {
 Q = \frac{1}{2m}\sum \sum_{i,j}\begin{bmatrix}
 A_{ij} - \frac{d_{i}d_{j}}{2m}
 \end{bmatrix} \delta (c_{i}, c_{j})
-}
-   \end{equation*}
-   \caption{Def: Modularita \cite{blondel2008fast}}
-\end{mycapequ}
+} 
+\label{equation_modularita}
+\end{equation}
+\end{definition}
+
+kde ${}A_{ij}$ reprezentuje váhu hrany medzi vrcholom \textit{i} a \textit{j}, ${k_{i} = \sum_{j}^{ij}A_{ij}}$ je suma váh hrán pripojených k uzlu \textit{i}, ${}c_{i}$ je komunita ku ktorej je vrchol \textit{i} priradený, ${} \delta(u,v)$ je 1 ak \textit{u = v}, inak je 0 a ${m = \frac{1}{2}\sum_{ij}A_{ij}}$. \cite{blondel2008fast}
+
+
+
+Modularita je metrika, ktorá vychádza z rozdielu medzi počtom existujúcich hrán medzi vrcholmi rovnakého typu a počtom takých hrán v náhodne vytvorenom grafe v pomeru ku všetkým exitujúcim hranám. Vrcholy rovnakého typu sú tie, ktoré patria alebo majú patriť do rovnakej skupiny alebo triedy (komunity).
+
+
+
+
+
 
 
 \section{Sociálna sieť}
@@ -259,14 +318,13 @@ ktoré sú prepojené jedným, alebo viacerými špecifickými druhmi vzájomnej
 Sociálna sieť z pohľadu teórie grafov je definovaná ako graf G(V, E), kde V je množina entít
 (uzlov) a E je množnina vzťahov (hrán) medzi týmito entitami.
 
-Entity grafu môžu byť rôzne (zákazníci, jednotlivci, webové stránky, bankové účty, creditné karty,
-produkty). Nie je pravidlom, že len sociálna sieť ako ju pozná mnoho ľudí je sociálnou sieťou aj formálne. Prvky sociálnej siete môže ma napríklad aj skupina spolupracujúcich ľudí. 
+Entity grafu môžu byť rôzne (zákazníci, jednotlivci, webové stránky, bankové účty, creditné karty, produkty). Nie je pravidlom, že len sociálna sieť ako ju pozná mnoho ľudí je sociálnou sieťou aj v exaktnom slova zmysle. 
 
 \subsection{História sociálnych sietí}
 
 Pod pojmom sociálna sieť si väčšina ľudí v dnešnej dobe predstaví služby ako \textit{Facebook, Twitter} a pod. Tento pojem ale vznikol dlho pred vznikom internetu a dnešných sociálnych sietí. Prívlastok sociálny, ktorý sa v dnešnej dobe často vynecháva, je dôsledkom pôvodu analýzy sociálnych sietí. V druhej polovici 20. storočia sa simultánne v rôznych oblastiach skúmania vzťahov a chovania objavil nový pohľad na vzťahy medzi sociálnymi jednotkami a to ako na sieť, graf. Preto prví predstavitelia analýzy sociálnych sietí boli pôvodne sociológovia alebo psychológovia (napríklad Moreno, Cartwright, Newcomb, Bavelas) a antropológovia (Barnes,Mitchell). Prvé použitie termínu "sociálna sieť" sa pripisuje Barnesovi (1954).
 
-V 30. rokoch 20. storočia psychiater Moreno rozvíjal sociometriu, predchodcu dnešnej analýzy sociálnych sietí. Vypytoval sa ľudí na priateľské vzťahy a skúmal, ako tieto vzťahy ovplyvňujú ich chovanie. Potom vynašiel (sám to tvrdill) tzv. \textit{sociogram}, čo je diagram reprezentujúci ľudí ako body a vzťahy medzi ľuďmi ako úsečky, teda dnešnú sociálnu sieť. Tento pojem sa ale začal používať až neskôr. Pomocou neho hľadal výrazné a izolované osoby v spoločnosti.
+V 30. rokoch 20. storočia psychiater Moreno rozvíjal sociometriu, predchodcu dnešnej analýzy sociálnych sietí. Vypytoval sa ľudí na priateľské vzťahy a skúmal, ako tieto vzťahy ovplyvňujú ich chovanie. Potom vynašiel tzv. \textit{sociogram}, čo je diagram reprezentujúci ľudí ako body a vzťahy medzi ľuďmi ako úsečky, teda dnešnú sociálnu sieť. Tento pojem sa ale začal používať až neskôr. Pomocou neho hľadal výrazné a izolované osoby v spoločnosti.
 
 Zhruba o 20 rokov neskôr antropológ Barnes začal skúmať, ako ovplyvnia vzťahy medzi ľuďmi nielen jednotlivcov, ale aj spoločnosť ako celok a zameral sa na štúdium skupín, komunít. Na práci Barnesa a jeho spolupracovníkov naviazala na Univerzite na Harvarde skupina vedená Harrisom Whitom. Tá začala budovať matematickú teóriu okolo dôležitejšcíh pojmov zo sociálnych vied a umožnila tieto javy matematicky vyjadriť, merať a modelovať.
 
@@ -285,16 +343,16 @@ rovnako ako populárna téma pre výskum.
 \subsection{Komunity v sociálnych sieťach}
 
 Sociálne siete sú riedke grafy zložené z hustých podgrafov. Tieto husté podgrafy sú nazývané
-komunity. Najčastejšia definícia komunity: \textit{Komunita je zhluk uzlov, kde počet vnútorných hrán v komunite je väčší ako počet vnokajších hrán – mimo komunity}. \cite{8}
+komunity. Najčastejšia definícia komunity: \textit{Komunita je zhluk uzlov, kde počet vnútorných hrán v komunite je väčší ako počet vnokajších hrán – mimo komunity} \cite{8}. Komunity sú v \cite{barabasi2016network} popísané podľa dvoch hypotéz (H2), ktoré popisujem v nasledujúcih podkapitolách.
 
 
 \subsubsection{H2: Predpoklad súvislosti a hustoty}
 Komunity sú lokálne husto prepojené subgrafy v sieti. Toto očakávanie sa opiera o dva odlišné predpoklady:
-\begin{description}
-\item \textbf{Predpoklad súvislosti}
+
+\noindent\textbf{Predpoklad súvislosti}
 
 
-Každá komunita odpovedá súvislému podgrafu, podobne ako subgrafy tvorené oranžovými, zelenými alebo fialovými uzlami na obrázku \ref{komunity}. V dôsledku toho, ak sa sieť skladá z dvoch izolovaných komponent, každá komunita je obmedzená len na jednu komponentu. Táto hypotéza tiež naznačuje, že na tejto zložke sa komunita nemôže skladať z dvoch subgafov, ktoré nemajú vzájomnú väzbu. V dôsledku toho oranžové a zelené uzly tvoria samostané komunity. \cite{barabasi2016network}
+Každá komunita odpovedá súvislému podgrafu, podobne ako subgrafy tvorené oranžovými, zelenými alebo fialovými uzlami na obrázku \ref{komunity}. V dôsledku toho, ak sa sieť skladá z dvoch izolovaných komponent, každá komunita je obmedzená len na jednu komponentu. Táto hypotéza tiež naznačuje, že na tejto zložke sa komunita nemôže skladať z dvoch subgrafov, ktoré nemajú vzájomnú väzbu. V dôsledku toho oranžové a zelené uzly tvoria samostané komunity. \cite{barabasi2016network}
 
 
 \begin{figure}[H]
@@ -304,13 +362,12 @@ Každá komunita odpovedá súvislému podgrafu, podobne ako subgrafy tvorené o
 \label{komunity}
 \end{figure}
 
-\item \textbf{Predpoklad hustoty}
+\noindent\textbf{Predpoklad hustoty}
 
 
-Uzly v komunite viac pravdepodobne združujú ďalších členov komunity než uzly v iných komunitách. Oranžové, zelené a fialové uzly toto očakávanie spĺňajú. \cite{barabasi2016network}
+Uzly v komunite pravdepodobne združujú viac ďalších členov komunity než uzly v iných komunitách. Oranžové, zelené a fialové uzly toto očakávanie spĺňajú. \cite{barabasi2016network}
 
-\end{description}
-
+\bigskip
 Inými slovami, všetci členovia komunity musia byť dosiahnuteľní cez ostatných členov tej istej komunity (súvislosť). V tom istom čase predpokladáme, že uzly, ktoré patria do komunity majú vyššiu pravdepodobnosť spájať ostatných členov tejto komunity ako uzly, ktoré do tejto komunity nepatria (hustota). \cite{barabasi2016network}
 
 \subsubsection{Maximálne kliky}
@@ -322,45 +379,45 @@ Jeden z prvých článkov o štruktúre spoločenstva publikovaný v roku 1949, 
 
 
 \subsection{Silné a slabé komunity}
-Zvažujme súvislý subgraf \textit{C} s \textit{$N_{c}$} uzlami v sieti. Vnútorný stupeň $k_{i}^{int}$ uzla \textit{i} je počet prepojení, ktoré sa pripojujú k iným uzlom v \textit{C}. Externý stupeň $k_{i}^{ext}$ je počt spojení, ktoré sa pripojujú k zbytku siete. Ak je $k_{i}^{ext} = 0$, každý sused \textit{i} je vnútri \textit{C} a preto  \textit{C} je dobr komunita pre uzol \textit{i}. Ak je $k_{i}^{int} = 0$, musí byť uzol priradený k inej komunite. Tieto definície nám umožňujú rozlíšiť dva druhy spoločenstva.
+Zvažujme súvislý subgraf \textit{C} s \textit{$N_{c}$} uzlami v sieti. Vnútorný stupeň $k_{i}^{int}$ uzla \textit{i} je počet prepojení, ktoré sa pripojujú k iným uzlom v \textit{C}. Externý stupeň $k_{i}^{ext}$ je počt spojení, ktoré sa pripojujú k zbytku siete. Ak je $k_{i}^{ext} = 0$, každý sused \textit{i} je vnútri \textit{C} a preto  \textit{C} je dobr komunita pre uzol \textit{i}. Ak je $k_{i}^{int} = 0$, musí byť uzol priradený k inej komunite. Tieto definície nám umožňujú rozlíšiť dva druhy spoločenstva. \cite{barabasi2016network}
 
-\begin{description}
-\item \textbf{Silná komunita}
+\noindent\textbf{Silná komunita}
 
 
 \textit{C} je silná komunita, ak každý uzol vnútri \textit{C} má viac spojení vo vnútri komunity ako s celou sieťou \cite{flake2000efficient}, \cite{radicchi2004defining}. Konkrétne, podgraf \textit{C} tvorí slabú komunitu ak pre každý uzol \textit{$i\quad \epsilon \quad C$}: 
 
 
-\begin{mycapequ}[!ht]
-      \begin{equation*}
-    k_{i}^{int}(C) > k_{i}^{ext}(C)
-   \end{equation*}
-   \caption{Def: Silná komunita \cite{barabasi2016network}}
-\end{mycapequ}
+
+\begin{equation}
+    {k_{i}^{int}(C) > k_{i}^{ext}(C)}
+    \label{equation_silna_komunita}
+\end{equation}
+
+
 
 \newpage
 
-\item \textbf{Slabá komunita}
+\noindent\textbf{Slabá komunita}
 
 
 \textit{C} je slabá komunita, ak celkový vnútorný stupeň subgrafu prekračuje svoj celkový externý stupeň \cite{radicchi2004defining}. Konkrétne subgraf \textit{C} tvorí slabú komunitu ak:
 
 
-\begin{mycapequ}[!ht]
-      \begin{equation*}
-    \sum_{i \epsilon C} k_{i}^{int} (C) > \sum_{i \epsilon C} k_{i}^{ext} (C)
-   \end{equation*}
-   \caption{Def: Slabá komunita \cite{barabasi2016network}}
-\end{mycapequ}
 
-\end{description}
+\begin{equation}
+    {\sum_{i \epsilon C} k_{i}^{int} (C) > \sum_{i \epsilon C} k_{i}^{ext} (C)\quad}
+    \label{equation_slaba_komunita}
+    \cite{barabasi2016network}
+\end{equation}
+   
+
 
 
 \subsection{Detekcia komunít}
 Detekcia komunít je proces identifikácie zhlukov uzlov siete silne prepojených medzi sebou a menej silne prepojených so zvyškom siete. Detekcia komunít v grafoch má za cieľ identifikovať moduly a ich prípadnú hierarchickú organizáciu.
 
 
-Problém detekcie komunít vyžaduje  rozdelenie siete do komunít husto prepojených uzlov, pričom uzly patriace do odlišných komunít sú len slabo prepojené. Presné formulácie tohto optimalizačného problému sú známe ako výpočtovo neriešiteľné. Vyhľadávanie rýchlych algoritmov pritiahlo veľký záujem vďaka zvyšujúcej sa dostupnosti rozsiahlych sieťových dátových súborov a vplyvu sietí na každodenný život. Môžeme rozlišovať niekoľko typov algoritmov detekcie komunít: \textit{rozdeľovacie} algoritmy - tie detekujú spojenie vnútri siete a postupne ich odstraňujú zo siete, \textit{algomeratívne} algoritmy - zlučujú podobné uzly a postupne komunity podľa spoločných čŕt a \textit{optimalizačné} metódy sú postavené na maximalizácii objektívnej funkcie. Kvalita rozdielov vplývajúcich z týchto metód sa často meria takzvanou modularitou. Je to hodnota v intervale od -1 do 1, ktorá meria hustotu spojov vnútri komunít v porovnaní s prepojeniami medzi komunitami. 
+Problém detekcie komunít vyžaduje  rozdelenie siete do komunít husto prepojených uzlov, pričom uzly patriace do odlišných komunít sú len slabo prepojené. Vyhľadávanie rýchlych algoritmov pritiahlo veľký záujem vďaka zvyšujúcej sa dostupnosti rozsiahlych sieťových dátových súborov a vplyvu sietí na každodenný život. Môžeme rozlišovať niekoľko typov algoritmov detekcie komunít: \textit{rozdeľovacie} (ang. \textit{graph partitioning}) algoritmy - tie detekujú slabé spojenia vnútri siete a postupne ich odstraňujú zo siete, \textit{algomeratívne} algoritmy - zlučujú podobné uzly a postupne komunity podľa spoločných čŕt a \textit{optimalizačné} metódy sú postavené na maximalizácii účelovej funkcie. Kvalita rozdielov vyplývajúcich z týchto metód sa často meria  modularitou. Je to hodnota v intervale od -1 do 1, ktorá meria hustotu spojov vnútri komunít v porovnaní s prepojeniami medzi komunitami. \cite{blondel2008fast}
 
 
 \subsubsection{Louvainov algoritmus pre detekciu komunít}
@@ -387,9 +444,6 @@ Každý priechod je tvorený dvomi fázami: prvá, kde je modularita optimalizov
 Ego sieť je sieť tvorená uzlami, ktoré sa nazývajú aj \textit{alter} uzlami, ktoré sa formujú okolo určitého uzla, ktorý sa nazýva \textit{ego}. Toto ego sa niekedy zo siete vynecháva za účelom analýzy zmien siete. To záleží od danej analýzy \cite{6}. Ego je individuálny ústredný uzol. Sieť môže mať toľko ég, koľko má uzlov. Egá môžu byť osoby, skupiny, organizácie alebo celé spoločnosti.
 
 
-\subsubsection{Konštrukcia ego siete}
-V tejto práci konštruujem ego sieť tak, že k uzlu, ktorý bol vybraný ako ego, sa pridajú hrany tak, aby spájal doposiaľ neprepojené komponenty siete. To môže pomôcť k analýze toho, či by sa daný človek hodil do vodcovskej pozície na základe jeho starých spojení. To, že sú k nemu pridané nové spojenia by bolo prirodzené, ak by sa daný jednotlivec dostal naozaj do vodcovskej (alebo inak egocentrickej) role. Príkladom môže byť napríklad to, keď sa v spoločnosti hľadá nový projektový manažér a z danej siete môžme detekovať, či sa človek s danými vlohami nenachádza aj v aktuálnom tíme, ale na nižšej pozícii.
-
 \begin{figure}[H]
 \centering
 \includegraphics[width=10cm, height=9cm]{figures/egonet}
@@ -401,17 +455,23 @@ V tejto práci konštruujem ego sieť tak, že k uzlu, ktorý bol vybraný ako e
 
 \subsection{SSRM - Framework pre detekciu štrukturálnych rolí v sociálnych sieťach}
 
-Afra Abnar, Mansoureh Takaffoli, Reihaneh Rabbany, Osmar R. Zaıane \cite{9} definovali \textit{Structural social role mining framework}, ktorý je navrhnutý pre identifikáciu štrukturálnych rolí, pre identifikáciu zmien v sieti a analýzu dopadu zmien na sieť. Definujú základné sociálne roly v sieti(menovite Leader, Outermost, Mediator, Outsider). 
+Afra Abnar, Mansoureh Takaffoli, Reihaneh Rabbany, Osmar R. Zaıane \cite{9} definovali \textit{Structural social role mining framework}, ktorý je navrhnutý pre identifikáciu štrukturálnych rolí, pre identifikáciu zmien v sieti a analýzu dopadu zmien na sieť. Definujú základné sociálne roly v sieti: \textit{Leader, Outermost, Mediator, Outsider}. 
+
+
+\noindent \textit{Pozn: Jednotlivé roly z anglického jazyka neprekladám a preberám ich pomenovania z  \cite{9}.}
 
 \subsubsection{Rola v kontexte SSRM}
 \textit{Sociálna rola} je síce základný sociologický pojem, ale stále neexistuje žiadny konsenzus v jej definícii. Podľa SSRM je rola je považovaná za pozíciu jednotlivca v spoločnosti.
- Informácie o sociálnej sieti sú kategorizované do štrukturálnych a neštrukturálnych vlastností. Štrukturálne vlastnosti sú príbuzné ku konštrukcii grafu ako sú spojenia entít (hrany), štruktúra susedov a pozícia entity v tejto štruktúre. Ale neštrukturálne vlastnosti sú ostatné informácie, ktoré neodrážajú konštrukciu grafu ako atribúty entít a spojení. SSRM definuje rolu v sieti ako: Rola entity v sieti je to, ako sa entita správa voči ostatným a jej vplyv na atribúty a štruktúry ostatných entít.
+ Informácie o sociálnej sieti sú kategorizované do štrukturálnych a neštrukturálnych vlastností. Štrukturálne vlastnosti sú príbuzné ku konštrukcii grafu ako sú spojenia entít (hrany), štruktúra susedov a pozícia entity v tejto štruktúre. Ale neštrukturálne vlastnosti sú ostatné informácie, ktoré neodrážajú konštrukciu grafu ako atribúty entít a spojení. 
 
+\begin{definition} 
+ \textit{Rola} (podľa SSRM) entity v sieti je to, ako sa entita správa voči ostatným a jej vplyv na atribúty a štruktúry ostatných entít.
+\end{definition}
 
 \subsubsection{Roly definované v SSRM}
 Ľudské siete sú vnútorne zložené z viacerých komunít. V sociálnej sieti s viacerými komunitami, vlastnosti uzlov kolíšu podľa toho, či je existencia komunít dostatočná alebo zanedbateľná. Z pohľadu sociálnej siete, uzol môže byť centrom celej siete, ale nie centrom v jeho komunite. SSRM sa teda zameriava na štúdium sociálnych sietí s predpokladom existencie komunít v sieti, ako jej základnej črty.
 
-V sociálnych sieťach môžu byť komunity explicitné alebo implicitné. Explicitné komunity sú postavené nezávisle na jej členoch a sú založené na množine pravidiel. V tomto prípade, ľudia sa stanú členmi tejto komunity častejšie až po zformovaní komunity. Zamestnanci firmy alebo študenti sú príkladom dvoch explicitných komunít. Zatiaľ čo formácia implicitných komunít ťažko závisí na jej členoch a spojeniach. Tým pádom neexistuje žiadna externá podmienka na vybudovanie implicitnej komunity. Implicitné komunity sú postavené postupne ako sa ľudia spoločne stretávajú. Napríklad, skupina priateľov, v ktorej nie je žiadne pravidlo pre správanie sa jednotlivcov, je príklad implicitnej komunity. V oboch prípadoch explicitnej aj implicitnej komunity, by mali existovať aj špeciálny jednotlivci, ktorí tieto komunity manažujú a kontrolujú. Napríklad v školskej triede je to učiteľ alebo inštruktor. Pre firmu to je manažér vo vedení a pre skupinu priateľov je to zase človek, ktorého komunikačné schopnosti prinášajú ďalších členov alebo posilňujú vzťahy medzi tými stálymi. Títo dôležitý jednotlivci sú ešte viac výrazný, keď je komunita obrovská.
+V sociálnych sieťach môžu byť komunity explicitné alebo implicitné. Explicitné komunity sú postavené nezávisle na jej členoch a sú založené na množine pravidiel. V tomto prípade, ľudia sa stanú členmi tejto komunity častejšie až po zformovaní komunity. Zamestnanci firmy alebo študenti sú príkladom dvoch explicitných komunít. Zatiaľ čo formácia implicitných komunít principiálne závisí na jej členoch a spojeniach. Tým pádom neexistuje žiadna externá podmienka na vybudovanie implicitnej komunity. Implicitné komunity sú postavené postupne ako sa ľudia spoločne stretávajú. Napríklad, skupina priateľov, v ktorej nie je žiadne pravidlo pre správanie sa jednotlivcov, je príklad implicitnej komunity. V oboch prípadoch explicitnej aj implicitnej komunity, by mali existovať aj špeciálni jednotlivci, ktorí sú pre komunitu dôležitejší ako ostatní. Napríklad v školskej triede je to učiteľ alebo inštruktor. Pre firmu to je manažér vo vedení a pre skupinu priateľov je to zase človek, ktorého komunikačné schopnosti prinášajú ďalších členov alebo posilňujú vzťahy medzi tými stálymi. Títo dôležití jednotlivci sú ešte viac výrazný, keď je komunita obrovská.
 
 
 Podľa toho SSRM framework definuje pre jednotlivcov v sociálnej sieti určité roly podľa ich vzťahov a pozícií v komunitách až po ich interakcie s ostatnými jednotlivcami. Z perspektívy komunít, v sieti existujú jednotlivci niekoľkých typov:
@@ -419,194 +479,165 @@ Podľa toho SSRM framework definuje pre jednotlivcov v sociálnej sieti určité
 \begin{itemize}
 \item so žiadnym vzťahom ku nejakej komunite
 \item so spojením s viacerými komunitami
-\item dôležitý členovia komunity
-\item bežný členovia komunity, ktorí formujú väčšinu
-\item nedôležitý členovia komunity, ktorí nemajú na komunitu pozorovateľný efekt
+\item dôležití členovia komunity
+\item bežní členovia komunity, ktorí formujú väčšinu
+\item nedôležití členovia komunity, ktorí nemajú na komunitu pozorovateľný efekt
 \end{itemize} 
 
 
 Na základe týchto poznatkov SSRM definuje štyri základné roly - \textbf{leader}, \textbf{mediator}, \textbf{outermost} a \textbf{outsider}.
 
-\paragraph{Leader}
-\hfill \break
-Sú mimoriadni jednotlivci v zmysle centrality alebo významu v každej komunite. V reálnom svete bývajú títo členovia siete veliteľmi, riaditeľmi, manažérmi,  vládcami, prezidentami, autoritami, administrátormi atd.
+\begin{definition}
+\textit{Leader} je mimoriadny jednotlivec v zmysle centrality alebo významu v každej komunite.  V reálnom svete môže tento člen zastávať pozície ako veliteľ, riaditeľ, manažér,  vládca, prezident, vedúci tímu, administrátor atd.
+\end{definition}
 
-\paragraph{Outermost}
-\hfill \break
-Je to časť menej dôležitých jednotlivcov v každej komunite, ktorých vplyv a efekt na komunitu sú nižšie ako vplyv väčšiny členov komunity. Miesta, kde sa môže outermost v sieti nachádzať sú periférie alebo hranice grafu.
+ 
+\begin{definition}
+\textit{Outermost} patrí do časti menej dôležitých jednotlivcov v každej komunite, ktorých vplyv a efekt na komunitu sú nižšie ako vplyv väčšiny členov komunity. Miesta, kde sa môže outermost v sieti nachádzať sú periférie alebo hranice grafu.
+\end{definition}
 
-\paragraph{Mediator}
-\hfill \break
-Sú to jednotlivci, ktorí zohrávajú dôležitú rolu v spojení komunít v medzi sebou. Fungujú ako mosty medzi odlišnými komunitami. Do tejto skupiny patria vyjednávači, sprostredkovatelia alebo aj rozbočovače v sieti. 
+\begin{definition}
+\textit{Mediator} je jednotlivec, ktorý zohráva dôležitú rolu v spojení komunít medzi sebou. Funguje ako mostík medzi odlišnými komunitami. Rolu \textit{mediator} zastávajú napríklad vyjednávači, sprostredkovatelia alebo aj rozbočovače v sieti.  
+\end{definition}
 
-\paragraph{Outsider}
-\hfill \break
-Sú to jednotlivci, ktorí nie sú spojení so žiadnou komunitou v sieti. Buď majú takmer rovnaké prepojenie k rôznym komunitám alebo majú len veľmi slabé väzby na komunity.
-
+\begin{definition}
+\textit{Outsider} je jednotlivec, ktorý nie je spojený so žiadnou komunitou v sieti. Buď má takmer rovnaké prepojenie k rôznym komunitám alebo má len veľmi slabé väzby na komunity.
+\end{definition}
 
 
 \subsection{Identifikácia štrukturálnych sociálnych rolí} \label{identifikacia}
-Majúc sieť s komunitami explicitne známymi alebo extrahovanými nejakým dolovacím algoritmom, následne popisujem metodológie pre identifikovanie definovaných štrukturálnych rolí.
+Majúc sieť s komunitami explicitne známymi alebo extrahovanými nejakým detekčným algoritmom, následne popisujem metodológie pre identifikovanie definovaných štrukturálnych rolí.
 
-\paragraph{Outsider}
-\hfill \break
-Najviac priamočiarou rolou pre identifikáciu je outsider. Je to jednotlivec, ktorý v sieti nepatrí do žiadnej komunity. Identifikácia tejto roly je tak celkom priamočiara.
+\subsubsection{Outsider}
+
+Najviac priamočiarou rolou pre identifikáciu je outsider. Je to jednotlivec, ktorý v sieti nepatrí do žiadnej komunity. Identifikácia tejto roly je tak priamočiara. SSRM detekuje jednotlivca ako \textit{outsider} len vtedy, keď nie je prepojený žiadnou hranou so zvyškom siete.
 
 
 \subsubsection{Leader}
 
-Leader je v každej komunite výnimočný centrálny člen. Pre identifikovanie takýchto uzlov SSRM využíva metriku \textit{closeness centrality}.
-
-\paragraph{Closeness centrality (Centralita blízkosti)}
-\hfill \break
-V súvislom grafe closeness centrality uzlu je metrika centrality v sieti, vypočítaná ako súčet dĺžok najkratsích ciest medzi uzlom a všetkými ostatnými uzlami v grafe. Čiže čím viac je uzol centrálnejší, tým bližšie je k ostatným uzlom.
+Leader je v každej komunite výnimočný centrálny člen. Pre identifikovanie takýchto uzlov SSRM využíva metriku \textit{closeness centrality} (definovaná v kapitole \ref{kapitola_closeness}).
 
 
-\begin{mycapequ}[!ht]
-      \begin{equation*}
-     C_{i} = \frac{1}{l_{i}}=\frac{n}{\sum_{j}d_{ij}}
-   \end{equation*}
-   \caption{Def: Closeness centrality}
-\end{mycapequ}
+Pre každý uzol sa stanoví hodnota closeness centrality. Hodnoty closeness centrality sú blízke notmálnemu rozdeleniu, v ktorom 95\% populácie dát patrí do intervalu ${\big[ \mu - 2\cdot\sigma, \mu + 2\cdot\sigma \big]}$ (v \cite{9} predpokladajú normálne rozdelenie).
 
-
-\begin{sloppypar}
-Pre každý uzol sa stanoví hodnota closeness centrality. Hodnoty closeness centrality sú blízke notmálnemu rozdeleniu, v ktorom 95\% populácie dát patrí do intervalu ${\big[ \mu - 2\cdot\sigma, \mu + 2\cdot\sigma \big]}$
-\end{sloppypar}
 
 Leadri ležia na hornom chvoste distribučnej funkcie, a teda horný interval použijeme pre identifikovanie leadrov. A teda uzly, ktoré majú väčšiu hodnotu closeness centrality ako krajná hodnota tohto intervalu, sú identifikovaní ako leadri.
 
 \subsubsection{Outermost}
 Podobne ako pri role \textit{Leader} pre identifikovanie outermostov sa využíva metrika closeness centrality. Outermosti budú ležať však na spodnom chvoste distribučnej funkcie closeness centrality.
 
-A tak teda uzlyy, ktoré majú hodnotu closeness centrality nižšiu ako ${\big[ \mu - 2\cdot\sigma \big]}$, sú outermosti.
+A tak teda uzly, ktoré majú hodnotu closeness centrality nižšiu ako ${\big[ \mu - 2\cdot\sigma \big]}$, patria k role \textit{outermost}.
 
 \subsubsection{Mediator}
 Rolu mediator zastávajú tí jednotlivci, ktorí spájajú viacero komunít a sú tzv. spojmy medzi komunitami. 
 
 
-Pre identifikáciu mediátorov sa definujú metriky založené na metrike betweeness centrality a to:  \textit{LBetweeness - LBC} a \textit{CBetweeness - CBC} a ďalej metriky, ktoré vyjadrujú koľko rozdielnych komunít uzol spája: \textit{DSCount} a \textit{DSPair}.
+Pre identifikáciu mediátorov sa definujú metriky založené na metrike betweeness centrality a to:  \textit{LBetweeness} a \textit{CBetweeness} (definované nižšie, definícia \ref{equation_LBeweeness} a \ref{equation_CBeweeness}) a ďalej metriky, ktoré vyjadrujú koľko rozdielnych komunít uzol spája: \textit{DSCount} a \textit{DSPair}.
 
-
-\paragraph{LBeweeness}
-\hfill \break
-\textbf{LPath} - Pred definíciou LBetweeness je potrebné definovať LPath a to nasledovne: \textit{LPath} je množina všetkých najkratších ciest medzi lídrami dvoch rozdielnych komunít. 
-
-
-\begin{mycapequ}[!ht]
-   \begin{equation*}
+\bigskip
+\noindent \textbf{LBeweeness}
+\begin{definition}
+\textit{LPath} je množina všetkých najkratších ciest medzi lídrami dvoch rozdielnych komunít.
+\begin{equation}
      LPath = { l|startNode(l) \in  leaderSet(c_{i})\wedge endNode(l) \in leaderSet(c_{j}) \wedge c_{i}\neq c_{j} }
-   \end{equation*}
-   \caption{Def: Lpath}
-\end{mycapequ}
+\end{equation}
 
+\end{definition}
 
-
-{\setlength{\parindent}{0cm}
-\begin{sloppypar}
-\textbf{LBetweeness} centralita pre uzol \textit{v} - \textit{LBX(v)} je počet jedinečných LPath ktoré obsahujú \textit{v}. 
-
-
+\begin{definition}
+\textit{LBetweeness} je počet jedinečných LPath ktoré obsahujú \textit{v}. 
 Ak pre každú cestu p  ${x \in}$ \textit{LPath} definujeme \textit{${I_l}$(p, v) = 1} ak \textit{v} leží na \textit{p}, inak \textit{${I_l}$(p, v) = 0} potom:
-\end{sloppypar}
-}
- 
-\begin{mycapequ}[!ht]
-   \begin{equation*}
-     LB(v) = \sum_{p \in LPath} I_{l}(p, v)
-   \end{equation*}
-   \caption{Def: LBetweeness}
-\end{mycapequ}
+
+\begin{equation}
+     {LB(v) = \sum_{p \in LPath} I_{l}(p, v)}
+\end{equation}   
+\label{equation_LBeweeness}
+\end{definition}
+
+\newpage
+\noindent \textbf{CBeweeness}
+\begin{definition}
+Ak \textit{${s_p}$} a \textit{${e_p}$} označujú štartovací a koncový uzol najkratšej cesty \textit{p}, \textit{${c_v}$} označuje komunitu, do ktorej uzol \textit{v} patrí a \textit{${CPaths = \{ p | {c_s}_p \neq {c_e}_p} \}$} je množina všetkých najkratších ciest, ktoré spájajú rozdielne komunity, tak \textit{CBetweeness} definujeme ako: 
 
 
-\paragraph{CBetweeness}
-\hfill \break
-CBetweeness počíta počet najkratších ciest medzi rozdielnymi komunitami. \textit{${s_p}$} a \textit{${e_p}$} označujú štartovací a koncový uzol najkratšej cesty \textit{p} . Taktiež \textit{${c_v}$} označuje komunitu, do ktorej uzol \textit{v} patrí. Množina všetkých najkratších ciest, ktoré spájajú rozdielne komunity:  
-\textit{${CPaths = \{ p | {c_s}_p \neq {c_e}_p} \}$}. Taktiež definujeme ${I_p(p, v)}$ = 1 ak \textit{v} leží na ceste \textit{p} a 0 keď neleží.
+\begin{equation}
+{CB(v) = \frac{1}{2} \sum_{p \in CPaths} I_{p}(p, v)}
+\end{equation}
+
+kde ${I_p(p, v)}$ = 1 ak \textit{v} leží na ceste \textit{p} a  ${I_p(p, v)}$ = 0 keď neleží.
+\label{equation_CBeweeness}
+\end{definition}
 
 
-\begin{mycapequ}[!ht]
-   \begin{equation*}
-    CB(v) = \frac{1}{2} \sum_{p \in CPaths} I_{p}(p, v)
-   \end{equation*}
-   \caption{Def: CBetweeness}
-\end{mycapequ}
+\bigskip
+\noindent \textbf{Normalizovaná verzia CBetweeness}
+
+\noindent  Pravdepodobnosť nájdenia viac viditeľných mediátorov vo väčších komunitách je väčšia v porovnaní s menšími komunitami. Táto situácia sa stáva, pretože vo väčších komunitách je pochopiteľne viac uzlov, čo vedie k viacerým najkratším cestám medzi nimi. Pre kompenzáciu tohoto efektu je definovaná normalizovaná verzia \textit{NBC}: 
 
 
-\paragraph{Normalizovaná verzia CBetweeness}
-\hfill \break
-Pravdepodobnosť nájdenia viac viditeľných mediátorov vo väčších komunitách je väčšia v porovnaní s menšími komunitami. Táto situácia sa stáva, pretože vo väčších komunitách je pochopiteľne viac uzlov, čo vedie k viacerým najkratším cestám medzi nimi. Pre kompenzáciu tohoto efektu je definovaná normalizovaná verzia \textit{CBC}: 
 
-
-\begin{mycapequ}[!ht]
-   \begin{equation*}
+\begin{equation}
     NBC(v) = \frac{1}{2} \sum_{p \in CPaths} \frac{I_{p}(p, v)}{min(|c_{s_{p}}|,|c_{e_{p}}|)}
-   \end{equation*}
-   \caption{Def: Normalizovaná verzia CBetweeness}
-\end{mycapequ}
+\end{equation}
 
 
 
 
-\begin{sloppypar}
-Navrhnuté metriky \textit{CBC} a \textit{LBC} sú nevyhnutné pre identifikovanie mediátorov, ale nie sú dostatočné. Napríklad pre sieť pozostávajúcu z desiatich komunít a dvoch mediátorov \textit{${M_1}$}
+
+
+
+\noindent  Navrhnuté metriky \textit{CBetweeness} a \textit{LBetweeness} sú nevyhnutné pre identifikovanie mediátorov, ale nie sú dostatočné. Napríklad pre sieť pozostávajúcu z desiatich komunít a dvoch mediátorov \textit{${M_1}$}
 a \textit{${M_2}$}, kde oba ležia na sto najkratších cestách medzi komunitami majú oba rovnaké hodnoty \textit{CBC}. Kdežto \textit{${M_1}$} spája dve rozdielne komunity, kým \textit{${M_2}$} spája všetkých 10. Pri takomto scenári \textit{${M_2}$} spája komunity viac globálne a mal by byť skôr posudzovaný ako mediátor ako \textit{${M_1}$}. A tak \textit{${SSRM}$} definuje tzv. metriku \textbf{skóre rozmanitosti}, ktorá označuje rozdielne komunity, ktoré sú prepojené cez uzol.
-\end{sloppypar}
+
+\bigskip
+\noindent \textbf{Skóre rozmanitosti}
+
+\noindent Táto metrika ukazuje koľko rozdielnych komunít je spojených cez špecifický uzol \textit{v}. Túto metriku definujeme v dvoch variantach: \textit{DSCount} (z ang. diversity score count) a \textit{DSPair} (z ang. diversity score pair).
 
 
-\paragraph{Skóre rozmanitosti}
-\hfill \break
-Táto metrika ukazuje koľko rozdielnych komunít je spojených cez špecifický uzol \textit{v}. Túto metriku definujeme v dvoch variantach:
 
-\begin{sloppypar}
-\begin{enumerate}
-\item 
+\begin{definition}
+\textit{DSCount}  je definovaný ako počet rozdielnych komunít, ktoré sú spojené daným uzlom. Nech \textit{${I_d}({c_i}, v)$} = 1 ak \textit{${\exists p \in CPaths: {s_p} \in {c_i} \wedge	v \in p}$}. Potom DScount uzla \textit{v} je definovaný ako:
 
-\textbf{DSCount} - je definovaný ako počet rozdielnych komunít, ktoré sú spojené daným uzlom. Nech \textit{${I_d}({c_i}, v)$} = 1 ak \textit{${\exists p \in CPaths: {s_p} \in {c_i} \wedge	v \in p}$}. Potom DScount uzla \textit{v} je definovaný ako:
-
-
-\begin{mycapequ}[!ht]
-   \begin{equation*}
+\begin{equation}
     DS_{count}(v) = \frac{1}{2}\sum_{c_{i}} I_{d}(c_{i},v)
-   \end{equation*}
-   \caption{Def: DSCount}
-\end{mycapequ}
+\end{equation}
+\end{definition}
 
 
-\item \textbf{DSPair} - Skóre rozmanitosti môže byť definované ako počet párov komunít, ktoré majú najmenej jednu najkratšiu cestu medzi ich členmi, ktoré prechádzajú uzlom \textit{v}. Definujeme  \textit{${I_d}({c_i},{c_j}, v)$} = 1 ak \textit{${\exists p \in CPaths: {s_p} \in {c_i} \wedge {e_p} \in {c_j} \wedge	v \in p}$}
+\begin{definition}
+\textit{DSPair} je počet párov komunít, ktoré majú najmenej jednu najkratšiu cestu medzi ich členmi, ktoré prechádzajú uzlom \textit{v}. \hfill \break
+Definujeme  \textit{${I_d}({c_i},{c_j}, v)$} = 1 ak \textit{${\exists p \in CPaths: {s_p} \in {c_i} \wedge {e_p} \in {c_j} \wedge	v \in p}$}
 
 
-\begin{mycapequ}[!ht]
-   \begin{equation*}
+\begin{equation}
    DS_{pair}(v) = \frac{1}{2}\sum_{c_{i}} \sum_{c_{j}\neq c_{i}} I_{d}(c_{i},c_{j},v)
-   \end{equation*}
-   \caption{Def: DSPair}
-\end{mycapequ}
+\end{equation}
+\end{definition}
 
-
-
-\end{enumerate}
-\end{sloppypar}
 
 Aj keď viac mediátorov môže mať rovnaké hodnoty jednotlivých metrík, 
 môžu sa odlišovať napríklad v počte komunít, ktoré spájajú. SSRM to berie do úvahy a definuje tzv. \textit{mediacy score} ako násobok normalizovanej CBetweeness a skóra rozmanitosti:
 
-\begin{mycapequ}[!ht]
-   \begin{equation*}
+
+\begin{equation}
  		MS(v) = NCB(v) \cdot DS_{count}(v) 
-   \end{equation*}
-   \caption{Def: Mediacy score}
-\end{mycapequ}
+\end{equation}
+
+
 
 
 \subsection{Brokerage roly}
+
+\textit{Pozn: Pomenovanie \textit{brokerage} (slovensky sprostredkovateľstvo) neprekladám a preberám z \cite{15}}.
+
 Jednoducho povedané, \textit{brokerage} sa vyskystuje tam, keď jeden aktér siete poskytuje most medzi dvoma inými aktérmi, ktorí medzi sebou inak prepojení nie sú. Koncept \textit{brokerahe} rôl bol použitý vo veľmi veľa iných kontextoch, záleží len na jeho formalizácii. Aj keď je \textit{brokerage} tradične konceptualizovaný ako dynamický fenomén, identifikácia \textit{brokerage} rôl sa často využíva aj v oblasti statických spoločenských vzťahov. 
 
 
 Jedným známym kontextom pre \textit{brokerage} je prípad obchodných vzťahov. V tomto prostredí, títo jednotlivci alebo organizácie, politické entity, ktorí boli schopní previezť tovar z jedného miesta na druhé a kontrolovať ich rozšírenie, zohrávali kľúčovú rolu v udržiavaní obchodu na regionálnej a kontinentálnej úrovni. Sprostredkovaním kontaktov medzi vzdialené tretie strany (ktoré si nemôžu vymeniť informácie inak), títo aktéri povolili uvoľnenie kritických, priestorovo lokalizovaných zdrojov naprieč rozľahlým územím, čo usnadňovalo rast zložitejších spoločností.  Kým \textit{brokerage} vo výmenných sieťach má dôležité systematické následky, jeho efekt na individuálnej úrovni bol oceňovaný viac intenzívne socilógmi (napr. v \cite{15} \cite{17} \cite{18}). 
 
 
-Je zrejmé, že \textit{brokerage} sa môže vyskytnúť v mnohých nastaveniach a povaha \textit{brokerage} procesu samotného sa líši od kontextu. Vširšom zmysle tento proces spadá pod tri triedy - \textit{transfer brokerage}, v ktorom \textit{broker (ego)} vedie informácie a iné zdroje od jedného jednotlivca k druhému, ktorí nie sú priamo prepojení. Potom \textit{matchmaking brokerage}, v ktorom ego predstavuje alebo inak umožňuje spojenie jedného jednotlivca k druhému a nakoniec \textit{coordination brokerage}, v ktorom ego usmerňuje kroky ostatných a tak vyriešia svoje závislosti bez toho, aby museli byť priamo prepojení.
+Je zrejmé, že \textit{brokerage} sa môže vyskytnúť v mnohých nastaveniach a povaha \textit{brokerage} procesu samotného sa líši od kontextu. V širšom zmysle tento proces spadá pod tri triedy - \textit{transfer brokerage}, v ktorom \textit{broker (ego)} vedie informácie a iné zdroje od jedného jednotlivca k druhému, ktorí nie sú priamo prepojení. Potom \textit{matchmaking brokerage}, v ktorom ego predstavuje alebo inak umožňuje spojenie jedného jednotlivca k druhému a nakoniec \textit{coordination brokerage}, v ktorom ego usmerňuje kroky ostatných a tak vyriešia svoje závislosti bez toho, aby museli byť priamo prepojení.
 
 
 \textit{Brokerage} je stav alebo situácia, v ktorej účastník spája inak neprepojených účastníkov alebo zaplňuje medzery alebo diery v sieti. \cite{15} Na obrázku je \textit{broker} alebo aj \textit{spostredkovateľ} zastúpený čiernym uzlom, ktorý vyplňuje dieru v sieti alebo spojuje ostatných jednotlivcov reprezentovaných bielymi uzlami, ktoré predtým neboli navzájom prepojené priamo.
@@ -625,51 +656,63 @@ Práve kvôli spojeniu a kontrole nad jedinečnými informáciami a zdrojmi medz
 Detailnejšiu kategorizáciu \textit{Brokerage} rôl predstavili Gould a Fernandez \cite{15}, kde predstavili koncept \textit{brokerage} typológie. Táto typológia delí \textit{brokerage} do piatich typov na základe smeru toku informácií - tokov v sieti - a rozdeľuje aktérov do vzájomne sa vylučujúcich skupín, tried alebo organizácií.
 Typy sprostredkovateľov sú \textit{liaison}, \textit{itinerant}, \textit{coordinator}, \textit{gatepeeker} a \textit{representative}.
 
-\subsubsection{Liaison}
 
-\textit{Liaison brokerage} je \textit{broker} spojenie medzi dvoma rozdielnymi skupinami, do ktorých on nepatrí. Na obrázku je \textit{broker} (B) spojený s dvoma skupinami (A a C), ale nie je súčasťou ani jednej tejto skupiny a teda tvorí spojenie medzi aktérom A a aktérom C. 
+\begin{definition}
+\textit{Liaison} je \textit{broker} (B) spojenie  medzi dvoma akérmi (A a C), ktorí patria do inej skupiny (komunity) a \textit{broker} nie je súčasťou ani jednej tejto skupiny (komunity). Viď obrázok \ref{liaison}.
+\end{definition}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=3cm, height=3cm]{figures/liaison}
 \caption{Liaison brokerage}
+\label{liaison}
 \end{figure}
 
-\subsubsection{Itinerant}
-Pri tomto type \textit{brokerage} roly dvaja neprepojení aktéri (A a C) patria do jednej skupiny, kým \textit{broker} (B) patrí do inej skupiny. \textit{Itinerant broker} je tiež nazývaný \textit{consultant broker}, pretože \textit{broker} sa chová ako konzultant pre oboch nespojených aktérov tej istej skupiny.
+
+\begin{definition}
+\textit{Itinerant} je \textit{broker} (B) spojenie medzi dvoma akérmi (A a C), ktorí patria do rovnakej skupiny (komunity), pričom on do tejto skupiny (komunity) nepatrí. \textit{Itinerant} je tiež nazývaný ako \textit{Consultant broker}, pretože sa chová ako konzultant pre oboch nespojených aktérov tej istej skupiny (komunity). Viď obrázok \ref{itineran}.
+\end{definition}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=3cm, height=3cm]{figures/itineran}
 \caption{Itinerant brokerage}
+\label{itineran}
 \end{figure}
 
-\subsubsection{Coordinator}
-V role \textit{coordinator} všetci traja aktéri patria do rovnakej skupiny a sprostredkovanie informácií a zdrojov sa deje v rámci skupiny. 
+
+\begin{definition}
+Aktér (B) je \textit{coordinator broker}, ak všetci traja aktéri (A,B,C) patria do rovnakej skupiny (komunity) a sprostredkovanie informácií a zdrojov sa deje v rámci skupiny (komunity).  Viď obrázok \ref{coordinator}.
+\end{definition}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=3cm, height=3cm]{figures/coordinator}
 \caption{Coordinator brokerage}
+\label{coordinator}
 \end{figure}
 
-\subsubsection{Gatepeeker}
-V tomto type \textit{brokerage} roly \textit{broker}(B) a jeden z dvoch neprepojených aktérov (C) patria do jednej skupiny, kým iný neprepojený aktér (A) patrí do rozdielnej skupiny. \textit{Broker} tohto typu kontroluje prichádzajúce informácie a zdroje v rámci jeho skupiny a robí rozhodnutia a tom, či majú alebo nemajú neprepojení aktéri v skupine prístup k informáciám a zdrojom. 
+
+\begin{definition}
+Aktér (B) je \textit{gatepeeker broker}, ak jeden z dvoch neprepojených aktérov (C) patria do jednej skupiny (komunity), kým iný neprepojený aktér (A) patrí do rozdielnej skupiny (komunity). \textit{Broker} tohto typu kontroluje prichádzajúce informácie a zdroje v rámci jeho skupiny (komunity) a robí rozhodnutia o tom, či majú alebo nemajú neprepojení aktéri v skupine (komunity) prístup k informáciám a zdrojom.  Viď obrázok \ref{gatepeeker}.
+\end{definition}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=3cm, height=3cm]{figures/gatepeeker}
 \caption{Gatekeeper brokerage}
+\label{gatepeeker}
 \end{figure}
 
-\subsubsection{Representative}
-\textit{Representative} rola je podobná role \textit{gatepeeker} role, \textit{broker} (B) a jeden nespojený aktér (A) patra do jednej skupiny kým ten druhý nespojený aktér (C) patrí do inej rozdielnej skupiny, ale  smer toku informácií alebo zdrojov je rozdielny. 
-
+\begin{definition}
+Aktér je \textit{representative broker}, ak \textit{broker} (B) a jeden nespojený aktér (A) patria do jednej skupiny (komunity), kým ten druhý nespojený aktér (C) patrí do inej rozdielnej skupiny (komunity), ale  smer toku informácií alebo zdrojov je rozdielny. Viď obrázok \ref{representative}.
+\end{definition}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=3cm, height=3cm]{figures/representative}
 \caption{Representative brokerage}
+\label{representative}
 \end{figure}
 
 \subsubsection{Identifikácia brokerage rolí}
@@ -677,7 +720,7 @@ Päť typov \textit{brokerage} rôl  reprezentujú unikátne sociálne roly zap�
 je negácia \textit{bRc}. S touto definíciou, \textit{brokerage} skóre sa vypočíta súčtom počtu koľko krát táto podmienka platí pre špecifickú kombináciu spojenia aktérov. To znamená, že ak nejaký aktér \textit{x} zohráva pozíciu \textit{coordinator} dva krát a pozíciu \textit{representative} tri krát, tak aktér bude mať skóre pre pozíciu \textit{coordinator} = 2, pre pozíciu  \textit{representative} = 3 a jeho celkové \textit{brokerage} skóre bude 5.
 
 
-Formalizácia \textit{brokerage} rolí podľa Goula a Fernandeza je definovaná pre siete, v ktorých sú spojenia (hrany) orientované, čiže reprezentujúce vzťahy, pre ktoré môžme rozlíšiť odosielateľa a prijímateľa. Keďže v mojej koncepcii siete, kde jednotlivé uzly sú členovia tímu a hrana medzi nimi je práve vtedy, keď medzi nimi prebehla konverzácia, moja vytvorená sieť je neorientovaná. Zovšeobecnenie na neorientovanú sieť je celkom jasné; s takýmito dátami, každá hrana je považovaná za obojsmernú. Aj keď toto prináša jednu dôležitú zmenu originálnej formalizácie: v prípade neorientovaných vzťahov nemôžeme rozlíšiť rolu \textit{gatepeeker} od roly \textit{representative}, pretože neprítomnosť obojsmerných vzťahov redukuje tieto dve roly do jednej a \textit{brokerage} skóre bude pre tieto dve roly identické. \cite{19}
+Formalizácia \textit{brokerage} rolí podľa Goula a Fernandeza je definovaná pre siete, v ktorých sú spojenia (hrany) orientované, čiže reprezentujúce vzťahy, pre ktoré môžme rozlíšiť odosielateľa a prijímateľa. Keďže v mojej koncepcii siete, kde jednotlivé uzly sú členovia tímu a hrana medzi nimi je práve vtedy, keď medzi nimi prebehla konverzácia, moja vytvorená sieť je neorientovaná. Zovšeobecnenie na neorientovanú sieť je teda jasné; s takýmito dátami, každá hrana je považovaná za obojsmernú. Aj keď toto prináša jednu dôležitú zmenu originálnej formalizácie: v prípade neorientovaných vzťahov nemôžeme rozlíšiť rolu \textit{gatepeeker} od roly \textit{representative}, pretože neprítomnosť obojsmerných vzťahov redukuje tieto dve roly do jednej a \textit{brokerage} skóre bude pre tieto dve roly identické. \cite{19}
 
 
 
@@ -717,17 +760,21 @@ Veľkosť ego siete je jednoduchá, ale veľavravná charakteristika. Definuje j
 \begin{figure}[H]
 \centering
 \includegraphics[width=6cm, height=5cm]{figures/egonet}
-\caption{Veľkosť ega - stupeň uzla: 6}
+\caption{Veľkosť ega = stupeň uzla: 6}
 \end{figure}
 
 \subsubsection{Kompozícia ego siete}
 Čo sa týka kompozície ego siete, môžme sledovať podobnosť medzi egom a jeho \textit{alter} uzlami. Pre reprezentáciu podobnosti sa používa \textit{homofília}. Môžeme predpokladať, že existuje vzťah medzi nejakým javom a tým, či ego zdieľa so svojimi \textit{alter} uzlami nejakú vlastnosť (profesia, vzdelanie a pod.) Napríklad je prirodzené, keď niekto, kto zastáva pozíciu CFO (Chief Financial Officer) je obklopený ľudmi, ktorí riešia financie alebo napríklad politici bývajú obklopení členmi rovnakej politickej strany. 
 
-Pre identifikáciu homifílie som využila prítomnosť komunít v sieti a použila som \textit{Krackhard-Sternov E-I index}  \cite{22}.
+Pre identifikáciu homofílie som využila prítomnosť komunít v sieti a použila som \textit{Krackhard-Sternov E-I index}  \cite{22}.
 
-${
+\begin{equation}
+{
 \frac{E-I}{E+I}
-}$
+}
+\label{equation_eiindex}
+\end{equation}
+
 
 \begin{itemize}
 \item \textit{E} je počet spojení s členmi inej skupiny (komunity) \textit{I} je počet spojení s členmi rovnakej skupiny (komunity)
@@ -748,26 +795,37 @@ ${
 
 
 Koncept štrukturálnych dier je koncept analýzy sociálnych sietí vyvinutý R. S. Burtom. Predstavil tento pojem v snahe vysvetliť vznik rozdielov v sociálnom kapitále. Burtova teória naznačuje, že jednotlivci majú isté výhody alebo nevýhody podľa toho, ako sú zakotvené v spoločenských štruktúrach. Štrukturálna diera je chápaná ako medzera medzi dvoma jednotlivcami (chýbajúca hrana medzi uzlami), ktorí majú doplňujúce zdroje informácií. \cite{burt2004structural}
+\bigskip
 
-\paragraph{Efektívna veľkosť} 
-\hfill \break
-Burt predstavil mieru redundancie siete, Borgatti vyvinul zjednodušenú verziu efektívnej veľkosti pre nevážené siete \cite{borgatti1997structural}. Redundancia ${ = \frac{2t}{n}}$, kde \textit{t} je počet všetkých spojení v egocentrickej sieti (s výnimkou spojení k egu) a \textit{n} je počet všetkých uzlov v egocentrickej sieti (s výnimoku ega). Táto formula môže byť modifikovaná pre výpočet efektívnej sily ego siete. Efektívna veľkosť ego siete ${ = n - \frac{2t}{n}}$ (rozdiel počtu \textit{alter} uzlov ega a sumy ich redundancií = ${6-1.33 = 4.67}$). Efektívna veľkos udáva počet neredundantných uzlov ego siete.
+\noindent \textbf{Efektívna veľkosť} 
+
+\begin{definition}
+Efektívna veľkosť ego siete je
+\begin{equation}
+{ { n - \frac{2t}{n}}}\quad 
+\end{equation}
+\label{equation_efektivnasila}
+\end{definition}
+kde ${ = \frac{2t}{n}}$ je redundancia siete, kde \textit{t} je počet všetkých spojení v egocentrickej sieti (s výnimkou spojení k egu) a \textit{n} je počet všetkých uzlov v egocentrickej sieti (s výnimoku ega). \cite{borgatti1997structural}
+
+Efektívna veľkosť ego siete na obrázku \ref{efectivesize} podľa definície \ref{equation_efektivnasila} je rozdiel počtu \textit{alter} uzlov ega a sumy ich redundancií a teda ${6-1.33 = 4.67}$. Efektívna veľkosť udáva počet neredundantných uzlov ego siete. \cite{22}
 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=14cm, height=8cm]{figures/efectivesize}
+\includegraphics[width=13cm, height=8cm]{figures/efectivesize}
 \caption{Príklad výpočtu redundancie}
+\label{efectivesize}
 \end{figure}
 
-Čím viac je každý uzol odpojený od ostatných primárnych kontaktov, tým vyššia bude efektívna veľkosť. Tento indikátor nadobúda hodnoty od 1 (sieť poskytuje len jediné spojenie (hranu)) až do celkového počtu spojení, kedy každý kontakt (alter) je neredundantný.
+Čím viac je každý uzol odpojený od ostatných primárnych kontaktov, tým vyššia bude efektívna veľkosť. Tento indikátor nadobúda hodnoty od 1 (sieť poskytuje len jediné spojenie (hranu)) až do celkového počtu spojení, kedy každý kontakt (alter) je neredundantný. \cite{22}
 
 \section{Aplikácia}
 Táto kapitola obsahuje všetky podrobnosti o vývoji aplikácie, návrhu a ďalej špecifikáciách požiadavkov. Sú tu uvedené informácie o implementácii, návrhu, návrhových vzoroch, ale aj  konštrukcii siete, predpríprave dát. Táto časť taktiež obsahuje diagramy najdôležitejších tried aplikácie alebo diagramy prípadov použitia. 
 
 
 \subsection{Špecifikácia}
-Aplikácia slúži ako užívateľské rozhranie na anlýzu emailovej komunikácie a vizualizáciu analyytických výstupov. Aplikácia umožňuje exportovať dáta z emailovej schránky alebo importovať vlastný XML súbor s emailovými dátami a ďalej s týmito dátami pracovať a zobrazovať sieť emailovej komunikácie. Umožňuje vytvorenie ego-siete alebo detekovať vo vytvorenej siete komunity. Najdôležitejšou časťou aplikácie je detekcia štrukturálnch rolí v sieti, čiže detekcia dôležitých a nedôležitých členov emailovej komunikácie. 
+Aplikácia slúži ako užívateľské rozhranie na analýzu emailovej komunikácie a vizualizáciu analyytických výstupov. Aplikácia umožňuje exportovať dáta z emailovej schránky alebo importovať vlastný XML súbor s emailovými dátami a ďalej s týmito dátami pracovať a zobrazovať sieť emailovej komunikácie. Umožňuje vytvorenie ego-siete alebo detekovať vo vytvorenej siete komunity. Najdôležitejšou časťou aplikácie je detekcia štrukturálnch rolí v sieti, čiže detekcia dôležitých a nedôležitých členov emailovej komunikácie. 
 
 
 \subsubsection{Funkčné požiadavky}
@@ -796,26 +854,28 @@ Aplikácia je vytvorená ako .NET aplikácia (veria .NET Frameworku 4.6). Je vyt
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=11cm, height=5cm]{figures/diagram_komponent}
+\includegraphics[width=14cm, height=8cm]{figures/diagram_komponent}
 \caption{Diagram komponent znázorňujúci jednotlivé komponenty architektúry aplikácie}
 \end{figure}
 
 \subsubsection{Návrhové vzory}
 
 \indent
-\indent \textbf{Repository}
+\indent \textbf{Repository} \cite{11}
 
-Návrhový vzor Repository je základným kameňom doménou riadeného návrhu. Model aplikácie teda nemá poňatie o tom, akým spôsobom je perzistovaný. O to sa stará práve Repository. Naviac práve vďaka tomu, že sa o persistenciu stará cudzí objekt, stačí poznať len jeho rozhranie a v prípad potreby ho ľahko nahradiť iným. \cite{11}
+Návrhový vzor Repository je základným kameňom doménou riadeného návrhu. Model aplikácie teda nemá poňatie o tom, akým spôsobom je realizovaná perzistencia. O to sa stará práve Repository. Naviac práve vďaka tomu, že sa o persistenciu stará cudzí objekt, stačí poznať len jeho rozhranie a v prípad potreby ho ľahko nahradiť iným. 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=12cm, height=11cm]{figures/diagram_class}
+\includegraphics[width=15cm, height=13cm]{figures/diagram_class}
 \caption{Triedny diagram - Repository pattern}
 \end{figure}
 
 
 
-\textbf{Model-View-Controller}
+\textbf{Model-View-Controller} \cite{modelviewcontroller}
+
+
 V aplikácii je použitý tradičný vzor Model View Controller (MVC). Je to jeden z najpoužívanejších a najobecnejších architektonických vzorov. 
 
 MVC rozdeľuje program do troch hlavných častí:
@@ -827,7 +887,7 @@ MVC rozdeľuje program do troch hlavných častí:
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=9.5cm, height=5cm]{figures/MVC}
+\includegraphics[width=10cm, height=9cm]{figures/MVC}
 \caption{Model-View-Controller}
 \end{figure}
 
@@ -867,7 +927,7 @@ Pre moju aplikáciu som používala len časť \textit{Network}.
 \textbf{LouvainSharp}
 
 
-Ďalšou použitou knižnicou bola knižnica \textit{LouvainSharp}, ktorá implementuje Louvainov algoritmus detekcie komunít v jazyku C. Naviac je knižnica paralelizovaná pomocou \textit{plinq} pre maximalizáciu rýchlosti. \cite{louvain}
+Ďalšou použitou knižnicou bola knižnica \textit{LouvainSharp}, ktorá implementuje Louvainov algoritmus detekcie komunít v jazyku C\#. Naviac je knižnica paralelizovaná pomocou \textit{plinq} pre maximalizáciu rýchlosti. \cite{louvain}
 
 \hfill \break
 
@@ -904,7 +964,13 @@ Pre získanie emailových dát z emailovej schránky som naimplementovala metód
 
 
 \subsubsection{Konštrukcia siete}
-Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu v jednej konverzácii ako odosielatelia. Takto teda vyváram neorientovaný nevážený graf. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií. 
+
+Rozdiel medzi prísupom rôznych štúdií a mojím prístupom pri konšrukcii grafu z emailového datasetu je v konštrukcii komunikačnej siete. Ako základnú stavebnú jednotku siete som si zvolila \textbf{konverzáciu}. Inšpirovala som sa prácou autorov Kudělka, Horák, Zehnaloová \cite{10}. Konverzácia je teda súbor emailov, ktorá začína jediným emailom, obsahuje najmenej 2 emaily a dvoch rôznych odosielateľov. Vrcholom siete (grafu) sa teda stane užívateľ, ktorý bol ako odosielateľ aspoň v jednej takejto konverzácii. Hrana medzi užívateľmi je zostrojená medzi užívateľmi, ktorí boli spolu aspoň v jednej konverzácii ako odosielatelia. Výsledná sieť je neorientovaná a nevážená. Pre konverzáciu ešte ukladám čas jej začiatku, užívateľ si následne v aplikácii môže zvoliť časový rozsah konverzácií. 
+
+
+\subsubsection{Konštrukcia ego siete}
+Pre algoritmus detekcie štrukturálnych rolí podľa SSRM bolo potrebné vytvoriť súvislú sieť. Aby sa sieť stala súvislou, vytváram ego sieť. Ego uzol si môže vybrať používateľ. Ego sieť vytváram tak, že k ego uzlu pridávam novú hranu ku každej nesúvislej komponente grafu tak, že ego tvorí hranu s uzlom, ktorý má v danej nesúvislej komponente najvyšší stupeň.
+
 
 \subsubsection{Triedy pre graf, vrcholy a hrany}
 Pre uloženie siete v pamäti slúži generická trieda \texttt{Graph<T>}. Vrcholy a hrany drží ako \texttt{Dictionary<int, HashSet<Node<T>{}>{}>}, čiže ako mapu vrcholov s ich susednými vrcholmi. Pre uloženie vrcholov a hrán grafu slúžia zoznamy hrán a vrcholov uložené ako \texttt{HashSet<Node<T> >} a \texttt{HashSet<Edge<T>{}>}. Trieda je generická preto, aby bolo možné vytvoriť graf pre rôzne entity. Triedy reprezentujúce vrcholy a hrany sú tiež generické a predstavujú ich \texttt{Node<T>} a \texttt{Edge<T>}. Pre identifikáciu komunity, bola vztvorená trieda \texttt{Comunity<T>}.
@@ -1044,7 +1110,7 @@ Do príchodu ďalšieho kolegu (interval 1.11.2010 - 31.5.2017) bolo detekovaný
 
 
 \subsubsection{Ego sieť}
-Pre analýzu ego siete som vybrala troch jednotlivcov, z ktorých som vytvorila ego uzol a vytvorila pre nich ego sieť. Porovnávala som jednotlivé metriky a počet komunít, ktoré spájali. Vyberala som uzly s rozdielnou centralitou, aby som mohla sledovať porovnanie medzi výsledkami. Porovnanie je možné vidieť v tabuľke.
+Pre analýzu ego siete som vybrala troch jednotlivcov, z ktorých som vytvorila ego uzol a vytvorila pre nich ego sieť. Porovnávala som jednotlivé miery a počet komunít, ktoré spájali. Vyberala som uzly s rozdielnou centralitou, aby som mohla sledovať porovnanie medzi výsledkami. Porovnanie je možné vidieť v tabuľke.
 
 \begin{table}[h!]
 \centering
@@ -1089,7 +1155,7 @@ V na obr. \ref{team_brokerage_tab} a \ref{team_brokerage_graph} je zobrazených 
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=15cm, height=6cm]{figures/team_brokerage_tab}
+\includegraphics[width=16cm, height=7cm]{figures/team_brokerage_tab}
 \caption{Desať aktérov s najväčším \textit{brokerage} skórom}
 \label{team_brokerage_tab}
 \end{figure}
@@ -1228,20 +1294,18 @@ Práca splnila všetky zadané ciele. Boli naštudované rešerše obdobných ri
 \item \textbf{Vizualizácia veľkýh grafov}
 
 
-Využiteľnosti aplikácie by pomohlo, kebz vedela vizualizovať aj rádovo väčšie grafy. So zobrazovaním rozsiahlych grafov sa v práci nepočítalo a už pri zobrazovaní emailov celého  tímu nebolo celkom pole pre vykreslenie grafu dostačujúce, čo bolo limitované aj knižnicou \textit{vis.js}.
+Využiteľnosti aplikácie by pomohlo, kebz vedela vizualizovať aj rádovo väčšie grafy. So zobrazovaním rozsiahlych grafov sa v práci nepočítalo a už pri zobrazovaní emailov celého  tímu nebolo pole pre vykreslenie grafu dostačujúce, čo bolo limitované aj knižnicou \textit{vis.js}.
 
 
 \item \textbf{Viac možností filtrovania}
 
-V aplikácii môže používateľ filtrovať emailovú komunikáciu podľa času. Mohlo by byť užitočné nastavenie filtru aj podľa iného kritéria.
+V aplikácii môže používateľ filtrovať emailovú komunikáciu podľa času. Mohlo by byť užitočné nastavenie filtru aj podľa iného kritéria. Napríklad odfiltrovať jednotlivých používteľov podľa pracovnej pozície, filtrovanie podľa stupňa vrcholu uzla alebo filtrovanie podľa pohlavia.
 
 
 \item \textbf{Zobrazenie viac informácií o hranách a vrcholoch}
 
-Aplikácia umožňuje zobraziť informácie o stupni vrcholu. Pri analýze grafu ako takom by bolo dobré rozšíriť tieto informácie napríklad o metriky a ďalšie charakteristiky siete.
+Aplikácia umožňuje zobraziť po prejdení myšou na vrchol informácie o stupni daného vrcholu. Pri analýze grafu ako takom by bolo dobré rozšíriť tieto informácie o ďalšie miery a meriky a iné charakteristiky siete, ako napríklad closeness centrality či betweeness centrality.
 
-\item \textbf{Rozšírenie analytických metód}
-Aplikácia sa sústredí na anlýzu siete zo štrukturálneho hľadiska, každopádne by bolo užitočné aplikáciu obohatiť o ďalšie analytické metódy, ktoré by pomohli emailovú komunikáciu spoznať ešte hlbšie.
 
 \end{description}
 

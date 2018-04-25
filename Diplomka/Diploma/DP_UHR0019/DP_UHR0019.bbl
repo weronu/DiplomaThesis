@@ -41,6 +41,14 @@ S.~Zehnalova, Z.~Horak, and M.~Kudelka, ``Email conversation network analysis:
   \url{https://www.bluecore.com/blog/do-millennials-use-email/}.
 \newblock Navštívené: 2017-03-30.
 
+\bibitem{kovavr2012uvod}
+P.~Kov{\'a}{\v{r}}, ``Úvod do teorie grafů.,'' {\em Vysok{\'a} {\v{s}}kola
+  b{\'a}{\v{n}}sk{\'a}. Technick{\'a} univerzita. Ostrava}, 2012.
+
+\bibitem{demel2002grafy}
+J.~Demel, {\em Grafy a jejich aplikace}.
+\newblock Academia, 2002.
+
 \bibitem{blondel2008fast}
 V.~D. Blondel, J.-L. Guillaume, R.~Lambiotte, and E.~Lefebvre, ``Fast unfolding
   of communities in large networks,'' {\em Journal of statistical mechanics:
@@ -118,6 +126,10 @@ S.~P. Borgatti, ``Structural holes: Unpacking burt’s redundancy measures,''
 ``{Active Record vs. Repository pattern} repository pattern.''
   \url{https://www.rarous.net/weblog/271-active-record-vs-repository-pattern.aspx}.
 \newblock Navštívené: 2018-01-15.
+
+\bibitem{modelviewcontroller}
+``Model view controller.'' \url{http://voho.eu/wiki/model-view-controller/}.
+\newblock Navštívené: 2017-01-25.
 
 \bibitem{louvain}
 ``Louvainsharp - fast louvain method of community detection in c\#.''
