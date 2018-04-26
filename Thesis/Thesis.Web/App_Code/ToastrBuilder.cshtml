@@ -11,7 +11,7 @@
                 @foreach (ToastMessage message in toastr.ToastMessages)
                 {
                     string toastTypeValue = message.ToastType.ToString("F").ToLower();
-                    @: var optionsOverride = { "timeOut": "50000","showDuration": "300000" /* Add message specific options here */ };
+                    @: var optionsOverride = { "timeOut": "3000","showDuration": "3000" /* Add message specific options here */ };
                     if (message.IsSticky)
                     {
                         @:optionsOverride.timeOut = 0; 

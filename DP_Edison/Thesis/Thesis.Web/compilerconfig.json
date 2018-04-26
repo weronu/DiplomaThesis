@@ -1,0 +1,18 @@
+﻿[
+  {
+    "outputFile": "Content/custom.css",
+    "inputFile": "Content/custom.scss"
+  },
+  {
+    "outputFile": "Content/constants.css",
+    "inputFile": "Content/constants.scss"
+  },
+  {
+    "outputFile": "Content/toastr.css",
+    "inputFile": "Content/toastr.scss"
+  },
+  {
+    "outputFile": "Content/daterangepicker.css",
+    "inputFile": "Content/daterangepicker.scss"
+  }
+]
