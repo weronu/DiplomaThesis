@@ -31,9 +31,9 @@
 %% original source files, as listed above, are part of the
 %% same distribution. (The sources need not necessarily be
 %% in the same archive or directory.)
-\def\fileversion{4.04}
-\def\filedate{2018/04/25}
-\def\docdate{25. dubna 2018}
+\def\fileversion{4.02}
+\def\filedate{2017/04/12}
+\def\docdate{12. dubna 2017}
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{diploma}[\filedate\space \fileversion\space diploma LaTeX document class]
 \RequirePackage{ifthen}
@@ -136,44 +136,43 @@
 \DeclareOption{bachelor}
 {
 \setcounter{Dipl@CurrentThesisType}{\Dipl@BachelorThesis}
-\Dipl@CooperatingPersonsDeclaration={\Dipl@LanguageDependentText{Souhlasím se zveřejněním této bakalářské práce dle požadavků čl.\ 26, odst.\ 9 Studijního a~zkušebního řádu pro studium v bakalářských programech VŠB-TU Ostrava.}{Súhlasím so zverejnením tejto bakalárskej práce podľa požiadaviek čl .\ 26, odst.\ 9 Študijného a~skúšobného poriadku pre štúdium v bakalárskych programoch  VŠB-TU Ostrava.}{I hereby agree to the publishing of the bachelor's thesis as per s. 26, ss. 9 of the Study and Examination Regulations for Bachelor's Degree Programmes at VŠB -- Technical University of Ostrava.}}
+\Dipl@CooperatingPersonsDeclaration={\Dipl@IfEnglish{I hereby agree to the publishing of the bachelor's thesis as per s. 26, ss. 9 of the Study and Examination Regulations for Bachelor's Degree Programmes at VŠB -- Technical University of Ostrava.}{Souhlasím se zveřejněním této bakalářské práce dle požadavků čl.\ 26, odst.\ 9 Studijního a~zkušebního řádu pro studium v bakalářských programech VŠB-TU Ostrava.}}
 }
 \DeclareOption{bachelorpractice}
 {
 \setcounter{Dipl@CurrentThesisType}{\Dipl@BachelorPractice}
 \Dipl@CzechThesisTitle={Absolvování individuální odborné praxe}
 \Dipl@EnglishThesisTitle={Individual Professional Practice in the Company}
-\Dipl@CooperatingPersonsDeclaration={\Dipl@LanguageDependentText{Souhlasím se zveřejněním této bakalářské práce dle požadavků čl.\ 26, odst.\ 9 Studijního a~zkušebního řádu pro studium v bakalářských programech VŠB-TU Ostrava.}{Súhlasím so zverejnením tejto bakalárskej práce podľa požiadaviek čl .\ 26, odst.\ 9 Študijného a~skúšobného poriadku pre štúdium v bakalárskych programoch  VŠB-TU Ostrava.}{I hereby agree to the publishing of the bachelor's thesis as per s. 26, ss. 9 of the Study and Examination Regulations for Bachelor's Degree Programmes at VŠB -- Technical University of Ostrava.}}
+\Dipl@CooperatingPersonsDeclaration={\Dipl@IfEnglish{I hereby agree to the publishing of the bachelor's thesis as per s. 26, ss. 9 of the Study and Examination Regulations for Bachelor's Degree Programmes at VŠB -- Technical University of Ostrava.}{Souhlasím se zveřejněním této bakalářské práce dle požadavků čl.\ 26, odst.\ 9 Studijního a~zkušebního řádu pro studium v bakalářských programech VŠB-TU Ostrava.}}
 }
 \DeclareOption{master}
 {
 \setcounter{Dipl@CurrentThesisType}{\Dipl@MasterThesis}
-\Dipl@CooperatingPersonsDeclaration={\Dipl@LanguageDependentText{Souhlasím se zveřejněním této diplomové práce dle požadavků čl.\ 26, odst.\ 9 Studijního a~zkušebního řádu pro studium v magisterských programech VŠB-TU Ostrava.}{Súhlasím so zverejnením tejto diplomovej práce podľa požiadaviek čl .\ 26, odst.\ 9 Študijného a~skúšobného poriadku pre štúdium v bakalárskych programoch  VŠB-TU Ostrava.}{I hereby agree to the publishing of the master's thesis as per s. 26, ss. 9 of the Study and Examination Regulations for Master's Degree Programmes at VŠB -- Technical University of Ostrava.}}
+\Dipl@CooperatingPersonsDeclaration={\Dipl@IfEnglish{I hereby agree to the publishing of the master's thesis as per s. 26, ss. 9 of the Study and Examination Regulations for Master's Degree Programmes at VŠB -- Technical University of Ostrava.}{Souhlasím se zveřejněním této diplomové práce dle požadavků čl.\ 26, odst.\ 9 Studijního a~zkušebního řádu pro studium v magisterských programech VŠB-TU Ostrava.}}
 }
 \DeclareOption{phd}{\setcounter{Dipl@CurrentThesisType}{\Dipl@PhDThesis}}
 \DeclareOption{public}{\setboolean{Dipl@IsPublicPart}{true}}
 \DeclareOption{nonpublic}{\setboolean{Dipl@IsPublicPart}{false}}
 \DeclareOption{cpdeclaration}{\setboolean{Dipl@PrintCooperatingPersonsDeclaration}{true}}
-\DeclareOption{dept410}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra elektroenergetiky}{Katedra elektroenergetiky}{Department of Electrical Power Engineering}}}
-\DeclareOption{dept420}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra elektrotechniky}{Katedra elektrotechniky}{Department of Electrical Engineering}}}
-\DeclareOption{dept430}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra elektroniky}{Katedra elektroniky}{Department of Electronics}}}
-\DeclareOption{dept440}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra telekomunikační techniky}{Katedra telekomunikační techniky}{Department of Telecommunications}}}
-\DeclareOption{dept450}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra kybernetiky a biomedicínského inženýrství}{Katedra kybernetiky a biomedicínského inženýrství}{Department of Cybernetics and Biomedical Engineering}}}
-\DeclareOption{dept460}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra informatiky}{Katedra informatiky}{Department of Computer Science}}}
-\DeclareOption{dept470}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra aplikované matematiky}{Katedra aplikované matematiky}{Department of Applied Mathematics}}}
-\DeclareOption{dept480}{\Dipl@DepartmentName={\Dipl@LanguageDependentText{Katedra fyziky}{Katedra fyziky}{Department of Physics}}}
+\DeclareOption{dept410}{\Dipl@DepartmentName={\Dipl@IfEnglish{Department of Electrical Power Engineering}{Katedra elektroenergetiky}}}
+\DeclareOption{dept420}{\Dipl@DepartmentName={\Dipl@IfEnglish{Department of Electrical Engineering}{Katedra elektrotechniky}}}
+\DeclareOption{dept430}{\Dipl@DepartmentName={\Dipl@IfEnglish{Department of Electronics}{Katedra elektroniky}}}
+\DeclareOption{dept440}{\Dipl@DepartmentName={\Dipl@IfEnglish{Department of Telecommunications}{Katedra telekomunikační techniky}}}
+\DeclareOption{dept450}{\Dipl@DepartmentName={\Dipl@IfEnglish{Department of Cybernetics and Biomedical Engineering}{Katedra kybernetiky a biomedicínského inženýrství}}}
+\DeclareOption{dept460}{\Dipl@DepartmentName={\Dipl@IfEnglish{Department of Computer Science}{Katedra informatiky}}}
+\DeclareOption{dept470}{\Dipl@DepartmentName={\Dipl@IfEnglish{Department of Applied Mathematics}{Katedra aplikované matematiky}}}
 \DeclareOption{male}
 {
 \setboolean{Dipl@AuthorIsMale}{true}
 \ifthenelse{\(\value{Dipl@CurrentThesisType}=\Dipl@BachelorThesis\) \or \(\value{Dipl@CurrentThesisType}=\Dipl@BachelorPractice\)}
 {
-\Dipl@AuthorDeclaration={\Dipl@LanguageDependentText{Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně. Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.}{Prehlasujem, že som túto bakalársku prácu vypracoval samostatne. Uviedol som všetky literárne pramene a publikácie, z ktorých som čerpal.}{I hereby declare that this bachelor's thesis was written by myself. I have quoted all the references I have drawn upon.}}
+\Dipl@AuthorDeclaration={\Dipl@IfEnglish{I hereby declare that this bachelor's thesis was written by myself. I have quoted all the references I have drawn upon.}{Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně. Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.}}
 }
 {\relax}
 \ifthenelse{\value{Dipl@CurrentThesisType}=\Dipl@MasterThesis}
 {
 
-\Dipl@AuthorDeclaration={\Dipl@LanguageDependentText{Prohlašuji, že jsem tuto diplomovou práci vypracoval samostatně. Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.}{Prehlasujem, že som túto diplomovú prácu vypracoval samostatne. Uviedol som všetky literárne pramene a publikácie, z ktorých som čerpal.}{I hereby declare that this master's thesis was written by myself. I have quoted all the references I have drawn upon.}}
+\Dipl@AuthorDeclaration={\Dipl@IfEnglish{I hereby declare that this master's thesis was written by myself. I have quoted all the references I have drawn upon.}{Prohlašuji, že jsem tuto diplomovou práci vypracoval samostatně. Uvedl jsem všechny literární prameny a publikace, ze kterých jsem čerpal.}}
 }
 {\relax}
 }
@@ -182,12 +181,12 @@
 \setboolean{Dipl@AuthorIsMale}{false}
 \ifthenelse{\(\value{Dipl@CurrentThesisType}=\Dipl@BachelorThesis\) \or \(\value{Dipl@CurrentThesisType}=\Dipl@BachelorPractice\)}
 {
-\Dipl@AuthorDeclaration={\Dipl@LanguageDependentText{Prohlašuji, že jsem tuto bakalářskou práci vypracovala samostatně. Uvedla jsem všechny literární prameny a publikace, ze kterých jsem čerpala.}{Prehlasujem, že som túto bakalársku prácu vypracovala samostatne. Uviedla som všetky literárne pramene a publikácie, z ktorých som čerpala.}{I hereby declare that this bachelor's thesis was written by myself. I have quoted all the references I have drawn upon.}}
+\Dipl@AuthorDeclaration={\Dipl@IfEnglish{I hereby declare that this bachelor's thesis was written by myself. I have quoted all the references I have drawn upon.}{Prohlašuji, že jsem tuto bakalářskou práci vypracovala samostatně. Uvedla jsem všechny literární prameny a publikace, ze kterých jsem čerpala.}}
 }
 {\relax}
 \ifthenelse{\value{Dipl@CurrentThesisType}=\Dipl@MasterThesis}
 {
-\Dipl@AuthorDeclaration={\Dipl@LanguageDependentText{Prohlašuji, že jsem tuto diplomovou práci vypracovala samostatně. Uvedla jsem všechny literární prameny a publikace, ze kterých jsem čerpala.}{Prehlasujem, že som túto diplomovú prácu vypracovala samostatne. Uviedla som všetky literárne pramene a publikácie, z ktorých som čerpala.}{I hereby declare that this master's thesis was written by myself. I have quoted all the references I have drawn upon.}}
+\Dipl@AuthorDeclaration={\Dipl@IfEnglish{I hereby declare that this master's thesis was written by myself. I have quoted all the references I have drawn upon.}{Prohlašuji, že jsem tuto diplomovou práci vypracovala samostatně. Uvedla jsem všechny literární prameny a publikace, ze kterých jsem čerpala.}}
 }
 {\relax}
 }
@@ -253,13 +252,13 @@
 \ifthenelse{\totvalue{figure}>0}{\listoffigures\cleardoublepage}{\relax}
 \ifthenelse{\totvalue{table}>0}{\listoftables\cleardoublepage}{\relax}
 }
-{\theorembodyfont{\rmfamily}\newtheorem{definition}{\Dipl@LanguageDependentText{Definice}{Definícia}{Definition}}}
-{\theorembodyfont{\rmfamily}\newtheorem{theorem}{\Dipl@LanguageDependentText{Věta}{Veta}{Theorem}}}
+{\theorembodyfont{\rmfamily}\newtheorem{definition}{\Dipl@IfEnglish{Definition}{Definícia}}}
+{\theorembodyfont{\rmfamily}\newtheorem{theorem}{\Dipl@IfEnglish{Theorem}{Definícia}}}
 \newenvironment{proof}
 {\par\noindent\textbf{\proofname}}
 {\mbox{}\hspace*{5pt}\hfill\hbox{\vrule height5pt depth0pt width5pt}\par\medskip}
-{\theorembodyfont{\rmfamily}\newtheorem{remark}{\Dipl@LanguageDependentText{Poznámka}{Poznámka}{Remark}}}
-{\theoremstyle{break}\theorembodyfont{\rmfamily}\newtheorem{Dipl@examplebody}{\Dipl@LanguageDependentText{Příklad}{Príklad}{Example}}}
+{\theorembodyfont{\rmfamily}\newtheorem{remark}{\Dipl@IfEnglish{Remark}{Poznámka}}}
+{\theoremstyle{break}\theorembodyfont{\rmfamily}\newtheorem{Dipl@examplebody}{\Dipl@IfEnglish{Example}{Příklad}}}
 \newenvironment{example}
 {\begin{Dipl@examplebody}}
 {
@@ -283,14 +282,14 @@
 \the\Dipl@FacultyName\par
 \the\Dipl@DepartmentName\par}
 \vspace{26mm}
-{\Huge\bfseries\Dipl@LanguageDependentText{\the\Dipl@CzechThesisTitle}{\the\Dipl@CzechThesisTitle}{\the\Dipl@EnglishThesisTitle}\par}
+{\Huge\bfseries\Dipl@IfEnglish{\the\Dipl@EnglishThesisTitle}{\the\Dipl@CzechThesisTitle}\par}
 \bigskip
-{\Huge\bfseries\Dipl@LanguageDependentText{\the\Dipl@EnglishThesisTitle}{\the\Dipl@EnglishThesisTitle}{\the\Dipl@CzechThesisTitle}\par}
+{\Huge\bfseries\Dipl@IfEnglish{\the\Dipl@CzechThesisTitle}{\the\Dipl@EnglishThesisTitle}\par}
 \ifthenelse{\boolean{Dipl@IsPublicPart}}{\relax}
 {
 \bigskip
 \bigskip
-{\huge\Dipl@LanguageDependentText{Neveřejná část/Non-public part}{Neveřejná část/Non-public part}{Non-public part/Neveřejná část}\par}
+{\huge\Dipl@IfEnglish{Non-public part/Neveřejná část}{Neveřejná část/Non-public part}\par}
 }
 \end{center}
 \vfill
@@ -303,7 +302,8 @@
 {
 \begin{center}
 \Large\sffamily\bfseries
-\Dipl@LanguageDependentText{Tuto stránku nahradíte v tištěné verzi práce oficiálním zadáním Vaší diplomové či bakalářské práce.}{Tuto stránku nahradíte v tištěné verzi práce oficiálním zadáním Vaší diplomové či bakalářské práce.}{This page will be replaced by official thesis assignment in printed and electronic version of the submitted thesis.}
+\Dipl@IfEnglish{This page will be replaced by official thesis assignment in printed and electronic version of the submitted thesis.}%
+{Tuto stránku nahradíte v tištěné verzi práce oficiálním zadáním Vaší diplomové či bakalářské práce.}
 \end{center}
 }
 {
@@ -332,7 +332,7 @@
 \the\Dipl@AuthorDeclaration
 \par
 \vspace{15mm}
-\noindent\Dipl@LanguageDependentText{V Ostravě}{V Ostrave}{Ostrava,}~\the\Dipl@SubmissionDate\hfill\hbox to50mm{\dotfill}
+\noindent\Dipl@IfEnglish{Ostrava,}{V Ostravě}~\the\Dipl@SubmissionDate\hfill\hbox to50mm{\dotfill}
 }
 {
 \Dipl@InsertFullPageImage{\the\Dipl@AuthorDeclarationImageFile}
@@ -340,29 +340,7 @@
 \cleardoublepage
 }
 \newcommand{\Dipl@CooperatingPersonsDeclarationPage}
-{
-\ifthenelse{\boolean{Dipl@PrintCooperatingPersonsDeclaration}}
-{
-\ifthenelse{\equal{\the\Dipl@CooperatingPersonsDeclarationImageFile}{\empty}}
-{
-\mbox{}
-\vfill
-\ifthenelse{\equal{\the\Dipl@ThesisAccessRestriction}{\empty}}
-{\relax}
-{\noindent\the\Dipl@ThesisAccessRestriction\par\bigskip}
-\noindent
-\the\Dipl@CooperatingPersonsDeclaration
-\par
-\vspace{15mm}
-\noindent\Dipl@LanguageDependentText{V Ostravě}{V Ostrave}{Ostrava,}~\the\Dipl@SubmissionDate\hfill\hbox to50mm{\dotfill}
-}
-{
-\Dipl@InsertFullPageImage{\the\Dipl@CooperatingPersonsDeclarationImageFile}
-}
-\cleardoublepage
-}
-{\relax}
-}
+
 \newcommand{\Dipl@WriteThanksPage}
 {
 \ifthenelse{\equal{\the\Dipl@Thanks}{\empty}}
@@ -394,6 +372,7 @@
 \noindent\the\Dipl@CzechAbstract
 \bigbreak
 \noindent\textbf{Klíčová slova}:~\the\Dipl@CzechKeywords\par
+
 \end{otherlanguage}
 }
 \vspace{30mm plus 0mm minus 30mm}
@@ -411,18 +390,13 @@
 \ifthenelse{\equal{\the\Dipl@Acronyms}{\empty}}
 {\relax}
 {
-\Dipl@LanguageDependentText
+\section*{\Dipl@IfEnglish{List of symbols and abbreviations}{Zoznam použitých skratiek a symbolov}}
+\ifthenelse{\value{Dipl@CurrentThesisLanguage}=\Dipl@EnglishLanguage}
 {
-\section*{Seznam použitých zkratek a symbolů}
-\addcontentsline{toc}{section}{Seznam použitých zkratek a symbolů}
-}
-{
-\section*{Zoznam použitých skratiek a symbolov}
-\addcontentsline{toc}{section}{Zoznam použitých skratiek a symbolov}
-}
-{
-\section*{List of symbols and abbreviations}
 \addcontentsline{toc}{section}{List of symbols and abbreviations}
+}
+{
+\addcontentsline{toc}{section}{Zoznam použitých skratiek a symbolov}
 }
 \begin{longtable*}[l]{p{0.2\textwidth}cp{0.7\textwidth}}
 \the\Dipl@Acronyms
@@ -451,7 +425,7 @@
 \Dipl@OldAppendix
 \addcontentsline{toc}{section}{\appendixname}%
 }
-\newcommand{\Dipl@LanguageDependentText}[3]{\ifthenelse{\value{Dipl@CurrentThesisLanguage}=\Dipl@CzechLanguage}{#1}{\ifthenelse{\value{Dipl@CurrentThesisLanguage}=\Dipl@SlovakLanguage}{#2}{#3}}}
+\newcommand{\Dipl@IfEnglish}[2]{\ifthenelse{\value{Dipl@CurrentThesisLanguage}=\Dipl@EnglishLanguage}{#1}{#2}}
 \newcommand{\Dipl@AddTokens}[2]{\expandafter \global#1\expandafter{\the#1#2}}
 \newcommand{\Dipl@InsertFullPageImage}[1]
 {
@@ -499,31 +473,28 @@
 }
 \lstset
 {
-breaklines=true,
-tabsize=3,
-columns=flexible,
-showstringspaces=false,
 basicstyle=\ttfamily,
 keywordstyle=\color{blue},
 identifierstyle=\color[RGB]{43,145,175},
 commentstyle=\slshape\color[RGB]{0,128,0},
 stringstyle=\color[RGB]{163,21,21},
+breaklines=true,
+tabsize=3,
+columns=flexible,
+showstringspaces=false,
 frame=lines,
-captionpos=b,
-inputencoding=utf8,
-extendedchars=true,
-literate={á}{{\'{a}}}1 {Á}{{\'{A}}}1 {ä}{{\"{a}}}1 {Ä}{{\"{A}}}1 {č}{{\v{c}}}1 {Č}{{\v{C}}}1 {ď}{{\v{d}}}1 {Ď}{{\v{D}}}1 {ě}{{\v{e}}}1 {Ě}{{\v{E}}}1 {é}{{\'{e}}}1 {É}{{\'{E}}}1 {í}{{\'{i}}}1 {Í}{{\'{I}}}1 {ĺ}{{\'{l}}}1 {Ĺ}{{\'{L}}}1 {ľ}{{\v{l}}}1 {Ľ}{{\v{L}}}1 {ň}{{\v{n}}}1 {Ň}{{\v{N}}}1 {ó}{{\'{o}}}1 {Ó}{{\'{O}}}1 {ô}{{\^{o}}}1 {Ô}{{\^{O}}}1 {ř}{{\v{r}}}1 {Ř}{{\v{R}}}1 {ŕ}{{\'{r}}}1 {Ŕ}{{\'{R}}}1 {š}{{\v{s}}}1 {Š}{{\v{S}}}1 {ť}{{\v{t}}}1 {Ť}{{\v{T}}}1 {ú}{{\'{u}}}1 {Ú}{{\'{U}}}1 {ů}{{\r{u}}}1 {Ů}{{\r{U}}}1 {ý}{{\'{y}}}1 {Ý}{{\'{Y}}}1 {ž}{{\v{z}}}1 {Ž}{{\v{Z}}}1
+captionpos=b
 }
 \onehalfspacing
-\setcounter{tocdepth}{2}
-\setcounter{secnumdepth}{5}
+\setcounter{tocdepth}{4}
+\setcounter{secnumdepth}{4}
 \widowpenalty=9000
 \clubpenalty=9000
 \regtotcounter{figure}
 \regtotcounter{table}
-\addto{\captionsczech}{\renewcommand{\refname}{Literatura}}
+\addto{\captionsczech}{\renewcommand{\refname}{Literatúra}}
 \addto{\captionsslovak}{\renewcommand{\refname}{Literatúra}}
-\addto{\captionsczech}{\renewcommand{\appendixname}{Přílohy}}
+\addto{\captionsczech}{\renewcommand{\appendixname}{Prílohy}}
 \addto{\captionsslovak}{\renewcommand{\appendixname}{Prílohy}}
 \AtBeginDocument%
 {
@@ -540,7 +511,7 @@ literate={á}{{\'{a}}}1 {Á}{{\'{A}}}1 {ä}{{\"{a}}}1 {Ä}{{\"{A}}}1 {č}{{\v{c}
 \ifthenelse{\value{Dipl@CurrentThesisLanguage}=\Dipl@SlovakLanguage}
 {
 \selectlanguage{slovak}
-\def\lstlistlistingname{Zoznam výpisov zdrojového kódu}
+\def\lstlistlistingname{Seznam výpisů zdrojového kódu}
 \def\lstlistingname{Výpis}
 }{}
 \renewcommand{\lstlistoflistings}{\begingroup\tocfile{\lstlistlistingname}{lol}\endgroup}
